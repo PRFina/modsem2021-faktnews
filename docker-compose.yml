@@ -1,0 +1,22 @@
+version: "3.8"
+services: 
+    python:
+        build: data
+        volumes: 
+            - "./data:/app"
+        depends_on:
+            - "db"
+    db:
+        image: postgres:13.1
+        restart: always
+        environment: 
+            - POSTGRES_PASSWORD=modsem
+            - POSTGRES_USER=modsem
+            - POSTGRES_DB=faktnews
+        ports:
+            - 5432:5432
+        volumes:
+            - db-volume:/var/lib/postgresql/data
+
+volumes:
+   db-volume:
