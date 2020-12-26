@@ -14,7 +14,7 @@ conn = pg.connect(**conn_info)
 
 
 cur = conn.cursor()
-cur.execute("CREATE TABLE IF NOT EXISTS testX (id serial PRIMARY KEY, num integer, data varchar);")
+cur.execute("CREATE TABLE IF NOT EXISTS test (id serial PRIMARY KEY, num integer, data varchar);")
 
 print("Welcome from the outside!")
 
