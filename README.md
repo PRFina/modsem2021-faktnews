@@ -8,7 +8,15 @@ To keep sensitive information private you must:
 
 2. Create a `license` directory and copy the graphdb se license file. Docker will automatically mount a volume to give access to `rdf` service.
 
-## Quick Commands Reference
+3. Start the environment with
+
+> docker-compose up -d
+
+From this point, all services should up and running.You can connect to the relative services since all ports are exposed and binded to localhost. 
+
+Have fun!
+
+## Quick Command Reference
 
 Connect to postgres database:
 
