@@ -1,4 +1,13 @@
 # modsem2021-faktnews
+
+## How to start
+All the code infrastructure and dependencies are managed with Docker containers. We use docker-compose to easy start the environment.
+
+To keep sensitive information private you must:
+1. Rename `.env.template` into `.env` and fill the environment variables. This file declare database connection credentials.
+
+2. Create a `license` directory and copy the graphdb se license file. Docker will automatically mount a volume to give access to `rdf` service.
+
 ## Quick Commands Reference
 
 Connect to postgres database:
