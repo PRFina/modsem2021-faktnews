@@ -3,6 +3,7 @@ services:
     python:
         build: data
         env_file: .env
+        tty: true # keep container running
         volumes: 
             - "./data:/app" #for code sync
         depends_on:
