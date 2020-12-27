@@ -1,9 +1,15 @@
 version: "3.8"
 services: 
     python:
-        build: data
+        build: 
+            context: data
+            args:
+                - USER=${PY_USER}
+                - USER_ID=${PY_USER_ID}
+                - GROUP_ID=${PY_GROUP_ID}
+
         env_file: .env
-        tty: true # keep container running
+        command: "tail -f /dev/null" # keep container running
         volumes: 
             - "./data:/app" #for code sync
         depends_on:
