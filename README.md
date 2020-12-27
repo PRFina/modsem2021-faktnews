@@ -6,7 +6,7 @@
 
 All the code infrastructure and dependencies are managed with Docker containers. We use docker-compose to easy start and stop the environment.
 
-### TL;DR
+### TL;DR
 
 1. Rename `.env.template` into `.env` and fill the environment variables.
 
