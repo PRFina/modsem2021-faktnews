@@ -5,7 +5,7 @@ COPY requirements.txt .
 
 # Some package requires gcc to be builded.
 RUN apt-get update && apt-get install -y libpq-dev gcc \
-    && pip install -r requirements.txt \
+    && pip install --no-cache-dir -r requirements.txt \
     && apt-get autoremove -y gcc
 
 CMD [ "python", "run.py"]
