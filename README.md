@@ -32,8 +32,6 @@ Have fun!
 ## Docker Info
 All the infrastructure services and dependencies are managed with docker containers. Make sure to install _docker_ and _docker-compose_ tools!
 
-To manage the environment, from the root directory
-
 To start (and stop) all the services:
 ```
 > docker-compose up -d
