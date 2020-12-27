@@ -12,11 +12,11 @@ TL;DR
 
 2. Create a `license` directory and copy the graphdb se license file.
 
-3. Start the environment with
+3. Build and start the environment with
 ```
 > docker-compose up -d
 ```
-From this point, all services should up and running. You can connect to the relative service since all ports are exposed and binded to localhost. For more in depth info see [Docker Info](#docker-info).
+At this point, all services should up and running. You can connect to the relative service since all ports are exposed and binded to localhost. For more in depth info see [Docker Info](#docker-info).
 
 Have fun!
 
