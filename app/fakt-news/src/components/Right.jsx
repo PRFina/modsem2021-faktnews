@@ -6,7 +6,7 @@ class Left extends React.Component {
       <div class="row align-items-start">
         <div class="card" style={{ width: "18rem" }}>
           <img
-            src="https://lh3.googleusercontent.com/proxy/kYu6ahWq2poqPi7cQ6smQA8RXHCxXQdgKyuTlEYetekTcNFhF5p5YRSX2FZmjOikgNtpKBJVAJc5h7cHZPaWjsG0jYx2-j_qSaR85yF6iObVuSck6mGx9y6igsRvkJOF71cn0CJP1IsWZDySqMWb"
+            src="https://www.altroconsumo.it/-/media/altroconsumo/images/home/hi%20tech/telefono%20internet%20e%20tv%20digitale/tips/fake%20news_shu_787955047_1600x900.jpg?rev=2ae1d718-e85b-4c70-ae9f-7f88b8f1dc44&mw=660&hash=E9AAC8B9D2F8586387A021F714521035"
             class="card-img-top"
             alt="..."
           />
