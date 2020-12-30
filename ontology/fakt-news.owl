@@ -1,54 +1,171 @@
-@prefix : <http://www.semanticweb.org/fakt-news#> .
+@prefix : <http://www.modsem.org/fakt-news/> .
 @prefix dc: <https://www.dublincore.org/specifications/dublin-core/dcmi-terms/> .
-@prefix fn: <http://www.semanticweb.org/fakt-news#> .
+@prefix fkn: <http://www.modsem.org/fakt-news#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@base <http://www.semanticweb.org/fakt-news> .
+@prefix schema: <http://schema.org/> .
+@base <http://www.modsem.org/fakt-news> .
 
-<http://www.semanticweb.org/fakt-news> rdf:type owl:Ontology .
+<http://www.modsem.org/fakt-news> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.w3.org/ns/prov#used
+prov:used rdf:type owl:ObjectProperty .
+
+
+###  http://www.w3.org/ns/prov#wasGeneratedBy
+prov:wasGeneratedBy rdf:type owl:ObjectProperty .
+
 
 #################################################################
 #    Classes
 #################################################################
 
-###  http://www.semanticweb.org/fakt-news#Author
-fn:Author rdf:type owl:Class .
+###  http://schema.org/CreativeWork
+schema:CreativeWork rdf:type owl:Class .
 
 
-###  http://www.semanticweb.org/fakt-news#Credibility
-fn:Credibility rdf:type owl:Class .
+###  http://www.modsem.org/fakt-news#ClaimEvaluation
+fkn:ClaimEvaluation rdf:type owl:Class ;
+                    rdfs:subClassOf prov:Activity .
 
 
-###  http://www.semanticweb.org/fakt-news#Evidence
-fn:Evidence rdf:type owl:Class .
+###  http://www.modsem.org/fakt-news#DeceptiveEditing
+fkn:DeceptiveEditing rdf:type owl:Class ;
+                     rdfs:subClassOf fkn:Motivation .
 
 
-###  http://www.semanticweb.org/fakt-news#Fact-checker
-fn:Fact-checker rdf:type owl:Class .
+###  http://www.modsem.org/fakt-news#Doctoring
+fkn:Doctoring rdf:type owl:Class ;
+              rdfs:subClassOf fkn:MaliciousTransfromation .
 
 
-###  http://www.semanticweb.org/fakt-news#Motivations
-fn:Motivations rdf:type owl:Class .
+###  http://www.modsem.org/fakt-news#Fabrication
+fkn:Fabrication rdf:type owl:Class ;
+                rdfs:subClassOf fkn:MaliciousTransfromation .
 
 
-###  http://www.semanticweb.org/fakt-news#Review
-fn:Review rdf:type owl:Class .
+###  http://www.modsem.org/fakt-news#FactChecker
+fkn:FactChecker rdf:type owl:Class ;
+                rdfs:subClassOf prov:Agent .
 
 
-###  http://www.semanticweb.org/fakt-news#Statement
-fn:Statement rdf:type owl:Class .
+###  http://www.modsem.org/fakt-news#FactCheckingProcess
+fkn:FactCheckingProcess rdf:type owl:Class ;
+                        rdfs:subClassOf fkn:Process .
+
+
+###  http://www.modsem.org/fakt-news#Isolation
+fkn:Isolation rdf:type owl:Class ;
+              rdfs:subClassOf fkn:MissingContext .
+
+
+###  http://www.modsem.org/fakt-news#MaliciousTransfromation
+fkn:MaliciousTransfromation rdf:type owl:Class ;
+                            rdfs:subClassOf fkn:Motivation .
+
+
+###  http://www.modsem.org/fakt-news#Misrepresentation
+fkn:Misrepresentation rdf:type owl:Class ;
+                      rdfs:subClassOf fkn:MissingContext .
+
+
+###  http://www.modsem.org/fakt-news#MissingContext
+fkn:MissingContext rdf:type owl:Class ;
+                   rdfs:subClassOf fkn:Motivation .
+
+
+###  http://www.modsem.org/fakt-news#Motivation
+fkn:Motivation rdf:type owl:Class .
+
+
+###  http://www.modsem.org/fakt-news#NotClearGeographyContext
+fkn:NotClearGeographyContext rdf:type owl:Class ;
+                             rdfs:subClassOf fkn:Misrepresentation .
+
+
+###  http://www.modsem.org/fakt-news#NotClearPeriodContext
+fkn:NotClearPeriodContext rdf:type owl:Class ;
+                          rdfs:subClassOf fkn:Misrepresentation .
+
+
+###  http://www.modsem.org/fakt-news#NotClearSubject
+fkn:NotClearSubject rdf:type owl:Class ;
+                    rdfs:subClassOf fkn:Misrepresentation .
+
+
+###  http://www.modsem.org/fakt-news#Omission
+fkn:Omission rdf:type owl:Class ;
+             rdfs:subClassOf fkn:DeceptiveEditing .
+
+
+###  http://www.modsem.org/fakt-news#Process
+fkn:Process rdf:type owl:Class .
+
+
+###  http://www.modsem.org/fakt-news#QualitativeClaim
+fkn:QualitativeClaim rdf:type owl:Class ;
+                     rdfs:subClassOf fkn:Motivation .
+
+
+###  http://www.modsem.org/fakt-news#Review
+fkn:Review rdf:type owl:Class ;
+           rdfs:subClassOf schema:CreativeWork ,
+                           prov:Entity .
+
+
+###  http://www.modsem.org/fakt-news#SelectionStage
+fkn:SelectionStage rdf:type owl:Class ;
+                   rdfs:subClassOf prov:Activity .
+
+
+###  http://www.modsem.org/fakt-news#Splicing
+fkn:Splicing rdf:type owl:Class ;
+             rdfs:subClassOf fkn:DeceptiveEditing .
+
+
+###  http://www.modsem.org/fakt-news#VerificationStage
+fkn:VerificationStage rdf:type owl:Class ;
+                      rdfs:subClassOf prov:Activity .
+
+
+###  http://www.w3.org/ns/prov#Activity
+prov:Activity rdf:type owl:Class .
+
+
+###  http://www.w3.org/ns/prov#Agent
+prov:Agent rdf:type owl:Class .
+
+
+###  http://www.w3.org/ns/prov#Entity
+prov:Entity rdf:type owl:Class .
 
 
 #################################################################
 #    Individuals
 #################################################################
 
-###  http://www.semanticweb.org/fakt-news#Ciccio
-fn:Ciccio rdf:type owl:NamedIndividual ,
-                   fn:Author .
+###  http://www.modsem.org/fakt-news#Review
+fkn:Review rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#conclusione
+fkn:conclusione rdf:type owl:NamedIndividual ,
+                         fkn:Review ;
+                prov:wasGeneratedBy fkn:fase_finale .
+
+
+###  http://www.modsem.org/fakt-news#fase_finale
+fkn:fase_finale rdf:type owl:NamedIndividual ,
+                         fkn:ClaimEvaluation ;
+                prov:used fkn:conclusione .
 
 
 ###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
