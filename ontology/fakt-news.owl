@@ -10,7 +10,8 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @base <http://www.modsem.org/fakt-news> .
 
-<http://www.modsem.org/fakt-news> rdf:type owl:Ontology .
+<http://www.modsem.org/fakt-news> rdf:type owl:Ontology ;
+                                   owl:imports <http://www.ontologydesignpatterns.org/cp/owl/set.owl> .
 
 #################################################################
 #    Object Properties
@@ -225,6 +226,12 @@ dcterms:Creator rdf:type owl:Class .
 schema:CreativeWork rdf:type owl:Class .
 
 
+###  http://www.modsem.org/fakt-news#AlternativesList
+fkn:AlternativesList rdf:type owl:Class ;
+                     rdfs:subClassOf <http://www.ontologydesignpatterns.org/cp/owl/set.owl#Set> ,
+                                     prov:Entity .
+
+
 ###  http://www.modsem.org/fakt-news#Author
 fkn:Author rdf:type owl:Class ;
            rdfs:subClassOf prov:Agent .
@@ -265,6 +272,12 @@ fkn:Evidence rdf:type owl:Class ;
              rdfs:subClassOf prov:Entity .
 
 
+###  http://www.modsem.org/fakt-news#ExternalSuggestion
+fkn:ExternalSuggestion rdf:type owl:Class ;
+                       rdfs:subClassOf fkn:Suggestion ;
+                       rdfs:comment "External Suggestion - A suggestion from the Reader or from some Recomender System."@en .
+
+
 ###  http://www.modsem.org/fakt-news#Fabrication
 fkn:Fabrication rdf:type owl:Class ;
                 rdfs:subClassOf fkn:MaliciousTransfromation .
@@ -287,6 +300,12 @@ fkn:FactCheckingProcess rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#IndirectSource
 fkn:IndirectSource rdf:type owl:Class ;
                    rdfs:subClassOf fkn:Source .
+
+
+###  http://www.modsem.org/fakt-news#InternalSuggestion
+fkn:InternalSuggestion rdf:type owl:Class ;
+                       rdfs:subClassOf fkn:Suggestion ;
+                       rdfs:comment "Internal Suggestion - A suggestion from the Staff."@en .
 
 
 ###  http://www.modsem.org/fakt-news#Isolation
@@ -384,6 +403,11 @@ fkn:Source rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#Splicing
 fkn:Splicing rdf:type owl:Class ;
              rdfs:subClassOf fkn:DeceptiveEditing .
+
+
+###  http://www.modsem.org/fakt-news#Suggestion
+fkn:Suggestion rdf:type owl:Class ;
+               rdfs:subClassOf prov:Entity .
 
 
 ###  http://www.modsem.org/fakt-news#VerificationStage
