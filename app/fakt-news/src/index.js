@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import './stylesheets/style.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
-import $ from 'jquery';
-import Popper from 'popper.js';
 import App from './components/App.jsx';
 // import reportWebVitals from './other/reportWebVitals';
 

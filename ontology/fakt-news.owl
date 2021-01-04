@@ -19,12 +19,52 @@
 ###  http://purl.org/dc/terms/creator
 dcterms:creator rdf:type owl:ObjectProperty ;
                 owl:inverseOf fkn:create ;
-                rdfs:domain prov:Entity ;
-                rdfs:range prov:Agent .
+                rdfs:domain schema:CreativeWork ;
+                rdfs:range fkn:Author .
+
+
+###  http://www.modsem.org/fakt-news#affiliation
+fkn:affiliation rdf:type owl:ObjectProperty ;
+                rdfs:domain prov:Agent ;
+                rdfs:range fkn:Organization .
+
+
+###  http://www.modsem.org/fakt-news#associatedReview
+fkn:associatedReview rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf owl:topObjectProperty ;
+                     owl:inverseOf fkn:claimReviewed ;
+                     rdfs:domain fkn:Claim ;
+                     rdfs:range fkn:Review .
+
+
+###  http://www.modsem.org/fakt-news#authorCapacity
+fkn:authorCapacity rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf fkn:hasCapacity ;
+                   rdfs:domain fkn:Author ;
+                   rdfs:range fkn:Capacity .
+
+
+###  http://www.modsem.org/fakt-news#claimReviewed
+fkn:claimReviewed rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf owl:topObjectProperty ;
+                  rdfs:domain fkn:Review ;
+                  rdfs:range fkn:Claim .
 
 
 ###  http://www.modsem.org/fakt-news#create
 fkn:create rdf:type owl:ObjectProperty .
+
+
+###  http://www.modsem.org/fakt-news#derivedFrom
+fkn:derivedFrom rdf:type owl:ObjectProperty ;
+                rdfs:domain fkn:Evidence ;
+                rdfs:range fkn:Source .
+
+
+###  http://www.modsem.org/fakt-news#hasCapacity
+fkn:hasCapacity rdf:type owl:ObjectProperty ;
+                rdfs:domain prov:Agent ;
+                rdfs:range fkn:Capacity .
 
 
 ###  http://www.modsem.org/fakt-news#reviewCreator
@@ -32,6 +72,43 @@ fkn:reviewCreator rdf:type owl:ObjectProperty ;
                   rdfs:subPropertyOf dcterms:creator ;
                   rdfs:domain fkn:Review ;
                   rdfs:range fkn:FactChecker .
+
+
+###  http://www.modsem.org/fakt-news#reviewEvidence
+fkn:reviewEvidence rdf:type owl:ObjectProperty ;
+                   rdfs:domain fkn:Review ;
+                   rdfs:range fkn:Evidence .
+
+
+###  http://www.modsem.org/fakt-news#reviewMention
+fkn:reviewMention rdf:type owl:ObjectProperty ;
+                  rdfs:domain fkn:Review ;
+                  rdfs:range fkn:Mention .
+
+
+###  http://www.modsem.org/fakt-news#reviewMotivation
+fkn:reviewMotivation rdf:type owl:ObjectProperty ;
+                     rdfs:domain fkn:Review ;
+                     rdfs:range fkn:Motivation .
+
+
+###  http://www.modsem.org/fakt-news#reviewRating
+fkn:reviewRating rdf:type owl:ObjectProperty ;
+                 rdfs:domain fkn:Review ;
+                 rdfs:range fkn:Rating .
+
+
+###  http://www.modsem.org/fakt-news#sourceCapacity
+fkn:sourceCapacity rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf fkn:hasCapacity ;
+                   rdfs:domain fkn:Source ;
+                   rdfs:range fkn:Capacity .
+
+
+###  http://www.modsem.org/fakt-news#supportedBy
+fkn:supportedBy rdf:type owl:ObjectProperty ;
+                rdfs:domain fkn:Evidence ;
+                rdfs:range schema:CreativeWork .
 
 
 ###  http://www.w3.org/ns/prov#used
@@ -43,8 +120,106 @@ prov:wasGeneratedBy rdf:type owl:ObjectProperty .
 
 
 #################################################################
+#    Data properties
+#################################################################
+
+###  http://www.modsem.org/fakt-news#capacityType
+fkn:capacityType rdf:type owl:DatatypeProperty ;
+                 rdfs:domain fkn:Capacity ;
+                 rdfs:range [ rdf:type rdfs:Datatype ;
+                              owl:oneOf [ rdf:type rdf:List ;
+                                          rdf:first "Citizen" ;
+                                          rdf:rest [ rdf:type rdf:List ;
+                                                     rdf:first "Civil Service" ;
+                                                     rdf:rest [ rdf:type rdf:List ;
+                                                                rdf:first "Company" ;
+                                                                rdf:rest [ rdf:type rdf:List ;
+                                                                           rdf:first "Expert" ;
+                                                                           rdf:rest [ rdf:type rdf:List ;
+                                                                                      rdf:first "Government" ;
+                                                                                      rdf:rest [ rdf:type rdf:List ;
+                                                                                                 rdf:first "Lobby" ;
+                                                                                                 rdf:rest [ rdf:type rdf:List ;
+                                                                                                            rdf:first "NGO" ;
+                                                                                                            rdf:rest [ rdf:type rdf:List ;
+                                                                                                                       rdf:first "Opposition" ;
+                                                                                                                       rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                  rdf:first "Think Tank" ;
+                                                                                                                                  rdf:rest rdf:nil
+                                                                                                                                ]
+                                                                                                                     ]
+                                                                                                          ]
+                                                                                               ]
+                                                                                    ]
+                                                                         ]
+                                                              ]
+                                                   ]
+                                        ]
+                            ] .
+
+
+###  http://www.modsem.org/fakt-news#ratingAssociatedMedia
+fkn:ratingAssociatedMedia rdf:type owl:DatatypeProperty ;
+                          rdfs:domain fkn:Rating ;
+                          rdfs:range xsd:anyURI .
+
+
+###  http://www.modsem.org/fakt-news#ratingSystem
+fkn:ratingSystem rdf:type owl:DatatypeProperty ;
+                 rdfs:domain fkn:Rating ;
+                 rdfs:range xsd:anyURI .
+
+
+###  http://www.modsem.org/fakt-news#ratingText
+fkn:ratingText rdf:type owl:DatatypeProperty ;
+               rdfs:domain fkn:Rating ;
+               rdfs:range xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#ratingValue
+fkn:ratingValue rdf:type owl:DatatypeProperty ;
+                rdfs:domain fkn:Rating ;
+                rdfs:range xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#reviewContent
+fkn:reviewContent rdf:type owl:DatatypeProperty ;
+                  rdfs:domain fkn:Review ;
+                  rdfs:range xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#reviewDate
+fkn:reviewDate rdf:type owl:DatatypeProperty ;
+               rdfs:domain fkn:Review ;
+               rdfs:range xsd:dateTime .
+
+
+###  http://www.modsem.org/fakt-news#reviewTitle
+fkn:reviewTitle rdf:type owl:DatatypeProperty ;
+                rdfs:domain fkn:Review ;
+                rdfs:range xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#reviewURL
+fkn:reviewURL rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf owl:topDataProperty ;
+              rdfs:domain fkn:Review ;
+              rdfs:range xsd:anyURI .
+
+
+###  http://www.modsem.org/fakt-news#sourceURL
+fkn:sourceURL rdf:type owl:DatatypeProperty ;
+              rdfs:domain fkn:Source ;
+              rdfs:range xsd:anyURI .
+
+
+#################################################################
 #    Classes
 #################################################################
+
+###  http://purl.org/dc/terms/Creator
+dcterms:Creator rdf:type owl:Class .
+
 
 ###  http://schema.org/CreativeWork
 schema:CreativeWork rdf:type owl:Class .
@@ -53,6 +228,11 @@ schema:CreativeWork rdf:type owl:Class .
 ###  http://www.modsem.org/fakt-news#Author
 fkn:Author rdf:type owl:Class ;
            rdfs:subClassOf prov:Agent .
+
+
+###  http://www.modsem.org/fakt-news#Capacity
+fkn:Capacity rdf:type owl:Class ;
+             rdfs:subClassOf prov:Entity .
 
 
 ###  http://www.modsem.org/fakt-news#Claim
@@ -92,13 +272,9 @@ fkn:Fabrication rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#FactChecker
 fkn:FactChecker rdf:type owl:Class ;
-                owl:equivalentClass [ owl:intersectionOf ( fkn:Author
-                                                           [ rdf:type owl:Restriction ;
-                                                             owl:onProperty fkn:create ;
-                                                             owl:someValuesFrom fkn:Review
-                                                           ]
-                                                         ) ;
-                                      rdf:type owl:Class
+                owl:equivalentClass [ rdf:type owl:Restriction ;
+                                      owl:onProperty fkn:create ;
+                                      owl:someValuesFrom fkn:Review
                                     ] ;
                 rdfs:subClassOf prov:Agent .
 
@@ -121,6 +297,11 @@ fkn:Isolation rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#MaliciousTransfromation
 fkn:MaliciousTransfromation rdf:type owl:Class ;
                             rdfs:subClassOf fkn:Motivation .
+
+
+###  http://www.modsem.org/fakt-news#Mention
+fkn:Mention rdf:type owl:Class ;
+            rdfs:subClassOf prov:Entity .
 
 
 ###  http://www.modsem.org/fakt-news#Misrepresentation
@@ -157,6 +338,11 @@ fkn:Omission rdf:type owl:Class ;
              rdfs:subClassOf fkn:DeceptiveEditing .
 
 
+###  http://www.modsem.org/fakt-news#Organization
+fkn:Organization rdf:type owl:Class ;
+                 rdfs:subClassOf prov:Entity .
+
+
 ###  http://www.modsem.org/fakt-news#Process
 fkn:Process rdf:type owl:Class .
 
@@ -177,8 +363,12 @@ fkn:Review rdf:type owl:Class ;
                                  owl:onProperty fkn:reviewCreator ;
                                  owl:someValuesFrom fkn:FactChecker
                                ] ;
-           rdfs:subClassOf schema:CreativeWork ,
-                           prov:Entity .
+           rdfs:subClassOf prov:Entity .
+
+
+###  http://www.modsem.org/fakt-news#SelectionPolicy
+fkn:SelectionPolicy rdf:type owl:Class ;
+                    rdfs:subClassOf prov:Entity .
 
 
 ###  http://www.modsem.org/fakt-news#SelectionStage
