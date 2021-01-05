@@ -69,7 +69,7 @@ fkn:create rdf:type owl:ObjectProperty .
 ###  http://www.modsem.org/fakt-news#derivedFrom
 fkn:derivedFrom rdf:type owl:ObjectProperty ;
                 rdfs:domain fkn:Evidence ;
-                rdfs:range fkn:Source .
+                rdfs:range fkn:EvidenceSource .
 
 
 ###  http://www.modsem.org/fakt-news#hasCapacity
@@ -118,7 +118,7 @@ fkn:reviewRating rdf:type owl:ObjectProperty ;
 ###  http://www.modsem.org/fakt-news#sourceCapacity
 fkn:sourceCapacity rdf:type owl:ObjectProperty ;
                    rdfs:subPropertyOf fkn:hasCapacity ;
-                   rdfs:domain fkn:Source ;
+                   rdfs:domain fkn:EvidenceSource ;
                    rdfs:range fkn:Capacity .
 
 
@@ -141,6 +141,11 @@ prov:wasAttributedTo rdf:type owl:ObjectProperty ;
 #################################################################
 #    Data properties
 #################################################################
+
+###  http://purl.org/dc/terms/language
+dcterms:language rdf:type owl:DatatypeProperty ;
+                 rdfs:domain schema:CreativeWork .
+
 
 ###  http://www.modsem.org/fakt-news#capacityType
 fkn:capacityType rdf:type owl:DatatypeProperty ;
@@ -228,7 +233,7 @@ fkn:reviewURL rdf:type owl:DatatypeProperty ;
 
 ###  http://www.modsem.org/fakt-news#sourceURL
 fkn:sourceURL rdf:type owl:DatatypeProperty ;
-              rdfs:domain fkn:Source ;
+              rdfs:domain fkn:EvidenceSource ;
               rdfs:range xsd:anyURI .
 
 
@@ -278,7 +283,7 @@ fkn:DeceptiveEditing rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#DirectSource
 fkn:DirectSource rdf:type owl:Class ;
-                 rdfs:subClassOf fkn:Source .
+                 rdfs:subClassOf fkn:EvidenceSource .
 
 
 ###  http://www.modsem.org/fakt-news#Doctoring
@@ -289,6 +294,12 @@ fkn:Doctoring rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#Evidence
 fkn:Evidence rdf:type owl:Class ;
              rdfs:subClassOf prov:Entity .
+
+
+###  http://www.modsem.org/fakt-news#EvidenceSource
+fkn:EvidenceSource rdf:type owl:Class ;
+                   rdfs:subClassOf prov:Agent ;
+                   rdfs:comment "questa classe potrebbe essere una classe definita ottenuta come disjoint union di direct e indirect source" .
 
 
 ###  http://www.modsem.org/fakt-news#ExternalSuggestion
@@ -318,7 +329,7 @@ fkn:FactCheckingProcess rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#IndirectSource
 fkn:IndirectSource rdf:type owl:Class ;
-                   rdfs:subClassOf fkn:Source .
+                   rdfs:subClassOf fkn:EvidenceSource .
 
 
 ###  http://www.modsem.org/fakt-news#InternalSuggestion
@@ -353,7 +364,8 @@ fkn:MissingContext rdf:type owl:Class ;
 
 
 ###  http://www.modsem.org/fakt-news#Motivation
-fkn:Motivation rdf:type owl:Class .
+fkn:Motivation rdf:type owl:Class ;
+               rdfs:subClassOf prov:Entity .
 
 
 ###  http://www.modsem.org/fakt-news#NotClearGeographyContext
@@ -408,11 +420,6 @@ fkn:SelectionActivity rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#SelectionPolicy
 fkn:SelectionPolicy rdf:type owl:Class ;
                     rdfs:subClassOf prov:Entity .
-
-
-###  http://www.modsem.org/fakt-news#Source
-fkn:Source rdf:type owl:Class ;
-           rdfs:subClassOf prov:Agent .
 
 
 ###  http://www.modsem.org/fakt-news#Splicing
