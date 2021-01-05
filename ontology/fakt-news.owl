@@ -11,7 +11,16 @@
 @base <http://www.modsem.org/fakt-news> .
 
 <http://www.modsem.org/fakt-news> rdf:type owl:Ontology ;
-                                   owl:imports <http://www.ontologydesignpatterns.org/cp/owl/set.owl> .
+                                   owl:imports <http://www.ontologydesignpatterns.org/cp/owl/set.owl> ,
+                                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl> .
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.w3.org/2001/XMLSchema#date
+xsd:date rdf:type rdfs:Datatype .
+
 
 #################################################################
 #    Object Properties
@@ -19,6 +28,7 @@
 
 ###  http://purl.org/dc/terms/creator
 dcterms:creator rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf prov:wasAttributedTo ;
                 owl:inverseOf fkn:create ;
                 rdfs:domain schema:CreativeWork ;
                 rdfs:range fkn:Author .
@@ -66,6 +76,12 @@ fkn:derivedFrom rdf:type owl:ObjectProperty ;
 fkn:hasCapacity rdf:type owl:ObjectProperty ;
                 rdfs:domain prov:Agent ;
                 rdfs:range fkn:Capacity .
+
+
+###  http://www.modsem.org/fakt-news#hasTimeInterval
+fkn:hasTimeInterval rdf:type owl:ObjectProperty ;
+                    rdfs:domain prov:Activity ;
+                    rdfs:range <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#TimeInterval> .
 
 
 ###  http://www.modsem.org/fakt-news#reviewCreator
@@ -116,8 +132,10 @@ fkn:supportedBy rdf:type owl:ObjectProperty ;
 prov:used rdf:type owl:ObjectProperty .
 
 
-###  http://www.w3.org/ns/prov#wasGeneratedBy
-prov:wasGeneratedBy rdf:type owl:ObjectProperty .
+###  http://www.w3.org/ns/prov#wasAttributedTo
+prov:wasAttributedTo rdf:type owl:ObjectProperty ;
+                     rdfs:domain prov:Entity ;
+                     rdfs:range prov:Agent .
 
 
 #################################################################
@@ -223,7 +241,8 @@ dcterms:Creator rdf:type owl:Class .
 
 
 ###  http://schema.org/CreativeWork
-schema:CreativeWork rdf:type owl:Class .
+schema:CreativeWork rdf:type owl:Class ;
+                    rdfs:subClassOf prov:Entity .
 
 
 ###  http://www.modsem.org/fakt-news#AlternativesList
@@ -247,9 +266,9 @@ fkn:Claim rdf:type owl:Class ;
           rdfs:subClassOf schema:CreativeWork .
 
 
-###  http://www.modsem.org/fakt-news#ClaimEvaluation
-fkn:ClaimEvaluation rdf:type owl:Class ;
-                    rdfs:subClassOf prov:Activity .
+###  http://www.modsem.org/fakt-news#ClaimEvaluationActivity
+fkn:ClaimEvaluationActivity rdf:type owl:Class ;
+                            rdfs:subClassOf prov:Activity .
 
 
 ###  http://www.modsem.org/fakt-news#DeceptiveEditing
@@ -294,7 +313,7 @@ fkn:FactChecker rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#FactCheckingProcess
 fkn:FactCheckingProcess rdf:type owl:Class ;
-                        rdfs:subClassOf fkn:Process .
+                        rdfs:subClassOf prov:Activity .
 
 
 ###  http://www.modsem.org/fakt-news#IndirectSource
@@ -362,10 +381,6 @@ fkn:Organization rdf:type owl:Class ;
                  rdfs:subClassOf prov:Entity .
 
 
-###  http://www.modsem.org/fakt-news#Process
-fkn:Process rdf:type owl:Class .
-
-
 ###  http://www.modsem.org/fakt-news#QualitativeClaim
 fkn:QualitativeClaim rdf:type owl:Class ;
                      rdfs:subClassOf fkn:Motivation .
@@ -385,14 +400,14 @@ fkn:Review rdf:type owl:Class ;
            rdfs:subClassOf prov:Entity .
 
 
+###  http://www.modsem.org/fakt-news#SelectionActivity
+fkn:SelectionActivity rdf:type owl:Class ;
+                      rdfs:subClassOf prov:Activity .
+
+
 ###  http://www.modsem.org/fakt-news#SelectionPolicy
 fkn:SelectionPolicy rdf:type owl:Class ;
                     rdfs:subClassOf prov:Entity .
-
-
-###  http://www.modsem.org/fakt-news#SelectionStage
-fkn:SelectionStage rdf:type owl:Class ;
-                   rdfs:subClassOf prov:Activity .
 
 
 ###  http://www.modsem.org/fakt-news#Source
@@ -410,9 +425,9 @@ fkn:Suggestion rdf:type owl:Class ;
                rdfs:subClassOf prov:Entity .
 
 
-###  http://www.modsem.org/fakt-news#VerificationStage
-fkn:VerificationStage rdf:type owl:Class ;
-                      rdfs:subClassOf prov:Activity .
+###  http://www.modsem.org/fakt-news#VerificationActivity
+fkn:VerificationActivity rdf:type owl:Class ;
+                         rdfs:subClassOf prov:Activity .
 
 
 ###  http://www.w3.org/ns/prov#Activity
