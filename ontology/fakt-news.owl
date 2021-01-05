@@ -205,6 +205,12 @@ dcterms:language rdf:type owl:DatatypeProperty ;
                  rdfs:domain schema:CreativeWork .
 
 
+###  http://purl.org/dc/terms/title
+dcterms:title rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf owl:topDataProperty ;
+              rdfs:domain schema:CreativeWork .
+
+
 ###  http://www.modsem.org/fakt-news#capacityType
 fkn:capacityType rdf:type owl:DatatypeProperty ;
                  rdfs:domain fkn:Capacity ;
@@ -298,10 +304,6 @@ fkn:sourceURL rdf:type owl:DatatypeProperty ;
 #################################################################
 #    Classes
 #################################################################
-
-###  http://purl.org/dc/terms/Creator
-dcterms:Creator rdf:type owl:Class .
-
 
 ###  http://schema.org/CreativeWork
 schema:CreativeWork rdf:type owl:Class ;
