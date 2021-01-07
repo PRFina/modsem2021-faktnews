@@ -67,6 +67,13 @@ dcterms:creator rdf:type owl:ObjectProperty ;
                 rdfs:range :Capacity .
 
 
+###  http://www.modsem.org/fakt-news#claimCreator
+:claimCreator rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf dcterms:creator ;
+              rdfs:domain :Claim ;
+              rdfs:range :Claimant .
+
+
 ###  http://www.modsem.org/fakt-news#claimReviewed
 :claimReviewed rdf:type owl:ObjectProperty ;
                rdfs:subPropertyOf owl:topObjectProperty ;
@@ -75,7 +82,9 @@ dcterms:creator rdf:type owl:ObjectProperty ;
 
 
 ###  http://www.modsem.org/fakt-news#create
-:create rdf:type owl:ObjectProperty .
+:create rdf:type owl:ObjectProperty ;
+        rdfs:domain prov:Agent ;
+        rdfs:range prov:Entity .
 
 
 ###  http://www.modsem.org/fakt-news#derivedFrom
@@ -148,7 +157,7 @@ dcterms:creator rdf:type owl:ObjectProperty ;
 ###  http://www.modsem.org/fakt-news#reviewMotivation
 :reviewMotivation rdf:type owl:ObjectProperty ;
                   rdfs:domain :Review ;
-                  rdfs:range :Motivation .
+                  rdfs:range :Judgment .
 
 
 ###  http://www.modsem.org/fakt-news#reviewRating
@@ -324,8 +333,7 @@ schema:CreativeWork rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#AlternativesList
 :AlternativesList rdf:type owl:Class ;
-                  rdfs:subClassOf <http://www.ontologydesignpatterns.org/cp/owl/set.owl#Set> ,
-                                  prov:Entity ;
+                  rdfs:subClassOf <http://www.ontologydesignpatterns.org/cp/owl/set.owl#Set> ;
                   rdfs:comment "A list of claims from which the fact-checker chooses the claim to verify."@en ;
                   rdfs:label "Alternatives List"@en .
 
@@ -347,6 +355,10 @@ schema:CreativeWork rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#Claim
 :Claim rdf:type owl:Class ;
+       owl:equivalentClass [ rdf:type owl:Restriction ;
+                             owl:onProperty :claimCreator ;
+                             owl:someValuesFrom :Claimant
+                           ] ;
        rdfs:subClassOf schema:CreativeWork ;
        rdfs:comment "A statement by an entity about a topic."@en ;
        rdfs:label "Claim"@en ;
@@ -360,9 +372,20 @@ schema:CreativeWork rdf:type owl:Class ;
                          rdfs:label "Claim Evaluation Activity"@en .
 
 
+###  http://www.modsem.org/fakt-news#Claimant
+:Claimant rdf:type owl:Class ;
+          owl:equivalentClass [ rdf:type owl:Restriction ;
+                                owl:onProperty :create ;
+                                owl:someValuesFrom :Claim
+                              ] ;
+          rdfs:subClassOf prov:Agent ;
+          rdfs:comment "The entity who state the claim."@en ;
+          rdfs:label "Claimant"@en .
+
+
 ###  http://www.modsem.org/fakt-news#DeceptiveEditing
 :DeceptiveEditing rdf:type owl:Class ;
-                  rdfs:subClassOf :Motivation ;
+                  rdfs:subClassOf :Judgment ;
                   rdfs:comment "The claim content presents facts that has been edited and rearranged in such way that ​likely to make the receiver believe something that is not true."@en ;
                   rdfs:label "Deceptive Editing"@en .
 
@@ -447,9 +470,18 @@ TODO: questa classe potrebbe essere una classe definita ottenuta come disjoint u
            rdfs:label "Isolation"@en .
 
 
+###  http://www.modsem.org/fakt-news#Judgment
+:Judgment rdf:type owl:Class ;
+          rdfs:subClassOf prov:Entity ;
+          rdfs:comment "A concise judgemental statement given by the fact checker to motivate the review rating"@en ;
+          rdfs:label "Judgment"@en ;
+          skos:altLabel "Justification"@en ,
+                        "Reason"@en .
+
+
 ###  http://www.modsem.org/fakt-news#MaliciousTransfromation
 :MaliciousTransfromation rdf:type owl:Class ;
-                         rdfs:subClassOf :Motivation ;
+                         rdfs:subClassOf :Judgment ;
                          rdfs:comment "Part or all of the claim content has been manipulated to transform the content itself."@en ;
                          rdfs:label "Malicious Transformation"@en .
 
@@ -470,18 +502,9 @@ TODO: questa classe potrebbe essere una classe definita ottenuta come disjoint u
 
 ###  http://www.modsem.org/fakt-news#MissingContext
 :MissingContext rdf:type owl:Class ;
-                rdfs:subClassOf :Motivation ;
+                rdfs:subClassOf :Judgment ;
                 rdfs:comment "The claim content lacks or misstates the context in which events occurred."@en ;
                 rdfs:label "Missing Context"@en .
-
-
-###  http://www.modsem.org/fakt-news#Motivation
-:Motivation rdf:type owl:Class ;
-            rdfs:subClassOf prov:Entity ;
-            rdfs:comment "A concise judgemental statement given by the fact checker to motivate the review rating"@en ;
-            rdfs:label "Motivation"@en ;
-            skos:altLabel "Justification"@en ,
-                          "Reason"@en .
 
 
 ###  http://www.modsem.org/fakt-news#NotClearGeographyContext
@@ -524,7 +547,7 @@ TODO: questa classe potrebbe essere una classe definita ottenuta come disjoint u
 
 ###  http://www.modsem.org/fakt-news#QualitativeClaim
 :QualitativeClaim rdf:type owl:Class ;
-                  rdfs:subClassOf :Motivation ;
+                  rdfs:subClassOf :Judgment ;
                   rdfs:comment "The claim use qualitative information in place of quantitative descriptions that are open to the receiver interpretation."^^xsd:string ;
                   rdfs:label "Qualitative Claim"@en ;
                   skos:example "\"... in my past five years as leader, I have increased employment.\" is a qualitative claim. This could corresponds to a quantitive information as \"In the past five years, employment has risen from 95.0% to 95.05%.\""^^xsd:string .
@@ -543,7 +566,7 @@ TODO: questa classe potrebbe essere una classe definita ottenuta come disjoint u
                               owl:onProperty :reviewCreator ;
                               owl:someValuesFrom :FactChecker
                             ] ;
-        rdfs:subClassOf prov:Entity ;
+        rdfs:subClassOf schema:CreativeWork ;
         rdfs:comment "The final document that contains the review of a claim by a fact-checker."^^xsd:string ;
         rdfs:label "Review"@en .
 
