@@ -3,6 +3,7 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
@@ -222,8 +223,30 @@ dcterms:creator rdf:type owl:ObjectProperty ;
                          rdfs:range :VerificationActivity .
 
 
+###  http://www.w3.org/ns/prov#agent
+prov:agent rdf:type owl:ObjectProperty ;
+           rdfs:domain prov:Association ;
+           rdfs:range prov:Agent .
+
+
+###  http://www.w3.org/ns/prov#hadRole
+prov:hadRole rdf:type owl:ObjectProperty ;
+             rdfs:domain prov:Association ;
+             rdfs:range prov:Role .
+
+
+###  http://www.w3.org/ns/prov#qualifiedAssociation
+prov:qualifiedAssociation rdf:type owl:ObjectProperty ;
+                          rdfs:domain prov:Activity ;
+                          rdfs:range prov:Association .
+
+
 ###  http://www.w3.org/ns/prov#used
 prov:used rdf:type owl:ObjectProperty .
+
+
+###  http://www.w3.org/ns/prov#wasAssociatedWith
+prov:wasAssociatedWith rdf:type owl:ObjectProperty .
 
 
 ###  http://www.w3.org/ns/prov#wasAttributedTo
@@ -378,7 +401,7 @@ schema:CreativeWork rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#Author
 :Author rdf:type owl:Class ;
-        rdfs:subClassOf prov:Agent ;
+        rdfs:subClassOf prov:Role ;
         rdfs:comment "An author of a digital document. It could be for example a Fact-Checker or a Claim Author."@en ;
         rdfs:label "Author"@en .
 
@@ -426,7 +449,7 @@ schema:CreativeWork rdf:type owl:Class ;
                                 owl:onProperty :create ;
                                 owl:someValuesFrom :Claim
                               ] ;
-          rdfs:subClassOf prov:Agent ;
+          rdfs:subClassOf prov:Role ;
           rdfs:comment "The entity who state the claim."@en ;
           rdfs:label "Claimant"@en .
 
@@ -463,6 +486,11 @@ schema:CreativeWork rdf:type owl:Class ;
            rdfs:label "Doctoring"@en .
 
 
+###  http://www.modsem.org/fakt-news#Editor
+:Editor rdf:type owl:Class ;
+        rdfs:subClassOf prov:Role .
+
+
 ###  http://www.modsem.org/fakt-news#Evidence
 :Evidence rdf:type owl:Class ;
           rdfs:subClassOf prov:Entity ;
@@ -475,7 +503,7 @@ schema:CreativeWork rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#EvidenceSource
 :EvidenceSource rdf:type owl:Class ;
-                rdfs:subClassOf prov:Agent ;
+                rdfs:subClassOf prov:Role ;
                 rdfs:comment """The source of the facts. It could be the entity that states the fact itself or reports it.
 
 TODO: questa classe potrebbe essere una classe definita ottenuta come disjoint union di direct e indirect source"""@en ;
@@ -501,7 +529,7 @@ TODO: questa classe potrebbe essere una classe definita ottenuta come disjoint u
                                    owl:onProperty :create ;
                                    owl:someValuesFrom :Review
                                  ] ;
-             rdfs:subClassOf prov:Agent ;
+             rdfs:subClassOf prov:Role ;
              rdfs:comment "The entity that produces a review of a claim given the claim itself and the evidence supporting it."@en ;
              rdfs:label "Fact Checker"@en .
 
@@ -652,6 +680,13 @@ TODO: questa classe potrebbe essere una classe definita ottenuta come disjoint u
                  rdfs:label "Selection Policy"@en .
 
 
+###  http://www.modsem.org/fakt-news#SoftwareAgent
+:SoftwareAgent rdf:type owl:Class ;
+               rdfs:subClassOf prov:Agent ;
+               rdfs:label "Software Agent"@en ;
+               skos:altLabel "Bot, Software"@en .
+
+
 ###  http://www.modsem.org/fakt-news#Splicing
 :Splicing rdf:type owl:Class ;
           rdfs:subClassOf :DeceptiveEditing ;
@@ -689,6 +724,12 @@ prov:Agent rdf:type owl:Class ;
            rdfs:label "Agent"@en .
 
 
+###  http://www.w3.org/ns/prov#Association
+prov:Association rdf:type owl:Class ;
+                 rdfs:comment "An activity association is an assignment of responsibility to an agent for an activity, indicating that the agent had a role in the activity. It further allows for a plan to be specified, which is the plan intended by the agent to achieve some goals in the context of this activity."@en ;
+                 rdfs:label "Association"@en .
+
+
 ###  http://www.w3.org/ns/prov#Entity
 prov:Entity rdf:type owl:Class ;
             rdfs:comment "An entity is a physical, digital, conceptual, or other kind of thing with some fixed aspects; entities may be real or imaginary."@en ;
@@ -700,9 +741,28 @@ prov:Plan rdf:type owl:Class ;
           rdfs:subClassOf prov:Entity .
 
 
+###  http://www.w3.org/ns/prov#Role
+prov:Role rdf:type owl:Class ;
+          rdfs:comment "A role is the function of an entity or agent with respect to an activity, in the context of a usage, generation, invalidation, association, start, and end."@en ;
+          rdfs:label "Role"@en .
+
+
+###  http://xmlns.com/foaf/0.1/Person
+foaf:Person rdf:type owl:Class ;
+            rdfs:subClassOf prov:Agent ;
+            rdfs:comment "The Person class represents people. Something is a Person if it is a person. We don't nitpic about whether they're alive, dead, real, or imaginary. The Person class is a sub-class of the Agent class, since all people are considered 'agents' in FOAF."@en ;
+            rdfs:label "Person"@en .
+
+
 #################################################################
 #    Individuals
 #################################################################
+
+###  http://www.modsem.org/fakt-news#ClaimEvaluation1
+:ClaimEvaluation1 rdf:type owl:NamedIndividual ,
+                           :ClaimEvaluationActivity ;
+                  :hasTimeInterval :gennaio .
+
 
 ###  http://www.modsem.org/fakt-news#EUCodeOfPrinciples
 :EUCodeOfPrinciples rdf:type owl:NamedIndividual .
@@ -718,6 +778,18 @@ prov:Plan rdf:type owl:Class ;
 :InternationalFactCheckingNetwork rdf:type owl:NamedIndividual .
 
 
+###  http://www.modsem.org/fakt-news#John
+:John rdf:type owl:NamedIndividual ,
+               foaf:Person ;
+      :create :JohnReview .
+
+
+###  http://www.modsem.org/fakt-news#JohnReview
+:JohnReview rdf:type owl:NamedIndividual ,
+                     :Review ;
+            :wasClaimEvaluationOutputOf :ClaimEvaluation1 .
+
+
 ###  http://www.modsem.org/fakt-news#PagellaPolitica
 :PagellaPolitica rdf:type owl:NamedIndividual ,
                           :FactCheckingOrganization ;
@@ -727,12 +799,6 @@ prov:Plan rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#PolitiFact
 :PolitiFact rdf:type owl:NamedIndividual ,
                      :FactCheckingOrganization .
-
-
-###  http://www.modsem.org/fakt-news#act1
-:act1 rdf:type owl:NamedIndividual ,
-               :ClaimEvaluationActivity ;
-      :hasTimeInterval :gennaio .
 
 
 ###  http://www.modsem.org/fakt-news#gennaio
@@ -745,6 +811,14 @@ prov:Plan rdf:type owl:Class ;
 #################################################################
 #    General axioms
 #################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :Organization
+                :SoftwareAgent
+                foaf:Person
+              )
+] .
+
 
 [ rdf:type owl:AllDisjointClasses ;
   owl:members ( prov:Activity
