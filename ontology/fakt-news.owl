@@ -87,10 +87,11 @@ dcterms:creator rdf:type owl:ObjectProperty ;
         rdfs:range prov:Entity .
 
 
-###  http://www.modsem.org/fakt-news#derivedFrom
-:derivedFrom rdf:type owl:ObjectProperty ;
-             rdfs:domain :Evidence ;
-             rdfs:range :EvidenceSource .
+###  http://www.modsem.org/fakt-news#derivedFromSource
+:derivedFromSource rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf prov:wasAttributedTo ;
+                   rdfs:domain :Evidence ;
+                   rdfs:range :EvidenceSource .
 
 
 ###  http://www.modsem.org/fakt-news#hasActivity
@@ -148,16 +149,16 @@ dcterms:creator rdf:type owl:ObjectProperty ;
                 rdfs:range :Evidence .
 
 
+###  http://www.modsem.org/fakt-news#reviewJudgment
+:reviewJudgment rdf:type owl:ObjectProperty ;
+                rdfs:domain :Review ;
+                rdfs:range :Judgment .
+
+
 ###  http://www.modsem.org/fakt-news#reviewMention
 :reviewMention rdf:type owl:ObjectProperty ;
                rdfs:domain :Review ;
                rdfs:range :Mention .
-
-
-###  http://www.modsem.org/fakt-news#reviewMotivation
-:reviewMotivation rdf:type owl:ObjectProperty ;
-                  rdfs:domain :Review ;
-                  rdfs:range :Judgment .
 
 
 ###  http://www.modsem.org/fakt-news#reviewRating
@@ -288,7 +289,21 @@ dcterms:title rdf:type owl:DatatypeProperty ;
 ###  http://www.modsem.org/fakt-news#ratingValue
 :ratingValue rdf:type owl:DatatypeProperty ;
              rdfs:domain :Rating ;
-             rdfs:range xsd:string .
+             rdfs:range [ rdf:type rdfs:Datatype ;
+                          owl:oneOf [ rdf:type rdf:List ;
+                                      rdf:first "False" ;
+                                      rdf:rest [ rdf:type rdf:List ;
+                                                 rdf:first "Mostly False" ;
+                                                 rdf:rest [ rdf:type rdf:List ;
+                                                            rdf:first "Mostly True" ;
+                                                            rdf:rest [ rdf:type rdf:List ;
+                                                                       rdf:first "True" ;
+                                                                       rdf:rest rdf:nil
+                                                                     ]
+                                                          ]
+                                               ]
+                                    ]
+                        ] .
 
 
 ###  http://www.modsem.org/fakt-news#reviewContent
@@ -399,6 +414,12 @@ schema:CreativeWork rdf:type owl:Class ;
               rdfs:label "Direct Source"@en .
 
 
+###  http://www.modsem.org/fakt-news#DisprovingEvidence
+:DisprovingEvidence rdf:type owl:Class ;
+                    rdfs:subClassOf :Evidence ;
+                    rdfs:label "Disproving Evidence"@en .
+
+
 ###  http://www.modsem.org/fakt-news#Doctoring
 :Doctoring rdf:type owl:Class ;
            rdfs:subClassOf :MaliciousTransfromation ;
@@ -409,6 +430,9 @@ schema:CreativeWork rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#Evidence
 :Evidence rdf:type owl:Class ;
           rdfs:subClassOf prov:Entity ;
+          owl:disjointUnionOf ( :DisprovingEvidence
+                                :SupportingEvidence
+                              ) ;
           rdfs:comment "An evidence about a claim. Used in the verification stage of the fact-checking process."@en ;
           rdfs:label "Evidence"@en .
 
@@ -599,6 +623,12 @@ TODO: questa classe potrebbe essere una classe definita ottenuta come disjoint u
             rdfs:subClassOf prov:Entity .
 
 
+###  http://www.modsem.org/fakt-news#SupportingEvidence
+:SupportingEvidence rdf:type owl:Class ;
+                    rdfs:subClassOf :Evidence ;
+                    rdfs:label "Supporting Evidence"@en .
+
+
 ###  http://www.modsem.org/fakt-news#VerificationActivity
 :VerificationActivity rdf:type owl:Class ;
                       rdfs:subClassOf prov:Activity ;
@@ -607,15 +637,21 @@ TODO: questa classe potrebbe essere una classe definita ottenuta come disjoint u
 
 
 ###  http://www.w3.org/ns/prov#Activity
-prov:Activity rdf:type owl:Class .
+prov:Activity rdf:type owl:Class ;
+              rdfs:comment "An activity is something that occurs over a period of time and acts upon or with entities; it may include consuming, processing, transforming, modifying, relocating, using, or generating entities."@en ;
+              rdfs:label "Activity"@en .
 
 
 ###  http://www.w3.org/ns/prov#Agent
-prov:Agent rdf:type owl:Class .
+prov:Agent rdf:type owl:Class ;
+           rdfs:comment "An agent is something that bears some form of responsibility for an activity taking place, for the existence of an entity, or for another agent's activity."@en ;
+           rdfs:label "Agent"@en .
 
 
 ###  http://www.w3.org/ns/prov#Entity
-prov:Entity rdf:type owl:Class .
+prov:Entity rdf:type owl:Class ;
+            rdfs:comment "An entity is a physical, digital, conceptual, or other kind of thing with some fixed aspects; entities may be real or imaginary."@en ;
+            rdfs:label "Entity"@en .
 
 
 ###  http://www.w3.org/ns/prov#Plan
