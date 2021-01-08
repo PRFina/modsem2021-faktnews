@@ -729,6 +729,19 @@ prov:Plan rdf:type owl:Class ;
                      :FactCheckingOrganization .
 
 
+###  http://www.modsem.org/fakt-news#act1
+:act1 rdf:type owl:NamedIndividual ,
+               :ClaimEvaluationActivity ;
+      :hasTimeInterval :gennaio .
+
+
+###  http://www.modsem.org/fakt-news#gennaio
+:gennaio rdf:type owl:NamedIndividual ,
+                  <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#TimeInterval> ;
+         <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2020-10-21T12:23:45"^^xsd:dateTime ;
+         <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2020-12-12T23:20:00"^^xsd:dateTime .
+
+
 #################################################################
 #    General axioms
 #################################################################
