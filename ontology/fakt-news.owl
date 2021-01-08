@@ -87,6 +87,12 @@ dcterms:creator rdf:type owl:ObjectProperty ;
         rdfs:range prov:Entity .
 
 
+###  http://www.modsem.org/fakt-news#createCodeOfPrinciples
+:createCodeOfPrinciples rdf:type owl:ObjectProperty ;
+                        rdfs:domain :Authority ;
+                        rdfs:range :CodeOfPrinciples .
+
+
 ###  http://www.modsem.org/fakt-news#derivedFromSource
 :derivedFromSource rdf:type owl:ObjectProperty ;
                    rdfs:subPropertyOf prov:wasAttributedTo ;
@@ -128,12 +134,27 @@ dcterms:creator rdf:type owl:ObjectProperty ;
                   rdfs:range prov:Plan .
 
 
+###  http://www.modsem.org/fakt-news#isCertificatedBy
+:isCertificatedBy rdf:type owl:ObjectProperty ;
+                  rdfs:domain :FactCheckingOrganization ;
+                  rdfs:range :Authority ;
+                  owl:propertyChainAxiom ( :observeCodeOfPrinciples
+                                           dcterms:creator
+                                         ) .
+
+
 ###  http://www.modsem.org/fakt-news#isPrecededByActivity
 :isPrecededByActivity rdf:type owl:ObjectProperty ;
                       rdfs:subPropertyOf owl:topObjectProperty ;
                       rdf:type owl:TransitiveProperty ;
                       rdfs:domain prov:Activity ;
                       rdfs:range prov:Activity .
+
+
+###  http://www.modsem.org/fakt-news#observeCodeOfPrinciples
+:observeCodeOfPrinciples rdf:type owl:ObjectProperty ;
+                         rdfs:domain :FactCheckingOrganization ;
+                         rdfs:range :CodeOfPrinciples .
 
 
 ###  http://www.modsem.org/fakt-news#reviewCreator
@@ -362,6 +383,16 @@ schema:CreativeWork rdf:type owl:Class ;
         rdfs:label "Author"@en .
 
 
+###  http://www.modsem.org/fakt-news#Authority
+:Authority rdf:type owl:Class ;
+           owl:equivalentClass [ rdf:type owl:Class ;
+                                 owl:oneOf ( :EUCodeOfPrinciples
+                                             :InternationalFactCheckingNetwork
+                                           )
+                               ] ;
+           rdfs:subClassOf :Organization .
+
+
 ###  http://www.modsem.org/fakt-news#Capacity
 :Capacity rdf:type owl:Class ;
           rdfs:subClassOf prov:Entity ;
@@ -398,6 +429,11 @@ schema:CreativeWork rdf:type owl:Class ;
           rdfs:subClassOf prov:Agent ;
           rdfs:comment "The entity who state the claim."@en ;
           rdfs:label "Claimant"@en .
+
+
+###  http://www.modsem.org/fakt-news#CodeOfPrinciples
+:CodeOfPrinciples rdf:type owl:Class ;
+                  rdfs:subClassOf prov:Entity .
 
 
 ###  http://www.modsem.org/fakt-news#DeceptiveEditing
@@ -468,6 +504,11 @@ TODO: questa classe potrebbe essere una classe definita ottenuta come disjoint u
              rdfs:subClassOf prov:Agent ;
              rdfs:comment "The entity that produces a review of a claim given the claim itself and the evidence supporting it."@en ;
              rdfs:label "Fact Checker"@en .
+
+
+###  http://www.modsem.org/fakt-news#FactCheckingOrganization
+:FactCheckingOrganization rdf:type owl:Class ;
+                          rdfs:subClassOf :Organization .
 
 
 ###  http://www.modsem.org/fakt-news#FactCheckingProcess
@@ -566,7 +607,7 @@ TODO: questa classe potrebbe essere una classe definita ottenuta come disjoint u
 
 ###  http://www.modsem.org/fakt-news#Organization
 :Organization rdf:type owl:Class ;
-              rdfs:subClassOf prov:Entity ;
+              rdfs:subClassOf prov:Agent ;
               rdfs:comment "A group of persons grouped together or organized for some purpose or work."@en ;
               rdfs:label "Organization"@en .
 
@@ -660,6 +701,35 @@ prov:Plan rdf:type owl:Class ;
 
 
 #################################################################
+#    Individuals
+#################################################################
+
+###  http://www.modsem.org/fakt-news#EUCodeOfPrinciples
+:EUCodeOfPrinciples rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#IFCNCode
+:IFCNCode rdf:type owl:NamedIndividual ,
+                   :CodeOfPrinciples ;
+          dcterms:creator :InternationalFactCheckingNetwork .
+
+
+###  http://www.modsem.org/fakt-news#InternationalFactCheckingNetwork
+:InternationalFactCheckingNetwork rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#PagellaPolitica
+:PagellaPolitica rdf:type owl:NamedIndividual ,
+                          :FactCheckingOrganization ;
+                 :observeCodeOfPrinciples :IFCNCode .
+
+
+###  http://www.modsem.org/fakt-news#PolitiFact
+:PolitiFact rdf:type owl:NamedIndividual ,
+                     :FactCheckingOrganization .
+
+
+#################################################################
 #    General axioms
 #################################################################
 
@@ -668,6 +738,25 @@ prov:Plan rdf:type owl:Class ;
                 prov:Agent
                 prov:Entity
               )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :EUCodeOfPrinciples
+                        :IFCNCode
+                        :InternationalFactCheckingNetwork
+                        :PagellaPolitica
+                        :PolitiFact
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :EUCodeOfPrinciples
+                        :InternationalFactCheckingNetwork
+                        :PagellaPolitica
+                        :PolitiFact
+                      )
 ] .
 
 
