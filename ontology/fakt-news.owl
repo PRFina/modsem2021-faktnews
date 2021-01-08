@@ -12,8 +12,7 @@
 @base <http://www.modsem.org/fakt-news> .
 
 <http://www.modsem.org/fakt-news> rdf:type owl:Ontology ;
-                                   owl:imports <http://www.ontologydesignpatterns.org/cp/owl/set.owl> ,
-                                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl> .
+                                   owl:imports <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl> .
 
 #################################################################
 #    Annotation properties
@@ -394,7 +393,7 @@ schema:CreativeWork rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#AlternativesList
 :AlternativesList rdf:type owl:Class ;
-                  rdfs:subClassOf <http://www.ontologydesignpatterns.org/cp/owl/set.owl#Set> ;
+                  rdfs:subClassOf prov:Entity ;
                   rdfs:comment "A list of claims from which the fact-checker chooses the claim to verify."@en ;
                   rdfs:label "Alternatives List"@en .
 
@@ -761,7 +760,8 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#ClaimEvaluation1
 :ClaimEvaluation1 rdf:type owl:NamedIndividual ,
                            :ClaimEvaluationActivity ;
-                  :hasTimeInterval :gennaio .
+                  :hasTimeInterval :gennaio ;
+                  prov:qualifiedAssociation :association1 .
 
 
 ###  http://www.modsem.org/fakt-news#EUCodeOfPrinciples
@@ -787,6 +787,7 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#JohnReview
 :JohnReview rdf:type owl:NamedIndividual ,
                      :Review ;
+            :reviewCreator :John ;
             :wasClaimEvaluationOutputOf :ClaimEvaluation1 .
 
 
@@ -799,6 +800,17 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#PolitiFact
 :PolitiFact rdf:type owl:NamedIndividual ,
                      :FactCheckingOrganization .
+
+
+###  http://www.modsem.org/fakt-news#association1
+:association1 rdf:type owl:NamedIndividual ,
+                       prov:Association ;
+              prov:agent :John ;
+              prov:hadRole :controllore_dei_fatti .
+
+
+###  http://www.modsem.org/fakt-news#controllore_dei_fatti
+:controllore_dei_fatti rdf:type owl:NamedIndividual .
 
 
 ###  http://www.modsem.org/fakt-news#gennaio
