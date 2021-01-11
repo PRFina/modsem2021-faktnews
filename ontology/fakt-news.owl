@@ -1,4 +1,5 @@
 @prefix : <http://www.modsem.org/fakt-news#> .
+@prefix dct: <http://purl.org/dc/terms/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
@@ -8,7 +9,6 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix schema: <http://schema.org/> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @base <http://www.modsem.org/fakt-news> .
 
 <http://www.modsem.org/fakt-news> rdf:type owl:Ontology ;
@@ -39,11 +39,11 @@ xsd:date rdf:type rdfs:Datatype .
 #################################################################
 
 ###  http://purl.org/dc/terms/creator
-dcterms:creator rdf:type owl:ObjectProperty ;
-                rdfs:subPropertyOf prov:wasAttributedTo ;
-                owl:inverseOf :create ;
-                rdfs:domain schema:CreativeWork ;
-                rdfs:range :Author .
+dct:creator rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf prov:wasAttributedTo ;
+            owl:inverseOf :create ;
+            rdfs:domain schema:CreativeWork ;
+            rdfs:range :Author .
 
 
 ###  http://www.modsem.org/fakt-news#affiliation
@@ -69,7 +69,7 @@ dcterms:creator rdf:type owl:ObjectProperty ;
 
 ###  http://www.modsem.org/fakt-news#claimCreator
 :claimCreator rdf:type owl:ObjectProperty ;
-              rdfs:subPropertyOf dcterms:creator ;
+              rdfs:subPropertyOf dct:creator ;
               rdfs:domain :Claim ;
               rdfs:range :Claimant .
 
@@ -139,7 +139,7 @@ dcterms:creator rdf:type owl:ObjectProperty ;
                   rdfs:domain :FactCheckingOrganization ;
                   rdfs:range :Authority ;
                   owl:propertyChainAxiom ( :observeCodeOfPrinciples
-                                           dcterms:creator
+                                           dct:creator
                                          ) .
 
 
@@ -159,7 +159,7 @@ dcterms:creator rdf:type owl:ObjectProperty ;
 
 ###  http://www.modsem.org/fakt-news#reviewCreator
 :reviewCreator rdf:type owl:ObjectProperty ;
-               rdfs:subPropertyOf dcterms:creator ;
+               rdfs:subPropertyOf dct:creator ;
                rdfs:domain :Review ;
                rdfs:range :FactChecker .
 
@@ -266,14 +266,14 @@ prov:wasGeneratedBy rdf:type owl:ObjectProperty ;
 #################################################################
 
 ###  http://purl.org/dc/terms/language
-dcterms:language rdf:type owl:DatatypeProperty ;
-                 rdfs:domain schema:CreativeWork .
+dct:language rdf:type owl:DatatypeProperty ;
+             rdfs:domain schema:CreativeWork .
 
 
 ###  http://purl.org/dc/terms/title
-dcterms:title rdf:type owl:DatatypeProperty ;
-              rdfs:subPropertyOf owl:topDataProperty ;
-              rdfs:domain schema:CreativeWork .
+dct:title rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf owl:topDataProperty ;
+          rdfs:domain schema:CreativeWork .
 
 
 ###  http://www.modsem.org/fakt-news#capacityType
@@ -389,6 +389,14 @@ schema:CreativeWork rdf:type owl:Class ;
                     rdfs:subClassOf prov:Entity ;
                     rdfs:comment "The most generic kind of creative work, including books, movies, photographs, software programs, etc."@en ;
                     rdfs:label "Creative Work"@en .
+
+
+###  http://www,modsem,org/fakt-news#Person
+<http://www,modsem,org/fakt-news#Person> rdf:type owl:Class ;
+                                         owl:equivalentClass foaf:Person ;
+                                         rdfs:subClassOf prov:Agent ;
+                                         rdfs:comment ""@en ;
+                                         rdfs:label "Person"@en .
 
 
 ###  http://www.modsem.org/fakt-news#AlternativesList
@@ -748,7 +756,6 @@ prov:Role rdf:type owl:Class ;
 
 ###  http://xmlns.com/foaf/0.1/Person
 foaf:Person rdf:type owl:Class ;
-            rdfs:subClassOf prov:Agent ;
             rdfs:comment "The Person class represents people. Something is a Person if it is a person. We don't nitpic about whether they're alive, dead, real, or imaginary. The Person class is a sub-class of the Agent class, since all people are considered 'agents' in FOAF."@en ;
             rdfs:label "Person"@en .
 
@@ -771,7 +778,7 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#IFCNCode
 :IFCNCode rdf:type owl:NamedIndividual ,
                    :CodeOfPrinciples ;
-          dcterms:creator :InternationalFactCheckingNetwork .
+          dct:creator :InternationalFactCheckingNetwork .
 
 
 ###  http://www.modsem.org/fakt-news#InternationalFactCheckingNetwork
@@ -780,7 +787,7 @@ foaf:Person rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#John
 :John rdf:type owl:NamedIndividual ,
-               foaf:Person ;
+               <http://www,modsem,org/fakt-news#Person> ;
       :create :JohnReview .
 
 
@@ -825,9 +832,9 @@ foaf:Person rdf:type owl:Class ;
 #################################################################
 
 [ rdf:type owl:AllDisjointClasses ;
-  owl:members ( :Organization
+  owl:members ( <http://www,modsem,org/fakt-news#Person>
+                :Organization
                 :SoftwareAgent
-                foaf:Person
               )
 ] .
 
