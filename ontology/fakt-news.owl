@@ -564,13 +564,9 @@ schema:CreativeWork rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#FactChecker
 :FactChecker rdf:type owl:Class ;
-             owl:equivalentClass [ owl:intersectionOf ( foaf:Person
-                                                        [ rdf:type owl:Restriction ;
-                                                          owl:onProperty :create ;
-                                                          owl:someValuesFrom :Review
-                                                        ]
-                                                      ) ;
-                                   rdf:type owl:Class
+             owl:equivalentClass [ rdf:type owl:Restriction ;
+                                   owl:onProperty :create ;
+                                   owl:someValuesFrom :Review
                                  ] ;
              rdfs:subClassOf prov:Role ;
              rdfs:comment "The entity that produces a review of a claim given the claim itself and the evidence supporting it."@en ;
@@ -934,6 +930,16 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#Role_John_Doe
 :Role_John_Doe rdf:type owl:NamedIndividual ,
                         :FactChecker .
+
+
+###  http://www.modsem.org/fakt-news#evidence-d1
+:evidence-d1 rdf:type owl:NamedIndividual ,
+                      :DisprovingEvidence .
+
+
+###  http://www.modsem.org/fakt-news#evidence-s1
+:evidence-s1 rdf:type owl:NamedIndividual ,
+                      :SupportingEvidence .
 
 
 #################################################################
