@@ -172,6 +172,11 @@ dct:creator rdf:type owl:ObjectProperty ;
              rdfs:range :Claimant .
 
 
+###  http://www.modsem.org/fakt-news#isFirstActivityOfPlan
+:isFirstActivityOfPlan rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf :isActivityOfPlan .
+
+
 ###  http://www.modsem.org/fakt-news#isInputOfClaimEvaluation
 :isInputOfClaimEvaluation rdf:type owl:ObjectProperty ;
                           rdfs:subPropertyOf prov:used ;
@@ -191,6 +196,11 @@ dct:creator rdf:type owl:ObjectProperty ;
                        rdfs:subPropertyOf prov:used ;
                        rdfs:domain :VerificationActivity ;
                        rdfs:range :Claim .
+
+
+###  http://www.modsem.org/fakt-news#isLastActivityOfPlan
+:isLastActivityOfPlan rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf :isActivityOfPlan .
 
 
 ###  http://www.modsem.org/fakt-news#isReviewedBy
@@ -567,6 +577,12 @@ schema:CreativeWork rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#FactCheckingAuthority
 :FactCheckingAuthority rdf:type owl:Class ;
+                       owl:equivalentClass [ rdf:type owl:Class ;
+                                             owl:oneOf ( :DukeReportersLab
+                                                         :EUCode
+                                                         :IFCN
+                                                       )
+                                           ] ;
                        rdfs:subClassOf :Organization ;
                        rdfs:comment "The Fact Checking autority that monitors trends, formats and policy-making about fact-checking worldwide. It promotes and checks the committment of the fact checking organisations to ethical code standards."@en ;
                        rdfs:label "Fact Checking Authority"@en .
@@ -836,21 +852,20 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#Activity_Claim_Evaluation
 :Activity_Claim_Evaluation rdf:type owl:NamedIndividual ,
                                     :ClaimEvaluationActivity ;
-                           :hasPreviousActivity :Activity_Verification ;
-                           :isActivityOfPlan :Fact_Checking_Process .
+                           :isLastActivityOfPlan :Fact_Checking_Process .
 
 
 ###  http://www.modsem.org/fakt-news#Activity_Selection
 :Activity_Selection rdf:type owl:NamedIndividual ,
                              :SelectionActivity ;
-                    :hasNextActivity :Activity_Verification ;
-                    :isActivityOfPlan :Fact_Checking_Process .
+                    :isFirstActivityOfPlan :Fact_Checking_Process .
 
 
 ###  http://www.modsem.org/fakt-news#Activity_Verification
 :Activity_Verification rdf:type owl:NamedIndividual ,
                                 :VerificationActivity ;
                        :hasNextActivity :Activity_Claim_Evaluation ;
+                       :hasPreviousActivity :Activity_Selection ;
                        :isActivityOfPlan :Fact_Checking_Process .
 
 
@@ -859,12 +874,24 @@ foaf:Person rdf:type owl:Class ;
                               :Claim .
 
 
+###  http://www.modsem.org/fakt-news#DukeReportersLab
+:DukeReportersLab rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#EUCode
+:EUCode rdf:type owl:NamedIndividual .
+
+
 ###  http://www.modsem.org/fakt-news#Evidence_President_USA
 :Evidence_President_USA rdf:type owl:NamedIndividual .
 
 
 ###  http://www.modsem.org/fakt-news#Fact_Checking_Process
 :Fact_Checking_Process rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#IFCN
+:IFCN rdf:type owl:NamedIndividual .
 
 
 ###  http://www.modsem.org/fakt-news#Person_John_Doe
