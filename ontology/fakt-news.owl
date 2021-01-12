@@ -82,6 +82,7 @@ dct:creator rdf:type owl:ObjectProperty ;
 
 ###  http://www.modsem.org/fakt-news#createCodeOfPrinciples
 :createCodeOfPrinciples rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf :create ;
                         rdfs:domain :FactCheckingAuthority ;
                         rdfs:range :CodeOfPrinciples .
 
@@ -220,6 +221,7 @@ dct:creator rdf:type owl:ObjectProperty ;
 :observeCodeOfPrinciples rdf:type owl:ObjectProperty ;
                          rdfs:domain :FactCheckingOrganization ;
                          rdfs:range :CodeOfPrinciples ;
+                         rdfs:comment "object property da asserire quando un authority verifica che i suoi principi vengano osservati" ;
                          skos:example "https://www.poynter.org/ifcn-fact-checkers-code-of-principles/"@en .
 
 
@@ -891,7 +893,24 @@ foaf:Person rdf:type owl:Class ;
 
 
 ###  http://www.modsem.org/fakt-news#IFCN
-:IFCN rdf:type owl:NamedIndividual .
+:IFCN rdf:type owl:NamedIndividual ;
+      :createCodeOfPrinciples :IFCNCode .
+
+
+###  http://www.modsem.org/fakt-news#IFCNCode
+:IFCNCode rdf:type owl:NamedIndividual ,
+                   :CodeOfPrinciples .
+
+
+###  http://www.modsem.org/fakt-news#LaVoceInfo
+:LaVoceInfo rdf:type owl:NamedIndividual ,
+                     :FactCheckingOrganization .
+
+
+###  http://www.modsem.org/fakt-news#PagellaPolitica
+:PagellaPolitica rdf:type owl:NamedIndividual ,
+                          :FactCheckingOrganization ;
+                 :observeCodeOfPrinciples :IFCNCode .
 
 
 ###  http://www.modsem.org/fakt-news#Person_John_Doe
@@ -900,6 +919,12 @@ foaf:Person rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#Person_President_USA
 :Person_President_USA rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#PolitiFact
+:PolitiFact rdf:type owl:NamedIndividual ,
+                     :FactCheckingOrganization ;
+            :observeCodeOfPrinciples :IFCNCode .
 
 
 ###  http://www.modsem.org/fakt-news#Review_on_Claim_President_USA
