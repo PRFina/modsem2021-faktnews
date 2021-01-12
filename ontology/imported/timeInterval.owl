@@ -76,7 +76,8 @@ timeinterval:hasIntervalDate rdf:type owl:DatatypeProperty ;
                              rdfs:domain timeinterval:TimeInterval ;
                              rdfs:comment "A datatype property that encodes values from xsd:date (or any other date-related xsd datatype) for a TimeInterval; a same TimeInterval can have more than one date value: begin date, end date, date at which the interval holds, as well as dates expressed in different formats: xsd:gYear, xsd:dateTime, etc." ;
                              rdfs:isDefinedBy <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl> ;
-                             rdfs:label "has interval date"@en .
+                             rdfs:label "has interval date"@en ,
+                                        "intervallo ha data"@it .
 
 
 ###  http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate
