@@ -21,3 +21,10 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# ES Lint files
+.eslintcache
+
+# Docker files
+.env.template
+.env

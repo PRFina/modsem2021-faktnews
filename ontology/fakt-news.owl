@@ -1,54 +1,981 @@
-@prefix : <http://www.semanticweb.org/fakt-news#> .
-@prefix dc: <https://www.dublincore.org/specifications/dublin-core/dcmi-terms/> .
-@prefix fn: <http://www.semanticweb.org/fakt-news#> .
+@prefix : <http://www.modsem.org/fakt-news#> .
+@prefix dct: <http://purl.org/dc/terms/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@base <http://www.semanticweb.org/fakt-news> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix schema: <http://schema.org/> .
+@base <http://www.modsem.org/fakt-news> .
 
-<http://www.semanticweb.org/fakt-news> rdf:type owl:Ontology .
+<http://www.modsem.org/fakt-news> rdf:type owl:Ontology ;
+                                   owl:imports <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl> .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://www.w3.org/2004/02/skos/core#altLabel
+skos:altLabel rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#example
+skos:example rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.w3.org/2001/XMLSchema#date
+xsd:date rdf:type rdfs:Datatype .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://purl.org/dc/terms/creator
+dct:creator rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf prov:wasAttributedTo ;
+            owl:inverseOf :create ;
+            rdfs:domain schema:CreativeWork ;
+            rdfs:range :Author ;
+            rdfs:comment "An entity responsible for making the resource."@en ;
+            rdfs:label "Creator"@en .
+
+
+###  http://www.modsem.org/fakt-news#affiliation
+:affiliation rdf:type owl:ObjectProperty ;
+             rdfs:domain prov:Agent ;
+             rdfs:range :Organization ;
+             rdfs:label "Affiliation"@en .
+
+
+###  http://www.modsem.org/fakt-news#associatedReview
+:associatedReview rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf owl:topObjectProperty ;
+                  owl:inverseOf :claimReviewed ;
+                  rdfs:domain :Claim ;
+                  rdfs:range :Review .
+
+
+###  http://www.modsem.org/fakt-news#claimReviewed
+:claimReviewed rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf owl:topObjectProperty ;
+               rdfs:domain :Review ;
+               rdfs:range :Claim ;
+               owl:propertyChainAxiom ( :wasOutputOfClaimEvaluation
+                                        :hasPreviousActivity
+                                        prov:used
+                                      ) .
+
+
+###  http://www.modsem.org/fakt-news#create
+:create rdf:type owl:ObjectProperty ;
+        rdfs:domain prov:Agent ;
+        rdfs:range prov:Entity .
+
+
+###  http://www.modsem.org/fakt-news#createCodeOfPrinciples
+:createCodeOfPrinciples rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf :create ;
+                        rdfs:domain :FactCheckingAuthority ;
+                        rdfs:range :CodeOfPrinciples .
+
+
+###  http://www.modsem.org/fakt-news#derivedFromSource
+:derivedFromSource rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf prov:wasAttributedTo ;
+                   rdfs:domain :Evidence ;
+                   rdfs:range :EvidenceSource .
+
+
+###  http://www.modsem.org/fakt-news#hasActivity
+:hasActivity rdf:type owl:ObjectProperty ;
+             owl:inverseOf :isActivityOfPlan ;
+             rdf:type owl:InverseFunctionalProperty ;
+             rdfs:domain prov:Plan ;
+             rdfs:range prov:Activity .
+
+
+###  http://www.modsem.org/fakt-news#hasCapacity
+:hasCapacity rdf:type owl:ObjectProperty ;
+             rdfs:domain prov:Agent ;
+             rdfs:range :Capacity .
+
+
+###  http://www.modsem.org/fakt-news#hasEvidence
+:hasEvidence rdf:type owl:ObjectProperty ;
+             rdfs:domain :Review ;
+             rdfs:range :Evidence .
+
+
+###  http://www.modsem.org/fakt-news#hasJudgment
+:hasJudgment rdf:type owl:ObjectProperty ;
+             rdfs:domain :Review ;
+             rdfs:range :Judgment .
+
+
+###  http://www.modsem.org/fakt-news#hasNextActivity
+:hasNextActivity rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf owl:topObjectProperty ;
+                 owl:inverseOf :hasPreviousActivity ;
+                 rdf:type owl:TransitiveProperty ;
+                 rdfs:domain prov:Activity ;
+                 rdfs:range prov:Activity .
+
+
+###  http://www.modsem.org/fakt-news#hasPreviousActivity
+:hasPreviousActivity rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf owl:topObjectProperty ;
+                     rdf:type owl:TransitiveProperty ;
+                     rdfs:domain prov:Activity ;
+                     rdfs:range prov:Activity .
+
+
+###  http://www.modsem.org/fakt-news#hasRating
+:hasRating rdf:type owl:ObjectProperty ,
+                    owl:FunctionalProperty ;
+           rdfs:domain :Review ;
+           rdfs:range :Rating .
+
+
+###  http://www.modsem.org/fakt-news#hasTimeInterval
+:hasTimeInterval rdf:type owl:ObjectProperty ;
+                 rdfs:domain prov:Activity ;
+                 rdfs:range <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#TimeInterval> .
+
+
+###  http://www.modsem.org/fakt-news#isActivityOfPlan
+:isActivityOfPlan rdf:type owl:ObjectProperty ,
+                           owl:FunctionalProperty ;
+                  rdfs:domain prov:Activity ;
+                  rdfs:range prov:Plan .
+
+
+###  http://www.modsem.org/fakt-news#isCertificatedBy
+:isCertificatedBy rdf:type owl:ObjectProperty ;
+                  rdfs:domain :FactCheckingOrganization ;
+                  rdfs:range :FactCheckingAuthority ;
+                  owl:propertyChainAxiom ( :observeCodeOfPrinciples
+                                           dct:creator
+                                         ) .
+
+
+###  http://www.modsem.org/fakt-news#isClaimedBy
+:isClaimedBy rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf dct:creator ;
+             rdfs:domain :Claim ;
+             rdfs:range :Claimant .
+
+
+###  http://www.modsem.org/fakt-news#isFirstActivityOfPlan
+:isFirstActivityOfPlan rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf :isActivityOfPlan .
+
+
+###  http://www.modsem.org/fakt-news#isInputOfClaimEvaluation
+:isInputOfClaimEvaluation rdf:type owl:ObjectProperty ;
+                          rdfs:subPropertyOf prov:used ;
+                          rdfs:domain :ClaimEvaluationActivity ;
+                          rdfs:range :Evidence .
+
+
+###  http://www.modsem.org/fakt-news#isInputOfSelection
+:isInputOfSelection rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf prov:used ;
+                    rdfs:domain :SelectionActivity ;
+                    rdfs:range :AlternativesList .
+
+
+###  http://www.modsem.org/fakt-news#isInputOfVerification
+:isInputOfVerification rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf prov:used ;
+                       rdfs:domain :VerificationActivity ;
+                       rdfs:range :Claim .
+
+
+###  http://www.modsem.org/fakt-news#isLastActivityOfPlan
+:isLastActivityOfPlan rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf :isActivityOfPlan .
+
+
+###  http://www.modsem.org/fakt-news#isReviewedBy
+:isReviewedBy rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf dct:creator ;
+              rdfs:domain :Review ;
+              rdfs:range :FactChecker .
+
+
+###  http://www.modsem.org/fakt-news#mentions
+:mentions rdf:type owl:ObjectProperty ;
+          rdfs:domain :Review ;
+          rdfs:comment "A mention to some entity. It could be a person, an organisation, a place, an event, and so on."@en .
+
+
+###  http://www.modsem.org/fakt-news#observeCodeOfPrinciples
+:observeCodeOfPrinciples rdf:type owl:ObjectProperty ;
+                         rdfs:domain :FactCheckingOrganization ;
+                         rdfs:range :CodeOfPrinciples ;
+                         rdfs:comment "object property da asserire quando un authority verifica che i suoi principi vengano osservati" ;
+                         skos:example "https://www.poynter.org/ifcn-fact-checkers-code-of-principles/"@en .
+
+
+###  http://www.modsem.org/fakt-news#supportedBy
+:supportedBy rdf:type owl:ObjectProperty ;
+             rdfs:domain :Evidence ;
+             rdfs:range schema:CreativeWork ;
+             rdfs:comment "A review is supported by a materialization of some sort of document (for example a subtype of creative work)."@en .
+
+
+###  http://www.modsem.org/fakt-news#wasOutputOfClaimEvaluation
+:wasOutputOfClaimEvaluation rdf:type owl:ObjectProperty ;
+                            rdfs:subPropertyOf prov:wasGeneratedBy ;
+                            rdfs:domain :Review ;
+                            rdfs:range :ClaimEvaluationActivity .
+
+
+###  http://www.modsem.org/fakt-news#wasOutputOfSelection
+:wasOutputOfSelection rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf prov:wasGeneratedBy ;
+                      rdfs:domain :Claim ;
+                      rdfs:range :SelectionActivity .
+
+
+###  http://www.modsem.org/fakt-news#wasOutputOfVerification
+:wasOutputOfVerification rdf:type owl:ObjectProperty ;
+                         rdfs:subPropertyOf prov:wasGeneratedBy ;
+                         rdfs:domain :Evidence ;
+                         rdfs:range :VerificationActivity .
+
+
+###  http://www.w3.org/ns/prov#agent
+prov:agent rdf:type owl:ObjectProperty ;
+           rdfs:domain prov:Association ;
+           rdfs:range prov:Agent .
+
+
+###  http://www.w3.org/ns/prov#hadRole
+prov:hadRole rdf:type owl:ObjectProperty ;
+             rdfs:domain prov:Association ;
+             rdfs:range prov:Role .
+
+
+###  http://www.w3.org/ns/prov#qualifiedAssociation
+prov:qualifiedAssociation rdf:type owl:ObjectProperty ;
+                          rdfs:domain prov:Activity ;
+                          rdfs:range prov:Association .
+
+
+###  http://www.w3.org/ns/prov#used
+prov:used rdf:type owl:ObjectProperty ;
+          rdfs:domain prov:Activity ;
+          rdfs:range prov:Entity .
+
+
+###  http://www.w3.org/ns/prov#wasAssociatedWith
+prov:wasAssociatedWith rdf:type owl:ObjectProperty ;
+                       rdfs:domain prov:Activity ;
+                       rdfs:range prov:Agent .
+
+
+###  http://www.w3.org/ns/prov#wasAttributedTo
+prov:wasAttributedTo rdf:type owl:ObjectProperty ;
+                     rdfs:domain prov:Entity ;
+                     rdfs:range prov:Agent .
+
+
+###  http://www.w3.org/ns/prov#wasGeneratedBy
+prov:wasGeneratedBy rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf owl:topObjectProperty ;
+                    rdfs:domain prov:Entity ;
+                    rdfs:range prov:Activity .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://purl.org/dc/terms/date
+dct:date rdf:type owl:DatatypeProperty ;
+         rdfs:range xsd:date .
+
+
+###  http://purl.org/dc/terms/language
+dct:language rdf:type owl:DatatypeProperty ;
+             rdfs:domain schema:CreativeWork .
+
+
+###  http://purl.org/dc/terms/title
+dct:title rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf owl:topDataProperty ;
+          rdfs:domain schema:CreativeWork .
+
+
+###  http://schema.org/url
+schema:url rdf:type owl:DatatypeProperty ;
+           rdfs:range xsd:anyURI .
+
+
+###  http://www.modsem.org/fakt-news#capacityType
+:capacityType rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Capacity ;
+              rdfs:range [ rdf:type rdfs:Datatype ;
+                           owl:oneOf [ rdf:type rdf:List ;
+                                       rdf:first "Citizen" ;
+                                       rdf:rest [ rdf:type rdf:List ;
+                                                  rdf:first "Civil Service" ;
+                                                  rdf:rest [ rdf:type rdf:List ;
+                                                             rdf:first "Company" ;
+                                                             rdf:rest [ rdf:type rdf:List ;
+                                                                        rdf:first "Expert" ;
+                                                                        rdf:rest [ rdf:type rdf:List ;
+                                                                                   rdf:first "Government" ;
+                                                                                   rdf:rest [ rdf:type rdf:List ;
+                                                                                              rdf:first "Lobby" ;
+                                                                                              rdf:rest [ rdf:type rdf:List ;
+                                                                                                         rdf:first "NGO" ;
+                                                                                                         rdf:rest [ rdf:type rdf:List ;
+                                                                                                                    rdf:first "Opposition" ;
+                                                                                                                    rdf:rest [ rdf:type rdf:List ;
+                                                                                                                               rdf:first "Think Tank" ;
+                                                                                                                               rdf:rest rdf:nil
+                                                                                                                             ]
+                                                                                                                  ]
+                                                                                                       ]
+                                                                                            ]
+                                                                                 ]
+                                                                      ]
+                                                           ]
+                                                ]
+                                     ]
+                         ] .
+
+
+###  http://www.modsem.org/fakt-news#judgmentSummary
+:judgmentSummary rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :Judgment ;
+                 rdfs:range xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#ratingAssociatedMedia
+:ratingAssociatedMedia rdf:type owl:DatatypeProperty ;
+                       rdfs:domain :Rating ;
+                       rdfs:range xsd:anyURI .
+
+
+###  http://www.modsem.org/fakt-news#ratingSystem
+:ratingSystem rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Rating ;
+              rdfs:range xsd:anyURI .
+
+
+###  http://www.modsem.org/fakt-news#ratingSystemComment
+:ratingSystemComment rdf:type owl:DatatypeProperty ;
+                     rdfs:domain :Rating ;
+                     rdfs:range xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#ratingValue
+:ratingValue rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Rating ;
+             rdfs:range [ rdf:type rdfs:Datatype ;
+                          owl:oneOf [ rdf:type rdf:List ;
+                                      rdf:first "False" ;
+                                      rdf:rest [ rdf:type rdf:List ;
+                                                 rdf:first "Mostly False" ;
+                                                 rdf:rest [ rdf:type rdf:List ;
+                                                            rdf:first "Mostly True" ;
+                                                            rdf:rest [ rdf:type rdf:List ;
+                                                                       rdf:first "True" ;
+                                                                       rdf:rest rdf:nil
+                                                                     ]
+                                                          ]
+                                               ]
+                                    ]
+                        ] .
+
+
+###  http://www.modsem.org/fakt-news#refersTo
+:refersTo rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Mention .
+
+
+###  http://www.modsem.org/fakt-news#reviewContent
+:reviewContent rdf:type owl:DatatypeProperty ;
+               rdfs:domain :Review ;
+               rdfs:range xsd:string .
+
 
 #################################################################
 #    Classes
 #################################################################
 
-###  http://www.semanticweb.org/fakt-news#Author
-fn:Author rdf:type owl:Class .
+###  http://schema.org/CreativeWork
+schema:CreativeWork rdf:type owl:Class ;
+                    owl:equivalentClass :DigitalDocument ;
+                    rdfs:subClassOf prov:Entity ;
+                    rdfs:comment "The most generic kind of creative work, including books, movies, photographs, software programs, etc."@en ;
+                    rdfs:label "Creative Work"@en .
 
 
-###  http://www.semanticweb.org/fakt-news#Credibility
-fn:Credibility rdf:type owl:Class .
+###  http://www,modsem,org/fakt-news#Person
+<http://www,modsem,org/fakt-news#Person> rdf:type owl:Class ;
+                                         owl:equivalentClass foaf:Person ;
+                                         rdfs:subClassOf prov:Agent ;
+                                         rdfs:comment ""@en ;
+                                         rdfs:label "Person"@en .
 
 
-###  http://www.semanticweb.org/fakt-news#Evidence
-fn:Evidence rdf:type owl:Class .
+###  http://www.modsem.org/fakt-news#AlternativesList
+:AlternativesList rdf:type owl:Class ;
+                  rdfs:subClassOf prov:Entity ;
+                  rdfs:comment "A list of claims from which the fact-checker chooses the claim to verify."@en ;
+                  rdfs:label "Alternatives List"@en .
 
 
-###  http://www.semanticweb.org/fakt-news#Fact-checker
-fn:Fact-checker rdf:type owl:Class .
+###  http://www.modsem.org/fakt-news#Author
+:Author rdf:type owl:Class ;
+        rdfs:subClassOf prov:Role ;
+        rdfs:comment "An author of a digital document. It could be for example a Fact-Checker or a Claim Author."@en ;
+        rdfs:label "Author"@en .
 
 
-###  http://www.semanticweb.org/fakt-news#Motivations
-fn:Motivations rdf:type owl:Class .
+###  http://www.modsem.org/fakt-news#Capacity
+:Capacity rdf:type owl:Class ;
+          rdfs:subClassOf prov:Entity ;
+          rdfs:comment "The official position or function that somebody has."@en ;
+          rdfs:label "Capacity"@en ;
+          skos:altLabel "Function"@en .
 
 
-###  http://www.semanticweb.org/fakt-news#Review
-fn:Review rdf:type owl:Class .
+###  http://www.modsem.org/fakt-news#Claim
+:Claim rdf:type owl:Class ;
+       owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                    owl:onProperty :isClaimedBy ;
+                                                    owl:someValuesFrom :Claimant
+                                                  ]
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty :wasOutputOfSelection ;
+                                                    owl:allValuesFrom :SelectionActivity
+                                                  ]
+                                                ) ;
+                             rdf:type owl:Class
+                           ] ;
+       rdfs:subClassOf :DigitalDocument ;
+       rdfs:comment "A statement by an entity about a topic."@en ;
+       rdfs:label "Claim"@en ;
+       skos:altLabel "Statement"@en .
 
 
-###  http://www.semanticweb.org/fakt-news#Statement
-fn:Statement rdf:type owl:Class .
+###  http://www.modsem.org/fakt-news#ClaimEvaluationActivity
+:ClaimEvaluationActivity rdf:type owl:Class ;
+                         rdfs:subClassOf prov:Activity ;
+                         rdfs:comment "Last activity of fact checking process. In this activity fact checkers produces a piece of work, the review, about one or more claims supported by one or more piece of evidences."^^xsd:string ;
+                         rdfs:label "Claim Evaluation Activity"@en .
+
+
+###  http://www.modsem.org/fakt-news#Claimant
+:Claimant rdf:type owl:Class ;
+          owl:equivalentClass [ rdf:type owl:Restriction ;
+                                owl:onProperty :create ;
+                                owl:someValuesFrom :Claim
+                              ] ;
+          rdfs:subClassOf prov:Role ;
+          rdfs:comment "The entity who state the claim."@en ;
+          rdfs:label "Claimant"@en .
+
+
+###  http://www.modsem.org/fakt-news#CodeOfPrinciples
+:CodeOfPrinciples rdf:type owl:Class ;
+                  rdfs:subClassOf prov:Entity .
+
+
+###  http://www.modsem.org/fakt-news#ConfirmedFact
+:ConfirmedFact rdf:type owl:Class ;
+               rdfs:subClassOf :Judgment ;
+               rdfs:comment "The claim content presents facts totally supported by evidence."@en ;
+               rdfs:label "Confirmed Fact"@en .
+
+
+###  http://www.modsem.org/fakt-news#DeceptiveEditing
+:DeceptiveEditing rdf:type owl:Class ;
+                  rdfs:subClassOf :Judgment ;
+                  rdfs:comment "The claim content presents facts that has been edited and rearranged in such way that ​likely to make the receiver believe something that is not true."@en ;
+                  rdfs:label "Deceptive Editing"@en .
+
+
+###  http://www.modsem.org/fakt-news#DigitalDocument
+:DigitalDocument rdf:type owl:Class ;
+                 rdfs:subClassOf prov:Entity .
+
+
+###  http://www.modsem.org/fakt-news#DisprovingEvidence
+:DisprovingEvidence rdf:type owl:Class ;
+                    rdfs:subClassOf :Evidence ;
+                    rdfs:label "Disproving Evidence"@en .
+
+
+###  http://www.modsem.org/fakt-news#Doctoring
+:Doctoring rdf:type owl:Class ;
+           rdfs:subClassOf :MaliciousTransfromation ;
+           rdfs:comment "Altering the content of a claim adding or deleting visual, audio or textual information can deceive the receiver."@en ;
+           rdfs:label "Doctoring"@en .
+
+
+###  http://www.modsem.org/fakt-news#Editor
+:Editor rdf:type owl:Class ;
+        rdfs:subClassOf prov:Role .
+
+
+###  http://www.modsem.org/fakt-news#Evidence
+:Evidence rdf:type owl:Class ;
+          rdfs:subClassOf prov:Entity ;
+          owl:disjointUnionOf ( :DisprovingEvidence
+                                :SupportingEvidence
+                              ) ;
+          rdfs:comment "An evidence about a claim. Used in the verification stage of the fact-checking process."@en ;
+          rdfs:label "Evidence"@en .
+
+
+###  http://www.modsem.org/fakt-news#EvidenceSource
+:EvidenceSource rdf:type owl:Class ;
+                rdfs:subClassOf prov:Role ;
+                rdfs:comment "The source of the facts. It could be the entity that states the fact itself or reports it."@en ;
+                rdfs:label "Evidence Source"@en .
+
+
+###  http://www.modsem.org/fakt-news#ExternalSuggestion
+:ExternalSuggestion rdf:type owl:Class ;
+                    rdfs:subClassOf :Suggestion ;
+                    rdfs:comment "External Suggestion - A suggestion from the Reader or from some Recomender System."@en .
+
+
+###  http://www.modsem.org/fakt-news#Fabrication
+:Fabrication rdf:type owl:Class ;
+             rdfs:subClassOf :MaliciousTransfromation ;
+             rdfs:comment "Using Artificial Intelligence to create high-quality content as fake language content, fake images, fake video, simulates audio and convincingly swaps out background images."@en ;
+             rdfs:label "Fabrication"@en .
+
+
+###  http://www.modsem.org/fakt-news#FactChecker
+:FactChecker rdf:type owl:Class ;
+             owl:equivalentClass [ rdf:type owl:Restriction ;
+                                   owl:onProperty :create ;
+                                   owl:someValuesFrom :Review
+                                 ] ;
+             rdfs:subClassOf prov:Role ;
+             rdfs:comment "The entity that produces a review of a claim given the claim itself and the evidence supporting it."@en ;
+             rdfs:label "Fact Checker"@en .
+
+
+###  http://www.modsem.org/fakt-news#FactCheckingAuthority
+:FactCheckingAuthority rdf:type owl:Class ;
+                       owl:equivalentClass [ rdf:type owl:Class ;
+                                             owl:oneOf ( :DukeReportersLab
+                                                         :EUCode
+                                                         :IFCN
+                                                       )
+                                           ] ;
+                       rdfs:subClassOf :Organization ;
+                       rdfs:comment "The Fact Checking autority that monitors trends, formats and policy-making about fact-checking worldwide. It promotes and checks the committment of the fact checking organisations to ethical code standards."@en ;
+                       rdfs:label "Fact Checking Authority"@en .
+
+
+###  http://www.modsem.org/fakt-news#FactCheckingOrganization
+:FactCheckingOrganization rdf:type owl:Class ;
+                          rdfs:subClassOf :Organization ;
+                          rdfs:label "Fact Checking Organisation"@en .
+
+
+###  http://www.modsem.org/fakt-news#FactCheckingProcess
+:FactCheckingProcess rdf:type owl:Class ;
+                     owl:equivalentClass [ owl:intersectionOf ( prov:Plan
+                                                                [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty :hasActivity ;
+                                                                  owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                  owl:onClass :ClaimEvaluationActivity
+                                                                ]
+                                                                [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty :hasActivity ;
+                                                                  owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                  owl:onClass :SelectionActivity
+                                                                ]
+                                                                [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty :hasActivity ;
+                                                                  owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                  owl:onClass :VerificationActivity
+                                                                ]
+                                                              ) ;
+                                           rdf:type owl:Class
+                                         ] .
+
+
+###  http://www.modsem.org/fakt-news#InternalSuggestion
+:InternalSuggestion rdf:type owl:Class ;
+                    rdfs:subClassOf :Suggestion ;
+                    rdfs:comment "Internal Suggestion - A suggestion from the Staff."@en .
+
+
+###  http://www.modsem.org/fakt-news#Isolation
+:Isolation rdf:type owl:Class ;
+           rdfs:subClassOf :MissingContext ;
+           rdfs:comment "Sharing a brief excerpt  from a longer story creates a false narrative that does not reflect the event as it occurred."@en ;
+           rdfs:label "Isolation"@en .
+
+
+###  http://www.modsem.org/fakt-news#Judgment
+:Judgment rdf:type owl:Class ;
+          rdfs:subClassOf prov:Entity ;
+          rdfs:comment "A concise judgemental statement given by the fact checker to motivate the review rating"@en ;
+          rdfs:label "Judgment"@en ;
+          skos:altLabel "Justification"@en ,
+                        "Reason"@en .
+
+
+###  http://www.modsem.org/fakt-news#MaliciousTransfromation
+:MaliciousTransfromation rdf:type owl:Class ;
+                         rdfs:subClassOf :Judgment ;
+                         rdfs:comment "Part or all of the claim content has been manipulated to transform the content itself."@en ;
+                         rdfs:label "Malicious Transformation"@en .
+
+
+###  http://www.modsem.org/fakt-news#Mention
+:Mention rdf:type owl:Class ;
+         rdfs:subClassOf prov:Entity ;
+         rdfs:comment "A mention about an entity within a review."@en ;
+         rdfs:label "Mention"@en .
+
+
+###  http://www.modsem.org/fakt-news#Misrepresentation
+:Misrepresentation rdf:type owl:Class ;
+                   rdfs:subClassOf :MissingContext ;
+                   rdfs:comment "Presenting unaltered content in an inaccurate manner misrepresents the content itself and misleads the receiver"@en ;
+                   rdfs:label "Misrepresentation"@en .
+
+
+###  http://www.modsem.org/fakt-news#MissingContext
+:MissingContext rdf:type owl:Class ;
+                rdfs:subClassOf :Judgment ;
+                rdfs:comment "The claim content lacks or misstates the context in which events occurred."@en ;
+                rdfs:label "Missing Context"@en .
+
+
+###  http://www.modsem.org/fakt-news#NotClearGeographyContext
+:NotClearGeographyContext rdf:type owl:Class ;
+                          rdfs:subClassOf :Misrepresentation ;
+                          rdfs:comment "The geographic context is incorrect or not clear such as event incorrect location."@en ;
+                          rdfs:label "Not Clear Geography Context"@en ;
+                          skos:altLabel "Misrepresented Geography Context"@en .
+
+
+###  http://www.modsem.org/fakt-news#NotClearPeriodContext
+:NotClearPeriodContext rdf:type owl:Class ;
+                       rdfs:subClassOf :Misrepresentation ;
+                       rdfs:comment "The time context is incorrect or not clear such as event incorrect date."@en ;
+                       rdfs:label "Not Clear Time Period Context"@en ;
+                       skos:altLabel "Misrepresented Time Period Context"@en .
+
+
+###  http://www.modsem.org/fakt-news#NotClearSubject
+:NotClearSubject rdf:type owl:Class ;
+                 rdfs:subClassOf :Misrepresentation ;
+                 rdfs:comment "The subject entity of the claim is incorrect or not clear."@en ;
+                 rdfs:label "Not Clear Subject"@en ;
+                 skos:altLabel "Misrepresented Subject"@en .
+
+
+###  http://www.modsem.org/fakt-news#Omission
+:Omission rdf:type owl:Class ;
+          rdfs:subClassOf :DeceptiveEditing ;
+          rdfs:comment "Editing out large portions from a video and presenting it as a complete narrative, despite missing key elements, produce a skew reality."@en ;
+          rdfs:label "Omission"@en .
+
+
+###  http://www.modsem.org/fakt-news#Organization
+:Organization rdf:type owl:Class ;
+              rdfs:subClassOf prov:Agent ;
+              rdfs:comment "A group of persons grouped together or organized for some purpose or work."@en ;
+              rdfs:label "Organization"@en .
+
+
+###  http://www.modsem.org/fakt-news#QualitativeClaim
+:QualitativeClaim rdf:type owl:Class ;
+                  rdfs:subClassOf :Judgment ;
+                  rdfs:comment "The claim use qualitative information in place of quantitative descriptions that are open to the receiver interpretation."^^xsd:string ;
+                  rdfs:label "Qualitative Claim"@en ;
+                  skos:example "\"... in my past five years as leader, I have increased employment.\" is a qualitative claim. This could corresponds to a quantitive information as \"In the past five years, employment has risen from 95.0% to 95.05%.\""^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#Rating
+:Rating rdf:type owl:Class ;
+        rdfs:subClassOf prov:Entity ;
+        rdfs:comment "A rating of a review within a known evaluation meter. The rating value can belong to an external rating system."@en ;
+        rdfs:label "Rating"@en .
+
+
+###  http://www.modsem.org/fakt-news#Review
+:Review rdf:type owl:Class ;
+        owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :isReviewedBy ;
+                                                     owl:someValuesFrom :FactChecker
+                                                   ]
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :wasOutputOfClaimEvaluation ;
+                                                     owl:allValuesFrom :ClaimEvaluationActivity
+                                                   ]
+                                                 ) ;
+                              rdf:type owl:Class
+                            ] ;
+        rdfs:subClassOf :DigitalDocument ;
+        rdfs:comment "The final document that contains the review of a claim by a fact-checker."^^xsd:string ;
+        rdfs:label "Review"@en .
+
+
+###  http://www.modsem.org/fakt-news#SelectionActivity
+:SelectionActivity rdf:type owl:Class ;
+                   rdfs:subClassOf prov:Activity ;
+                   rdfs:comment "First activity of fact checking process. In this activity fact checkers select one or more claims from a list of suggested alternatives guided by the selection policy."@en ;
+                   rdfs:label "Selection Activity"@en .
+
+
+###  http://www.modsem.org/fakt-news#SelectionPolicy
+:SelectionPolicy rdf:type owl:Class ;
+                 rdfs:subClassOf prov:Entity ;
+                 rdfs:comment "The claim selection policy of a given entity."@en ;
+                 rdfs:label "Selection Policy"@en .
+
+
+###  http://www.modsem.org/fakt-news#SoftwareAgent
+:SoftwareAgent rdf:type owl:Class ;
+               rdfs:subClassOf prov:Agent ;
+               rdfs:label "Software Agent"@en ;
+               skos:altLabel "Bot, Software"@en .
+
+
+###  http://www.modsem.org/fakt-news#Splicing
+:Splicing rdf:type owl:Class ;
+          rdfs:subClassOf :DeceptiveEditing ;
+          rdfs:comment "Editing together different excerpts fundamentally alters the story that is being told. An example is glueing together quotes without context."@en ;
+          rdfs:label "Splicing"@en .
+
+
+###  http://www.modsem.org/fakt-news#Suggestion
+:Suggestion rdf:type owl:Class ;
+            rdfs:subClassOf prov:Entity .
+
+
+###  http://www.modsem.org/fakt-news#SupportingEvidence
+:SupportingEvidence rdf:type owl:Class ;
+                    rdfs:subClassOf :Evidence ;
+                    rdfs:label "Supporting Evidence"@en .
+
+
+###  http://www.modsem.org/fakt-news#TrustedSource
+:TrustedSource rdf:type owl:Class ;
+               owl:equivalentClass [ rdf:type owl:Class ;
+                                     owl:unionOf ( [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :capacityType ;
+                                                     owl:hasValue "Government"
+                                                   ]
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :capacityType ;
+                                                     owl:hasValue "NGO"
+                                                   ]
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :capacityType ;
+                                                     owl:hasValue "Think Tank"
+                                                   ]
+                                                 )
+                                   ] ;
+               rdfs:subClassOf :EvidenceSource .
+
+
+###  http://www.modsem.org/fakt-news#VerificationActivity
+:VerificationActivity rdf:type owl:Class ;
+                      rdfs:subClassOf prov:Activity ;
+                      rdfs:comment "In this activity fact checkers searches piece of evidences to verify the validity of a given claim"@en ;
+                      rdfs:label "Verification Activity"@en .
+
+
+###  http://www.w3.org/ns/prov#Activity
+prov:Activity rdf:type owl:Class ;
+              rdfs:comment "An activity is something that occurs over a period of time and acts upon or with entities; it may include consuming, processing, transforming, modifying, relocating, using, or generating entities."@en ;
+              rdfs:label "Activity"@en .
+
+
+###  http://www.w3.org/ns/prov#Agent
+prov:Agent rdf:type owl:Class ;
+           rdfs:comment "An agent is something that bears some form of responsibility for an activity taking place, for the existence of an entity, or for another agent's activity."@en ;
+           rdfs:label "Agent"@en .
+
+
+###  http://www.w3.org/ns/prov#Association
+prov:Association rdf:type owl:Class ;
+                 rdfs:comment "An activity association is an assignment of responsibility to an agent for an activity, indicating that the agent had a role in the activity. It further allows for a plan to be specified, which is the plan intended by the agent to achieve some goals in the context of this activity."@en ;
+                 rdfs:label "Association"@en .
+
+
+###  http://www.w3.org/ns/prov#Entity
+prov:Entity rdf:type owl:Class ;
+            rdfs:comment "An entity is a physical, digital, conceptual, or other kind of thing with some fixed aspects; entities may be real or imaginary."@en ;
+            rdfs:label "Entity"@en .
+
+
+###  http://www.w3.org/ns/prov#Plan
+prov:Plan rdf:type owl:Class ;
+          rdfs:subClassOf prov:Entity .
+
+
+###  http://www.w3.org/ns/prov#Role
+prov:Role rdf:type owl:Class ;
+          rdfs:comment "A role is the function of an entity or agent with respect to an activity, in the context of a usage, generation, invalidation, association, start, and end."@en ;
+          rdfs:label "Role"@en .
+
+
+###  http://xmlns.com/foaf/0.1/Person
+foaf:Person rdf:type owl:Class ;
+            rdfs:comment "The Person class represents people. Something is a Person if it is a person. We don't nitpic about whether they're alive, dead, real, or imaginary. The Person class is a sub-class of the Agent class, since all people are considered 'agents' in FOAF."@en ;
+            rdfs:label "Person"@en .
 
 
 #################################################################
 #    Individuals
 #################################################################
 
-###  http://www.semanticweb.org/fakt-news#Ciccio
-fn:Ciccio rdf:type owl:NamedIndividual ,
-                   fn:Author .
+###  http://www.modsem.org/fakt-news#Activity_Claim_Evaluation
+:Activity_Claim_Evaluation rdf:type owl:NamedIndividual ,
+                                    :ClaimEvaluationActivity ;
+                           :isLastActivityOfPlan :Fact_Checking_Process .
+
+
+###  http://www.modsem.org/fakt-news#Activity_Selection
+:Activity_Selection rdf:type owl:NamedIndividual ,
+                             :SelectionActivity ;
+                    :isFirstActivityOfPlan :Fact_Checking_Process .
+
+
+###  http://www.modsem.org/fakt-news#Activity_Verification
+:Activity_Verification rdf:type owl:NamedIndividual ,
+                                :VerificationActivity ;
+                       :hasNextActivity :Activity_Claim_Evaluation ;
+                       :hasPreviousActivity :Activity_Selection ;
+                       :isActivityOfPlan :Fact_Checking_Process .
+
+
+###  http://www.modsem.org/fakt-news#Claim_President_USA
+:Claim_President_USA rdf:type owl:NamedIndividual ,
+                              :Claim .
+
+
+###  http://www.modsem.org/fakt-news#DukeReportersLab
+:DukeReportersLab rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#EUCode
+:EUCode rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Evidence_President_USA
+:Evidence_President_USA rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Fact_Checking_Process
+:Fact_Checking_Process rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#IFCN
+:IFCN rdf:type owl:NamedIndividual ;
+      :createCodeOfPrinciples :IFCNCode .
+
+
+###  http://www.modsem.org/fakt-news#IFCNCode
+:IFCNCode rdf:type owl:NamedIndividual ,
+                   :CodeOfPrinciples .
+
+
+###  http://www.modsem.org/fakt-news#LaVoceInfo
+:LaVoceInfo rdf:type owl:NamedIndividual ,
+                     :FactCheckingOrganization .
+
+
+###  http://www.modsem.org/fakt-news#PagellaPolitica
+:PagellaPolitica rdf:type owl:NamedIndividual ,
+                          :FactCheckingOrganization ;
+                 :observeCodeOfPrinciples :IFCNCode .
+
+
+###  http://www.modsem.org/fakt-news#Person_John_Doe
+:Person_John_Doe rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Person_President_USA
+:Person_President_USA rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#PolitiFact
+:PolitiFact rdf:type owl:NamedIndividual ,
+                     :FactCheckingOrganization ;
+            :observeCodeOfPrinciples :IFCNCode .
+
+
+###  http://www.modsem.org/fakt-news#Review_on_Claim_President_USA
+:Review_on_Claim_President_USA rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Role_John_Doe
+:Role_John_Doe rdf:type owl:NamedIndividual ,
+                        :FactChecker .
+
+
+###  http://www.modsem.org/fakt-news#evidence-d1
+:evidence-d1 rdf:type owl:NamedIndividual ,
+                      :DisprovingEvidence .
+
+
+###  http://www.modsem.org/fakt-news#evidence-s1
+:evidence-s1 rdf:type owl:NamedIndividual ,
+                      :SupportingEvidence .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( <http://www,modsem,org/fakt-news#Person>
+                :Organization
+                :SoftwareAgent
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :ClaimEvaluationActivity
+                :SelectionActivity
+                :VerificationActivity
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( prov:Activity
+                prov:Agent
+                prov:Entity
+              )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Activity_Claim_Evaluation
+                        :Activity_Selection
+                        :Activity_Verification
+                      )
+] .
 
 
 ###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
