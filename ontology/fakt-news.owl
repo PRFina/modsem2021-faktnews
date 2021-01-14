@@ -1,4 +1,5 @@
 @prefix : <http://www.modsem.org/fakt-news#> .
+@prefix dct: <http://purl.org/dc/terms/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
@@ -44,7 +45,6 @@ dcterms:creator rdf:type owl:ObjectProperty ;
                 rdfs:subPropertyOf prov:wasAttributedTo ;
                 owl:inverseOf :create ;
                 rdfs:domain schema:CreativeWork ;
-                rdfs:range :Author ;
                 rdfs:comment "An entity responsible for making the resource."@en ;
                 rdfs:label "Creator"@en .
 
@@ -76,9 +76,7 @@ dcterms:creator rdf:type owl:ObjectProperty ;
 
 
 ###  http://www.modsem.org/fakt-news#create
-:create rdf:type owl:ObjectProperty ;
-        rdfs:domain prov:Agent ;
-        rdfs:range prov:Entity .
+:create rdf:type owl:ObjectProperty .
 
 
 ###  http://www.modsem.org/fakt-news#createCodeOfPrinciples
@@ -170,8 +168,7 @@ dcterms:creator rdf:type owl:ObjectProperty ;
 ###  http://www.modsem.org/fakt-news#isClaimedBy
 :isClaimedBy rdf:type owl:ObjectProperty ;
              rdfs:subPropertyOf dcterms:creator ;
-             rdfs:domain :Claim ;
-             rdfs:range :Claimant .
+             rdfs:domain :Claim .
 
 
 ###  http://www.modsem.org/fakt-news#isFirstActivityOfPlan
@@ -208,8 +205,7 @@ dcterms:creator rdf:type owl:ObjectProperty ;
 ###  http://www.modsem.org/fakt-news#isReviewedBy
 :isReviewedBy rdf:type owl:ObjectProperty ;
               rdfs:subPropertyOf dcterms:creator ;
-              rdfs:domain :Review ;
-              rdfs:range :FactChecker .
+              rdfs:domain :Review .
 
 
 ###  http://www.modsem.org/fakt-news#mentions
@@ -458,7 +454,7 @@ schema:CreativeWork rdf:type owl:Class ;
 :Claim rdf:type owl:Class ;
        owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
                                                     owl:onProperty :isClaimedBy ;
-                                                    owl:someValuesFrom :Claimant
+                                                    owl:someValuesFrom prov:Agent
                                                   ]
                                                   [ rdf:type owl:Restriction ;
                                                     owl:onProperty :wasOutputOfSelection ;
@@ -482,10 +478,6 @@ schema:CreativeWork rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#Claimant
 :Claimant rdf:type owl:Class ;
-          owl:equivalentClass [ rdf:type owl:Restriction ;
-                                owl:onProperty :create ;
-                                owl:someValuesFrom :Claim
-                              ] ;
           rdfs:subClassOf prov:Role ;
           rdfs:comment "The entity who state the claim."@en ;
           rdfs:label "Claimant"@en .
@@ -565,10 +557,6 @@ schema:CreativeWork rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#FactChecker
 :FactChecker rdf:type owl:Class ;
-             owl:equivalentClass [ rdf:type owl:Restriction ;
-                                   owl:onProperty :create ;
-                                   owl:someValuesFrom :Review
-                                 ] ;
              rdfs:subClassOf prov:Role ;
              rdfs:comment "The entity that produces a review of a claim given the claim itself and the evidence supporting it."@en ;
              rdfs:label "Fact Checker"@en .
@@ -723,7 +711,7 @@ schema:CreativeWork rdf:type owl:Class ;
 :Review rdf:type owl:Class ;
         owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
                                                      owl:onProperty :isReviewedBy ;
-                                                     owl:someValuesFrom :FactChecker
+                                                     owl:someValuesFrom prov:Agent
                                                    ]
                                                    [ rdf:type owl:Restriction ;
                                                      owl:onProperty :wasOutputOfClaimEvaluation ;
@@ -851,7 +839,9 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#Activity_Claim_Evaluation
 :Activity_Claim_Evaluation rdf:type owl:NamedIndividual ,
                                     :ClaimEvaluationActivity ;
-                           :isLastActivityOfPlan :Fact_Checking_Process .
+                           :isLastActivityOfPlan :Fact_Checking_Process ;
+                           prov:qualifiedAssociation :Association_John_Doe ;
+                           prov:wasAssociatedWith :Person_John_Doe .
 
 
 ###  http://www.modsem.org/fakt-news#Activity_Selection
@@ -866,6 +856,13 @@ foaf:Person rdf:type owl:Class ;
                        :hasNextActivity :Activity_Claim_Evaluation ;
                        :hasPreviousActivity :Activity_Selection ;
                        :isActivityOfPlan :Fact_Checking_Process .
+
+
+###  http://www.modsem.org/fakt-news#Association_John_Doe
+:Association_John_Doe rdf:type owl:NamedIndividual ,
+                               prov:Association ;
+                      prov:agent :Person_John_Doe ;
+                      prov:hadRole :Role_John_Doe .
 
 
 ###  http://www.modsem.org/fakt-news#Claim_President_USA
@@ -925,7 +922,8 @@ foaf:Person rdf:type owl:Class ;
 
 
 ###  http://www.modsem.org/fakt-news#Review_on_Claim_President_USA
-:Review_on_Claim_President_USA rdf:type owl:NamedIndividual .
+:Review_on_Claim_President_USA rdf:type owl:NamedIndividual ;
+                               :isReviewedBy :Person_John_Doe .
 
 
 ###  http://www.modsem.org/fakt-news#Role_John_Doe
