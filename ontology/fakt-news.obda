@@ -1,5 +1,6 @@
 [PrefixDeclaration]
 :		http://www.modsem.org/fakt-news#
+dct:		http://purl.org/dc/terms/
 owl:		http://www.w3.org/2002/07/owl#
 rdf:		http://www.w3.org/1999/02/22-rdf-syntax-ns#
 xml:		http://www.w3.org/XML/1998/namespace
@@ -13,8 +14,10 @@ schema:		http://schema.org/
 dcterms:		http://purl.org/dc/terms/
 
 [MappingDeclaration] @collection [[
-mappingId	MAPID-14226544ab9b43e2adc3c9b42a93fbe3
-target		:fact_checkers{name} a :FactChecker . 
-source		select name from fact_checkers
+mappingId	MAPID-19d3bcb9c0984b979772ea5740c8b200
+target		:review{rid} a :Review ; prov:wasGeneratedBy :activity{aid} ; :reviewContent {review_content} . :activity{aid} a prov:Activity . 
+source		select review.id as rid, review.review_content, activity.id as aid, activity.name 
+			from review, activity 
+			where activity.id = review.activity_id
 ]]
 
