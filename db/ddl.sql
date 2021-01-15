@@ -18,7 +18,7 @@ DROP TABLE IF EXISTS agent;
 CREATE TABLE agent(
     id uuid DEFAULT uuid_generate_v4(),
     name TEXT,
-    typology TEXT,
+    tipology TEXT,
     CONSTRAINT agent_pk PRIMARY KEY (id)
 );
 -- INSERT INTO agent (name, typology) values
