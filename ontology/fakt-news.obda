@@ -16,8 +16,8 @@ dcterms:		http://purl.org/dc/terms/
 [MappingDeclaration] @collection [[
 mappingId	MAPID-19d3bcb9c0984b979772ea5740c8b200
 target		:review{rid} a :Review ; prov:wasGeneratedBy :activity{aid} ; :reviewContent {review_content} . :activity{aid} a prov:Activity . 
-source		select review.id as rid, review.review_content, activity.id as aid, activity.name 
-			from review, activity 
+source		select review.id as rid, review.review_content, activity.id as aid, activity.name
+			from review, activity
 			where activity.id = review.activity_id
 ]]
 

@@ -49,13 +49,6 @@ dcterms:creator rdf:type owl:ObjectProperty ;
                 rdfs:label "Creator"@en .
 
 
-###  http://www.modsem.org/fakt-news#affiliation
-:affiliation rdf:type owl:ObjectProperty ;
-             rdfs:domain prov:Agent ;
-             rdfs:range :Organization ;
-             rdfs:label "Affiliation"@en .
-
-
 ###  http://www.modsem.org/fakt-news#associatedReview
 :associatedReview rdf:type owl:ObjectProperty ;
                   rdfs:subPropertyOf owl:topObjectProperty ;
@@ -225,7 +218,7 @@ dcterms:creator rdf:type owl:ObjectProperty ;
 ###  http://www.modsem.org/fakt-news#supportedBy
 :supportedBy rdf:type owl:ObjectProperty ;
              rdfs:domain :Evidence ;
-             rdfs:range schema:CreativeWork ;
+             rdfs:range :DigitalDocument ;
              rdfs:comment "A review is supported by a materialization of some sort of document (for example a subtype of creative work)."@en .
 
 
