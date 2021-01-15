@@ -83,7 +83,7 @@ dcterms:creator rdf:type owl:ObjectProperty ;
 :derivedFromSource rdf:type owl:ObjectProperty ;
                    rdfs:subPropertyOf prov:wasAttributedTo ;
                    rdfs:domain :Evidence ;
-                   rdfs:range :EvidenceSource .
+                   rdfs:range :Source .
 
 
 ###  http://www.modsem.org/fakt-news#hasActivity
@@ -535,13 +535,6 @@ schema:CreativeWork rdf:type owl:Class ;
           rdfs:label "Evidence"@en .
 
 
-###  http://www.modsem.org/fakt-news#EvidenceSource
-:EvidenceSource rdf:type owl:Class ;
-                rdfs:subClassOf prov:Role ;
-                rdfs:comment "The source of the facts. It could be the entity that states the fact itself or reports it."@en ;
-                rdfs:label "Evidence Source"@en .
-
-
 ###  http://www.modsem.org/fakt-news#ExternalSuggestion
 :ExternalSuggestion rdf:type owl:Class ;
                     rdfs:subClassOf :Suggestion ;
@@ -601,7 +594,8 @@ schema:CreativeWork rdf:type owl:Class ;
                                                                 ]
                                                               ) ;
                                            rdf:type owl:Class
-                                         ] .
+                                         ] ;
+                     rdfs:label "Fact Checking Process"@en .
 
 
 ###  http://www.modsem.org/fakt-news#InternalSuggestion
@@ -746,6 +740,13 @@ schema:CreativeWork rdf:type owl:Class ;
                skos:altLabel "Bot, Software"@en .
 
 
+###  http://www.modsem.org/fakt-news#Source
+:Source rdf:type owl:Class ;
+        rdfs:subClassOf prov:Role ;
+        rdfs:comment "The source of the facts. It could be the entity that states the fact itself or reports it."@en ;
+        rdfs:label "Source"@en .
+
+
 ###  http://www.modsem.org/fakt-news#Splicing
 :Splicing rdf:type owl:Class ;
           rdfs:subClassOf :DeceptiveEditing ;
@@ -781,7 +782,8 @@ schema:CreativeWork rdf:type owl:Class ;
                                                    ]
                                                  )
                                    ] ;
-               rdfs:subClassOf :EvidenceSource .
+               rdfs:subClassOf :Source ;
+               rdfs:label "Trusted Source"@en .
 
 
 ###  http://www.modsem.org/fakt-news#VerificationActivity
@@ -817,7 +819,8 @@ prov:Entity rdf:type owl:Class ;
 
 ###  http://www.w3.org/ns/prov#Plan
 prov:Plan rdf:type owl:Class ;
-          rdfs:subClassOf prov:Entity .
+          rdfs:subClassOf prov:Entity ;
+          rdfs:label "Plan"@en .
 
 
 ###  http://www.w3.org/ns/prov#Role

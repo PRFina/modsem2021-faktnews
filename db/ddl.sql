@@ -21,6 +21,11 @@ CREATE TABLE agent(
     typology TEXT,
     CONSTRAINT agent_pk PRIMARY KEY (id)
 );
+-- INSERT INTO agent (name, typology) values
+-- 	('John Doe','Person'),
+-- 	('Donald Trump','Person'),
+-- 	('International Fact Checking Organisation','Authority'),
+-- 	('Politifact','Fact Checking Organisation');
 
 DROP TABLE IF EXISTS judgment;
 CREATE TABLE judgment(
@@ -92,6 +97,7 @@ CREATE TABLE evidences(
     id uuid DEFAULT uuid_generate_v4 (),
     review_id uuid,
     evidence_id uuid,
+    is_proving BOOLEAN, -- TODO: decidere se modellarlo così oppure con un campo "tipology TEXT" in cui si scrive se proving o disproving.
     CONSTRAINT evidences_pk PRIMARY KEY (id),
     CONSTRAINT evidences_review_fk FOREIGN KEY (review_id) REFERENCES review(id) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT evidences_evidence_fk FOREIGN KEY (evidence_id) REFERENCES evidence(id) ON DELETE CASCADE ON UPDATE CASCADE
