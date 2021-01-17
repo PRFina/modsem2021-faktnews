@@ -420,14 +420,6 @@ schema:CreativeWork rdf:type owl:Class ;
                     rdfs:label "Creative Work"@en .
 
 
-###  http://www,modsem,org/fakt-news#Person
-<http://www,modsem,org/fakt-news#Person> rdf:type owl:Class ;
-                                         owl:equivalentClass foaf:Person ;
-                                         rdfs:subClassOf prov:Agent ;
-                                         rdfs:comment ""@en ;
-                                         rdfs:label "Person"@en .
-
-
 ###  http://www.modsem.org/fakt-news#AlternativesList
 :AlternativesList rdf:type owl:Class ;
                   rdfs:subClassOf prov:Entity ;
@@ -686,6 +678,14 @@ schema:CreativeWork rdf:type owl:Class ;
               rdfs:label "Organization"@en .
 
 
+###  http://www.modsem.org/fakt-news#Person
+:Person rdf:type owl:Class ;
+        owl:equivalentClass foaf:Person ;
+        rdfs:subClassOf prov:Agent ;
+        rdfs:comment ""@en ;
+        rdfs:label "Person"@en .
+
+
 ###  http://www.modsem.org/fakt-news#QualitativeClaim
 :QualitativeClaim rdf:type owl:Class ;
                   rdfs:subClassOf :Judgment ;
@@ -895,18 +895,6 @@ foaf:Person rdf:type owl:Class ;
 :Evidence_President_USA rdf:type owl:NamedIndividual .
 
 
-###  http://www.modsem.org/fakt-news#FCA-19f4c06b-aa57-458b-9c1f-b38277467034
-:FCA-19f4c06b-aa57-458b-9c1f-b38277467034 rdf:type owl:NamedIndividual ,
-                                                   prov:Agent ;
-                                          schema:name "International Fact Checking Organisation"^^xsd:string .
-
-
-###  http://www.modsem.org/fakt-news#FCO-f057f36d-037c-4ea7-8976-d38f2b81ee32
-:FCO-f057f36d-037c-4ea7-8976-d38f2b81ee32 rdf:type owl:NamedIndividual ,
-                                                   prov:Agent ;
-                                          schema:name "Politifact"^^xsd:string .
-
-
 ###  http://www.modsem.org/fakt-news#Fact_Checking_Process
 :Fact_Checking_Process rdf:type owl:NamedIndividual ,
                                 prov:Entity ,
@@ -942,24 +930,28 @@ foaf:Person rdf:type owl:Class ;
                      prov:Agent .
 
 
-###  http://www.modsem.org/fakt-news#PRS-a6064c27-a7d9-4352-8a9b-db763d20a0b3
-:PRS-a6064c27-a7d9-4352-8a9b-db763d20a0b3 rdf:type owl:NamedIndividual ,
-                                                   prov:Agent ;
-                                          schema:name "John Doe"^^xsd:string .
-
-
-###  http://www.modsem.org/fakt-news#PRS-aa275586-f907-436d-b6b1-34998c97d9ab
-:PRS-aa275586-f907-436d-b6b1-34998c97d9ab rdf:type owl:NamedIndividual ,
-                                                   prov:Agent ;
-                                          schema:name "Donald Trump"^^xsd:string .
-
-
 ###  http://www.modsem.org/fakt-news#PagellaPolitica
 :PagellaPolitica rdf:type owl:NamedIndividual ,
                           :FactCheckingOrganization ,
                           :Organization ,
                           prov:Agent ;
                  :observeCodeOfPrinciples :IFCNCode .
+
+
+###  http://www.modsem.org/fakt-news#Person-a6064c27-a7d9-4352-8a9b-db763d20a0b3
+:Person-a6064c27-a7d9-4352-8a9b-db763d20a0b3 rdf:type owl:NamedIndividual ,
+                                                      :Person ,
+                                                      prov:Agent ,
+                                                      foaf:Person ;
+                                             schema:name "John Doe"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#Person-aa275586-f907-436d-b6b1-34998c97d9ab
+:Person-aa275586-f907-436d-b6b1-34998c97d9ab rdf:type owl:NamedIndividual ,
+                                                      :Person ,
+                                                      prov:Agent ,
+                                                      foaf:Person ;
+                                             schema:name "Donald Trump"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#Person_John_Doe
@@ -1041,17 +1033,17 @@ foaf:Person rdf:type owl:Class ;
 #################################################################
 
 [ rdf:type owl:AllDisjointClasses ;
-  owl:members ( <http://www,modsem,org/fakt-news#Person>
-                :Organization
-                :SoftwareAgent
+  owl:members ( :ClaimEvaluationActivity
+                :SelectionActivity
+                :VerificationActivity
               )
 ] .
 
 
 [ rdf:type owl:AllDisjointClasses ;
-  owl:members ( :ClaimEvaluationActivity
-                :SelectionActivity
-                :VerificationActivity
+  owl:members ( :Organization
+                :Person
+                :SoftwareAgent
               )
 ] .
 

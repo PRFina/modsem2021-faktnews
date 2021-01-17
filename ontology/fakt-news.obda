@@ -15,8 +15,9 @@ dcterms:		http://purl.org/dc/terms/
 
 [MappingDeclaration] @collection [[
 mappingId	MAPID-3554a95b797e4ffd912bd284ea8cfcec
-target		:{typology}-{id} a prov:Agent ; schema:name {name} . 
+target		:{typology}-{id} a :Person ; schema:name {name} . 
 source		SELECT id, name, typology
-			FROM agent;
+			FROM agent
+			where typology = 'Person';
 ]]
 
