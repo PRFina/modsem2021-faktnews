@@ -49,6 +49,12 @@ dcterms:creator rdf:type owl:ObjectProperty ;
                 rdfs:label "Creator"@en .
 
 
+###  http://www.modsem.org/fakt-news#affiliatedTo
+:affiliatedTo rdf:type owl:ObjectProperty ;
+              rdfs:domain prov:Agent ;
+              rdfs:range prov:Agent .
+
+
 ###  http://www.modsem.org/fakt-news#associatedReview
 :associatedReview rdf:type owl:ObjectProperty ;
                   rdfs:subPropertyOf owl:topObjectProperty ;
@@ -363,12 +369,6 @@ schema:url rdf:type owl:DatatypeProperty ;
 :ratingAssociatedMedia rdf:type owl:DatatypeProperty ;
                        rdfs:domain :Rating ;
                        rdfs:range xsd:anyURI .
-
-
-###  http://www.modsem.org/fakt-news#ratingSystem
-:ratingSystem rdf:type owl:DatatypeProperty ;
-              rdfs:domain :Rating ;
-              rdfs:range xsd:anyURI .
 
 
 ###  http://www.modsem.org/fakt-news#ratingSystemComment
@@ -938,22 +938,6 @@ foaf:Person rdf:type owl:Class ;
                  :observeCodeOfPrinciples :IFCNCode .
 
 
-###  http://www.modsem.org/fakt-news#Person-a6064c27-a7d9-4352-8a9b-db763d20a0b3
-:Person-a6064c27-a7d9-4352-8a9b-db763d20a0b3 rdf:type owl:NamedIndividual ,
-                                                      :Person ,
-                                                      prov:Agent ,
-                                                      foaf:Person ;
-                                             schema:name "John Doe"^^xsd:string .
-
-
-###  http://www.modsem.org/fakt-news#Person-aa275586-f907-436d-b6b1-34998c97d9ab
-:Person-aa275586-f907-436d-b6b1-34998c97d9ab rdf:type owl:NamedIndividual ,
-                                                      :Person ,
-                                                      prov:Agent ,
-                                                      foaf:Person ;
-                                             schema:name "Donald Trump"^^xsd:string .
-
-
 ###  http://www.modsem.org/fakt-news#Person_John_Doe
 :Person_John_Doe rdf:type owl:NamedIndividual ,
                           prov:Agent ;
@@ -987,45 +971,6 @@ foaf:Person rdf:type owl:Class ;
 :Role_John_Doe rdf:type owl:NamedIndividual ,
                         :FactChecker ,
                         prov:Role .
-
-
-###  http://www.modsem.org/fakt-news#activity1
-:activity1 rdf:type owl:NamedIndividual ,
-                    prov:Activity .
-
-
-###  http://www.modsem.org/fakt-news#evidence-d1
-:evidence-d1 rdf:type owl:NamedIndividual ,
-                      :DisprovingEvidence ,
-                      :Evidence ,
-                      prov:Entity .
-
-
-###  http://www.modsem.org/fakt-news#evidence-s1
-:evidence-s1 rdf:type owl:NamedIndividual ,
-                      :Evidence ,
-                      :SupportingEvidence ,
-                      prov:Entity .
-
-
-###  http://www.modsem.org/fakt-news#review1
-:review1 rdf:type owl:NamedIndividual ,
-                  schema:CreativeWork ,
-                  :DigitalDocument ,
-                  :Review ,
-                  prov:Entity ;
-         prov:wasGeneratedBy :activity1 ;
-         :reviewContent "ciaone"^^xsd:string .
-
-
-###  http://www.modsem.org/fakt-news#review2
-:review2 rdf:type owl:NamedIndividual ,
-                  schema:CreativeWork ,
-                  :DigitalDocument ,
-                  :Review ,
-                  prov:Entity ;
-         prov:wasGeneratedBy :activity1 ;
-         :reviewContent "Testone"^^xsd:string .
 
 
 #################################################################

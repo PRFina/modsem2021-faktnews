@@ -58,6 +58,7 @@ CREATE TABLE review(
     content TEXT,
     pubblication_date DATE,
     url TEXT,
+    language varchar(2),
     rating_id uuid,
     judgment_id uuid,
     CONSTRAINT review_pk PRIMARY KEY (id),
@@ -81,6 +82,7 @@ CREATE TABLE claim(
     content TEXT,
     pubblication_date DATE,
     url TEXT,
+    language varchar(2),
     CONSTRAINT claim_pk PRIMARY KEY (id)
 );
 

@@ -14,10 +14,46 @@ schema:		http://schema.org/
 dcterms:		http://purl.org/dc/terms/
 
 [MappingDeclaration] @collection [[
-mappingId	MAPID-3554a95b797e4ffd912bd284ea8cfcec
-target		:{typology}-{id} a :Person ; schema:name {name} . 
-source		SELECT id, name, typology
+mappingId	MAPID-Person
+target		:P-{id} a :Person ; schema:name {name} . 
+source		SELECT id, name, tipology
 			FROM agent
-			where typology = 'Person';
+			where tipology = 'Person';
+
+mappingId	MAPID-Software-Agent
+target		:SA-{id} a :SoftwareAgent ; schema:name {name} . 
+source		SELECT id, name, tipology
+			FROM agent
+			where tipology = 'Software Agent';
+
+mappingId	MAPID-Organization
+target		:O-{id} a :Organization ; schema:name {name} . 
+source		SELECT id, name, tipology
+			FROM agent
+			WHERE NOT tipology = 'Person' AND NOT tipology = 'Software Agent';
+
+mappingId	MAPID-Claim
+target		:C-{id} a :Claim ; dct:title {title} ; dct:language {language} ; dct:date {pubblication_date} ; schema:url {url}^^xsd:anyURI . 
+source		select id, title, pubblication_date, url, language from claim
+
+mappingId	MAPID-Review
+target		:R-{id} a :Review ; dct:title {title} ; dct:language {language} ; dct:date {pubblication_date} ; schema:url {url}^^xsd:anyURI ; :reviewContent {content} . 
+source		select id, title, content, pubblication_date, url, language from review
+
+mappingId	MAPID-Judgment
+target		:J-{id} a :Judgment ; :judgmentSummary {value} . 
+source		select id, value from judgment
+
+mappingId	MAPID-Rating
+target		:RT-{id} a :Rating ; :ratingValue {value} ; :ratingAssociatedMedia {associated_media_url}^^xsd:anyURI ; :ratingSystemComment {system_comment} ; schema:url {system_url}^^xsd:anyURI . 
+source		select id, value, comment, associated_media_url, system_comment, system_url from rating
+
+mappingId	MAPID-Evidence
+target		:E-{id} a :Evidence ; schema:url {url}^^xsd:anyURI . 
+source		select id, url from evidence
+
+mappingId	MAPID-Source
+target		:S-{id} a :Source ; schema:name {name} ; schema:url {url}^^xsd:anyURI . 
+source		select id, name, url from source
 ]]
 
