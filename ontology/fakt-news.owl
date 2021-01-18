@@ -875,6 +875,30 @@ foaf:Person rdf:type owl:Class ;
                       prov:hadRole :Role_John_Doe .
 
 
+###  http://www.modsem.org/fakt-news#C-5f3ad358-b31b-4955-9f26-a48db50431f8
+:C-5f3ad358-b31b-4955-9f26-a48db50431f8 rdf:type owl:NamedIndividual ,
+                                                 schema:CreativeWork ,
+                                                 :Claim ,
+                                                 :DigitalDocument ,
+                                                 prov:Entity ;
+                                        dcterms:date "2020-10-05"^^xsd:date ;
+                                        dcterms:language "it"^^xsd:string ;
+                                        dcterms:title "Tweet di Nicola Zingaretti"^^xsd:string ;
+                                        schema:url "https://twitter.com/nzingaretti/status/1313218301200400389?ref_src=twsrc%5Etfw"^^xsd:anyURI .
+
+
+###  http://www.modsem.org/fakt-news#C-71e8b6da-242d-413f-b7d2-1ca1b0f9a54c
+:C-71e8b6da-242d-413f-b7d2-1ca1b0f9a54c rdf:type owl:NamedIndividual ,
+                                                 schema:CreativeWork ,
+                                                 :Claim ,
+                                                 :DigitalDocument ,
+                                                 prov:Entity ;
+                                        dcterms:date "2021-01-13"^^xsd:date ;
+                                        dcterms:language "it"^^xsd:string ;
+                                        dcterms:title "No, “genitore 1 e 2” non tornano sui documenti d’identità (non ci sono mai stati)"^^xsd:string ;
+                                        schema:url "https://twitter.com/matteosalvinimi/status/1349377644941479937"^^xsd:anyURI .
+
+
 ###  http://www.modsem.org/fakt-news#Claim_President_USA
 :Claim_President_USA rdf:type owl:NamedIndividual ,
                               schema:CreativeWork ,
@@ -885,6 +909,32 @@ foaf:Person rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#DukeReportersLab
 :DukeReportersLab rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#E-165c4038-340e-4206-a763-0ca88786d5e0
+:E-165c4038-340e-4206-a763-0ca88786d5e0 rdf:type owl:NamedIndividual ,
+                                                 schema:CreativeWork ,
+                                                 :DigitalDocument ,
+                                                 :Evidence ,
+                                                 prov:Entity ;
+                                        :derivedFromSource :S-436444a1-6f56-403d-9526-3d5469ba25a1 ;
+                                        prov:wasAttributedTo :S-436444a1-6f56-403d-9526-3d5469ba25a1 ;
+                                        dcterms:date "2020-10-05"^^xsd:date ;
+                                        dcterms:title "Nicola Zingaretti (@nzingaretti) October 5, 2020"^^xsd:string ;
+                                        schema:url "https://twitter.com/nzingaretti/status/1313218301200400389?ref_src=twsrc%5Etfw"^^xsd:anyURI .
+
+
+###  http://www.modsem.org/fakt-news#E-a32f018b-9da4-4de6-94ae-d1d664550f09
+:E-a32f018b-9da4-4de6-94ae-d1d664550f09 rdf:type owl:NamedIndividual ,
+                                                 schema:CreativeWork ,
+                                                 :DigitalDocument ,
+                                                 :Evidence ,
+                                                 prov:Entity ;
+                                        :derivedFromSource :S-436444a1-6f56-403d-9526-3d5469ba25a1 ;
+                                        prov:wasAttributedTo :S-436444a1-6f56-403d-9526-3d5469ba25a1 ;
+                                        dcterms:date "2021-01-13"^^xsd:date ;
+                                        dcterms:title "Matteo Salvini (@matteosalvinimi) January 13, 2021"^^xsd:string ;
+                                        schema:url "https://twitter.com/matteosalvinimi/status/1349377644941479937"^^xsd:anyURI .
 
 
 ###  http://www.modsem.org/fakt-news#EUCode
@@ -923,11 +973,143 @@ foaf:Person rdf:type owl:Class ;
           prov:wasAttributedTo :IFCN .
 
 
+###  http://www.modsem.org/fakt-news#J-0a3fb628-2673-4e0c-aafd-08939c522d64
+:J-0a3fb628-2673-4e0c-aafd-08939c522d64 rdf:type owl:NamedIndividual ,
+                                                 :Judgment ,
+                                                 prov:Entity ;
+                                        :judgmentSummary "Missing Context"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#J-1bc81f8d-b152-43ec-8925-f73f147712b9
+:J-1bc81f8d-b152-43ec-8925-f73f147712b9 rdf:type owl:NamedIndividual ,
+                                                 :Judgment ,
+                                                 prov:Entity ;
+                                        :judgmentSummary "Omission"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#J-37ad94b7-c93c-432e-9bc3-c014d6f94e3f
+:J-37ad94b7-c93c-432e-9bc3-c014d6f94e3f rdf:type owl:NamedIndividual ,
+                                                 :Judgment ,
+                                                 prov:Entity ;
+                                        :judgmentSummary "Not Clear Time Period Context"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#J-4b572f08-1e4b-4ab5-8255-9461bb1c27af
+:J-4b572f08-1e4b-4ab5-8255-9461bb1c27af rdf:type owl:NamedIndividual ,
+                                                 :Judgment ,
+                                                 prov:Entity ;
+                                        :judgmentSummary "Malicious Transformation"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#J-517d71a3-5985-448d-9a06-54fad995adc1
+:J-517d71a3-5985-448d-9a06-54fad995adc1 rdf:type owl:NamedIndividual ,
+                                                 :Judgment ,
+                                                 prov:Entity ;
+                                        :judgmentSummary "Doctoring"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#J-55eaae09-929e-489a-adb9-446c6ec95de6
+:J-55eaae09-929e-489a-adb9-446c6ec95de6 rdf:type owl:NamedIndividual ,
+                                                 :Judgment ,
+                                                 prov:Entity ;
+                                        :judgmentSummary "Fabrication"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#J-5a7a55b5-db02-4536-b115-17d6c2ea620f
+:J-5a7a55b5-db02-4536-b115-17d6c2ea620f rdf:type owl:NamedIndividual ,
+                                                 :Judgment ,
+                                                 prov:Entity ;
+                                        :judgmentSummary "Not Clear Geography Context"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#J-61aa896d-a951-4968-a687-dcdfd6a3f67d
+:J-61aa896d-a951-4968-a687-dcdfd6a3f67d rdf:type owl:NamedIndividual ,
+                                                 :Judgment ,
+                                                 prov:Entity ;
+                                        :judgmentSummary "Deceptive Editing"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#J-69eb692d-bede-465b-997b-23ebdf13db68
+:J-69eb692d-bede-465b-997b-23ebdf13db68 rdf:type owl:NamedIndividual ,
+                                                 :Judgment ,
+                                                 prov:Entity ;
+                                        :judgmentSummary "Confirmed Fact"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#J-6b3ae3de-023f-48ab-8ef5-2c993f656c4a
+:J-6b3ae3de-023f-48ab-8ef5-2c993f656c4a rdf:type owl:NamedIndividual ,
+                                                 :Judgment ,
+                                                 prov:Entity ;
+                                        :judgmentSummary "Qualitative Claim"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#J-9a54b9b4-8ffa-464c-8617-52e476f59937
+:J-9a54b9b4-8ffa-464c-8617-52e476f59937 rdf:type owl:NamedIndividual ,
+                                                 :Judgment ,
+                                                 prov:Entity ;
+                                        :judgmentSummary "Misrepresentation"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#J-d2ce075e-b1ab-4e0a-85b0-3b05dbd51666
+:J-d2ce075e-b1ab-4e0a-85b0-3b05dbd51666 rdf:type owl:NamedIndividual ,
+                                                 :Judgment ,
+                                                 prov:Entity ;
+                                        :judgmentSummary "Not Clear Subject"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#J-f61b0a05-8f43-4842-becb-aab2a3f08740
+:J-f61b0a05-8f43-4842-becb-aab2a3f08740 rdf:type owl:NamedIndividual ,
+                                                 :Judgment ,
+                                                 prov:Entity ;
+                                        :judgmentSummary "Isolation"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#J-ff30aaf9-385b-4919-b131-f14d0c4bc848
+:J-ff30aaf9-385b-4919-b131-f14d0c4bc848 rdf:type owl:NamedIndividual ,
+                                                 :Judgment ,
+                                                 prov:Entity ;
+                                        :judgmentSummary "Splicing"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#Judgment69eb692d-bede-465b-997b-23ebdf13db68
+:Judgment69eb692d-bede-465b-997b-23ebdf13db68 rdf:type owl:NamedIndividual ,
+                                                       :Judgment ,
+                                                       prov:Entity .
+
+
+###  http://www.modsem.org/fakt-news#Judgment9a54b9b4-8ffa-464c-8617-52e476f59937
+:Judgment9a54b9b4-8ffa-464c-8617-52e476f59937 rdf:type owl:NamedIndividual ,
+                                                       :Judgment ,
+                                                       prov:Entity .
+
+
 ###  http://www.modsem.org/fakt-news#LaVoceInfo
 :LaVoceInfo rdf:type owl:NamedIndividual ,
                      :FactCheckingOrganization ,
                      :Organization ,
                      prov:Agent .
+
+
+###  http://www.modsem.org/fakt-news#O-10966427-29a6-481b-85a2-18ebfaa694a6
+:O-10966427-29a6-481b-85a2-18ebfaa694a6 rdf:type owl:NamedIndividual ,
+                                                 :Organization ,
+                                                 prov:Agent ;
+                                        schema:name "Pagella Politica"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#O-cfcff2df-f21c-4eaa-b834-009c01d51fff
+:O-cfcff2df-f21c-4eaa-b834-009c01d51fff rdf:type owl:NamedIndividual ,
+                                                 :Organization ,
+                                                 prov:Agent ;
+                                        schema:name "International Fact Checking Organization"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#P-e9f505b6-ee07-4557-82aa-35a65990563e
+:P-e9f505b6-ee07-4557-82aa-35a65990563e rdf:type owl:NamedIndividual ,
+                                                 :Person ,
+                                                 prov:Agent ,
+                                                 foaf:Person ;
+                                        schema:name "Massimo Taddei"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#PagellaPolitica
@@ -956,6 +1138,56 @@ foaf:Person rdf:type owl:Class ;
             :observeCodeOfPrinciples :IFCNCode .
 
 
+###  http://www.modsem.org/fakt-news#R-1a730a0c-690d-4b9a-b678-7dd42164c791
+:R-1a730a0c-690d-4b9a-b678-7dd42164c791 rdf:type owl:NamedIndividual ,
+                                                 schema:CreativeWork ,
+                                                 :DigitalDocument ,
+                                                 :Review ,
+                                                 prov:Entity ;
+                                        :hasJudgment :J-69eb692d-bede-465b-997b-23ebdf13db68 ;
+                                        :hasRating :RT-4638197e-71d5-4b53-8294-98a6e3fb4a0a ;
+                                        dcterms:date "2020-10-08"^^xsd:date ;
+                                        dcterms:language "it"^^xsd:string ;
+                                        dcterms:title "Il governo ha davvero abolito i “decreti sicurezza”?"^^xsd:string ;
+                                        schema:url "https://www.lavoce.info/archives/69816/il-governo-ha-davvero-abolito-i-decreti-sicurezza/"^^xsd:anyURI ;
+                                        :reviewContent "Il fact-checking de lavoce.info passa..."^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#R-aeae0693-1640-46b8-a863-b107ca7101a7
+:R-aeae0693-1640-46b8-a863-b107ca7101a7 rdf:type owl:NamedIndividual ,
+                                                 schema:CreativeWork ,
+                                                 :DigitalDocument ,
+                                                 :Review ,
+                                                 prov:Entity ;
+                                        :hasJudgment :J-9a54b9b4-8ffa-464c-8617-52e476f59937 ;
+                                        :hasRating :RT-5203a00a-d53e-4a7f-8f71-595533d6aaab ;
+                                        dcterms:date "2021-01-15"^^xsd:date ;
+                                        dcterms:language "it"^^xsd:string ;
+                                        dcterms:title "No, “genitore 1 e 2” non tornano sui documenti d’identità (non ci sono mai stati)"^^xsd:string ;
+                                        schema:url "https://pagellapolitica.it/dichiarazioni/8801/no-genitore-1-e-2-non-tornano-sui-documenti-didentita-non-ci-sono-mai-stati"^^xsd:anyURI ;
+                                        :reviewContent "Al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con genitore 1 e 2"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#RT-4638197e-71d5-4b53-8294-98a6e3fb4a0a
+:RT-4638197e-71d5-4b53-8294-98a6e3fb4a0a rdf:type owl:NamedIndividual ,
+                                                  :Rating ,
+                                                  prov:Entity ;
+                                         schema:url "https://www.lavoce.info/come-facciamo-il-fact-checking/"^^xsd:anyURI ;
+                                         :ratingAssociatedMedia ""^^xsd:anyURI ;
+                                         :ratingSystemComment "Le dichiarazioni sono catalogate secondo l’accuratezza: Vero, Tendenzialmente vero, Incerto, Tendenzialmente falso, Falso"^^xsd:string ;
+                                         :ratingValue "TENDENZIALMENTE VERO"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#RT-5203a00a-d53e-4a7f-8f71-595533d6aaab
+:RT-5203a00a-d53e-4a7f-8f71-595533d6aaab rdf:type owl:NamedIndividual ,
+                                                  :Rating ,
+                                                  prov:Entity ;
+                                         schema:url "https://pagellapolitica.it/static/metodologia"^^xsd:anyURI ;
+                                         :ratingAssociatedMedia ""^^xsd:anyURI ;
+                                         :ratingSystemComment "Le dichiarazioni sono catalogate secondo l’accuratezza: Vero, cera quasi, ni, pinocchio andante panzana pazesca"^^xsd:string ;
+                                         :ratingValue "PINOCCHIO ANDANTE"^^xsd:string .
+
+
 ###  http://www.modsem.org/fakt-news#Review_on_Claim_President_USA
 :Review_on_Claim_President_USA rdf:type owl:NamedIndividual ,
                                         schema:CreativeWork ,
@@ -971,6 +1203,22 @@ foaf:Person rdf:type owl:Class ;
 :Role_John_Doe rdf:type owl:NamedIndividual ,
                         :FactChecker ,
                         prov:Role .
+
+
+###  http://www.modsem.org/fakt-news#S-436444a1-6f56-403d-9526-3d5469ba25a1
+:S-436444a1-6f56-403d-9526-3d5469ba25a1 rdf:type owl:NamedIndividual ,
+                                                 :Source ,
+                                                 prov:Agent ,
+                                                 prov:Role ;
+                                        schema:name "twitter.it"^^xsd:string ;
+                                        schema:url "https://www.twitter.it/"^^xsd:anyURI .
+
+
+###  http://www.modsem.org/fakt-news#SA-6d29e7b5-e7f5-4ccd-a8c0-080d632b525d
+:SA-6d29e7b5-e7f5-4ccd-a8c0-080d632b525d rdf:type owl:NamedIndividual ,
+                                                  :SoftwareAgent ,
+                                                  prov:Agent ;
+                                         schema:name "Donald TrumpBot"^^xsd:string .
 
 
 #################################################################

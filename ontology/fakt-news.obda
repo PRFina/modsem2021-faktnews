@@ -16,7 +16,7 @@ dcterms:		http://purl.org/dc/terms/
 [MappingDeclaration] @collection [[
 mappingId	MAPID-Person
 target		:P-{id} a :Person ; schema:name {name} . 
-source		SELECT id, name, tipology
+source		SELECT id, name, tipology 
 			FROM agent
 			WHERE tipology = 'Person';
 
@@ -34,26 +34,32 @@ source		SELECT id, name, tipology
 
 mappingId	MAPID-Claim
 target		:C-{id} a :Claim ; dct:title {title} ; dct:language {language} ; dct:date {pubblication_date} ; schema:url {url}^^xsd:anyURI . 
-source		select id, title, pubblication_date, url, language from claim
+source		SELECT id, title, pubblication_date, url, language
+			FROM claim;
 
 mappingId	MAPID-Review
-target		:R-{id} a :Review ; dct:title {title} ; dct:language {language} ; dct:date {pubblication_date} ; schema:url {url}^^xsd:anyURI ; :reviewContent {content} . 
-source		select id, title, content, pubblication_date, url, language from review
+target		:R-{id} a :Review ; dct:title {title} ; dct:language {language} ; dct:date {pubblication_date} ; schema:url {url}^^xsd:anyURI ; :reviewContent {content} ; :hasJudgment :J-{judgment_id} ; :hasRating :RT-{rating_id} . 
+source		SELECT id, title, content, pubblication_date, url, language, judgment_id, rating_id
+			FROM review;
 
 mappingId	MAPID-Judgment
 target		:J-{id} a :Judgment ; :judgmentSummary {value} . 
-source		select id, value from judgment
+source		SELECT id, value
+			FROM judgment;
 
 mappingId	MAPID-Rating
 target		:RT-{id} a :Rating ; :ratingValue {value} ; :ratingAssociatedMedia {associated_media_url}^^xsd:anyURI ; :ratingSystemComment {system_comment} ; schema:url {system_url}^^xsd:anyURI . 
-source		select id, value, comment, associated_media_url, system_comment, system_url from rating
+source		SELECT id, value, comment, associated_media_url, system_comment, system_url
+			FROM rating;
 
 mappingId	MAPID-Evidence
-target		:E-{id} a :Evidence ; schema:url {url}^^xsd:anyURI . 
-source		select id, url from evidence
+target		:E-{id} a :Evidence ; dct:title {title} ; dct:date {pubblication_date} ; schema:url {url}^^xsd:anyURI ; :derivedFromSource :S-{source_id} . 
+source		SELECT id, title, pubblication_date, url, source_id
+			FROM evidence;
 
 mappingId	MAPID-Source
 target		:S-{id} a :Source ; schema:name {name} ; schema:url {url}^^xsd:anyURI . 
-source		select id, name, url from source
+source		SELECT id, name, url
+			FROM source;
 ]]
 

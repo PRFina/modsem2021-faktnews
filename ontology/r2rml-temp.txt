@@ -14,7 +14,7 @@ schema:		http://schema.org/
 dcterms:		http://purl.org/dc/terms/
 
 [MappingDeclaration] @collection [[
-mappingId	MAPID-Person
+mappingId	MAPID-785d30bd0ea8415280020c2db07028d6
 target		:P-{id} a :Person ; schema:name {name} . 
 source		SELECT id, name, tipology
 			FROM agent
