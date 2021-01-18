@@ -18,13 +18,13 @@ mappingId	MAPID-Person
 target		:P-{id} a :Person ; schema:name {name} . 
 source		SELECT id, name, tipology
 			FROM agent
-			WHERE tipology = 'Person';
+			where tipology = 'Person';
 
 mappingId	MAPID-Software-Agent
 target		:SA-{id} a :SoftwareAgent ; schema:name {name} . 
 source		SELECT id, name, tipology
 			FROM agent
-			WHERE tipology = 'Software Agent';
+			where tipology = 'Software Agent';
 
 mappingId	MAPID-Organization
 target		:O-{id} a :Organization ; schema:name {name} . 
