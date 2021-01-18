@@ -16,7 +16,7 @@ dcterms:		http://purl.org/dc/terms/
 [MappingDeclaration] @collection [[
 mappingId	MAPID-Person
 target		:P-{id} a :Person ; schema:name {name} . 
-source		SELECT id, name, tipology 
+source		SELECT id, name, tipology
 			FROM agent
 			WHERE tipology = 'Person';
 
@@ -61,5 +61,15 @@ mappingId	MAPID-Source
 target		:S-{id} a :Source ; schema:name {name} ; schema:url {url}^^xsd:anyURI . 
 source		SELECT id, name, url
 			FROM source;
+
+mappingId	MAPID-hasEvidence
+target		:R-{review_id} a :Review ; :hasEvidence :E-{evidence_id} . 
+source		SELECT review_id, evidence_id
+			FROM evidence_in_review;
+
+mappingId	MAPID-associatedReview
+target		:C-{claim_id} a :Claim ; :associatedReview :R-{review_id} . 
+source		SELECT review_id, claim_id
+			FROM about;
 ]]
 

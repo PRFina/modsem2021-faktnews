@@ -5,16 +5,17 @@ insert into evidence (title, pubblication_date, source_id, url) values
 	('Nicola Zingaretti (@nzingaretti) October 5, 2020','2020-10-05','1','https://twitter.com/nzingaretti/status/1313218301200400389?ref_src=twsrc%5Etfw'),
 	('Matteo Salvini (@matteosalvinimi) January 13, 2021', '2021-01-13', '1', 'https://twitter.com/matteosalvinimi/status/1349377644941479937');
 
+-- TODO: ricordarsi di sostituire il campo value con i nostri possibili value {True, Mostly True, Mostly False, False}
 insert into rating (value, comment, associated_media_url, system_comment, system_url) values
-	('TENDENZIALMENTE VERO',
+	('True',
 	'Le affermazioni di Zingaretti e di molti altri esponenti della maggioranza sono TENDENZIALMENTE VERE. È vero infatti che...',
 	'',
-	'Le dichiarazioni sono catalogate secondo l’accuratezza: Vero, Tendenzialmente vero, Incerto, Tendenzialmente falso, Falso',
+	'Tendenzialmente vero',
 	'https://www.lavoce.info/come-facciamo-il-fact-checking/'),
-	('PINOCCHIO ANDANTE',
+	('Mostly False',
 	'Secondo Matteo Salvini, il governo vuole...',
 	'',
-	'Le dichiarazioni sono catalogate secondo l’accuratezza: Vero, cera quasi, ni, pinocchio andante panzana pazesca',
+	'Pinocchio andante',
 	'https://pagellapolitica.it/static/metodologia');
 
 insert into judgment (value) values
@@ -53,7 +54,9 @@ INSERT INTO agent (name, tipology) values
 	('Massimo Taddei', 'Person'),
 	('Pagella Politica', 'Fact Checking Organization'),
 	('International Fact Checking Organization', 'Fact Checking Authority'),
-	('Donald TrumpBot', 'Software Agent');
+	('Donald TrumpBot', 'Software Agent'),
+	('Nicola Zingaretti', 'Person'),
+	('Matteo Salvini', 'Person');
 
 INSERT INTO claim (title, content, pubblication_date, url, language) values
 	('Tweet di Nicola Zingaretti', 
@@ -70,5 +73,27 @@ INSERT INTO claim (title, content, pubblication_date, url, language) values
 	);
 
 INSERT INTO external_entity (label) values
-	('http://dbpedia.org/page/Matteo_Salvini'),
-	('http://dbpedia.org/page/Nicola_Zingaretti');
+	('http://dbpedia.org/page/Nicola_Zingaretti'),
+	('http://dbpedia.org/page/Matteo_Salvini');
+
+-- Relational tables -------------------------------------------------------------------------------------------------
+
+INSERT INTO evidence_in_review (review_id, evidence_id, is_proving) values
+	('1', '1', TRUE),
+	('2', '2', TRUE);
+
+INSERT INTO mention (review_id, external_entity_id) values
+	('1', '1'),
+	('2', '2');
+
+INSERT INTO review_author (review_id, agent_id) values
+	('1', '1'),
+	('2', '2');
+
+INSERT INTO claim_author (claim_id, agent_id) values
+	('1', '5'),
+	('2', '6');
+
+INSERT INTO about (review_id, claim_id) values
+	('1', '1'),
+	('2', '2');

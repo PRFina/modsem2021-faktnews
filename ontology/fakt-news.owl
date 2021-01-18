@@ -210,6 +210,7 @@ dcterms:creator rdf:type owl:ObjectProperty ;
 ###  http://www.modsem.org/fakt-news#mentions
 :mentions rdf:type owl:ObjectProperty ;
           rdfs:domain :Review ;
+          rdfs:range owl:Thing ;
           rdfs:comment "A mention to some entity. It could be a person, an organisation, a place, an event, and so on."@en .
 
 
@@ -839,6 +840,7 @@ foaf:Person rdf:type owl:Class ;
               :Claim ,
               :DigitalDocument ,
               prov:Entity ;
+     :associatedReview :R-1 ;
      dcterms:date "2020-10-05"^^xsd:date ;
      dcterms:language "it"^^xsd:string ;
      dcterms:title "Tweet di Nicola Zingaretti"^^xsd:string ;
@@ -851,9 +853,36 @@ foaf:Person rdf:type owl:Class ;
               :Claim ,
               :DigitalDocument ,
               prov:Entity ;
+     :associatedReview :R-2 ;
      dcterms:date "2021-01-13"^^xsd:date ;
      dcterms:language "it"^^xsd:string ;
      dcterms:title "No, “genitore 1 e 2” non tornano sui documenti d’identità (non ci sono mai stati)"^^xsd:string ;
+     schema:url "https://twitter.com/matteosalvinimi/status/1349377644941479937"^^xsd:anyURI .
+
+
+###  http://www.modsem.org/fakt-news#E-1
+:E-1 rdf:type owl:NamedIndividual ,
+              schema:CreativeWork ,
+              :DigitalDocument ,
+              :Evidence ,
+              prov:Entity ;
+     :derivedFromSource :S-1 ;
+     prov:wasAttributedTo :S-1 ;
+     dcterms:date "2020-10-05"^^xsd:date ;
+     dcterms:title "Nicola Zingaretti (@nzingaretti) October 5, 2020"^^xsd:string ;
+     schema:url "https://twitter.com/nzingaretti/status/1313218301200400389?ref_src=twsrc%5Etfw"^^xsd:anyURI .
+
+
+###  http://www.modsem.org/fakt-news#E-2
+:E-2 rdf:type owl:NamedIndividual ,
+              schema:CreativeWork ,
+              :DigitalDocument ,
+              :Evidence ,
+              prov:Entity ;
+     :derivedFromSource :S-1 ;
+     prov:wasAttributedTo :S-1 ;
+     dcterms:date "2021-01-13"^^xsd:date ;
+     dcterms:title "Matteo Salvini (@matteosalvinimi) January 13, 2021"^^xsd:string ;
      schema:url "https://twitter.com/matteosalvinimi/status/1349377644941479937"^^xsd:anyURI .
 
 
@@ -969,6 +998,20 @@ foaf:Person rdf:type owl:Class ;
      schema:name "International Fact Checking Organization"^^xsd:string .
 
 
+###  http://www.modsem.org/fakt-news#O-6
+:O-6 rdf:type owl:NamedIndividual ,
+              :Organization ,
+              prov:Agent ;
+     schema:name "Pagella Politica"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#O-7
+:O-7 rdf:type owl:NamedIndividual ,
+              :Organization ,
+              prov:Agent ;
+     schema:name "International Fact Checking Organization"^^xsd:string .
+
+
 ###  http://www.modsem.org/fakt-news#P-1
 :P-1 rdf:type owl:NamedIndividual ,
               :Person ,
@@ -977,12 +1020,38 @@ foaf:Person rdf:type owl:Class ;
      schema:name "Massimo Taddei"^^xsd:string .
 
 
+###  http://www.modsem.org/fakt-news#P-10
+:P-10 rdf:type owl:NamedIndividual ,
+               :Person ,
+               prov:Agent ,
+               foaf:Person ;
+      schema:name "Matteo Salvini"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#P-5
+:P-5 rdf:type owl:NamedIndividual ,
+              :Person ,
+              prov:Agent ,
+              foaf:Person ;
+     schema:name "Massimo Taddei"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#P-9
+:P-9 rdf:type owl:NamedIndividual ,
+              :Person ,
+              prov:Agent ,
+              foaf:Person ;
+     schema:name "Nicola Zingaretti"^^xsd:string .
+
+
 ###  http://www.modsem.org/fakt-news#R-1
 :R-1 rdf:type owl:NamedIndividual ,
               schema:CreativeWork ,
               :DigitalDocument ,
               :Review ,
               prov:Entity ;
+     :claimReviewed :C-1 ;
+     :hasEvidence :E-1 ;
      :hasJudgment :J-1 ;
      :hasRating :RT-1 ;
      dcterms:date "2020-10-08"^^xsd:date ;
@@ -998,6 +1067,8 @@ foaf:Person rdf:type owl:Class ;
               :DigitalDocument ,
               :Review ,
               prov:Entity ;
+     :claimReviewed :C-2 ;
+     :hasEvidence :E-2 ;
      :hasJudgment :J-8 ;
      :hasRating :RT-2 ;
      dcterms:date "2021-01-15"^^xsd:date ;
@@ -1013,8 +1084,8 @@ foaf:Person rdf:type owl:Class ;
                prov:Entity ;
       schema:url "https://www.lavoce.info/come-facciamo-il-fact-checking/"^^xsd:anyURI ;
       :ratingAssociatedMedia ""^^xsd:anyURI ;
-      :ratingSystemComment "Le dichiarazioni sono catalogate secondo l’accuratezza: Vero, Tendenzialmente vero, Incerto, Tendenzialmente falso, Falso"^^xsd:string ;
-      :ratingValue "TENDENZIALMENTE VERO"^^xsd:string .
+      :ratingSystemComment "Tendenzialmente vero"^^xsd:string ;
+      :ratingValue "Mostly True"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#RT-2
@@ -1023,13 +1094,14 @@ foaf:Person rdf:type owl:Class ;
                prov:Entity ;
       schema:url "https://pagellapolitica.it/static/metodologia"^^xsd:anyURI ;
       :ratingAssociatedMedia ""^^xsd:anyURI ;
-      :ratingSystemComment "Le dichiarazioni sono catalogate secondo l’accuratezza: Vero, cera quasi, ni, pinocchio andante panzana pazesca"^^xsd:string ;
-      :ratingValue "PINOCCHIO ANDANTE"^^xsd:string .
+      :ratingSystemComment "Pinocchio andante"^^xsd:string ;
+      :ratingValue "Mostly False"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#S-1
 :S-1 rdf:type owl:NamedIndividual ,
               :Source ,
+              prov:Agent ,
               prov:Role ;
      schema:name "Twitter"^^xsd:string ;
      schema:url "https://www.twitter.it/"^^xsd:anyURI .
@@ -1037,6 +1109,13 @@ foaf:Person rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#SA-4
 :SA-4 rdf:type owl:NamedIndividual ,
+               :SoftwareAgent ,
+               prov:Agent ;
+      schema:name "Donald TrumpBot"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#SA-8
+:SA-8 rdf:type owl:NamedIndividual ,
                :SoftwareAgent ,
                prov:Agent ;
       schema:name "Donald TrumpBot"^^xsd:string .
