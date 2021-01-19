@@ -23,6 +23,6 @@ RUN if [ ${USER_ID} -ne 0 ] && [ ${GROUP_ID} -ne 0 ]; then \
 
 USER ${USER}
 
-CMD [ "python", "run.py"]
+CMD [ "python", "db_scripts/init_db.py"]
 
 
