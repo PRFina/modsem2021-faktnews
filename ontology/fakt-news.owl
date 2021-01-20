@@ -49,11 +49,10 @@ dcterms:creator rdf:type owl:ObjectProperty ;
                 rdfs:label "Creator"@en .
 
 
-###  http://www.modsem.org/fakt-news#affiliation
-:affiliation rdf:type owl:ObjectProperty ;
-             rdfs:domain prov:Agent ;
-             rdfs:range :Organization ;
-             rdfs:label "Affiliation"@en .
+###  http://www.modsem.org/fakt-news#affiliatedTo
+:affiliatedTo rdf:type owl:ObjectProperty ;
+              rdfs:domain prov:Agent ;
+              rdfs:range prov:Agent .
 
 
 ###  http://www.modsem.org/fakt-news#associatedReview
@@ -90,7 +89,7 @@ dcterms:creator rdf:type owl:ObjectProperty ;
 :derivedFromSource rdf:type owl:ObjectProperty ;
                    rdfs:subPropertyOf prov:wasAttributedTo ;
                    rdfs:domain :Evidence ;
-                   rdfs:range :EvidenceSource .
+                   rdfs:range :Source .
 
 
 ###  http://www.modsem.org/fakt-news#hasActivity
@@ -208,12 +207,6 @@ dcterms:creator rdf:type owl:ObjectProperty ;
               rdfs:domain :Review .
 
 
-###  http://www.modsem.org/fakt-news#mentions
-:mentions rdf:type owl:ObjectProperty ;
-          rdfs:domain :Review ;
-          rdfs:comment "A mention to some entity. It could be a person, an organisation, a place, an event, and so on."@en .
-
-
 ###  http://www.modsem.org/fakt-news#observeCodeOfPrinciples
 :observeCodeOfPrinciples rdf:type owl:ObjectProperty ;
                          rdfs:domain :FactCheckingOrganization ;
@@ -225,7 +218,7 @@ dcterms:creator rdf:type owl:ObjectProperty ;
 ###  http://www.modsem.org/fakt-news#supportedBy
 :supportedBy rdf:type owl:ObjectProperty ;
              rdfs:domain :Evidence ;
-             rdfs:range schema:CreativeWork ;
+             rdfs:range :DigitalDocument ;
              rdfs:comment "A review is supported by a materialization of some sort of document (for example a subtype of creative work)."@en .
 
 
@@ -316,8 +309,7 @@ dcterms:title rdf:type owl:DatatypeProperty ;
 ###  http://schema.org/name
 schema:name rdf:type owl:DatatypeProperty ;
             rdfs:range xsd:string ;
-            rdfs:comment "The name of the item."@en ;
-            rdfs:label "name"@en .
+            rdfs:comment "The name of the item."@en .
 
 
 ###  http://schema.org/url
@@ -366,16 +358,16 @@ schema:url rdf:type owl:DatatypeProperty ;
                  rdfs:range xsd:string .
 
 
+###  http://www.modsem.org/fakt-news#mention
+:mention rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Review ;
+         rdfs:range xsd:anyURI .
+
+
 ###  http://www.modsem.org/fakt-news#ratingAssociatedMedia
 :ratingAssociatedMedia rdf:type owl:DatatypeProperty ;
                        rdfs:domain :Rating ;
                        rdfs:range xsd:anyURI .
-
-
-###  http://www.modsem.org/fakt-news#ratingSystem
-:ratingSystem rdf:type owl:DatatypeProperty ;
-              rdfs:domain :Rating ;
-              rdfs:range xsd:anyURI .
 
 
 ###  http://www.modsem.org/fakt-news#ratingSystemComment
@@ -404,15 +396,16 @@ schema:url rdf:type owl:DatatypeProperty ;
                         ] .
 
 
-###  http://www.modsem.org/fakt-news#refersTo
-:refersTo rdf:type owl:DatatypeProperty ;
-          rdfs:domain :Mention .
-
-
 ###  http://www.modsem.org/fakt-news#reviewContent
 :reviewContent rdf:type owl:DatatypeProperty ;
                rdfs:domain :Review ;
                rdfs:range xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#tag
+:tag rdf:type owl:DatatypeProperty ;
+     rdfs:domain :Review ;
+     rdfs:range xsd:string .
 
 
 #################################################################
@@ -425,14 +418,6 @@ schema:CreativeWork rdf:type owl:Class ;
                     rdfs:subClassOf prov:Entity ;
                     rdfs:comment "The most generic kind of creative work, including books, movies, photographs, software programs, etc."@en ;
                     rdfs:label "Creative Work"@en .
-
-
-###  http://www,modsem,org/fakt-news#Person
-<http://www,modsem,org/fakt-news#Person> rdf:type owl:Class ;
-                                         owl:equivalentClass foaf:Person ;
-                                         rdfs:subClassOf prov:Agent ;
-                                         rdfs:comment ""@en ;
-                                         rdfs:label "Person"@en .
 
 
 ###  http://www.modsem.org/fakt-news#AlternativesList
@@ -542,13 +527,6 @@ schema:CreativeWork rdf:type owl:Class ;
           rdfs:label "Evidence"@en .
 
 
-###  http://www.modsem.org/fakt-news#EvidenceSource
-:EvidenceSource rdf:type owl:Class ;
-                rdfs:subClassOf prov:Role ;
-                rdfs:comment "The source of the facts. It could be the entity that states the fact itself or reports it."@en ;
-                rdfs:label "Evidence Source"@en .
-
-
 ###  http://www.modsem.org/fakt-news#ExternalSuggestion
 :ExternalSuggestion rdf:type owl:Class ;
                     rdfs:subClassOf :Suggestion ;
@@ -571,12 +549,6 @@ schema:CreativeWork rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#FactCheckingAuthority
 :FactCheckingAuthority rdf:type owl:Class ;
-                       owl:equivalentClass [ rdf:type owl:Class ;
-                                             owl:oneOf ( :DukeReportersLab
-                                                         :EUCode
-                                                         :IFCN
-                                                       )
-                                           ] ;
                        rdfs:subClassOf :Organization ;
                        rdfs:comment "The Fact Checking autority that monitors trends, formats and policy-making about fact-checking worldwide. It promotes and checks the committment of the fact checking organisations to ethical code standards."@en ;
                        rdfs:label "Fact Checking Authority"@en .
@@ -608,7 +580,8 @@ schema:CreativeWork rdf:type owl:Class ;
                                                                 ]
                                                               ) ;
                                            rdf:type owl:Class
-                                         ] .
+                                         ] ;
+                     rdfs:label "Fact Checking Process"@en .
 
 
 ###  http://www.modsem.org/fakt-news#InternalSuggestion
@@ -638,13 +611,6 @@ schema:CreativeWork rdf:type owl:Class ;
                          rdfs:subClassOf :Judgment ;
                          rdfs:comment "Part or all of the claim content has been manipulated to transform the content itself."@en ;
                          rdfs:label "Malicious Transformation"@en .
-
-
-###  http://www.modsem.org/fakt-news#Mention
-:Mention rdf:type owl:Class ;
-         rdfs:subClassOf prov:Entity ;
-         rdfs:comment "A mention about an entity within a review."@en ;
-         rdfs:label "Mention"@en .
 
 
 ###  http://www.modsem.org/fakt-news#Misrepresentation
@@ -697,6 +663,14 @@ schema:CreativeWork rdf:type owl:Class ;
               rdfs:subClassOf prov:Agent ;
               rdfs:comment "A group of persons grouped together or organized for some purpose or work."@en ;
               rdfs:label "Organization"@en .
+
+
+###  http://www.modsem.org/fakt-news#Person
+:Person rdf:type owl:Class ;
+        owl:equivalentClass foaf:Person ;
+        rdfs:subClassOf prov:Agent ;
+        rdfs:comment ""@en ;
+        rdfs:label "Person"@en .
 
 
 ###  http://www.modsem.org/fakt-news#QualitativeClaim
@@ -753,6 +727,13 @@ schema:CreativeWork rdf:type owl:Class ;
                skos:altLabel "Bot, Software"@en .
 
 
+###  http://www.modsem.org/fakt-news#Source
+:Source rdf:type owl:Class ;
+        rdfs:subClassOf prov:Role ;
+        rdfs:comment "The source of the facts. It could be the entity that states the fact itself or reports it."@en ;
+        rdfs:label "Source"@en .
+
+
 ###  http://www.modsem.org/fakt-news#Splicing
 :Splicing rdf:type owl:Class ;
           rdfs:subClassOf :DeceptiveEditing ;
@@ -788,7 +769,8 @@ schema:CreativeWork rdf:type owl:Class ;
                                                    ]
                                                  )
                                    ] ;
-               rdfs:subClassOf :EvidenceSource .
+               rdfs:subClassOf :Source ;
+               rdfs:label "Trusted Source"@en .
 
 
 ###  http://www.modsem.org/fakt-news#VerificationActivity
@@ -824,7 +806,8 @@ prov:Entity rdf:type owl:Class ;
 
 ###  http://www.w3.org/ns/prov#Plan
 prov:Plan rdf:type owl:Class ;
-          rdfs:subClassOf prov:Entity .
+          rdfs:subClassOf prov:Entity ;
+          rdfs:label "Plan"@en .
 
 
 ###  http://www.w3.org/ns/prov#Role
@@ -843,190 +826,246 @@ foaf:Person rdf:type owl:Class ;
 #    Individuals
 #################################################################
 
-###  http://www.modsem.org/fakt-news#Activity_Claim_Evaluation
-:Activity_Claim_Evaluation rdf:type owl:NamedIndividual ,
-                                    :ClaimEvaluationActivity ,
-                                    prov:Activity ;
-                           :hasPreviousActivity :Activity_Verification ;
-                           :isActivityOfPlan :Fact_Checking_Process ;
-                           :isLastActivityOfPlan :Fact_Checking_Process ;
-                           prov:qualifiedAssociation :Association_John_Doe ;
-                           prov:wasAssociatedWith :Person_John_Doe .
+###  http://www.modsem.org/fakt-news#A-1
+:A-1 rdf:type owl:NamedIndividual ,
+              :Organization ,
+              prov:Agent ;
+     schema:name "International Fact Checking Organization"^^xsd:string .
 
 
-###  http://www.modsem.org/fakt-news#Activity_Selection
-:Activity_Selection rdf:type owl:NamedIndividual ,
-                             :SelectionActivity ,
-                             prov:Activity ;
-                    :hasNextActivity :Activity_Verification ;
-                    :isActivityOfPlan :Fact_Checking_Process ;
-                    :isFirstActivityOfPlan :Fact_Checking_Process .
+###  http://www.modsem.org/fakt-news#A-2
+:A-2 rdf:type owl:NamedIndividual ,
+              :Organization ,
+              prov:Agent ;
+     schema:name "Lavoce.info"^^xsd:string .
 
 
-###  http://www.modsem.org/fakt-news#Activity_Verification
-:Activity_Verification rdf:type owl:NamedIndividual ,
-                                :VerificationActivity ,
-                                prov:Activity ;
-                       :hasNextActivity :Activity_Claim_Evaluation ;
-                       :hasPreviousActivity :Activity_Selection ;
-                       :isActivityOfPlan :Fact_Checking_Process .
+###  http://www.modsem.org/fakt-news#A-3
+:A-3 rdf:type owl:NamedIndividual ,
+              :Person ,
+              prov:Agent ,
+              foaf:Person ;
+     :create :R-1 ;
+     schema:name "Massimo Taddei"^^xsd:string .
 
 
-###  http://www.modsem.org/fakt-news#Association_John_Doe
-:Association_John_Doe rdf:type owl:NamedIndividual ,
-                               prov:Association ;
-                      prov:agent :Person_John_Doe ;
-                      prov:hadRole :Role_John_Doe .
+###  http://www.modsem.org/fakt-news#A-4
+:A-4 rdf:type owl:NamedIndividual ,
+              :Organization ,
+              prov:Agent ;
+     :create :R-2 ;
+     schema:name "Pagella Politica"^^xsd:string .
 
 
-###  http://www.modsem.org/fakt-news#Claim_President_USA
-:Claim_President_USA rdf:type owl:NamedIndividual ,
-                              schema:CreativeWork ,
-                              :Claim ,
-                              :DigitalDocument ,
-                              prov:Entity .
+###  http://www.modsem.org/fakt-news#A-5
+:A-5 rdf:type owl:NamedIndividual ,
+              :Person ,
+              prov:Agent ,
+              foaf:Person ;
+     schema:name "Nicola Zingaretti"^^xsd:string .
 
 
-###  http://www.modsem.org/fakt-news#DukeReportersLab
-:DukeReportersLab rdf:type owl:NamedIndividual .
+###  http://www.modsem.org/fakt-news#A-6
+:A-6 rdf:type owl:NamedIndividual ,
+              :Person ,
+              prov:Agent ,
+              foaf:Person ;
+     schema:name "Matteo Salvini"^^xsd:string .
 
 
-###  http://www.modsem.org/fakt-news#EUCode
-:EUCode rdf:type owl:NamedIndividual .
+###  http://www.modsem.org/fakt-news#A-7
+:A-7 rdf:type owl:NamedIndividual ,
+              :SoftwareAgent ,
+              prov:Agent ;
+     schema:name "Donald TrumpBot"^^xsd:string .
 
 
-###  http://www.modsem.org/fakt-news#Evidence_President_USA
-:Evidence_President_USA rdf:type owl:NamedIndividual .
+###  http://www.modsem.org/fakt-news#C-1
+:C-1 rdf:type owl:NamedIndividual ,
+              schema:CreativeWork ,
+              :Claim ,
+              :DigitalDocument ,
+              prov:Entity ;
+     :associatedReview :R-1 ;
+     dcterms:date "2020-10-05"^^xsd:date ;
+     dcterms:language "it"^^xsd:string ;
+     schema:url "https://twitter.com/nzingaretti/status/1313218301200400389?ref_src=twsrc%5Etfw"^^xsd:anyURI .
 
 
-###  http://www.modsem.org/fakt-news#Fact_Checking_Process
-:Fact_Checking_Process rdf:type owl:NamedIndividual ,
-                                prov:Entity ,
-                                prov:Plan ;
-                       :hasActivity :Activity_Claim_Evaluation ,
-                                    :Activity_Selection ,
-                                    :Activity_Verification .
+###  http://www.modsem.org/fakt-news#C-2
+:C-2 rdf:type owl:NamedIndividual ,
+              schema:CreativeWork ,
+              :Claim ,
+              :DigitalDocument ,
+              prov:Entity ;
+     :associatedReview :R-2 ;
+     dcterms:date "2021-01-13"^^xsd:date ;
+     dcterms:language "it"^^xsd:string ;
+     dcterms:title "No, “genitore 1 e 2” non tornano sui documenti d’identità (non ci sono mai stati)"^^xsd:string ;
+     schema:url "https://twitter.com/matteosalvinimi/status/1349377644941479937"^^xsd:anyURI .
 
 
-###  http://www.modsem.org/fakt-news#IFCN
-:IFCN rdf:type owl:NamedIndividual ,
-               :FactCheckingAuthority ,
-               :Organization ,
-               prov:Agent ;
-      :create :IFCNCode ;
-      :createCodeOfPrinciples :IFCNCode .
+###  http://www.modsem.org/fakt-news#J-1
+:J-1 rdf:type owl:NamedIndividual ,
+              :Judgment ,
+              prov:Entity ;
+     :judgmentSummary "Confirmed Fact"^^xsd:string .
 
 
-###  http://www.modsem.org/fakt-news#IFCNCode
-:IFCNCode rdf:type owl:NamedIndividual ,
-                   schema:CreativeWork ,
-                   :CodeOfPrinciples ,
-                   :DigitalDocument ,
-                   prov:Entity ;
-          dcterms:creator :IFCN ;
-          prov:wasAttributedTo :IFCN .
+###  http://www.modsem.org/fakt-news#J-10
+:J-10 rdf:type owl:NamedIndividual ,
+               :Judgment ,
+               prov:Entity ;
+      :judgmentSummary "Misrepresentation"^^xsd:string .
 
 
-###  http://www.modsem.org/fakt-news#LaVoceInfo
-:LaVoceInfo rdf:type owl:NamedIndividual ,
-                     :FactCheckingOrganization ,
-                     :Organization ,
-                     prov:Agent .
+###  http://www.modsem.org/fakt-news#J-11
+:J-11 rdf:type owl:NamedIndividual ,
+               :Judgment ,
+               prov:Entity ;
+      :judgmentSummary "Not Clear Geography Context"^^xsd:string .
 
 
-###  http://www.modsem.org/fakt-news#PagellaPolitica
-:PagellaPolitica rdf:type owl:NamedIndividual ,
-                          :FactCheckingOrganization ,
-                          :Organization ,
-                          prov:Agent ;
-                 :observeCodeOfPrinciples :IFCNCode .
+###  http://www.modsem.org/fakt-news#J-12
+:J-12 rdf:type owl:NamedIndividual ,
+               :Judgment ,
+               prov:Entity ;
+      :judgmentSummary "Not Clear Time Period Context"^^xsd:string .
 
 
-###  http://www.modsem.org/fakt-news#Person_John_Doe
-:Person_John_Doe rdf:type owl:NamedIndividual ,
-                          prov:Agent ;
-                 :create :Review_on_Claim_President_USA .
+###  http://www.modsem.org/fakt-news#J-13
+:J-13 rdf:type owl:NamedIndividual ,
+               :Judgment ,
+               prov:Entity ;
+      :judgmentSummary "Not Clear Subject"^^xsd:string .
 
 
-###  http://www.modsem.org/fakt-news#Person_President_USA
-:Person_President_USA rdf:type owl:NamedIndividual .
+###  http://www.modsem.org/fakt-news#J-14
+:J-14 rdf:type owl:NamedIndividual ,
+               :Judgment ,
+               prov:Entity ;
+      :judgmentSummary "Qualitative Claim"^^xsd:string .
 
 
-###  http://www.modsem.org/fakt-news#PolitiFact
-:PolitiFact rdf:type owl:NamedIndividual ,
-                     :FactCheckingOrganization ,
-                     :Organization ,
-                     prov:Agent ;
-            :observeCodeOfPrinciples :IFCNCode .
+###  http://www.modsem.org/fakt-news#J-2
+:J-2 rdf:type owl:NamedIndividual ,
+              :Judgment ,
+              prov:Entity ;
+     :judgmentSummary "Deceptive Editing"^^xsd:string .
 
 
-###  http://www.modsem.org/fakt-news#Review_on_Claim_President_USA
-:Review_on_Claim_President_USA rdf:type owl:NamedIndividual ,
-                                        schema:CreativeWork ,
-                                        :DigitalDocument ,
-                                        :Review ,
-                                        prov:Entity ;
-                               dcterms:creator :Person_John_Doe ;
-                               :isReviewedBy :Person_John_Doe ;
-                               prov:wasAttributedTo :Person_John_Doe .
+###  http://www.modsem.org/fakt-news#J-3
+:J-3 rdf:type owl:NamedIndividual ,
+              :Judgment ,
+              prov:Entity ;
+     :judgmentSummary "Omission"^^xsd:string .
 
 
-###  http://www.modsem.org/fakt-news#Role_John_Doe
-:Role_John_Doe rdf:type owl:NamedIndividual ,
-                        :FactChecker ,
-                        prov:Role .
+###  http://www.modsem.org/fakt-news#J-4
+:J-4 rdf:type owl:NamedIndividual ,
+              :Judgment ,
+              prov:Entity ;
+     :judgmentSummary "Splicing"^^xsd:string .
 
 
-###  http://www.modsem.org/fakt-news#activity1
-:activity1 rdf:type owl:NamedIndividual ,
-                    prov:Activity .
+###  http://www.modsem.org/fakt-news#J-5
+:J-5 rdf:type owl:NamedIndividual ,
+              :Judgment ,
+              prov:Entity ;
+     :judgmentSummary "Malicious Transformation"^^xsd:string .
 
 
-###  http://www.modsem.org/fakt-news#evidence-d1
-:evidence-d1 rdf:type owl:NamedIndividual ,
-                      :DisprovingEvidence ,
-                      :Evidence ,
-                      prov:Entity .
+###  http://www.modsem.org/fakt-news#J-6
+:J-6 rdf:type owl:NamedIndividual ,
+              :Judgment ,
+              prov:Entity ;
+     :judgmentSummary "Doctoring"^^xsd:string .
 
 
-###  http://www.modsem.org/fakt-news#evidence-s1
-:evidence-s1 rdf:type owl:NamedIndividual ,
-                      :Evidence ,
-                      :SupportingEvidence ,
-                      prov:Entity .
+###  http://www.modsem.org/fakt-news#J-7
+:J-7 rdf:type owl:NamedIndividual ,
+              :Judgment ,
+              prov:Entity ;
+     :judgmentSummary "Fabrication"^^xsd:string .
 
 
-###  http://www.modsem.org/fakt-news#review1
-:review1 rdf:type owl:NamedIndividual ,
-                  schema:CreativeWork ,
-                  :DigitalDocument ,
-                  :Review ,
-                  prov:Entity ;
-         prov:wasGeneratedBy :activity1 ;
-         :reviewContent "ciaone"^^xsd:string .
+###  http://www.modsem.org/fakt-news#J-8
+:J-8 rdf:type owl:NamedIndividual ,
+              :Judgment ,
+              prov:Entity ;
+     :judgmentSummary "Missing Context"^^xsd:string .
 
 
-###  http://www.modsem.org/fakt-news#review2
-:review2 rdf:type owl:NamedIndividual ,
-                  schema:CreativeWork ,
-                  :DigitalDocument ,
-                  :Review ,
-                  prov:Entity ;
-         prov:wasGeneratedBy :activity1 ;
-         :reviewContent "Testone"^^xsd:string .
+###  http://www.modsem.org/fakt-news#J-9
+:J-9 rdf:type owl:NamedIndividual ,
+              :Judgment ,
+              prov:Entity ;
+     :judgmentSummary "Isolation"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#R-1
+:R-1 rdf:type owl:NamedIndividual ,
+              schema:CreativeWork ,
+              :DigitalDocument ,
+              :Review ,
+              prov:Entity ;
+     dcterms:creator :A-3 ;
+     :claimReviewed :C-1 ;
+     :hasJudgment :J-1 ;
+     :hasRating :RT-1 ;
+     :isReviewedBy :A-3 ;
+     prov:wasAttributedTo :A-3 ;
+     dcterms:date "2020-10-08"^^xsd:date ;
+     dcterms:language "it"^^xsd:string ;
+     dcterms:title "Il governo ha davvero abolito i “decreti sicurezza”?"^^xsd:string ;
+     schema:url "https://www.lavoce.info/archives/69816/il-governo-ha-davvero-abolito-i-decreti-sicurezza/"^^xsd:anyURI ;
+     :mention "http://dbpedia.org/page/Nicola_Zingaretti"^^xsd:anyURI ;
+     :reviewContent "Il fact-checking de lavoce.info passa..."^^xsd:string ;
+     :tag "politica"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#R-2
+:R-2 rdf:type owl:NamedIndividual ,
+              schema:CreativeWork ,
+              :DigitalDocument ,
+              :Review ,
+              prov:Entity ;
+     dcterms:creator :A-4 ;
+     :claimReviewed :C-2 ;
+     :hasJudgment :J-8 ;
+     :hasRating :RT-2 ;
+     :isReviewedBy :A-4 ;
+     prov:wasAttributedTo :A-4 ;
+     dcterms:date "2021-01-15"^^xsd:date ;
+     dcterms:language "it"^^xsd:string ;
+     dcterms:title "No, “genitore 1 e 2” non tornano sui documenti d’identità (non ci sono mai stati)"^^xsd:string ;
+     schema:url "https://pagellapolitica.it/dichiarazioni/8801/no-genitore-1-e-2-non-tornano-sui-documenti-didentita-non-ci-sono-mai-stati"^^xsd:anyURI ;
+     :mention "http://dbpedia.org/page/Matteo_Salvini"^^xsd:anyURI ;
+     :reviewContent "Al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con genitore 1 e 2"^^xsd:string ;
+     :tag "politica"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#RT-1
+:RT-1 rdf:type owl:NamedIndividual ,
+               :Rating ,
+               prov:Entity ;
+      schema:url "https://www.lavoce.info/come-facciamo-il-fact-checking/"^^xsd:anyURI ;
+      :ratingSystemComment "Tendenzialmente vero"^^xsd:string ;
+      :ratingValue "True"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#RT-2
+:RT-2 rdf:type owl:NamedIndividual ,
+               :Rating ,
+               prov:Entity ;
+      schema:url "https://pagellapolitica.it/static/metodologia"^^xsd:anyURI ;
+      :ratingSystemComment "Pinocchio andante"^^xsd:string ;
+      :ratingValue "Mostly False"^^xsd:string .
 
 
 #################################################################
 #    General axioms
 #################################################################
-
-[ rdf:type owl:AllDisjointClasses ;
-  owl:members ( <http://www,modsem,org/fakt-news#Person>
-                :Organization
-                :SoftwareAgent
-              )
-] .
-
 
 [ rdf:type owl:AllDisjointClasses ;
   owl:members ( :ClaimEvaluationActivity
@@ -1037,18 +1076,18 @@ foaf:Person rdf:type owl:Class ;
 
 
 [ rdf:type owl:AllDisjointClasses ;
-  owl:members ( prov:Activity
-                prov:Agent
-                prov:Entity
+  owl:members ( :Organization
+                :Person
+                :SoftwareAgent
               )
 ] .
 
 
-[ rdf:type owl:AllDifferent ;
-  owl:distinctMembers ( :Activity_Claim_Evaluation
-                        :Activity_Selection
-                        :Activity_Verification
-                      )
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( prov:Activity
+                prov:Agent
+                prov:Entity
+              )
 ] .
 
 
