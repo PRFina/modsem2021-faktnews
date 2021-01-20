@@ -15,32 +15,51 @@ dcterms:		http://purl.org/dc/terms/
 
 [MappingDeclaration] @collection [[
 mappingId	MAPID-Person
-target		:P-{id} a :Person ; schema:name {name} . 
+target		:A-{id} a :Person ; schema:name {name} . 
 source		SELECT id, name, tipology
 			FROM agent
 			WHERE tipology = 'Person';
 
 mappingId	MAPID-Software-Agent
-target		:SA-{id} a :SoftwareAgent ; schema:name {name} . 
+target		:A-{id} a :SoftwareAgent ; schema:name {name} . 
 source		SELECT id, name, tipology
 			FROM agent
 			WHERE tipology = 'Software Agent';
 
 mappingId	MAPID-Organization
-target		:O-{id} a :Organization ; schema:name {name} . 
+target		:A-{id} a :Organization ; schema:name {name} . 
 source		SELECT id, name, tipology
 			FROM agent
 			WHERE NOT tipology = 'Person' AND NOT tipology = 'Software Agent';
 
 mappingId	MAPID-Claim
-target		:C-{id} a :Claim ; dct:title {title} ; dct:language {language} ; dct:date {pubblication_date} ; schema:url {url}^^xsd:anyURI . 
-source		SELECT id, title, pubblication_date, url, language
-			FROM claim;
+target		:C-{cid} a :Claim ; :associatedReview :R-{rid} ; dct:title {cti} ; dct:language {cla} ; dct:date {cpd} ; schema:url {curl}^^xsd:anyURI . 
+source		SELECT claim.id AS cid, 
+			           claim.title AS cti, 
+			           claim.pubblication_date AS cpd, 
+			           claim.url AS curl, 
+			           claim.language AS cla, 
+			           review.id AS rid
+			FROM claim, about, review
+			WHERE review.id = about.review_id AND about.claim_id = claim.id ;
 
 mappingId	MAPID-Review
-target		:R-{id} a :Review ; dct:title {title} ; dct:language {language} ; dct:date {pubblication_date} ; schema:url {url}^^xsd:anyURI ; :reviewContent {content} ; :hasJudgment :J-{judgment_id} ; :hasRating :RT-{rating_id} . 
-source		SELECT id, title, content, pubblication_date, url, language, judgment_id, rating_id
-			FROM review;
+target		:R-{rid} a :Review ; :hasJudgment :J-{rji} ; :hasRating :RT-{rri} ; :isReviewedBy :A-{aid} ; dct:title {rti} ; dct:language {rlg} ; dct:date {rpd} ; schema:url {rurl}^^xsd:anyURI ; :reviewContent {rco} ; :tag {tlb} ; :mention {eelb}^^xsd:anyURI . 
+source		SELECT review.id AS rid,
+			           review.title AS rti,
+			           review.content AS rco, 
+			           review.pubblication_date AS rpd, 
+			           review.url AS rurl, 
+			           review.language AS rlg, 
+			           review.judgment_id AS rji, 
+			           rating_id AS rri, 
+			           tag.label AS tlb,
+			           agent.id AS aid,
+			           external_entity.label AS eelb
+			FROM review, topic, tag, review_author, agent, mention, external_entity
+			WHERE review.id = topic.review_id AND topic.tag_id = tag.id AND 
+			           review.id = review_author.review_id AND review_author.agent_id = agent.id AND
+			           review.id = mention.review_id AND mention.external_entity_id = external_entity.id;
 
 mappingId	MAPID-Judgment
 target		:J-{id} a :Judgment ; :judgmentSummary {value} . 
@@ -51,25 +70,5 @@ mappingId	MAPID-Rating
 target		:RT-{id} a :Rating ; :ratingValue {value} ; :ratingAssociatedMedia {associated_media_url}^^xsd:anyURI ; :ratingSystemComment {system_comment} ; schema:url {system_url}^^xsd:anyURI . 
 source		SELECT id, value, comment, associated_media_url, system_comment, system_url
 			FROM rating;
-
-mappingId	MAPID-Evidence
-target		:E-{id} a :Evidence ; dct:title {title} ; dct:date {pubblication_date} ; schema:url {url}^^xsd:anyURI ; :derivedFromSource :S-{source_id} . 
-source		SELECT id, title, pubblication_date, url, source_id
-			FROM evidence;
-
-mappingId	MAPID-Source
-target		:S-{id} a :Source ; schema:name {name} ; schema:url {url}^^xsd:anyURI . 
-source		SELECT id, name, url
-			FROM source;
-
-mappingId	MAPID-hasEvidence
-target		:R-{review_id} a :Review ; :hasEvidence :E-{evidence_id} . 
-source		SELECT review_id, evidence_id
-			FROM evidence_in_review;
-
-mappingId	MAPID-associatedReview
-target		:C-{claim_id} a :Claim ; :associatedReview :R-{review_id} . 
-source		SELECT review_id, claim_id
-			FROM about;
 ]]
 

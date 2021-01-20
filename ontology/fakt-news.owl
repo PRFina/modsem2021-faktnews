@@ -207,13 +207,6 @@ dcterms:creator rdf:type owl:ObjectProperty ;
               rdfs:domain :Review .
 
 
-###  http://www.modsem.org/fakt-news#mentions
-:mentions rdf:type owl:ObjectProperty ;
-          rdfs:domain :Review ;
-          rdfs:range owl:Thing ;
-          rdfs:comment "A mention to some entity. It could be a person, an organisation, a place, an event, and so on."@en .
-
-
 ###  http://www.modsem.org/fakt-news#observeCodeOfPrinciples
 :observeCodeOfPrinciples rdf:type owl:ObjectProperty ;
                          rdfs:domain :FactCheckingOrganization ;
@@ -316,8 +309,7 @@ dcterms:title rdf:type owl:DatatypeProperty ;
 ###  http://schema.org/name
 schema:name rdf:type owl:DatatypeProperty ;
             rdfs:range xsd:string ;
-            rdfs:comment "The name of the item."@en ;
-            rdfs:label "name"@en .
+            rdfs:comment "The name of the item."@en .
 
 
 ###  http://schema.org/url
@@ -366,6 +358,12 @@ schema:url rdf:type owl:DatatypeProperty ;
                  rdfs:range xsd:string .
 
 
+###  http://www.modsem.org/fakt-news#mention
+:mention rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Review ;
+         rdfs:range xsd:anyURI .
+
+
 ###  http://www.modsem.org/fakt-news#ratingAssociatedMedia
 :ratingAssociatedMedia rdf:type owl:DatatypeProperty ;
                        rdfs:domain :Rating ;
@@ -398,14 +396,16 @@ schema:url rdf:type owl:DatatypeProperty ;
                         ] .
 
 
-###  http://www.modsem.org/fakt-news#refersTo
-:refersTo rdf:type owl:DatatypeProperty .
-
-
 ###  http://www.modsem.org/fakt-news#reviewContent
 :reviewContent rdf:type owl:DatatypeProperty ;
                rdfs:domain :Review ;
                rdfs:range xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#tag
+:tag rdf:type owl:DatatypeProperty ;
+     rdfs:domain :Review ;
+     rdfs:range xsd:string .
 
 
 #################################################################
@@ -826,6 +826,60 @@ foaf:Person rdf:type owl:Class ;
 #    Individuals
 #################################################################
 
+###  http://www.modsem.org/fakt-news#A-1
+:A-1 rdf:type owl:NamedIndividual ,
+              :Organization ,
+              prov:Agent ;
+     schema:name "International Fact Checking Organization"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#A-2
+:A-2 rdf:type owl:NamedIndividual ,
+              :Organization ,
+              prov:Agent ;
+     schema:name "Lavoce.info"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#A-3
+:A-3 rdf:type owl:NamedIndividual ,
+              :Person ,
+              prov:Agent ,
+              foaf:Person ;
+     :create :R-1 ;
+     schema:name "Massimo Taddei"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#A-4
+:A-4 rdf:type owl:NamedIndividual ,
+              :Organization ,
+              prov:Agent ;
+     :create :R-2 ;
+     schema:name "Pagella Politica"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#A-5
+:A-5 rdf:type owl:NamedIndividual ,
+              :Person ,
+              prov:Agent ,
+              foaf:Person ;
+     schema:name "Nicola Zingaretti"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#A-6
+:A-6 rdf:type owl:NamedIndividual ,
+              :Person ,
+              prov:Agent ,
+              foaf:Person ;
+     schema:name "Matteo Salvini"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#A-7
+:A-7 rdf:type owl:NamedIndividual ,
+              :SoftwareAgent ,
+              prov:Agent ;
+     schema:name "Donald TrumpBot"^^xsd:string .
+
+
 ###  http://www.modsem.org/fakt-news#C-1
 :C-1 rdf:type owl:NamedIndividual ,
               schema:CreativeWork ,
@@ -835,7 +889,6 @@ foaf:Person rdf:type owl:Class ;
      :associatedReview :R-1 ;
      dcterms:date "2020-10-05"^^xsd:date ;
      dcterms:language "it"^^xsd:string ;
-     dcterms:title "Tweet di Nicola Zingaretti"^^xsd:string ;
      schema:url "https://twitter.com/nzingaretti/status/1313218301200400389?ref_src=twsrc%5Etfw"^^xsd:anyURI .
 
 
@@ -849,32 +902,6 @@ foaf:Person rdf:type owl:Class ;
      dcterms:date "2021-01-13"^^xsd:date ;
      dcterms:language "it"^^xsd:string ;
      dcterms:title "No, “genitore 1 e 2” non tornano sui documenti d’identità (non ci sono mai stati)"^^xsd:string ;
-     schema:url "https://twitter.com/matteosalvinimi/status/1349377644941479937"^^xsd:anyURI .
-
-
-###  http://www.modsem.org/fakt-news#E-1
-:E-1 rdf:type owl:NamedIndividual ,
-              schema:CreativeWork ,
-              :DigitalDocument ,
-              :Evidence ,
-              prov:Entity ;
-     :derivedFromSource :S-1 ;
-     prov:wasAttributedTo :S-1 ;
-     dcterms:date "2020-10-05"^^xsd:date ;
-     dcterms:title "Nicola Zingaretti (@nzingaretti) October 5, 2020"^^xsd:string ;
-     schema:url "https://twitter.com/nzingaretti/status/1313218301200400389?ref_src=twsrc%5Etfw"^^xsd:anyURI .
-
-
-###  http://www.modsem.org/fakt-news#E-2
-:E-2 rdf:type owl:NamedIndividual ,
-              schema:CreativeWork ,
-              :DigitalDocument ,
-              :Evidence ,
-              prov:Entity ;
-     :derivedFromSource :S-1 ;
-     prov:wasAttributedTo :S-1 ;
-     dcterms:date "2021-01-13"^^xsd:date ;
-     dcterms:title "Matteo Salvini (@matteosalvinimi) January 13, 2021"^^xsd:string ;
      schema:url "https://twitter.com/matteosalvinimi/status/1349377644941479937"^^xsd:anyURI .
 
 
@@ -976,81 +1003,25 @@ foaf:Person rdf:type owl:Class ;
      :judgmentSummary "Isolation"^^xsd:string .
 
 
-###  http://www.modsem.org/fakt-news#O-2
-:O-2 rdf:type owl:NamedIndividual ,
-              :Organization ,
-              prov:Agent ;
-     schema:name "Pagella Politica"^^xsd:string .
-
-
-###  http://www.modsem.org/fakt-news#O-3
-:O-3 rdf:type owl:NamedIndividual ,
-              :Organization ,
-              prov:Agent ;
-     schema:name "International Fact Checking Organization"^^xsd:string .
-
-
-###  http://www.modsem.org/fakt-news#O-6
-:O-6 rdf:type owl:NamedIndividual ,
-              :Organization ,
-              prov:Agent ;
-     schema:name "Pagella Politica"^^xsd:string .
-
-
-###  http://www.modsem.org/fakt-news#O-7
-:O-7 rdf:type owl:NamedIndividual ,
-              :Organization ,
-              prov:Agent ;
-     schema:name "International Fact Checking Organization"^^xsd:string .
-
-
-###  http://www.modsem.org/fakt-news#P-1
-:P-1 rdf:type owl:NamedIndividual ,
-              :Person ,
-              prov:Agent ,
-              foaf:Person ;
-     schema:name "Massimo Taddei"^^xsd:string .
-
-
-###  http://www.modsem.org/fakt-news#P-10
-:P-10 rdf:type owl:NamedIndividual ,
-               :Person ,
-               prov:Agent ,
-               foaf:Person ;
-      schema:name "Matteo Salvini"^^xsd:string .
-
-
-###  http://www.modsem.org/fakt-news#P-5
-:P-5 rdf:type owl:NamedIndividual ,
-              :Person ,
-              prov:Agent ,
-              foaf:Person ;
-     schema:name "Massimo Taddei"^^xsd:string .
-
-
-###  http://www.modsem.org/fakt-news#P-9
-:P-9 rdf:type owl:NamedIndividual ,
-              :Person ,
-              prov:Agent ,
-              foaf:Person ;
-     schema:name "Nicola Zingaretti"^^xsd:string .
-
-
 ###  http://www.modsem.org/fakt-news#R-1
 :R-1 rdf:type owl:NamedIndividual ,
               schema:CreativeWork ,
               :DigitalDocument ,
               :Review ,
               prov:Entity ;
+     dcterms:creator :A-3 ;
      :claimReviewed :C-1 ;
-     :hasEvidence :E-1 ;
      :hasJudgment :J-1 ;
      :hasRating :RT-1 ;
+     :isReviewedBy :A-3 ;
+     prov:wasAttributedTo :A-3 ;
      dcterms:date "2020-10-08"^^xsd:date ;
      dcterms:language "it"^^xsd:string ;
      dcterms:title "Il governo ha davvero abolito i “decreti sicurezza”?"^^xsd:string ;
      schema:url "https://www.lavoce.info/archives/69816/il-governo-ha-davvero-abolito-i-decreti-sicurezza/"^^xsd:anyURI ;
-     :reviewContent "Il fact-checking de lavoce.info passa..."^^xsd:string .
+     :mention "http://dbpedia.org/page/Nicola_Zingaretti"^^xsd:anyURI ;
+     :reviewContent "Il fact-checking de lavoce.info passa..."^^xsd:string ;
+     :tag "politica"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#R-2
@@ -1059,15 +1030,19 @@ foaf:Person rdf:type owl:Class ;
               :DigitalDocument ,
               :Review ,
               prov:Entity ;
+     dcterms:creator :A-4 ;
      :claimReviewed :C-2 ;
-     :hasEvidence :E-2 ;
      :hasJudgment :J-8 ;
      :hasRating :RT-2 ;
+     :isReviewedBy :A-4 ;
+     prov:wasAttributedTo :A-4 ;
      dcterms:date "2021-01-15"^^xsd:date ;
      dcterms:language "it"^^xsd:string ;
      dcterms:title "No, “genitore 1 e 2” non tornano sui documenti d’identità (non ci sono mai stati)"^^xsd:string ;
      schema:url "https://pagellapolitica.it/dichiarazioni/8801/no-genitore-1-e-2-non-tornano-sui-documenti-didentita-non-ci-sono-mai-stati"^^xsd:anyURI ;
-     :reviewContent "Al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con genitore 1 e 2"^^xsd:string .
+     :mention "http://dbpedia.org/page/Matteo_Salvini"^^xsd:anyURI ;
+     :reviewContent "Al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con genitore 1 e 2"^^xsd:string ;
+     :tag "politica"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#RT-1
@@ -1075,9 +1050,8 @@ foaf:Person rdf:type owl:Class ;
                :Rating ,
                prov:Entity ;
       schema:url "https://www.lavoce.info/come-facciamo-il-fact-checking/"^^xsd:anyURI ;
-      :ratingAssociatedMedia ""^^xsd:anyURI ;
       :ratingSystemComment "Tendenzialmente vero"^^xsd:string ;
-      :ratingValue "Mostly True"^^xsd:string .
+      :ratingValue "True"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#RT-2
@@ -1085,32 +1059,8 @@ foaf:Person rdf:type owl:Class ;
                :Rating ,
                prov:Entity ;
       schema:url "https://pagellapolitica.it/static/metodologia"^^xsd:anyURI ;
-      :ratingAssociatedMedia ""^^xsd:anyURI ;
       :ratingSystemComment "Pinocchio andante"^^xsd:string ;
       :ratingValue "Mostly False"^^xsd:string .
-
-
-###  http://www.modsem.org/fakt-news#S-1
-:S-1 rdf:type owl:NamedIndividual ,
-              :Source ,
-              prov:Agent ,
-              prov:Role ;
-     schema:name "Twitter"^^xsd:string ;
-     schema:url "https://www.twitter.it/"^^xsd:anyURI .
-
-
-###  http://www.modsem.org/fakt-news#SA-4
-:SA-4 rdf:type owl:NamedIndividual ,
-               :SoftwareAgent ,
-               prov:Agent ;
-      schema:name "Donald TrumpBot"^^xsd:string .
-
-
-###  http://www.modsem.org/fakt-news#SA-8
-:SA-8 rdf:type owl:NamedIndividual ,
-               :SoftwareAgent ,
-               prov:Agent ;
-      schema:name "Donald TrumpBot"^^xsd:string .
 
 
 #################################################################
