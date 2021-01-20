@@ -1,7 +1,7 @@
 import psycopg2 as pg
 import time
 import os
-print("Waiting database is up and running........")
+print("Waiting database is up and running...")
 time.sleep(2)
 
 conn_info = {'dbname': os.environ['POSTGRES_DB'],
@@ -15,14 +15,14 @@ conn = pg.connect(**conn_info)
 # Begin creating the db
 cur = conn.cursor()
 #cur.execute("CREATE TABLE IF NOT EXISTS test (id serial PRIMARY KEY, num integer, data varchar);")
-cur.execute(open("ddl.sql", "r").read())
+cur.execute(open("db_scripts/ddl.sql", "r").read())
 print("DB created from DDL file.")
 
 # make the changes to the database persistent
 conn.commit()
 
 # Begin populating the db
-cur.execute(open("dml.sql", "r").read())
+cur.execute(open("db_scripts/dml.sql", "r").read())
 print("DB populated from DML file.")
 
 # make the changes to the database persistent
@@ -31,3 +31,4 @@ conn.commit()
 # Close communication with the database
 cur.close()
 conn.close()
+print("Connection to DB closed.")

@@ -15,26 +15,14 @@ for more information see:
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 -- id uuid DEFAULT uuid_generate_v4 ()
 
-DROP TABLE IF EXISTS source;
-CREATE TABLE source(
+DROP TABLE IF EXISTS tag CASCADE;
+CREATE TABLE tag(
     id SERIAL,
-    name TEXT,
-    url TEXT,
-    CONSTRAINT source_pk PRIMARY KEY (id)
+    label TEXT,
+    CONSTRAINT tag_pk PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS evidence;
-CREATE TABLE evidence(
-    id SERIAL,
-    title TEXT,
-    pubblication_date DATE,
-    url TEXT,
-    source_id INTEGER,
-    CONSTRAINT evidence_pk PRIMARY KEY (id),
-    CONSTRAINT evidence_source_fk FOREIGN KEY (source_id) REFERENCES source(id) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-DROP TABLE IF EXISTS rating;
+DROP TABLE IF EXISTS rating CASCADE;
 CREATE TABLE rating(
     id SERIAL,
     value TEXT,
@@ -45,14 +33,14 @@ CREATE TABLE rating(
     CONSTRAINT rating_pk PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS judgment;
+DROP TABLE IF EXISTS judgment CASCADE;
 CREATE TABLE judgment(
     id SERIAL,
     value TEXT,
     CONSTRAINT judgment_pk PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS review;
+DROP TABLE IF EXISTS review CASCADE;
 CREATE TABLE review(
     id SERIAL,
     title TEXT,
@@ -67,16 +55,18 @@ CREATE TABLE review(
     CONSTRAINT review_judgment_fk FOREIGN KEY (judgment_id) REFERENCES judgment(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-DROP TABLE IF EXISTS agent;
+DROP TABLE IF EXISTS agent CASCADE;
 CREATE TABLE agent(
     id SERIAL,
     name TEXT,
     tipology TEXT,
+    role TEXT,
+    affiliation_id INTEGER,
     CONSTRAINT agent_pk PRIMARY KEY (id),
-    CONSTRAINT agent_agent_fk FOREIGN KEY (id) REFERENCES agent(id) ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT agent_agent_fk FOREIGN KEY (affiliation_id) REFERENCES agent(id) ON UPDATE CASCADE
 );
 
-DROP TABLE IF EXISTS claim;
+DROP TABLE IF EXISTS claim CASCADE;
 CREATE TABLE claim(
     id SERIAL,
     title TEXT,
@@ -84,10 +74,12 @@ CREATE TABLE claim(
     pubblication_date DATE,
     url TEXT,
     language varchar(2),
-    CONSTRAINT claim_pk PRIMARY KEY (id)
+    claimant_id INTEGER,
+    CONSTRAINT claim_pk PRIMARY KEY (id),
+    CONSTRAINT claim_agent_fk FOREIGN KEY (claimant_id) REFERENCES agent(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-DROP TABLE IF EXISTS external_entity;
+DROP TABLE IF EXISTS external_entity CASCADE;
 CREATE TABLE external_entity(
     id SERIAL,
     label TEXT, -- URI of the entity in DBPedia/Wikipedia
@@ -96,18 +88,17 @@ CREATE TABLE external_entity(
 
 -- Relation Tables ----------------------------------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS evidence_in_review;
-CREATE TABLE evidence_in_review(
+DROP TABLE IF EXISTS topic CASCADE;
+CREATE TABLE topic(
     id SERIAL,
     review_id INTEGER,
-    evidence_id INTEGER,
-    is_proving BOOLEAN, -- TODO: decidere se modellarlo così oppure con un campo "tipology TEXT" in cui si scrive se proving o disproving.
-    CONSTRAINT evidence_in_review_pk PRIMARY KEY (id),
-    CONSTRAINT evidence_in_review_review_fk FOREIGN KEY (review_id) REFERENCES review(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT evidence_in_review_evidence_fk FOREIGN KEY (evidence_id) REFERENCES evidence(id) ON DELETE CASCADE ON UPDATE CASCADE
+    tag_id INTEGER,
+    CONSTRAINT topic_pk PRIMARY KEY (id),
+    CONSTRAINT topic_review_fk FOREIGN KEY (review_id) REFERENCES review(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT topic_tag_fk FOREIGN KEY (tag_id) REFERENCES tag(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-DROP TABLE IF EXISTS mention;
+DROP TABLE IF EXISTS mention CASCADE;
 CREATE TABLE mention(
     id SERIAL,
     review_id INTEGER,
@@ -117,7 +108,7 @@ CREATE TABLE mention(
     CONSTRAINT mention_external_entity_fk FOREIGN KEY (external_entity_id) REFERENCES external_entity(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-DROP TABLE IF EXISTS review_author;
+DROP TABLE IF EXISTS review_author CASCADE;
 CREATE TABLE review_author(
     id SERIAL,
     review_id INTEGER,
@@ -127,17 +118,7 @@ CREATE TABLE review_author(
     CONSTRAINT review_author_agent_fk FOREIGN KEY (agent_id) REFERENCES agent(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-DROP TABLE IF EXISTS claim_author;
-CREATE TABLE claim_author(
-    id SERIAL,
-    claim_id INTEGER,
-    agent_id INTEGER,
-    CONSTRAINT claim_author_pk PRIMARY KEY (id),
-    CONSTRAINT claim_author_claim_fk FOREIGN KEY (claim_id) REFERENCES claim(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT review_author_agent_fk FOREIGN KEY (agent_id) REFERENCES agent(id) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-DROP TABLE IF EXISTS about;
+DROP TABLE IF EXISTS about CASCADE;
 CREATE TABLE about(
     id SERIAL,
     review_id INTEGER,

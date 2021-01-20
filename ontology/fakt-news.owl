@@ -399,8 +399,7 @@ schema:url rdf:type owl:DatatypeProperty ;
 
 
 ###  http://www.modsem.org/fakt-news#refersTo
-:refersTo rdf:type owl:DatatypeProperty ;
-          rdfs:domain :Mention .
+:refersTo rdf:type owl:DatatypeProperty .
 
 
 ###  http://www.modsem.org/fakt-news#reviewContent
@@ -612,13 +611,6 @@ schema:CreativeWork rdf:type owl:Class ;
                          rdfs:subClassOf :Judgment ;
                          rdfs:comment "Part or all of the claim content has been manipulated to transform the content itself."@en ;
                          rdfs:label "Malicious Transformation"@en .
-
-
-###  http://www.modsem.org/fakt-news#Mention
-:Mention rdf:type owl:Class ;
-         rdfs:subClassOf prov:Entity ;
-         rdfs:comment "A mention about an entity within a review."@en ;
-         rdfs:label "Mention"@en .
 
 
 ###  http://www.modsem.org/fakt-news#Misrepresentation
