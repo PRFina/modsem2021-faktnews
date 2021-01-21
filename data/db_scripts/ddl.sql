@@ -27,7 +27,7 @@ CREATE TABLE rating(
     id SERIAL,
     value TEXT,
     comment TEXT,
-    associated_media_url TEXT,
+    media_url TEXT,
     system_comment TEXT,
     system_url TEXT,
     CONSTRAINT rating_pk PRIMARY KEY (id)

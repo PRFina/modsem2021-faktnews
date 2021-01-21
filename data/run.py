@@ -14,7 +14,6 @@ conn = pg.connect(**conn_info)
 
 # Begin creating the db
 cur = conn.cursor()
-#cur.execute("CREATE TABLE IF NOT EXISTS test (id serial PRIMARY KEY, num integer, data varchar);")
 cur.execute(open("db_scripts/ddl.sql", "r").read())
 print("DB created from DDL file.")
 
@@ -22,8 +21,8 @@ print("DB created from DDL file.")
 conn.commit()
 
 # Begin populating the db
-cur.execute(open("db_scripts/dml.sql", "r").read())
-print("DB populated from DML file.")
+#cur.execute(open("db_scripts/dml.sql", "r").read())
+#print("DB populated from DML file.")
 
 # make the changes to the database persistent
 conn.commit()
