@@ -102,7 +102,7 @@ DROP TABLE IF EXISTS mention CASCADE;
 CREATE TABLE mention(
     id SERIAL,
     review_id INTEGER,
-    external_entity_id INTEGER,
+    entity_id INTEGER,
     CONSTRAINT mention_pk PRIMARY KEY (id),
     CONSTRAINT mention_review_fk FOREIGN KEY (review_id) REFERENCES review(id) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT mention_external_entity_fk FOREIGN KEY (external_entity_id) REFERENCES external_entity(id) ON DELETE CASCADE ON UPDATE CASCADE
