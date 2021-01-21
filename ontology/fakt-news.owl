@@ -263,7 +263,6 @@ prov:qualifiedAssociation rdf:type owl:ObjectProperty ;
 
 ###  http://www.w3.org/ns/prov#used
 prov:used rdf:type owl:ObjectProperty ;
-          rdfs:domain prov:Activity ;
           rdfs:range prov:Entity .
 
 
@@ -352,6 +351,18 @@ schema:url rdf:type owl:DatatypeProperty ;
                          ] .
 
 
+###  http://www.modsem.org/fakt-news#claimContent
+:claimContent rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf :documentContent ;
+              rdfs:domain :Claim ;
+              rdfs:range xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#documentContent
+:documentContent rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :DigitalDocument .
+
+
 ###  http://www.modsem.org/fakt-news#judgmentSummary
 :judgmentSummary rdf:type owl:DatatypeProperty ;
                  rdfs:domain :Judgment ;
@@ -398,6 +409,7 @@ schema:url rdf:type owl:DatatypeProperty ;
 
 ###  http://www.modsem.org/fakt-news#reviewContent
 :reviewContent rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf :documentContent ;
                rdfs:domain :Review ;
                rdfs:range xsd:string .
 
@@ -830,13 +842,38 @@ foaf:Person rdf:type owl:Class ;
 :A-1 rdf:type owl:NamedIndividual ,
               :Organization ,
               prov:Agent ;
+     :createCodeOfPrinciples :IFCN-Code-of-Principles ;
      schema:name "International Fact Checking Organization"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#A-10
+:A-10 rdf:type owl:NamedIndividual ,
+               :Person ,
+               prov:Agent ,
+               foaf:Person ;
+      schema:name "Matteo Salvini"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#A-11
+:A-11 rdf:type owl:NamedIndividual ,
+               :SoftwareAgent ,
+               prov:Agent ;
+      schema:name "Donald TrumpBot"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#A-12
+:A-12 rdf:type owl:NamedIndividual ,
+               :Person ,
+               prov:Agent ,
+               foaf:Person ;
+      schema:name "Mark Zucherberg"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#A-2
 :A-2 rdf:type owl:NamedIndividual ,
               :Organization ,
               prov:Agent ;
+     :observeCodeOfPrinciples :IFCN-Code-of-Principles ;
      schema:name "Lavoce.info"^^xsd:string .
 
 
@@ -854,15 +891,15 @@ foaf:Person rdf:type owl:Class ;
               :Organization ,
               prov:Agent ;
      :create :R-2 ;
+     :observeCodeOfPrinciples :IFCN-Code-of-Principles ;
      schema:name "Pagella Politica"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#A-5
 :A-5 rdf:type owl:NamedIndividual ,
-              :Person ,
-              prov:Agent ,
-              foaf:Person ;
-     schema:name "Nicola Zingaretti"^^xsd:string .
+              :Organization ,
+              prov:Agent ;
+     schema:name "Washington Post"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#A-6
@@ -870,14 +907,64 @@ foaf:Person rdf:type owl:Class ;
               :Person ,
               prov:Agent ,
               foaf:Person ;
-     schema:name "Matteo Salvini"^^xsd:string .
+     :create :R-3 ;
+     schema:name "Allyson Chiu"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#A-7
 :A-7 rdf:type owl:NamedIndividual ,
-              :SoftwareAgent ,
+              :Organization ,
               prov:Agent ;
-     schema:name "Donald TrumpBot"^^xsd:string .
+     :observeCodeOfPrinciples :IFCN-Code-of-Principles ;
+     schema:name "Politifact.com"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#A-8
+:A-8 rdf:type owl:NamedIndividual ,
+              :Person ,
+              prov:Agent ,
+              foaf:Person ;
+     :create :R-4 ;
+     schema:name "Daniel Funke"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#A-9
+:A-9 rdf:type owl:NamedIndividual ,
+              :Person ,
+              prov:Agent ,
+              foaf:Person ;
+     schema:name "Nicola Zingaretti"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#Activity-Evaluation-R-1
+:Activity-Evaluation-R-1 rdf:type owl:NamedIndividual ,
+                                  :ClaimEvaluationActivity ;
+                         :hasTimeInterval :Time-2020-10-07-2020-10-08 ;
+                         :isLastActivityOfPlan :Plan-R-1 .
+
+
+###  http://www.modsem.org/fakt-news#Activity-Selection-R-1
+:Activity-Selection-R-1 rdf:type owl:NamedIndividual ,
+                                 :SelectionActivity ;
+                        :hasTimeInterval :Time-2020-10-05-2020-10-06 ;
+                        :isFirstActivityOfPlan :Plan-R-1 .
+
+
+###  http://www.modsem.org/fakt-news#Activity-Verification-R-1
+:Activity-Verification-R-1 rdf:type owl:NamedIndividual ,
+                                    :VerificationActivity ;
+                           :hasNextActivity :Activity-Evaluation-R-1 ;
+                           :hasPreviousActivity :Activity-Selection-R-1 ;
+                           :hasTimeInterval :Time-2020-10-06-2020-10-07 ;
+                           :isActivityOfPlan :Plan-R-1 ;
+                           :isInputOfVerification :C-1 .
+
+
+###  http://www.modsem.org/fakt-news#Association-A9-AEval-R1
+:Association-A9-AEval-R1 rdf:type owl:NamedIndividual ,
+                                  prov:Association ;
+                         prov:agent :A-9 ;
+                         prov:hadRole :Role-A-9 .
 
 
 ###  http://www.modsem.org/fakt-news#C-1
@@ -887,9 +974,12 @@ foaf:Person rdf:type owl:Class ;
               :DigitalDocument ,
               prov:Entity ;
      :associatedReview :R-1 ;
+     :wasOutputOfSelection :Activity-Selection-R-1 ;
      dcterms:date "2020-10-05"^^xsd:date ;
      dcterms:language "it"^^xsd:string ;
-     schema:url "https://twitter.com/nzingaretti/status/1313218301200400389?ref_src=twsrc%5Etfw"^^xsd:anyURI .
+     schema:url "https://twitter.com/nzingaretti/status/1313218301200400389?ref_src=twsrc%5Etfw"^^xsd:anyURI ;
+     :claimContent "Approvato ora in Consiglio dei Ministri il decreto immigrazione. I decreti propaganda/Salvini non ci sono più. Vogliamo un’Italia  più umana e sicura. Un’Europa più protagonista"^^xsd:string ;
+     :documentContent "Approvato ora in Consiglio dei Ministri il decreto immigrazione. I decreti propaganda/Salvini non ci sono più. Vogliamo un’Italia  più umana e sicura. Un’Europa più protagonista"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#C-2
@@ -901,106 +991,90 @@ foaf:Person rdf:type owl:Class ;
      :associatedReview :R-2 ;
      dcterms:date "2021-01-13"^^xsd:date ;
      dcterms:language "it"^^xsd:string ;
-     dcterms:title "No, “genitore 1 e 2” non tornano sui documenti d’identità (non ci sono mai stati)"^^xsd:string ;
-     schema:url "https://twitter.com/matteosalvinimi/status/1349377644941479937"^^xsd:anyURI .
+     schema:url "https://twitter.com/matteosalvinimi/status/1349377644941479937"^^xsd:anyURI ;
+     :claimContent "Con tutti i problemi che ci sono in Italia, al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con Genitore 1 e 2. Prima vanno a casa, meglio è."^^xsd:string ;
+     :documentContent "Con tutti i problemi che ci sono in Italia, al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con Genitore 1 e 2. Prima vanno a casa, meglio è."^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#C-3
+:C-3 rdf:type owl:NamedIndividual ,
+              schema:CreativeWork ,
+              :Claim ,
+              :DigitalDocument ,
+              prov:Entity ;
+     :associatedReview :R-3 ;
+     dcterms:date "2019-06-07"^^xsd:date ;
+     dcterms:language "en"^^xsd:string ;
+     schema:url "https://www.instagram.com/p/ByaVigGFP2U/?utm_source=ig_embed&utm_campaign=embed_video_watch_again"^^xsd:anyURI ;
+     :claimContent "Zuckerberg: we are increasing transparency on Ads. Announces new measure to protect the elections."^^xsd:string ;
+     :documentContent "Zuckerberg: we are increasing transparency on Ads. Announces new measure to protect the elections."^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#C-4
+:C-4 rdf:type owl:NamedIndividual ,
+              schema:CreativeWork ,
+              :Claim ,
+              :DigitalDocument ,
+              prov:Entity ;
+     :associatedReview :R-4 ;
+     dcterms:date "2021-01-17"^^xsd:date ;
+     dcterms:language "en"^^xsd:string ;
+     schema:url "https://archive.vn/5P96s"^^xsd:anyURI ;
+     :claimContent "Barack Obama was arrested: a video published on Facebook claims to show former President Barack Obama in jail."^^xsd:string ;
+     :documentContent "Barack Obama was arrested: a video published on Facebook claims to show former President Barack Obama in jail."^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#Evidence-Document-R-1
+:Evidence-Document-R-1 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Evidence-R-1
+:Evidence-R-1 rdf:type owl:NamedIndividual ,
+                       :SupportingEvidence ;
+              :derivedFromSource :Source-R-1 ;
+              :supportedBy :Evidence-Document-R-1 .
+
+
+###  http://www.modsem.org/fakt-news#IFCN-Code-of-Principles
+:IFCN-Code-of-Principles rdf:type owl:NamedIndividual .
 
 
 ###  http://www.modsem.org/fakt-news#J-1
 :J-1 rdf:type owl:NamedIndividual ,
+              :ConfirmedFact ,
               :Judgment ,
               prov:Entity ;
      :judgmentSummary "Confirmed Fact"^^xsd:string .
 
 
-###  http://www.modsem.org/fakt-news#J-10
-:J-10 rdf:type owl:NamedIndividual ,
-               :Judgment ,
-               prov:Entity ;
-      :judgmentSummary "Misrepresentation"^^xsd:string .
-
-
-###  http://www.modsem.org/fakt-news#J-11
-:J-11 rdf:type owl:NamedIndividual ,
-               :Judgment ,
-               prov:Entity ;
-      :judgmentSummary "Not Clear Geography Context"^^xsd:string .
-
-
-###  http://www.modsem.org/fakt-news#J-12
-:J-12 rdf:type owl:NamedIndividual ,
-               :Judgment ,
-               prov:Entity ;
-      :judgmentSummary "Not Clear Time Period Context"^^xsd:string .
-
-
-###  http://www.modsem.org/fakt-news#J-13
-:J-13 rdf:type owl:NamedIndividual ,
-               :Judgment ,
-               prov:Entity ;
-      :judgmentSummary "Not Clear Subject"^^xsd:string .
-
-
-###  http://www.modsem.org/fakt-news#J-14
-:J-14 rdf:type owl:NamedIndividual ,
-               :Judgment ,
-               prov:Entity ;
-      :judgmentSummary "Qualitative Claim"^^xsd:string .
-
-
 ###  http://www.modsem.org/fakt-news#J-2
 :J-2 rdf:type owl:NamedIndividual ,
               :Judgment ,
-              prov:Entity ;
-     :judgmentSummary "Deceptive Editing"^^xsd:string .
-
-
-###  http://www.modsem.org/fakt-news#J-3
-:J-3 rdf:type owl:NamedIndividual ,
-              :Judgment ,
-              prov:Entity ;
-     :judgmentSummary "Omission"^^xsd:string .
-
-
-###  http://www.modsem.org/fakt-news#J-4
-:J-4 rdf:type owl:NamedIndividual ,
-              :Judgment ,
-              prov:Entity ;
-     :judgmentSummary "Splicing"^^xsd:string .
-
-
-###  http://www.modsem.org/fakt-news#J-5
-:J-5 rdf:type owl:NamedIndividual ,
-              :Judgment ,
-              prov:Entity ;
-     :judgmentSummary "Malicious Transformation"^^xsd:string .
-
-
-###  http://www.modsem.org/fakt-news#J-6
-:J-6 rdf:type owl:NamedIndividual ,
-              :Judgment ,
-              prov:Entity ;
-     :judgmentSummary "Doctoring"^^xsd:string .
-
-
-###  http://www.modsem.org/fakt-news#J-7
-:J-7 rdf:type owl:NamedIndividual ,
-              :Judgment ,
-              prov:Entity ;
-     :judgmentSummary "Fabrication"^^xsd:string .
-
-
-###  http://www.modsem.org/fakt-news#J-8
-:J-8 rdf:type owl:NamedIndividual ,
-              :Judgment ,
+              :MissingContext ,
               prov:Entity ;
      :judgmentSummary "Missing Context"^^xsd:string .
 
 
-###  http://www.modsem.org/fakt-news#J-9
-:J-9 rdf:type owl:NamedIndividual ,
+###  http://www.modsem.org/fakt-news#J-3
+:J-3 rdf:type owl:NamedIndividual ,
+              :Fabrication ,
               :Judgment ,
+              :MaliciousTransfromation ,
               prov:Entity ;
-     :judgmentSummary "Isolation"^^xsd:string .
+     :judgmentSummary "Fabrication"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#J-4
+:J-4 rdf:type owl:NamedIndividual ,
+              :Fabrication ,
+              :Judgment ,
+              :MaliciousTransfromation ,
+              prov:Entity ;
+     :judgmentSummary "Deceptive Editing"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#Plan-R-1
+:Plan-R-1 rdf:type owl:NamedIndividual .
 
 
 ###  http://www.modsem.org/fakt-news#R-1
@@ -1014,13 +1088,15 @@ foaf:Person rdf:type owl:Class ;
      :hasJudgment :J-1 ;
      :hasRating :RT-1 ;
      :isReviewedBy :A-3 ;
+     :wasOutputOfClaimEvaluation :Activity-Evaluation-R-1 ;
      prov:wasAttributedTo :A-3 ;
      dcterms:date "2020-10-08"^^xsd:date ;
      dcterms:language "it"^^xsd:string ;
      dcterms:title "Il governo ha davvero abolito i “decreti sicurezza”?"^^xsd:string ;
      schema:url "https://www.lavoce.info/archives/69816/il-governo-ha-davvero-abolito-i-decreti-sicurezza/"^^xsd:anyURI ;
+     :documentContent "Il fact-checking de lavoce.info passa ...[+1283 words]"^^xsd:string ;
      :mention "http://dbpedia.org/page/Nicola_Zingaretti"^^xsd:anyURI ;
-     :reviewContent "Il fact-checking de lavoce.info passa..."^^xsd:string ;
+     :reviewContent "Il fact-checking de lavoce.info passa ...[+1283 words]"^^xsd:string ;
      :tag "politica"^^xsd:string .
 
 
@@ -1032,7 +1108,7 @@ foaf:Person rdf:type owl:Class ;
               prov:Entity ;
      dcterms:creator :A-4 ;
      :claimReviewed :C-2 ;
-     :hasJudgment :J-8 ;
+     :hasJudgment :J-2 ;
      :hasRating :RT-2 ;
      :isReviewedBy :A-4 ;
      prov:wasAttributedTo :A-4 ;
@@ -1040,9 +1116,56 @@ foaf:Person rdf:type owl:Class ;
      dcterms:language "it"^^xsd:string ;
      dcterms:title "No, “genitore 1 e 2” non tornano sui documenti d’identità (non ci sono mai stati)"^^xsd:string ;
      schema:url "https://pagellapolitica.it/dichiarazioni/8801/no-genitore-1-e-2-non-tornano-sui-documenti-didentita-non-ci-sono-mai-stati"^^xsd:anyURI ;
+     :documentContent "Al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con genitore 1 e 2 ...[+1568 words]"^^xsd:string ;
      :mention "http://dbpedia.org/page/Matteo_Salvini"^^xsd:anyURI ;
-     :reviewContent "Al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con genitore 1 e 2"^^xsd:string ;
+     :reviewContent "Al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con genitore 1 e 2 ...[+1568 words]"^^xsd:string ;
      :tag "politica"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#R-3
+:R-3 rdf:type owl:NamedIndividual ,
+              schema:CreativeWork ,
+              :DigitalDocument ,
+              :Review ,
+              prov:Entity ;
+     dcterms:creator :A-6 ;
+     :claimReviewed :C-3 ;
+     :hasJudgment :J-3 ;
+     :hasRating :RT-3 ;
+     :isReviewedBy :A-6 ;
+     prov:wasAttributedTo :A-6 ;
+     dcterms:date "2019-06-19"^^xsd:date ;
+     dcterms:language "en"^^xsd:string ;
+     dcterms:title "Facebook wouldn’t delete an altered video of Nancy Pelosi. What about one of Mark Zuckerberg?"^^xsd:string ;
+     schema:url "https://www.washingtonpost.com/nation/2019/06/12/mark-zuckerberg-deepfake-facebook-instagram-nancy-pelosi/"^^xsd:anyURI ;
+     :documentContent "A couple of short video clips, a voice actor and an artificial intelligence algorithm. That’s all two artists and a technology start-up ...[+1497 words]"^^xsd:string ;
+     :mention "https://dbpedia.org/page/Mark_Zuckerberg"^^xsd:anyURI ;
+     :reviewContent "A couple of short video clips, a voice actor and an artificial intelligence algorithm. That’s all two artists and a technology start-up ...[+1497 words]"^^xsd:string ;
+     :tag "deepfake"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#R-4
+:R-4 rdf:type owl:NamedIndividual ,
+              schema:CreativeWork ,
+              :DigitalDocument ,
+              :Review ,
+              prov:Entity ;
+     dcterms:creator :A-8 ;
+     :claimReviewed :C-4 ;
+     :hasJudgment :J-4 ;
+     :hasRating :RT-4 ;
+     :isReviewedBy :A-8 ;
+     prov:wasAttributedTo :A-8 ;
+     dcterms:date "2021-01-18"^^xsd:date ;
+     dcterms:language "en"^^xsd:string ;
+     dcterms:title "Barack Obama wasn’t arrested before Biden’s inauguration"^^xsd:string ;
+     schema:url "https://www.politifact.com/factchecks/2021/jan/18/facebook-posts/obama-wasnt-arrested-bidens-inauguration/"^^xsd:anyURI ;
+     :documentContent "In a video published Jan. 17, Gage Nelson, host of the conservative podcast America Divided, said: \"Barack Obama was arrested.\""^^xsd:string ;
+     :mention "https://dbpedia.org/page/Barack_Obama"^^xsd:anyURI ,
+              "https://dbpedia.org/page/Nelson_Mandela"^^xsd:anyURI ,
+              "https://www.wikidata.org/wiki/Q51213808"^^xsd:anyURI ;
+     :reviewContent "In a video published Jan. 17, Gage Nelson, host of the conservative podcast America Divided, said: \"Barack Obama was arrested.\""^^xsd:string ;
+     :tag "politics"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#RT-1
@@ -1061,6 +1184,51 @@ foaf:Person rdf:type owl:Class ;
       schema:url "https://pagellapolitica.it/static/metodologia"^^xsd:anyURI ;
       :ratingSystemComment "Pinocchio andante"^^xsd:string ;
       :ratingValue "Mostly False"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#RT-3
+:RT-3 rdf:type owl:NamedIndividual ,
+               :Rating ,
+               prov:Entity ;
+      schema:url "https://www.washingtonpost.com/graphics/2019/politics/fact-checker/manipulated-video-guide/?noredirect=on&utm_term=.985468bf6c1e&itid=lk_inline_manual_9"^^xsd:anyURI ;
+      :ratingValue "False"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#RT-4
+:RT-4 rdf:type owl:NamedIndividual ,
+               :Rating ,
+               prov:Entity ;
+      schema:url "https://www.politifact.com/article/2018/feb/12/principles-truth-o-meter-politifacts-methodology-i/#Truth-O-Meter%20ratings"^^xsd:anyURI ;
+      :ratingAssociatedMedia "https://static.politifact.com/politifact/rulings/tom_ruling_pof.png"^^xsd:anyURI ;
+      :ratingSystemComment "Pants On Fire"^^xsd:string ;
+      :ratingValue "False"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#Role-A-9
+:Role-A-9 rdf:type owl:NamedIndividual ,
+                   :Claimant .
+
+
+###  http://www.modsem.org/fakt-news#Source-R-1
+:Source-R-1 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Time-2020-10-05-2020-10-06
+:Time-2020-10-05-2020-10-06 rdf:type owl:NamedIndividual ;
+                            <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2020-10-06"^^xsd:date ;
+                            <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2020-10-05"^^xsd:date .
+
+
+###  http://www.modsem.org/fakt-news#Time-2020-10-06-2020-10-07
+:Time-2020-10-06-2020-10-07 rdf:type owl:NamedIndividual ;
+                            <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2020-10-07"^^xsd:date ;
+                            <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2020-10-06"^^xsd:date .
+
+
+###  http://www.modsem.org/fakt-news#Time-2020-10-07-2020-10-08
+:Time-2020-10-07-2020-10-08 rdf:type owl:NamedIndividual ;
+                            <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2020-10-08"^^xsd:date ;
+                            <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2020-10-07"^^xsd:date .
 
 
 #################################################################
