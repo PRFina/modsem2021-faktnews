@@ -34,32 +34,32 @@ source		SELECT id, name, tipology
 
 mappingId	MAPID-Claim
 target		:C-{cid} a :Claim ; :associatedReview :R-{rid} ; dct:title {cti} ; dct:language {cla} ; dct:date {cpd} ; schema:url {curl}^^xsd:anyURI . 
-source		SELECT claim.id AS cid, 
-			           claim.title AS cti, 
-			           claim.pubblication_date AS cpd, 
-			           claim.url AS curl, 
-			           claim.language AS cla, 
-			           review.id AS rid
+source		SELECT claim.id AS cid,
+			claim.title AS cti,
+			claim.pubblication_date AS cpd,
+			claim.url AS curl,
+			claim.language AS cla,
+			review.id AS rid
 			FROM claim, about, review
 			WHERE review.id = about.review_id AND about.claim_id = claim.id ;
 
 mappingId	MAPID-Review
 target		:R-{rid} a :Review ; :hasJudgment :J-{rji} ; :hasRating :RT-{rri} ; :isReviewedBy :A-{aid} ; dct:title {rti} ; dct:language {rlg} ; dct:date {rpd} ; schema:url {rurl}^^xsd:anyURI ; :reviewContent {rco} ; :tag {tlb} ; :mention {eelb}^^xsd:anyURI . 
 source		SELECT review.id AS rid,
-			           review.title AS rti,
-			           review.content AS rco, 
-			           review.pubblication_date AS rpd, 
-			           review.url AS rurl, 
-			           review.language AS rlg, 
-			           review.judgment_id AS rji, 
-			           rating_id AS rri, 
-			           tag.label AS tlb,
-			           agent.id AS aid,
-			           external_entity.label AS eelb
+			review.title AS rti,
+			review.content AS rco,
+			review.pubblication_date AS rpd,
+			review.url AS rurl,
+			review.language AS rlg,
+			review.judgment_id AS rji,
+			rating_id AS rri,
+			tag.label AS tlb,
+			agent.id AS aid,
+			external_entity.label AS eelb
 			FROM review, topic, tag, review_author, agent, mention, external_entity
-			WHERE review.id = topic.review_id AND topic.tag_id = tag.id AND 
-			           review.id = review_author.review_id AND review_author.agent_id = agent.id AND
-			           review.id = mention.review_id AND mention.external_entity_id = external_entity.id;
+			WHERE review.id = topic.review_id AND topic.tag_id = tag.id AND
+			review.id = review_author.review_id AND review_author.agent_id = agent.id AND
+			review.id = mention.review_id AND mention.external_entity_id = external_entity.id;
 
 mappingId	MAPID-Judgment
 target		:J-{id} a :Judgment ; :judgmentSummary {value} . 
@@ -70,5 +70,10 @@ mappingId	MAPID-Rating
 target		:RT-{id} a :Rating ; :ratingValue {value} ; :ratingAssociatedMedia {associated_media_url}^^xsd:anyURI ; :ratingSystemComment {system_comment} ; schema:url {system_url}^^xsd:anyURI . 
 source		SELECT id, value, comment, associated_media_url, system_comment, system_url
 			FROM rating;
+
+mappingId	MAPID-Judgment(0)
+target		:J-{id} a :Judgment ; :judgmentSummary {value} . 
+source		SELECT id, value
+			FROM judgment;
 ]]
 

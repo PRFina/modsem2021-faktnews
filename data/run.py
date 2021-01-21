@@ -21,8 +21,8 @@ print("DB created from DDL file.")
 conn.commit()
 
 # Begin populating the db
-#cur.execute(open("db_scripts/dml.sql", "r").read())
-#print("DB populated from DML file.")
+cur.execute(open("db_scripts/dml.sql", "r").read())
+print("DB populated from DML file.")
 
 # make the changes to the database persistent
 conn.commit()
