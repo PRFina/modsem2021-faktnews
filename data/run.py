@@ -14,7 +14,7 @@ conn = pg.connect(**conn_info)
 
 # Begin creating the db
 cur = conn.cursor()
-cur.execute(open("db_scripts/ddl.sql", "r").read())
+cur.execute(open("SQL/ddl.sql", "r").read())
 print("DB created from DDL file.")
 
 # make the changes to the database persistent
