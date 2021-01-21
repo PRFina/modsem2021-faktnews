@@ -60,7 +60,7 @@ DROP TABLE IF EXISTS agent CASCADE;
 CREATE TABLE agent(
     id SERIAL,
     name TEXT,
-    tipology TEXT,
+    type TEXT,
     role TEXT,
     affiliation_id INTEGER,
     CONSTRAINT agent_pk PRIMARY KEY (id),
