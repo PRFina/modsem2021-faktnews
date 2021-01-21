@@ -940,17 +940,41 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#Activity-Evaluation-R-1
 :Activity-Evaluation-R-1 rdf:type owl:NamedIndividual ,
                                   :ClaimEvaluationActivity ;
-                         :hasTimeInterval :Time-2020-10-07-2020-10-08 ;
+                         :hasTimeInterval :Time-R1-2020-10-07-2020-10-08 ;
                          :isInputOfClaimEvaluation :Evidence-R-1 ;
                          :isLastActivityOfPlan :Plan-R-1 .
+
+
+###  http://www.modsem.org/fakt-news#Activity-Evaluation-R-2
+:Activity-Evaluation-R-2 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Activity-Evaluation-R-3
+:Activity-Evaluation-R-3 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Activity-Evaluation-R-4
+:Activity-Evaluation-R-4 rdf:type owl:NamedIndividual .
 
 
 ###  http://www.modsem.org/fakt-news#Activity-Selection-R-1
 :Activity-Selection-R-1 rdf:type owl:NamedIndividual ,
                                  :SelectionActivity ;
-                        :hasTimeInterval :Time-2020-10-05-2020-10-06 ;
+                        :hasTimeInterval :Time-R1-2020-10-05-2020-10-06 ;
                         :isFirstActivityOfPlan :Plan-R-1 ;
-                        prov:qualifiedAssociation :Association-A9-Activity-Selection-R1 .
+                        prov:qualifiedAssociation :Association-Activity-Selection-R1-A9 .
+
+
+###  http://www.modsem.org/fakt-news#Activity-Selection-R-2
+:Activity-Selection-R-2 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Activity-Selection-R-3
+:Activity-Selection-R-3 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Activity-Selection-R-4
+:Activity-Selection-R-4 rdf:type owl:NamedIndividual .
 
 
 ###  http://www.modsem.org/fakt-news#Activity-Verification-R-1
@@ -958,23 +982,59 @@ foaf:Person rdf:type owl:Class ;
                                     :VerificationActivity ;
                            :hasNextActivity :Activity-Evaluation-R-1 ;
                            :hasPreviousActivity :Activity-Selection-R-1 ;
-                           :hasTimeInterval :Time-2020-10-06-2020-10-07 ;
+                           :hasTimeInterval :Time-R1-2020-10-06-2020-10-07 ;
                            :isActivityOfPlan :Plan-R-1 ;
                            :isInputOfVerification :C-1 .
 
 
-###  http://www.modsem.org/fakt-news#Association-A3-Activity-Evaluation-R1
-:Association-A3-Activity-Evaluation-R1 rdf:type owl:NamedIndividual ,
+###  http://www.modsem.org/fakt-news#Activity-Verification-R-2
+:Activity-Verification-R-2 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Activity-Verification-R-3
+:Activity-Verification-R-3 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Activity-Verification-R-4
+:Activity-Verification-R-4 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Association-Activity-Evaluation-R1-A3
+:Association-Activity-Evaluation-R1-A3 rdf:type owl:NamedIndividual ,
                                                 prov:Association ;
                                        prov:agent :A-3 ;
                                        prov:hadRole :Role-A-3 .
 
 
-###  http://www.modsem.org/fakt-news#Association-A9-Activity-Selection-R1
-:Association-A9-Activity-Selection-R1 rdf:type owl:NamedIndividual ,
+###  http://www.modsem.org/fakt-news#Association-Activity-Evaluation-R2-A4
+:Association-Activity-Evaluation-R2-A4 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Association-Activity-Evaluation-R3-A6
+:Association-Activity-Evaluation-R3-A6 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Association-Activity-Evaluation-R4-A8
+:Association-Activity-Evaluation-R4-A8 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Association-Activity-Selection-R1-A9
+:Association-Activity-Selection-R1-A9 rdf:type owl:NamedIndividual ,
                                                prov:Association ;
                                       prov:agent :A-9 ;
                                       prov:hadRole :Role-A-9 .
+
+
+###  http://www.modsem.org/fakt-news#Association-Activity-Selection-R2-A10
+:Association-Activity-Selection-R2-A10 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Association-Activity-Selection-R3-A11
+:Association-Activity-Selection-R3-A11 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Association-Activity-Selection-R4-A12
+:Association-Activity-Selection-R4-A12 rdf:type owl:NamedIndividual .
 
 
 ###  http://www.modsem.org/fakt-news#C-1
@@ -1038,12 +1098,36 @@ foaf:Person rdf:type owl:Class ;
 :Evidence-Document-R-1 rdf:type owl:NamedIndividual .
 
 
+###  http://www.modsem.org/fakt-news#Evidence-Document-R-2
+:Evidence-Document-R-2 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Evidence-Document-R-3
+:Evidence-Document-R-3 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Evidence-Document-R-4
+:Evidence-Document-R-4 rdf:type owl:NamedIndividual .
+
+
 ###  http://www.modsem.org/fakt-news#Evidence-R-1
 :Evidence-R-1 rdf:type owl:NamedIndividual ,
                        :SupportingEvidence ;
               :derivedFromSource :Source-R-1 ;
               :supportedBy :Evidence-Document-R-1 ;
               :wasOutputOfVerification :Activity-Verification-R-1 .
+
+
+###  http://www.modsem.org/fakt-news#Evidence-R-2
+:Evidence-R-2 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Evidence-R-3
+:Evidence-R-3 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Evidence-R-4
+:Evidence-R-4 rdf:type owl:NamedIndividual .
 
 
 ###  http://www.modsem.org/fakt-news#IFCN-Code-of-Principles
@@ -1086,6 +1170,18 @@ foaf:Person rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#Plan-R-1
 :Plan-R-1 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Plan-R-2
+:Plan-R-2 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Plan-R-3
+:Plan-R-3 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Plan-R-4
+:Plan-R-4 rdf:type owl:NamedIndividual .
 
 
 ###  http://www.modsem.org/fakt-news#R-1
@@ -1215,9 +1311,33 @@ foaf:Person rdf:type owl:Class ;
       :ratingValue "False"^^xsd:string .
 
 
+###  http://www.modsem.org/fakt-news#Role-A-10
+:Role-A-10 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Role-A-11
+:Role-A-11 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Role-A-12
+:Role-A-12 rdf:type owl:NamedIndividual .
+
+
 ###  http://www.modsem.org/fakt-news#Role-A-3
 :Role-A-3 rdf:type owl:NamedIndividual ,
                    :FactChecker .
+
+
+###  http://www.modsem.org/fakt-news#Role-A-4
+:Role-A-4 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Role-A-6
+:Role-A-6 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Role-A-8
+:Role-A-8 rdf:type owl:NamedIndividual .
 
 
 ###  http://www.modsem.org/fakt-news#Role-A-9
@@ -1229,22 +1349,70 @@ foaf:Person rdf:type owl:Class ;
 :Source-R-1 rdf:type owl:NamedIndividual .
 
 
-###  http://www.modsem.org/fakt-news#Time-2020-10-05-2020-10-06
-:Time-2020-10-05-2020-10-06 rdf:type owl:NamedIndividual ;
-                            <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2020-10-06"^^xsd:date ;
-                            <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2020-10-05"^^xsd:date .
+###  http://www.modsem.org/fakt-news#Source-R-2
+:Source-R-2 rdf:type owl:NamedIndividual .
 
 
-###  http://www.modsem.org/fakt-news#Time-2020-10-06-2020-10-07
-:Time-2020-10-06-2020-10-07 rdf:type owl:NamedIndividual ;
-                            <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2020-10-07"^^xsd:date ;
-                            <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2020-10-06"^^xsd:date .
+###  http://www.modsem.org/fakt-news#Source-R-3
+:Source-R-3 rdf:type owl:NamedIndividual .
 
 
-###  http://www.modsem.org/fakt-news#Time-2020-10-07-2020-10-08
-:Time-2020-10-07-2020-10-08 rdf:type owl:NamedIndividual ;
-                            <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2020-10-08"^^xsd:date ;
-                            <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2020-10-07"^^xsd:date .
+###  http://www.modsem.org/fakt-news#Source-R-4
+:Source-R-4 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Time-R1-2020-10-05-2020-10-06
+:Time-R1-2020-10-05-2020-10-06 rdf:type owl:NamedIndividual ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2020-10-06"^^xsd:date ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2020-10-05"^^xsd:date .
+
+
+###  http://www.modsem.org/fakt-news#Time-R1-2020-10-06-2020-10-07
+:Time-R1-2020-10-06-2020-10-07 rdf:type owl:NamedIndividual ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2020-10-07"^^xsd:date ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2020-10-06"^^xsd:date .
+
+
+###  http://www.modsem.org/fakt-news#Time-R1-2020-10-07-2020-10-08
+:Time-R1-2020-10-07-2020-10-08 rdf:type owl:NamedIndividual ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2020-10-08"^^xsd:date ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2020-10-07"^^xsd:date .
+
+
+###  http://www.modsem.org/fakt-news#Time-R2-2021-01-13-2021-01-14
+:Time-R2-2021-01-13-2021-01-14 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Time-R2-2021-01-14-2021-01-15
+:Time-R2-2021-01-14-2021-01-15 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Time-R2-2021-01-15-2021-01-16
+:Time-R2-2021-01-15-2021-01-16 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Time-R3-2019-06-16-2019-06-17
+:Time-R3-2019-06-16-2019-06-17 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Time-R3-2019-06-17-2019-06-18
+:Time-R3-2019-06-17-2019-06-18 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Time-R3-2019-06-18-2019-06-19
+:Time-R3-2019-06-18-2019-06-19 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Time-R4-2021-01-17-2021-01-18
+:Time-R4-2021-01-17-2021-01-18 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Time-R4-2021-01-18-2021-01-19
+:Time-R4-2021-01-18-2021-01-19 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#Time-R4-2021-01-19-2021-01-20
+:Time-R4-2021-01-19-2021-01-20 rdf:type owl:NamedIndividual .
 
 
 #################################################################

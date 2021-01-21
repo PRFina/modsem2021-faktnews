@@ -42,7 +42,7 @@ INSERT INTO review (title, content, publication_date, url, language, rating_id, 
 	'1'), -- judgment_id -> Confirmed Fact
 	('No, “genitore 1 e 2” non tornano sui documenti d’identità (non ci sono mai stati)', 
 	'Al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con genitore 1 e 2 ...[+1568 words]', 
-	'2021-01-15', 
+	'2021-01-16', 
 	'https://pagellapolitica.it/dichiarazioni/8801/no-genitore-1-e-2-non-tornano-sui-documenti-didentita-non-ci-sono-mai-stati',
 	'it',
 	'2', -- rating_id -> Mostly False
@@ -56,7 +56,7 @@ INSERT INTO review (title, content, publication_date, url, language, rating_id, 
 	'3'), -- judgment_id -> Fabbrication
 	('Barack Obama wasn’t arrested before Biden’s inauguration', 
 	'In a video published Jan. 17, Gage Nelson, host of the conservative podcast America Divided, said: "Barack Obama was arrested."',
-	'2021-01-18',
+	'2021-01-20',
 	'https://www.politifact.com/factchecks/2021/jan/18/facebook-posts/obama-wasnt-arrested-bidens-inauguration/',
 	'en',
 	'4', -- rating_id -> False
@@ -73,33 +73,33 @@ INSERT INTO agent (name, type, role, affiliation_id) values
 	('Daniel Funke', 'Person', 'factchecker', '7'),
 	('Nicola Zingaretti', 'Person', 'claimant', NULL),
 	('Matteo Salvini', 'Person', 'claimant', NULL),
-	('Donald TrumpBot', 'Software Agent', 'claimant', NULL),
-	('Mark Zucherberg', 'Person', 'claimant', NULL);
+	('Mark Zucherberg', 'Person', 'claimant', NULL),
+	('America Divided Podcast', 'Organization', 'claimant', NULL);
 
 INSERT INTO claim (content, publication_date, url, language, claimant_id) values
 	('Approvato ora in Consiglio dei Ministri il decreto immigrazione. I decreti propaganda/Salvini non ci sono più. Vogliamo un’Italia  più umana e sicura. Un’Europa più protagonista', 
 	'2020-10-05', 
 	'https://twitter.com/nzingaretti/status/1313218301200400389?ref_src=twsrc%5Etfw',
 	'it',
-	'5'
+	'9'
 	),
 	('Con tutti i problemi che ci sono in Italia, al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con Genitore 1 e 2. Prima vanno a casa, meglio è.', 
 	'2021-01-13', 
 	'https://twitter.com/matteosalvinimi/status/1349377644941479937',
 	'it',
-	'6'
+	'10'
 	),
 	('Zuckerberg: we are increasing transparency on Ads. Announces new measure to protect the elections.', 
 	'2019-06-07', 
 	'https://www.instagram.com/p/ByaVigGFP2U/?utm_source=ig_embed&utm_campaign=embed_video_watch_again',
 	'en',
-	'7'
+	'11'
 	),
 	('Barack Obama was arrested: a video published on Facebook claims to show former President Barack Obama in jail.', 
 	'2021-01-17', 
 	'https://archive.vn/5P96s',
 	'en',
-	'6'
+	'12'
 	);
 	
 
