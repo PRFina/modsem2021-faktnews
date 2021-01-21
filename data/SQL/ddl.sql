@@ -62,6 +62,7 @@ CREATE TABLE agent(
     name TEXT,
     type TEXT,
     role TEXT,
+    image_url TEXT,
     affiliation_id INTEGER,
     CONSTRAINT agent_pk PRIMARY KEY (id),
     CONSTRAINT affiliation_fk FOREIGN KEY (affiliation_id) REFERENCES agent(id) ON UPDATE CASCADE
