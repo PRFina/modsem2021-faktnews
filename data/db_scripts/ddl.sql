@@ -36,7 +36,8 @@ CREATE TABLE rating(
 DROP TABLE IF EXISTS judgment CASCADE;
 CREATE TABLE judgment(
     id SERIAL,
-    value TEXT,
+    label TEXT,
+    justification TEXT,
     CONSTRAINT judgment_pk PRIMARY KEY (id)
 );
 
@@ -45,7 +46,7 @@ CREATE TABLE review(
     id SERIAL,
     title TEXT,
     content TEXT,
-    pubblication_date DATE,
+    publication_date DATE,
     url TEXT,
     language varchar(2),
     rating_id INTEGER,
