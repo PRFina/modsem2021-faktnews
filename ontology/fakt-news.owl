@@ -263,6 +263,7 @@ prov:qualifiedAssociation rdf:type owl:ObjectProperty ;
 
 ###  http://www.w3.org/ns/prov#used
 prov:used rdf:type owl:ObjectProperty ;
+          rdfs:domain prov:Activity ;
           rdfs:range prov:Entity .
 
 
@@ -940,6 +941,7 @@ foaf:Person rdf:type owl:Class ;
 :Activity-Evaluation-R-1 rdf:type owl:NamedIndividual ,
                                   :ClaimEvaluationActivity ;
                          :hasTimeInterval :Time-2020-10-07-2020-10-08 ;
+                         :isInputOfClaimEvaluation :Evidence-R-1 ;
                          :isLastActivityOfPlan :Plan-R-1 .
 
 
@@ -947,7 +949,8 @@ foaf:Person rdf:type owl:Class ;
 :Activity-Selection-R-1 rdf:type owl:NamedIndividual ,
                                  :SelectionActivity ;
                         :hasTimeInterval :Time-2020-10-05-2020-10-06 ;
-                        :isFirstActivityOfPlan :Plan-R-1 .
+                        :isFirstActivityOfPlan :Plan-R-1 ;
+                        prov:qualifiedAssociation :Association-A9-Activity-Selection-R1 .
 
 
 ###  http://www.modsem.org/fakt-news#Activity-Verification-R-1
@@ -960,11 +963,18 @@ foaf:Person rdf:type owl:Class ;
                            :isInputOfVerification :C-1 .
 
 
-###  http://www.modsem.org/fakt-news#Association-A9-AEval-R1
-:Association-A9-AEval-R1 rdf:type owl:NamedIndividual ,
-                                  prov:Association ;
-                         prov:agent :A-9 ;
-                         prov:hadRole :Role-A-9 .
+###  http://www.modsem.org/fakt-news#Association-A3-Activity-Evaluation-R1
+:Association-A3-Activity-Evaluation-R1 rdf:type owl:NamedIndividual ,
+                                                prov:Association ;
+                                       prov:agent :A-3 ;
+                                       prov:hadRole :Role-A-3 .
+
+
+###  http://www.modsem.org/fakt-news#Association-A9-Activity-Selection-R1
+:Association-A9-Activity-Selection-R1 rdf:type owl:NamedIndividual ,
+                                               prov:Association ;
+                                      prov:agent :A-9 ;
+                                      prov:hadRole :Role-A-9 .
 
 
 ###  http://www.modsem.org/fakt-news#C-1
@@ -1032,7 +1042,8 @@ foaf:Person rdf:type owl:Class ;
 :Evidence-R-1 rdf:type owl:NamedIndividual ,
                        :SupportingEvidence ;
               :derivedFromSource :Source-R-1 ;
-              :supportedBy :Evidence-Document-R-1 .
+              :supportedBy :Evidence-Document-R-1 ;
+              :wasOutputOfVerification :Activity-Verification-R-1 .
 
 
 ###  http://www.modsem.org/fakt-news#IFCN-Code-of-Principles
@@ -1202,6 +1213,11 @@ foaf:Person rdf:type owl:Class ;
       :ratingAssociatedMedia "https://static.politifact.com/politifact/rulings/tom_ruling_pof.png"^^xsd:anyURI ;
       :ratingSystemComment "Pants On Fire"^^xsd:string ;
       :ratingValue "False"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#Role-A-3
+:Role-A-3 rdf:type owl:NamedIndividual ,
+                   :FactChecker .
 
 
 ###  http://www.modsem.org/fakt-news#Role-A-9
