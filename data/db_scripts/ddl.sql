@@ -64,15 +64,14 @@ CREATE TABLE agent(
     role TEXT,
     affiliation_id INTEGER,
     CONSTRAINT agent_pk PRIMARY KEY (id),
-    CONSTRAINT agent_agent_fk FOREIGN KEY (affiliation_id) REFERENCES agent(id) ON UPDATE CASCADE
+    CONSTRAINT affiliation_fk FOREIGN KEY (affiliation_id) REFERENCES agent(id) ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS claim CASCADE;
 CREATE TABLE claim(
     id SERIAL,
-    title TEXT,
     content TEXT,
-    pubblication_date DATE,
+    publication_date DATE,
     url TEXT,
     language varchar(2),
     claimant_id INTEGER,
