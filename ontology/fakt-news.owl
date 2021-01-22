@@ -88,6 +88,7 @@ dcterms:creator rdf:type owl:ObjectProperty ;
 ###  http://www.modsem.org/fakt-news#derivedFromSource
 :derivedFromSource rdf:type owl:ObjectProperty ;
                    rdfs:subPropertyOf prov:wasAttributedTo ;
+                   owl:inverseOf :isSourceOfEvidence ;
                    rdfs:domain :Evidence ;
                    rdfs:range :EvidenceSource .
 
@@ -183,6 +184,10 @@ dcterms:creator rdf:type owl:ObjectProperty ;
 :isReviewedBy rdf:type owl:ObjectProperty ;
               rdfs:subPropertyOf dcterms:creator ;
               rdfs:domain :Review .
+
+
+###  http://www.modsem.org/fakt-news#isSourceOfEvidence
+:isSourceOfEvidence rdf:type owl:ObjectProperty .
 
 
 ###  http://www.modsem.org/fakt-news#isUsedByClaimEvaluation
@@ -532,6 +537,10 @@ schema:CreativeWork rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#EvidenceSource
 :EvidenceSource rdf:type owl:Class ;
+                owl:equivalentClass [ rdf:type owl:Restriction ;
+                                      owl:onProperty :isSourceOfEvidence ;
+                                      owl:someValuesFrom :Evidence
+                                    ] ;
                 rdfs:subClassOf prov:Agent ;
                 rdfs:comment "The source of the facts. It could be the entity that states the fact itself or reports it."@en ;
                 rdfs:label "Evidence Source"@en .
@@ -561,7 +570,7 @@ schema:CreativeWork rdf:type owl:Class ;
 :FactCheckingAuthority rdf:type owl:Class ;
                        owl:equivalentClass [ rdf:type owl:Class ;
                                              owl:oneOf ( :A-1-IFCN
-                                                         :A-14-DUKES-REPORTER-LAB
+                                                         :A-13-DUKES-REPORTER-LAB
                                                        )
                                            ] ;
                        rdfs:subClassOf :Organization ;
@@ -865,16 +874,9 @@ foaf:Person rdf:type owl:Class ;
       schema:name "Mark Zucherberg"^^xsd:string .
 
 
-###  http://www.modsem.org/fakt-news#A-13
-:A-13 rdf:type owl:NamedIndividual ,
-               :Organization ;
-      schema:name "The Guardian"^^xsd:string ;
-      schema:url "https://www.theguardian.com/international"^^xsd:anyURI ;
-      :capacityType "Company"^^xsd:string .
-
-
-###  http://www.modsem.org/fakt-news#A-14-DUKES-REPORTER-LAB
-:A-14-DUKES-REPORTER-LAB rdf:type owl:NamedIndividual .
+###  http://www.modsem.org/fakt-news#A-13-DUKES-REPORTER-LAB
+:A-13-DUKES-REPORTER-LAB rdf:type owl:NamedIndividual ;
+                         schema:name "Duke Reporter's Lab"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#A-2
@@ -1193,8 +1195,8 @@ foaf:Person rdf:type owl:Class ;
 :Evidence-Document-R-4 rdf:type owl:NamedIndividual ,
                                 :DigitalDocument ;
                        dcterms:date "2021-01-17"^^xsd:date ;
-                       dcterms:title "Barack Obama was arrested"^^xsd:string ;
-                       schema:url "https://archive.vn/5P96s"^^xsd:anyURI .
+                       dcterms:title "Barack Obama 'humbled' by visit to Nelson Mandela's Robben Island jail"^^xsd:string ;
+                       schema:url "https://www.youtube.com/watch?v=fGZTFg8PP9Q&feature=youtu.be"^^xsd:anyURI .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-R-1
@@ -1224,7 +1226,8 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#Evidence-R-4
 :Evidence-R-4 rdf:type owl:NamedIndividual ,
                        :DisprovingEvidence ;
-              :derivedFromSource :EvidenceSource-R-4 ;
+              :derivedFromSource :EvidenceSource-R-4 ,
+                                 :EvidenceSource2-R-4 ;
               :supportedBy :Evidence-Document-R-4 ;
               :wasOutputOfVerification :Activity-Verification-R-4 .
 
@@ -1243,10 +1246,18 @@ foaf:Person rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#EvidenceSource-R-4
 :EvidenceSource-R-4 rdf:type owl:NamedIndividual ,
-                             :EvidenceSource ,
                              :Organization ;
                     schema:name "The Guardian"^^xsd:string ;
-                    schema:url "https://www.theguardian.com/international"^^xsd:anyURI .
+                    schema:url "https://www.theguardian.com/international"^^xsd:anyURI ;
+                    :capacityType "Company"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#EvidenceSource2-R-4
+:EvidenceSource2-R-4 rdf:type owl:NamedIndividual ,
+                              :Organization ;
+                     schema:name "The White House"^^xsd:string ;
+                     schema:url "https://www.whitehouse.gov"^^xsd:anyURI ;
+                     :capacityType "Government"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#IFCN-Code-of-Principles
