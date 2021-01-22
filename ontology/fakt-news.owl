@@ -475,21 +475,18 @@ schema:CreativeWork rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#AlternativesSet
 :AlternativesSet rdf:type owl:Class ;
-                 owl:equivalentClass [ owl:intersectionOf ( <http://www.ontologydesignpatterns.org/cp/owl/set.owl#Set>
-                                                            [ rdf:type owl:Restriction ;
-                                                              owl:onProperty <http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#hasMember> ;
-                                                              owl:someValuesFrom :Claim
-                                                            ]
-                                                          ) ;
-                                       rdf:type owl:Class
-                                     ] ;
-                 rdfs:subClassOf prov:Entity ;
+                 rdfs:subClassOf <http://www.ontologydesignpatterns.org/cp/owl/set.owl#Set> ;
                  rdfs:comment "A set of claims from which the fact-checker chooses the claim to verify."@en ;
                  rdfs:label "Alternatives Set"@en .
 
 
 ###  http://www.modsem.org/fakt-news#Author
 :Author rdf:type owl:Class ;
+        owl:equivalentClass [ rdf:type owl:Class ;
+                              owl:unionOf ( :Claimant
+                                            :FactChecker
+                                          )
+                            ] ;
         rdfs:subClassOf prov:Role ;
         rdfs:comment "An author of a digital document. It could be for example a Fact-Checker or a Claim Author."@en ;
         rdfs:label "Author"@en .
@@ -530,7 +527,9 @@ schema:CreativeWork rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#CodeOfPrinciples
 :CodeOfPrinciples rdf:type owl:Class ;
-                  rdfs:subClassOf prov:Entity .
+                  rdfs:subClassOf prov:Entity ;
+                  rdfs:comment "A series of commitments organizations abide by to promote excellence in fact-checking."@en ;
+                  rdfs:label "Code of Principles"@en .
 
 
 ###  http://www.modsem.org/fakt-news#ConfirmedFact
@@ -555,6 +554,7 @@ schema:CreativeWork rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#DisprovingEvidence
 :DisprovingEvidence rdf:type owl:Class ;
                     rdfs:subClassOf :Evidence ;
+                    rdfs:comment "A disproving evidence on a certain claim."@en ;
                     rdfs:label "Disproving Evidence"@en .
 
 
@@ -567,7 +567,9 @@ schema:CreativeWork rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#Editor
 :Editor rdf:type owl:Class ;
-        rdfs:subClassOf prov:Role .
+        rdfs:subClassOf prov:Role ;
+        rdfs:comment "The entity who manipulate the data in the Verification Activity. It could be the same entity as the Fact Checker."@en ;
+        rdfs:label "Editor"@en .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence
@@ -589,12 +591,6 @@ schema:CreativeWork rdf:type owl:Class ;
                 rdfs:subClassOf prov:Agent ;
                 rdfs:comment "The source of the facts. It could be the entity that states the fact itself or reports it."@en ;
                 rdfs:label "Evidence Source"@en .
-
-
-###  http://www.modsem.org/fakt-news#ExternalSuggestion
-:ExternalSuggestion rdf:type owl:Class ;
-                    rdfs:subClassOf :Suggestion ;
-                    rdfs:comment "External Suggestion - A suggestion from the Reader or from some Recomender System."@en .
 
 
 ###  http://www.modsem.org/fakt-news#Fabrication
@@ -651,12 +647,6 @@ schema:CreativeWork rdf:type owl:Class ;
                                            rdf:type owl:Class
                                          ] ;
                      rdfs:label "Fact Checking Process"@en .
-
-
-###  http://www.modsem.org/fakt-news#InternalSuggestion
-:InternalSuggestion rdf:type owl:Class ;
-                    rdfs:subClassOf :Suggestion ;
-                    rdfs:comment "Internal Suggestion - A suggestion from the Staff."@en .
 
 
 ###  http://www.modsem.org/fakt-news#Isolation
@@ -782,13 +772,6 @@ schema:CreativeWork rdf:type owl:Class ;
                    rdfs:label "Selection Activity"@en .
 
 
-###  http://www.modsem.org/fakt-news#SelectionPolicy
-:SelectionPolicy rdf:type owl:Class ;
-                 rdfs:subClassOf prov:Entity ;
-                 rdfs:comment "The claim selection policy of a given entity."@en ;
-                 rdfs:label "Selection Policy"@en .
-
-
 ###  http://www.modsem.org/fakt-news#SoftwareAgent
 :SoftwareAgent rdf:type owl:Class ;
                rdfs:subClassOf prov:Agent ;
@@ -803,14 +786,10 @@ schema:CreativeWork rdf:type owl:Class ;
           rdfs:label "Splicing"@en .
 
 
-###  http://www.modsem.org/fakt-news#Suggestion
-:Suggestion rdf:type owl:Class ;
-            rdfs:subClassOf prov:Entity .
-
-
 ###  http://www.modsem.org/fakt-news#SupportingEvidence
 :SupportingEvidence rdf:type owl:Class ;
                     rdfs:subClassOf :Evidence ;
+                    rdfs:comment "A proving evidence on a certain claim."@en ;
                     rdfs:label "Supporting Evidence"@en .
 
 
@@ -926,6 +905,14 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#A-13-DUKES-REPORTER-LAB
 :A-13-DUKES-REPORTER-LAB rdf:type owl:NamedIndividual ;
                          schema:name "Duke Reporter's Lab"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#A-14
+:A-14 rdf:type owl:NamedIndividual ,
+               :Person ,
+               prov:Agent ,
+               foaf:Person ;
+      schema:name "Tommaso Canetta"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#A-2
@@ -1045,7 +1032,8 @@ foaf:Person rdf:type owl:Class ;
                                  :SelectionActivity ;
                         :hasTimeInterval :Time-R2-2021-01-13-2021-01-14 ;
                         :isFirstActivityOfPlan :Plan-R-2 ;
-                        prov:qualifiedAssociation :Association-Activity-Selection-R2-A10 .
+                        prov:qualifiedAssociation :Association-Activity-Selection-R2-A10 ,
+                                                  :Association-Activity-Selection-R2-A14 .
 
 
 ###  http://www.modsem.org/fakt-news#Activity-Selection-R-3
@@ -1150,6 +1138,13 @@ foaf:Person rdf:type owl:Class ;
                                                 prov:Association ;
                                        prov:agent :A-10 ;
                                        prov:hadRole :Role-A-10 .
+
+
+###  http://www.modsem.org/fakt-news#Association-Activity-Selection-R2-A14
+:Association-Activity-Selection-R2-A14 rdf:type owl:NamedIndividual ,
+                                                prov:Association ;
+                                       prov:agent :A-14 ;
+                                       prov:hadRole :Role-A-14 .
 
 
 ###  http://www.modsem.org/fakt-news#Association-Activity-Selection-R3-A11
@@ -1545,6 +1540,11 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#Role-A-12
 :Role-A-12 rdf:type owl:NamedIndividual ,
                     :Claimant .
+
+
+###  http://www.modsem.org/fakt-news#Role-A-14
+:Role-A-14 rdf:type owl:NamedIndividual ,
+                    :Editor .
 
 
 ###  http://www.modsem.org/fakt-news#Role-A-3
