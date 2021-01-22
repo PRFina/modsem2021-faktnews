@@ -340,6 +340,7 @@ dcterms:date rdf:type owl:DatatypeProperty .
 ###  http://purl.org/dc/terms/language
 dcterms:language rdf:type owl:DatatypeProperty ;
                  rdfs:domain schema:CreativeWork ;
+                 rdfs:label "Language"@en .
                  rdfs:range xsd:string .
 
 
@@ -351,16 +352,21 @@ dcterms:title rdf:type owl:DatatypeProperty ;
 ###  http://schema.org/name
 schema:name rdf:type owl:DatatypeProperty ;
             rdfs:range xsd:string ;
-            rdfs:comment "The name of the item."@en .
+            rdfs:comment "The name of the item."@en ;
+            rdfs:label "Name"@en .
 
 
 ###  http://schema.org/url
 schema:url rdf:type owl:DatatypeProperty ;
-           rdfs:range xsd:anyURI .
+           rdfs:range xsd:anyURI ;
+           rdfs:comment "The URL of an item."@en ;
+           rdfs:label "URL"@en ;
+           skos:altLabel "URL"@en .
 
 
 ###  http://www.modsem.org/fakt-news#capacityType
 :capacityType rdf:type owl:DatatypeProperty ;
+              rdfs:domain :EvidenceSource ;
               rdfs:range [ rdf:type rdfs:Datatype ;
                            owl:oneOf [ rdf:type rdf:List ;
                                        rdf:first "Citizen" ;
@@ -390,25 +396,35 @@ schema:url rdf:type owl:DatatypeProperty ;
                                                            ]
                                                 ]
                                      ]
-                         ] .
+                         ] ;
+              rdfs:comment "The Evidence Source social function indipendent of the context."@en ;
+              rdfs:label "Capacity"@en ;
+              skos:altLabel "Position"@en .
 
 
 ###  http://www.modsem.org/fakt-news#claimContent
 :claimContent rdf:type owl:DatatypeProperty ;
               rdfs:subPropertyOf :documentContent ;
               rdfs:domain :Claim ;
-              rdfs:range xsd:string .
+              rdfs:range xsd:string ;
+              rdfs:comment "The main content of a claim: what claimant said."@en ;
+              rdfs:label "Claim Content"@en .
 
 
 ###  http://www.modsem.org/fakt-news#documentContent
 :documentContent rdf:type owl:DatatypeProperty ;
-                 rdfs:domain :DigitalDocument .
+                 rdfs:domain :DigitalDocument ;
+                 rdfs:label "Content"@en ,
+                            "The main content of the document."@en .
 
 
 ###  http://www.modsem.org/fakt-news#judgmentSummary
 :judgmentSummary rdf:type owl:DatatypeProperty ;
                  rdfs:domain :Judgment ;
-                 rdfs:range xsd:string .
+                 rdfs:range xsd:string ;
+                 rdfs:comment "A brief description of the judgment given by some fact checker"@en ;
+                 rdfs:label "Judgment Summary"@en ;
+                 skos:altLabel "Judgment Description"@en .
 
 
 ###  http://www.modsem.org/fakt-news#mention
@@ -420,7 +436,10 @@ schema:url rdf:type owl:DatatypeProperty ;
 ###  http://www.modsem.org/fakt-news#ratingAssociatedMedia
 :ratingAssociatedMedia rdf:type owl:DatatypeProperty ;
                        rdfs:domain :Rating ;
-                       rdfs:range xsd:anyURI .
+                       rdfs:range xsd:anyURI ;
+                       rdfs:comment "A visual representation of the rating value"@en ;
+                       rdfs:label "Rating Associated Media"@en ;
+                       skos:altLabel "Rating Depiction"@en .
 
 
 ###  http://www.modsem.org/fakt-news#ratingSystemComment
@@ -446,20 +465,26 @@ schema:url rdf:type owl:DatatypeProperty ;
                                                           ]
                                                ]
                                     ]
-                        ] .
+                        ] ;
+             rdfs:comment "The rating value that encode a final verdict about the claim truthfulness."@en ;
+             rdfs:label "Rating Value"@en .
 
 
 ###  http://www.modsem.org/fakt-news#reviewContent
 :reviewContent rdf:type owl:DatatypeProperty ;
                rdfs:subPropertyOf :documentContent ;
                rdfs:domain :Review ;
-               rdfs:range xsd:string .
+               rdfs:range xsd:string ;
+               dcterms:title "The content of a review article."@en ;
+               rdfs:label "Review Content"@en .
 
 
 ###  http://www.modsem.org/fakt-news#tag
 :tag rdf:type owl:DatatypeProperty ;
      rdfs:domain :Review ;
-     rdfs:range xsd:string .
+     rdfs:range xsd:string ;
+     rdfs:comment "A topic tag of the review."@en ;
+     rdfs:label "Topic Tag"@en .
 
 
 #################################################################
@@ -507,7 +532,7 @@ schema:CreativeWork rdf:type owl:Class ;
                              rdf:type owl:Class
                            ] ;
        rdfs:subClassOf :DigitalDocument ;
-       rdfs:comment "A statement by an entity about a topic."@en ;
+       rdfs:comment "A statement by an entity about some fact."@en ;
        rdfs:label "Claim"@en ;
        skos:altLabel "Statement"@en .
 
@@ -555,6 +580,7 @@ schema:CreativeWork rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#DisprovingEvidence
 :DisprovingEvidence rdf:type owl:Class ;
                     rdfs:subClassOf :Evidence ;
+                    owl:disjointWith :SupportingEvidence ;
                     rdfs:comment "A disproving evidence on a certain claim."@en ;
                     rdfs:label "Disproving Evidence"@en .
 
@@ -623,7 +649,8 @@ schema:CreativeWork rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#FactCheckingOrganization
 :FactCheckingOrganization rdf:type owl:Class ;
                           rdfs:subClassOf :Organization ;
-                          rdfs:label "Fact Checking Organisation"@en .
+                          rdfs:comment "An organization that provides fact-checking services."@en ;
+                          rdfs:label "Fact Checking Organization"@en .
 
 
 ###  http://www.modsem.org/fakt-news#FactCheckingProcess
@@ -647,6 +674,7 @@ schema:CreativeWork rdf:type owl:Class ;
                                                               ) ;
                                            rdf:type owl:Class
                                          ] ;
+                     rdfs:comment "The whole activities in which given a selected claim, supported or disproved by some evidence, generates a review article on the claim truthfulness."@en ;
                      rdfs:label "Fact Checking Process"@en .
 
 
@@ -729,7 +757,7 @@ schema:CreativeWork rdf:type owl:Class ;
 :Person rdf:type owl:Class ;
         owl:equivalentClass foaf:Person ;
         rdfs:subClassOf prov:Agent ;
-        rdfs:comment ""@en ;
+        rdfs:comment "A real human person."@en ;
         rdfs:label "Person"@en .
 
 
@@ -776,6 +804,7 @@ schema:CreativeWork rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#SoftwareAgent
 :SoftwareAgent rdf:type owl:Class ;
                rdfs:subClassOf prov:Agent ;
+               rdfs:comment "A software program that act in automounus way in some kind of environment to achive some kind of task."@en ;
                rdfs:label "Software Agent"@en ;
                skos:altLabel "Bot, Software"@en .
 
@@ -812,7 +841,9 @@ schema:CreativeWork rdf:type owl:Class ;
                                                  )
                                    ] ;
                rdfs:subClassOf :EvidenceSource ;
-               rdfs:label "Trusted Source"@en .
+               rdfs:comment "A Trusted Source is known to be reliable because its authority or authenticity is widely recognized by experts in the field."@en ;
+               rdfs:label "Trusted Source"@en ;
+               skos:altLabel "Authoritative Source"@en .
 
 
 ###  http://www.modsem.org/fakt-news#VerificationActivity
@@ -824,6 +855,10 @@ schema:CreativeWork rdf:type owl:Class ;
 
 ###  http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#Collection
 <http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#Collection> rdfs:subClassOf prov:Entity .
+
+
+###  http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#TimeInterval
+<http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#TimeInterval> rdfs:subClassOf prov:Entity .
 
 
 ###  http://www.w3.org/ns/prov#Activity
@@ -853,6 +888,7 @@ prov:Entity rdf:type owl:Class ;
 ###  http://www.w3.org/ns/prov#Plan
 prov:Plan rdf:type owl:Class ;
           rdfs:subClassOf prov:Entity ;
+          rdfs:comment "A plan is an entity that represents a set of actions or steps intended by one or more agents to achieve some goals."@en ;
           rdfs:label "Plan"@en .
 
 
@@ -864,6 +900,7 @@ prov:Role rdf:type owl:Class ;
 
 ###  http://xmlns.com/foaf/0.1/Person
 foaf:Person rdf:type owl:Class ;
+            rdfs:subClassOf prov:Agent ;
             rdfs:comment "The Person class represents people. Something is a Person if it is a person. We don't nitpic about whether they're alive, dead, real, or imaginary. The Person class is a sub-class of the Agent class, since all people are considered 'agents' in FOAF."@en ;
             rdfs:label "Person"@en .
 
