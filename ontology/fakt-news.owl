@@ -175,27 +175,6 @@ dcterms:creator rdf:type owl:ObjectProperty ;
                        rdfs:subPropertyOf :isActivityOfPlan .
 
 
-###  http://www.modsem.org/fakt-news#isInputOfClaimEvaluation
-:isInputOfClaimEvaluation rdf:type owl:ObjectProperty ;
-                          rdfs:subPropertyOf prov:used ;
-                          rdfs:domain :ClaimEvaluationActivity ;
-                          rdfs:range :Evidence .
-
-
-###  http://www.modsem.org/fakt-news#isInputOfSelection
-:isInputOfSelection rdf:type owl:ObjectProperty ;
-                    rdfs:subPropertyOf prov:used ;
-                    rdfs:domain :SelectionActivity ;
-                    rdfs:range :AlternativesList .
-
-
-###  http://www.modsem.org/fakt-news#isInputOfVerification
-:isInputOfVerification rdf:type owl:ObjectProperty ;
-                       rdfs:subPropertyOf prov:used ;
-                       rdfs:domain :VerificationActivity ;
-                       rdfs:range :Claim .
-
-
 ###  http://www.modsem.org/fakt-news#isLastActivityOfPlan
 :isLastActivityOfPlan rdf:type owl:ObjectProperty ;
                       rdfs:subPropertyOf :isActivityOfPlan .
@@ -205,6 +184,27 @@ dcterms:creator rdf:type owl:ObjectProperty ;
 :isReviewedBy rdf:type owl:ObjectProperty ;
               rdfs:subPropertyOf dcterms:creator ;
               rdfs:domain :Review .
+
+
+###  http://www.modsem.org/fakt-news#isUsedByClaimEvaluation
+:isUsedByClaimEvaluation rdf:type owl:ObjectProperty ;
+                         rdfs:subPropertyOf prov:used ;
+                         rdfs:domain :ClaimEvaluationActivity ;
+                         rdfs:range :Evidence .
+
+
+###  http://www.modsem.org/fakt-news#isUsedBySelection
+:isUsedBySelection rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf prov:used ;
+                   rdfs:domain :SelectionActivity ;
+                   rdfs:range :AlternativesList .
+
+
+###  http://www.modsem.org/fakt-news#isUsedByVerification
+:isUsedByVerification rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf prov:used ;
+                      rdfs:domain :VerificationActivity ;
+                      rdfs:range :Claim .
 
 
 ###  http://www.modsem.org/fakt-news#observeCodeOfPrinciples
@@ -941,20 +941,36 @@ foaf:Person rdf:type owl:Class ;
 :Activity-Evaluation-R-1 rdf:type owl:NamedIndividual ,
                                   :ClaimEvaluationActivity ;
                          :hasTimeInterval :Time-R1-2020-10-07-2020-10-08 ;
-                         :isInputOfClaimEvaluation :Evidence-R-1 ;
-                         :isLastActivityOfPlan :Plan-R-1 .
+                         :isLastActivityOfPlan :Plan-R-1 ;
+                         :isUsedByClaimEvaluation :Evidence-R-1 ;
+                         prov:qualifiedAssociation :Association-Activity-Evaluation-R1-A3 .
 
 
 ###  http://www.modsem.org/fakt-news#Activity-Evaluation-R-2
-:Activity-Evaluation-R-2 rdf:type owl:NamedIndividual .
+:Activity-Evaluation-R-2 rdf:type owl:NamedIndividual ,
+                                  :ClaimEvaluationActivity ;
+                         :hasTimeInterval :Time-R2-2021-01-15-2021-01-16 ;
+                         :isLastActivityOfPlan :Plan-R-2 ;
+                         :isUsedByClaimEvaluation :Evidence-R-2 ;
+                         prov:qualifiedAssociation :Association-Activity-Evaluation-R2-A4 .
 
 
 ###  http://www.modsem.org/fakt-news#Activity-Evaluation-R-3
-:Activity-Evaluation-R-3 rdf:type owl:NamedIndividual .
+:Activity-Evaluation-R-3 rdf:type owl:NamedIndividual ,
+                                  :ClaimEvaluationActivity ;
+                         :hasTimeInterval :Time-R3-2019-06-18-2019-06-19 ;
+                         :isLastActivityOfPlan :Plan-R-3 ;
+                         :isUsedByClaimEvaluation :Evidence-R-3 ;
+                         prov:qualifiedAssociation :Association-Activity-Evaluation-R3-A6 .
 
 
 ###  http://www.modsem.org/fakt-news#Activity-Evaluation-R-4
-:Activity-Evaluation-R-4 rdf:type owl:NamedIndividual .
+:Activity-Evaluation-R-4 rdf:type owl:NamedIndividual ,
+                                  :ClaimEvaluationActivity ;
+                         :hasTimeInterval :Time-R4-2021-01-19-2021-01-20 ;
+                         :isLastActivityOfPlan :Plan-R-4 ;
+                         :isUsedByClaimEvaluation :Evidence-R-4 ;
+                         prov:qualifiedAssociation :Association-Activity-Evaluation-R4-A8 .
 
 
 ###  http://www.modsem.org/fakt-news#Activity-Selection-R-1
@@ -966,15 +982,27 @@ foaf:Person rdf:type owl:Class ;
 
 
 ###  http://www.modsem.org/fakt-news#Activity-Selection-R-2
-:Activity-Selection-R-2 rdf:type owl:NamedIndividual .
+:Activity-Selection-R-2 rdf:type owl:NamedIndividual ,
+                                 :SelectionActivity ;
+                        :hasTimeInterval :Time-R2-2021-01-13-2021-01-14 ;
+                        :isFirstActivityOfPlan :Plan-R-2 ;
+                        prov:qualifiedAssociation :Association-Activity-Selection-R2-A10 .
 
 
 ###  http://www.modsem.org/fakt-news#Activity-Selection-R-3
-:Activity-Selection-R-3 rdf:type owl:NamedIndividual .
+:Activity-Selection-R-3 rdf:type owl:NamedIndividual ,
+                                 :SelectionActivity ;
+                        :hasTimeInterval :Time-R3-2019-06-16-2019-06-17 ;
+                        :isFirstActivityOfPlan :Plan-R-3 ;
+                        prov:qualifiedAssociation :Association-Activity-Selection-R3-A11 .
 
 
 ###  http://www.modsem.org/fakt-news#Activity-Selection-R-4
-:Activity-Selection-R-4 rdf:type owl:NamedIndividual .
+:Activity-Selection-R-4 rdf:type owl:NamedIndividual ,
+                                 :SelectionActivity ;
+                        :hasTimeInterval :Time-R4-2021-01-17-2021-01-18 ;
+                        :isFirstActivityOfPlan :Plan-R-4 ;
+                        prov:qualifiedAssociation :Association-Activity-Selection-R4-A12 .
 
 
 ###  http://www.modsem.org/fakt-news#Activity-Verification-R-1
@@ -984,19 +1012,37 @@ foaf:Person rdf:type owl:Class ;
                            :hasPreviousActivity :Activity-Selection-R-1 ;
                            :hasTimeInterval :Time-R1-2020-10-06-2020-10-07 ;
                            :isActivityOfPlan :Plan-R-1 ;
-                           :isInputOfVerification :C-1 .
+                           :isUsedByVerification :C-1 .
 
 
 ###  http://www.modsem.org/fakt-news#Activity-Verification-R-2
-:Activity-Verification-R-2 rdf:type owl:NamedIndividual .
+:Activity-Verification-R-2 rdf:type owl:NamedIndividual ,
+                                    :VerificationActivity ;
+                           :hasNextActivity :Activity-Evaluation-R-2 ;
+                           :hasPreviousActivity :Activity-Selection-R-2 ;
+                           :hasTimeInterval :Time-R2-2021-01-14-2021-01-15 ;
+                           :isActivityOfPlan :Plan-R-2 ;
+                           :isUsedByVerification :C-2 .
 
 
 ###  http://www.modsem.org/fakt-news#Activity-Verification-R-3
-:Activity-Verification-R-3 rdf:type owl:NamedIndividual .
+:Activity-Verification-R-3 rdf:type owl:NamedIndividual ,
+                                    :VerificationActivity ;
+                           :hasNextActivity :Activity-Evaluation-R-3 ;
+                           :hasPreviousActivity :Activity-Selection-R-3 ;
+                           :hasTimeInterval :Time-R3-2019-06-17-2019-06-18 ;
+                           :isActivityOfPlan :Plan-R-3 ;
+                           :isUsedByVerification :C-3 .
 
 
 ###  http://www.modsem.org/fakt-news#Activity-Verification-R-4
-:Activity-Verification-R-4 rdf:type owl:NamedIndividual .
+:Activity-Verification-R-4 rdf:type owl:NamedIndividual ,
+                                    :VerificationActivity ;
+                           :hasNextActivity :Activity-Evaluation-R-4 ;
+                           :hasPreviousActivity :Activity-Selection-R-4 ;
+                           :hasTimeInterval :Time-R4-2021-01-18-2021-01-19 ;
+                           :isActivityOfPlan :Plan-R-4 ;
+                           :isUsedByVerification :C-4 .
 
 
 ###  http://www.modsem.org/fakt-news#Association-Activity-Evaluation-R1-A3
@@ -1007,15 +1053,24 @@ foaf:Person rdf:type owl:Class ;
 
 
 ###  http://www.modsem.org/fakt-news#Association-Activity-Evaluation-R2-A4
-:Association-Activity-Evaluation-R2-A4 rdf:type owl:NamedIndividual .
+:Association-Activity-Evaluation-R2-A4 rdf:type owl:NamedIndividual ,
+                                                prov:Association ;
+                                       prov:agent :A-4 ;
+                                       prov:hadRole :Role-A-4 .
 
 
 ###  http://www.modsem.org/fakt-news#Association-Activity-Evaluation-R3-A6
-:Association-Activity-Evaluation-R3-A6 rdf:type owl:NamedIndividual .
+:Association-Activity-Evaluation-R3-A6 rdf:type owl:NamedIndividual ,
+                                                prov:Association ;
+                                       prov:agent :A-6 ;
+                                       prov:hadRole :Role-A-6 .
 
 
 ###  http://www.modsem.org/fakt-news#Association-Activity-Evaluation-R4-A8
-:Association-Activity-Evaluation-R4-A8 rdf:type owl:NamedIndividual .
+:Association-Activity-Evaluation-R4-A8 rdf:type owl:NamedIndividual ,
+                                                prov:Association ;
+                                       prov:agent :A-8 ;
+                                       prov:hadRole :Role-A-8 .
 
 
 ###  http://www.modsem.org/fakt-news#Association-Activity-Selection-R1-A9
@@ -1026,15 +1081,24 @@ foaf:Person rdf:type owl:Class ;
 
 
 ###  http://www.modsem.org/fakt-news#Association-Activity-Selection-R2-A10
-:Association-Activity-Selection-R2-A10 rdf:type owl:NamedIndividual .
+:Association-Activity-Selection-R2-A10 rdf:type owl:NamedIndividual ,
+                                                prov:Association ;
+                                       prov:agent :A-10 ;
+                                       prov:hadRole :Role-A-10 .
 
 
 ###  http://www.modsem.org/fakt-news#Association-Activity-Selection-R3-A11
-:Association-Activity-Selection-R3-A11 rdf:type owl:NamedIndividual .
+:Association-Activity-Selection-R3-A11 rdf:type owl:NamedIndividual ,
+                                                prov:Association ;
+                                       prov:agent :A-11 ;
+                                       prov:hadRole :Role-A-11 .
 
 
 ###  http://www.modsem.org/fakt-news#Association-Activity-Selection-R4-A12
-:Association-Activity-Selection-R4-A12 rdf:type owl:NamedIndividual .
+:Association-Activity-Selection-R4-A12 rdf:type owl:NamedIndividual ,
+                                                prov:Association ;
+                                       prov:agent :A-12 ;
+                                       prov:hadRole :Role-A-12 .
 
 
 ###  http://www.modsem.org/fakt-news#C-1
@@ -1119,15 +1183,24 @@ foaf:Person rdf:type owl:Class ;
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-R-2
-:Evidence-R-2 rdf:type owl:NamedIndividual .
+:Evidence-R-2 rdf:type owl:NamedIndividual ;
+              :derivedFromSource :Source-R-2 ;
+              :supportedBy :Evidence-Document-R-2 ;
+              :wasOutputOfVerification :Activity-Verification-R-2 .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-R-3
-:Evidence-R-3 rdf:type owl:NamedIndividual .
+:Evidence-R-3 rdf:type owl:NamedIndividual ;
+              :derivedFromSource :Source-R-3 ;
+              :supportedBy :Evidence-Document-R-3 ;
+              :wasOutputOfVerification :Activity-Verification-R-3 .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-R-4
-:Evidence-R-4 rdf:type owl:NamedIndividual .
+:Evidence-R-4 rdf:type owl:NamedIndividual ;
+              :derivedFromSource :Source-R-4 ;
+              :supportedBy :Evidence-Document-R-4 ;
+              :wasOutputOfVerification :Activity-Verification-R-4 .
 
 
 ###  http://www.modsem.org/fakt-news#IFCN-Code-of-Principles
