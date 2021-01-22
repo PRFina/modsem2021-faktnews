@@ -9,7 +9,7 @@ services:
                 - GROUP_ID=${PY_GROUP_ID}
 
         env_file: .env
-        command: "tail -f /dev/null" # keep container running
+        # command: "tail -f /dev/null" # keep container running
         volumes: 
             - "./data:/app" #for code sync
         depends_on:
