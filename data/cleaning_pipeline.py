@@ -41,6 +41,8 @@ COL_TYPE_MAPPING = { "claimID": "string",
 }
 
 def load_data(dataset_path, col_names, null_values):
+    """Load MultiFC dataset as pandas dataframe"""
+
     return pd.read_csv(dataset_path, sep="\t", names=col_names, 
                      na_values=null_values)
 
@@ -59,12 +61,15 @@ def clean_null_values(df, col_names):
     return df.dropna(subset=col_names) # clean NAN values
 
 def generate_random_reasons(df, reasons):
-    new_reasons=np.random.choice(reasons,size=df['reason'].isna().sum()) # generate random sample of justifications
+    """ Generate a random sample from the given reasons list of possibilieties"""
+
+    new_reasons=np.random.choice(reasons,size=df['reason'].isna().sum()) # generate random sample of judgments
     df = df.assign(reason=new_reasons)
     
     return df
 
 def generate_random_offset_dates_from(df, from_col, to_col, exp_distribution_param=1.5, time_offset_unit='day'):
+    """Generate a random (negative) offset of dates from a given column"""
     na_claim_date = df[to_col].isna() # check nan claimDate
 
     random_sample = np.random.exponential(exp_distribution_param,size=na_claim_date.sum()) # generate random sample, with # samples == # nan values
@@ -82,6 +87,7 @@ def map_labels_to_rating(df, label_col, mapping):
     return df
 
 def list_from_string(df, col_name):
+    """Given a list encoded as string, transform to an actual list"""
     df[col_name] = df[col_name].apply(lambda val: val.strip("[]").replace("'",'').replace('"','').lower().split(", "))
     return df
 
@@ -92,7 +98,7 @@ def map_column_type(df, types_mapping):
 
 def execute_data_preparation(dataset_path):
     """
-    Define and execute a pipeline for data cleaning and formatting the MultiFC dataset (training set)
+    Define and execute a pipeline for data cleaning and formatting of the MultiFC dataset (training set)
     """
     df = (
         load_data(dataset_path, col_names=COL_NAMES, null_values=NULLS)
@@ -114,6 +120,8 @@ def execute_data_preparation(dataset_path):
 
 # Script mode
 if __name__ == '__main__':
+    random_seed = np.random.seed(1620) # for reproducibility
+
     multi_fc_dataset = Path("./raw/MultiFC_train.tsv")
     df = execute_data_preparation(multi_fc_dataset)
     print(df.head())
