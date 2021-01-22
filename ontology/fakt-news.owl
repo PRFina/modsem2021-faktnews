@@ -1452,41 +1452,59 @@ foaf:Person rdf:type owl:Class ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2020-10-07"^^xsd:date .
 
 
-###  http://www.modsem.org/fakt-news#Time-R2-2021-01-13-2021-01-14
-:Time-R2-2021-01-13-2021-01-14 rdf:type owl:NamedIndividual .
+###  http://www.modsem.org/fakt-news#Time-R2-2021-01-13-2021-01-1
+:Time-R2-2021-01-13-2021-01-14 rdf:type owl:NamedIndividual ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2021-01-13"^^xsd:date ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2021-01-1"^^xsd:date .
 
 
 ###  http://www.modsem.org/fakt-news#Time-R2-2021-01-14-2021-01-15
-:Time-R2-2021-01-14-2021-01-15 rdf:type owl:NamedIndividual .
+:Time-R2-2021-01-14-2021-01-15 rdf:type owl:NamedIndividual ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2021-01-15"^^xsd:date ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2021-01-14"^^xsd:date .
 
 
 ###  http://www.modsem.org/fakt-news#Time-R2-2021-01-15-2021-01-16
-:Time-R2-2021-01-15-2021-01-16 rdf:type owl:NamedIndividual .
+:Time-R2-2021-01-15-2021-01-16 rdf:type owl:NamedIndividual ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2021-01-16"^^xsd:date ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2021-01-15"^^xsd:date .
 
 
 ###  http://www.modsem.org/fakt-news#Time-R3-2019-06-16-2019-06-17
-:Time-R3-2019-06-16-2019-06-17 rdf:type owl:NamedIndividual .
+:Time-R3-2019-06-16-2019-06-17 rdf:type owl:NamedIndividual ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2019-06-17"^^xsd:date ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2019-06-16"^^xsd:date .
 
 
 ###  http://www.modsem.org/fakt-news#Time-R3-2019-06-17-2019-06-18
-:Time-R3-2019-06-17-2019-06-18 rdf:type owl:NamedIndividual .
+:Time-R3-2019-06-17-2019-06-18 rdf:type owl:NamedIndividual ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2019-06-18"^^xsd:date ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2019-06-17"^^xsd:date .
 
 
 ###  http://www.modsem.org/fakt-news#Time-R3-2019-06-18-2019-06-19
-:Time-R3-2019-06-18-2019-06-19 rdf:type owl:NamedIndividual .
+:Time-R3-2019-06-18-2019-06-19 rdf:type owl:NamedIndividual ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2019-06-19"^^xsd:date ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2019-06-18"^^xsd:date .
 
-
+##########################################################################################################
 ###  http://www.modsem.org/fakt-news#Time-R4-2021-01-17-2021-01-18
-:Time-R4-2021-01-17-2021-01-18 rdf:type owl:NamedIndividual .
+:Time-R4-2021-01-17-2021-01-18 rdf:type owl:NamedIndividual ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2021-01-18"^^xsd:date ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2021-01-17"^^xsd:date .
 
 
 ###  http://www.modsem.org/fakt-news#Time-R4-2021-01-18-2021-01-19
-:Time-R4-2021-01-18-2021-01-19 rdf:type owl:NamedIndividual .
+:Time-R4-2021-01-18-2021-01-19 rdf:type owl:NamedIndividual ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2021-01-19"^^xsd:date ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2021-01-18"^^xsd:date .
 
 
 ###  http://www.modsem.org/fakt-news#Time-R4-2021-01-19-2021-01-20
-:Time-R4-2021-01-19-2021-01-20 rdf:type owl:NamedIndividual .
-
+:Time-R4-2021-01-19-2021-01-20 rdf:type owl:NamedIndividual ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2021-01-20"^^xsd:date ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2021-01-19"^^xsd:date .
+########################################################################################################
 
 #################################################################
 #    General axioms
