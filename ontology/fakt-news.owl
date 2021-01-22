@@ -89,7 +89,7 @@ dcterms:creator rdf:type owl:ObjectProperty ;
 :derivedFromSource rdf:type owl:ObjectProperty ;
                    rdfs:subPropertyOf prov:wasAttributedTo ;
                    rdfs:domain :Evidence ;
-                   rdfs:range :Source .
+                   rdfs:range :EvidenceSource .
 
 
 ###  http://www.modsem.org/fakt-news#hasActivity
@@ -102,8 +102,7 @@ dcterms:creator rdf:type owl:ObjectProperty ;
 
 ###  http://www.modsem.org/fakt-news#hasCapacity
 :hasCapacity rdf:type owl:ObjectProperty ;
-             rdfs:domain prov:Agent ;
-             rdfs:range :Capacity .
+             rdfs:domain prov:Agent .
 
 
 ###  http://www.modsem.org/fakt-news#hasEvidence
@@ -319,7 +318,6 @@ schema:url rdf:type owl:DatatypeProperty ;
 
 ###  http://www.modsem.org/fakt-news#capacityType
 :capacityType rdf:type owl:DatatypeProperty ;
-              rdfs:domain :Capacity ;
               rdfs:range [ rdf:type rdfs:Datatype ;
                            owl:oneOf [ rdf:type rdf:List ;
                                        rdf:first "Citizen" ;
@@ -447,14 +445,6 @@ schema:CreativeWork rdf:type owl:Class ;
         rdfs:label "Author"@en .
 
 
-###  http://www.modsem.org/fakt-news#Capacity
-:Capacity rdf:type owl:Class ;
-          rdfs:subClassOf prov:Entity ;
-          rdfs:comment "The official position or function that somebody has."@en ;
-          rdfs:label "Capacity"@en ;
-          skos:altLabel "Function"@en .
-
-
 ###  http://www.modsem.org/fakt-news#Claim
 :Claim rdf:type owl:Class ;
        owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
@@ -540,6 +530,13 @@ schema:CreativeWork rdf:type owl:Class ;
           rdfs:label "Evidence"@en .
 
 
+###  http://www.modsem.org/fakt-news#EvidenceSource
+:EvidenceSource rdf:type owl:Class ;
+                rdfs:subClassOf prov:Agent ;
+                rdfs:comment "The source of the facts. It could be the entity that states the fact itself or reports it."@en ;
+                rdfs:label "Evidence Source"@en .
+
+
 ###  http://www.modsem.org/fakt-news#ExternalSuggestion
 :ExternalSuggestion rdf:type owl:Class ;
                     rdfs:subClassOf :Suggestion ;
@@ -562,6 +559,11 @@ schema:CreativeWork rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#FactCheckingAuthority
 :FactCheckingAuthority rdf:type owl:Class ;
+                       owl:equivalentClass [ rdf:type owl:Class ;
+                                             owl:oneOf ( :A-1-IFCN
+                                                         :A-14-DUKES-REPORTER-LAB
+                                                       )
+                                           ] ;
                        rdfs:subClassOf :Organization ;
                        rdfs:comment "The Fact Checking autority that monitors trends, formats and policy-making about fact-checking worldwide. It promotes and checks the committment of the fact checking organisations to ethical code standards."@en ;
                        rdfs:label "Fact Checking Authority"@en .
@@ -740,13 +742,6 @@ schema:CreativeWork rdf:type owl:Class ;
                skos:altLabel "Bot, Software"@en .
 
 
-###  http://www.modsem.org/fakt-news#Source
-:Source rdf:type owl:Class ;
-        rdfs:subClassOf prov:Role ;
-        rdfs:comment "The source of the facts. It could be the entity that states the fact itself or reports it."@en ;
-        rdfs:label "Source"@en .
-
-
 ###  http://www.modsem.org/fakt-news#Splicing
 :Splicing rdf:type owl:Class ;
           rdfs:subClassOf :DeceptiveEditing ;
@@ -782,7 +777,7 @@ schema:CreativeWork rdf:type owl:Class ;
                                                    ]
                                                  )
                                    ] ;
-               rdfs:subClassOf :Source ;
+               rdfs:subClassOf :EvidenceSource ;
                rdfs:label "Trusted Source"@en .
 
 
@@ -839,12 +834,12 @@ foaf:Person rdf:type owl:Class ;
 #    Individuals
 #################################################################
 
-###  http://www.modsem.org/fakt-news#A-1
-:A-1 rdf:type owl:NamedIndividual ,
-              :Organization ,
-              prov:Agent ;
-     :createCodeOfPrinciples :IFCN-Code-of-Principles ;
-     schema:name "International Fact Checking Organization"^^xsd:string .
+###  http://www.modsem.org/fakt-news#A-1-IFCN
+:A-1-IFCN rdf:type owl:NamedIndividual ,
+                   :Organization ,
+                   prov:Agent ;
+          :createCodeOfPrinciples :IFCN-Code-of-Principles ;
+          schema:name "International Fact Checking Organization"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#A-10
@@ -868,6 +863,18 @@ foaf:Person rdf:type owl:Class ;
                prov:Agent ,
                foaf:Person ;
       schema:name "Mark Zucherberg"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#A-13
+:A-13 rdf:type owl:NamedIndividual ,
+               :Organization ;
+      schema:name "The Guardian"^^xsd:string ;
+      schema:url "https://www.theguardian.com/international"^^xsd:anyURI ;
+      :capacityType "Company"^^xsd:string .
+
+
+###  http://www.modsem.org/fakt-news#A-14-DUKES-REPORTER-LAB
+:A-14-DUKES-REPORTER-LAB rdf:type owl:NamedIndividual .
 
 
 ###  http://www.modsem.org/fakt-news#A-2
@@ -1177,30 +1184,50 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#Evidence-R-1
 :Evidence-R-1 rdf:type owl:NamedIndividual ,
                        :SupportingEvidence ;
-              :derivedFromSource :Source-R-1 ;
+              :derivedFromSource :EvidenceSource-R-1 ;
               :supportedBy :Evidence-Document-R-1 ;
               :wasOutputOfVerification :Activity-Verification-R-1 .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-R-2
 :Evidence-R-2 rdf:type owl:NamedIndividual ;
-              :derivedFromSource :Source-R-2 ;
+              :derivedFromSource :EvidenceSource-R-2 ;
               :supportedBy :Evidence-Document-R-2 ;
               :wasOutputOfVerification :Activity-Verification-R-2 .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-R-3
 :Evidence-R-3 rdf:type owl:NamedIndividual ;
-              :derivedFromSource :Source-R-3 ;
+              :derivedFromSource :EvidenceSource-R-3 ;
               :supportedBy :Evidence-Document-R-3 ;
               :wasOutputOfVerification :Activity-Verification-R-3 .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-R-4
 :Evidence-R-4 rdf:type owl:NamedIndividual ;
-              :derivedFromSource :Source-R-4 ;
+              :derivedFromSource :EvidenceSource-R-4 ;
               :supportedBy :Evidence-Document-R-4 ;
               :wasOutputOfVerification :Activity-Verification-R-4 .
+
+
+###  http://www.modsem.org/fakt-news#EvidenceSource-R-1
+:EvidenceSource-R-1 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#EvidenceSource-R-2
+:EvidenceSource-R-2 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#EvidenceSource-R-3
+:EvidenceSource-R-3 rdf:type owl:NamedIndividual .
+
+
+###  http://www.modsem.org/fakt-news#EvidenceSource-R-4
+:EvidenceSource-R-4 rdf:type owl:NamedIndividual ,
+                             :EvidenceSource ,
+                             :Organization ;
+                    schema:name "The Guardian"^^xsd:string ;
+                    schema:url "https://www.theguardian.com/international"^^xsd:anyURI .
 
 
 ###  http://www.modsem.org/fakt-news#IFCN-Code-of-Principles
@@ -1418,22 +1445,6 @@ foaf:Person rdf:type owl:Class ;
                    :Claimant .
 
 
-###  http://www.modsem.org/fakt-news#Source-R-1
-:Source-R-1 rdf:type owl:NamedIndividual .
-
-
-###  http://www.modsem.org/fakt-news#Source-R-2
-:Source-R-2 rdf:type owl:NamedIndividual .
-
-
-###  http://www.modsem.org/fakt-news#Source-R-3
-:Source-R-3 rdf:type owl:NamedIndividual .
-
-
-###  http://www.modsem.org/fakt-news#Source-R-4
-:Source-R-4 rdf:type owl:NamedIndividual .
-
-
 ###  http://www.modsem.org/fakt-news#Time-R1-2020-10-05-2020-10-06
 :Time-R1-2020-10-05-2020-10-06 rdf:type owl:NamedIndividual ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2020-10-06"^^xsd:date ;
@@ -1452,7 +1463,7 @@ foaf:Person rdf:type owl:Class ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2020-10-07"^^xsd:date .
 
 
-###  http://www.modsem.org/fakt-news#Time-R2-2021-01-13-2021-01-1
+###  http://www.modsem.org/fakt-news#Time-R2-2021-01-13-2021-01-14
 :Time-R2-2021-01-13-2021-01-14 rdf:type owl:NamedIndividual ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2021-01-13"^^xsd:date ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2021-01-1"^^xsd:date .
@@ -1487,7 +1498,7 @@ foaf:Person rdf:type owl:Class ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2019-06-19"^^xsd:date ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2019-06-18"^^xsd:date .
 
-##########################################################################################################
+
 ###  http://www.modsem.org/fakt-news#Time-R4-2021-01-17-2021-01-18
 :Time-R4-2021-01-17-2021-01-18 rdf:type owl:NamedIndividual ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2021-01-18"^^xsd:date ;
@@ -1504,7 +1515,7 @@ foaf:Person rdf:type owl:Class ;
 :Time-R4-2021-01-19-2021-01-20 rdf:type owl:NamedIndividual ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2021-01-20"^^xsd:date ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2021-01-19"^^xsd:date .
-########################################################################################################
+
 
 #################################################################
 #    General axioms
