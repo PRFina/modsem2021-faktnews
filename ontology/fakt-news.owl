@@ -9,16 +9,57 @@
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
 @prefix schema: <http://schema.org/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @base <http://www.modsem.org/fakt-news> .
 
 <http://www.modsem.org/fakt-news> rdf:type owl:Ontology ;
-                                   owl:imports <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl> .
+                                   owl:imports <http://www.ontologydesignpatterns.org/cp/owl/set.owl> ,
+                                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl> ;
+                                   dcterms:creator "Lorenzo Tabasso"@it ,
+                                                   "Pio Raffaele Fina"@it ;
+                                   dcterms:description "TODO"@en ;
+                                   dcterms:title "Fakt News"@en ;
+                                   vann:preferredNamespacePrefix "fakt"@en ;
+                                   vann:preferredNamespaceUri "http://www.modsem.org/fakt-news"@en ;
+                                   rdfs:label "Fakt News"@en .
 
 #################################################################
 #    Annotation properties
 #################################################################
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/date
+dcterms:date rdf:type owl:AnnotationProperty ;
+             rdfs:range xsd:date .
+
+
+###  http://purl.org/dc/terms/description
+dcterms:description rdf:type owl:AnnotationProperty ;
+                    rdfs:comment "An account of the resource."@en ;
+                    rdfs:label "Description"@en .
+
+
+###  http://purl.org/dc/terms/title
+dcterms:title rdf:type owl:AnnotationProperty ;
+              rdfs:domain schema:CreativeWork .
+
+
+###  http://purl.org/vocab/vann/preferredNamespacePrefix
+vann:preferredNamespacePrefix rdf:type owl:AnnotationProperty ;
+                              rdfs:comment "The preferred namespace prefix to use when using terms from this vocabulary in an XML document."@en ;
+                              rdfs:label "Preferred Namespace Prefix"@en .
+
+
+###  http://purl.org/vocab/vann/preferredNamespaceUri
+vann:preferredNamespaceUri rdf:type owl:AnnotationProperty ;
+                           rdfs:comment "The preferred namespace URI to use when using terms from this vocabulary in an XML document."@en ;
+                           rdfs:label "Preferred Namespace Uri"@en .
+
 
 ###  http://www.w3.org/2004/02/skos/core#altLabel
 skos:altLabel rdf:type owl:AnnotationProperty .
@@ -44,9 +85,7 @@ xsd:date rdf:type rdfs:Datatype .
 dcterms:creator rdf:type owl:ObjectProperty ;
                 rdfs:subPropertyOf prov:wasAttributedTo ;
                 owl:inverseOf :create ;
-                rdfs:domain schema:CreativeWork ;
-                rdfs:comment "An entity responsible for making the resource."@en ;
-                rdfs:label "Creator"@en .
+                rdfs:domain schema:CreativeWork .
 
 
 ###  http://www.modsem.org/fakt-news#affiliatedTo
@@ -201,7 +240,7 @@ dcterms:creator rdf:type owl:ObjectProperty ;
 :isUsedBySelection rdf:type owl:ObjectProperty ;
                    rdfs:subPropertyOf prov:used ;
                    rdfs:domain :SelectionActivity ;
-                   rdfs:range :AlternativesList .
+                   rdfs:range :AlternativesSet .
 
 
 ###  http://www.modsem.org/fakt-news#isUsedByVerification
@@ -295,8 +334,7 @@ prov:wasGeneratedBy rdf:type owl:ObjectProperty ;
 #################################################################
 
 ###  http://purl.org/dc/terms/date
-dcterms:date rdf:type owl:DatatypeProperty ;
-             rdfs:range xsd:date .
+dcterms:date rdf:type owl:DatatypeProperty .
 
 
 ###  http://purl.org/dc/terms/language
@@ -306,8 +344,7 @@ dcterms:language rdf:type owl:DatatypeProperty ;
 
 ###  http://purl.org/dc/terms/title
 dcterms:title rdf:type owl:DatatypeProperty ;
-              rdfs:subPropertyOf owl:topDataProperty ;
-              rdfs:domain schema:CreativeWork .
+              rdfs:subPropertyOf owl:topDataProperty .
 
 
 ###  http://schema.org/name
@@ -436,11 +473,19 @@ schema:CreativeWork rdf:type owl:Class ;
                     rdfs:label "Creative Work"@en .
 
 
-###  http://www.modsem.org/fakt-news#AlternativesList
-:AlternativesList rdf:type owl:Class ;
-                  rdfs:subClassOf prov:Entity ;
-                  rdfs:comment "A list of claims from which the fact-checker chooses the claim to verify."@en ;
-                  rdfs:label "Alternatives List"@en .
+###  http://www.modsem.org/fakt-news#AlternativesSet
+:AlternativesSet rdf:type owl:Class ;
+                 owl:equivalentClass [ owl:intersectionOf ( <http://www.ontologydesignpatterns.org/cp/owl/set.owl#Set>
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty <http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#hasMember> ;
+                                                              owl:someValuesFrom :Claim
+                                                            ]
+                                                          ) ;
+                                       rdf:type owl:Class
+                                     ] ;
+                 rdfs:subClassOf prov:Entity ;
+                 rdfs:comment "A set of claims from which the fact-checker chooses the claim to verify."@en ;
+                 rdfs:label "Alternatives Set"@en .
 
 
 ###  http://www.modsem.org/fakt-news#Author
@@ -797,6 +842,10 @@ schema:CreativeWork rdf:type owl:Class ;
                       rdfs:label "Verification Activity"@en .
 
 
+###  http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#Collection
+<http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#Collection> rdfs:subClassOf prov:Entity .
+
+
 ###  http://www.w3.org/ns/prov#Activity
 prov:Activity rdf:type owl:Class ;
               rdfs:comment "An activity is something that occurs over a period of time and acts upon or with entities; it may include consuming, processing, transforming, modifying, relocating, using, or generating entities."@en ;
@@ -987,6 +1036,7 @@ foaf:Person rdf:type owl:Class ;
                                  :SelectionActivity ;
                         :hasTimeInterval :Time-R1-2020-10-05-2020-10-06 ;
                         :isFirstActivityOfPlan :Plan-R-1 ;
+                        :isUsedBySelection :Alternative-Set-R-1 ;
                         prov:qualifiedAssociation :Association-Activity-Selection-R1-A9 .
 
 
@@ -1054,6 +1104,12 @@ foaf:Person rdf:type owl:Class ;
                            :isUsedByVerification :C-4 .
 
 
+###  http://www.modsem.org/fakt-news#Alternative-Set-R-1
+:Alternative-Set-R-1 rdf:type owl:NamedIndividual ;
+                     <http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#hasMember> :C-1 ,
+                                                                                                   :C-2 .
+
+
 ###  http://www.modsem.org/fakt-news#Association-Activity-Evaluation-R1-A3
 :Association-Activity-Evaluation-R1-A3 rdf:type owl:NamedIndividual ,
                                                 prov:Association ;
@@ -1118,11 +1174,11 @@ foaf:Person rdf:type owl:Class ;
               prov:Entity ;
      :associatedReview :R-1 ;
      :wasOutputOfSelection :Activity-Selection-R-1 ;
-     dcterms:date "2020-10-05"^^xsd:date ;
      dcterms:language "it"^^xsd:string ;
      schema:url "https://twitter.com/nzingaretti/status/1313218301200400389?ref_src=twsrc%5Etfw"^^xsd:anyURI ;
      :claimContent "Approvato ora in Consiglio dei Ministri il decreto immigrazione. I decreti propaganda/Salvini non ci sono più. Vogliamo un’Italia  più umana e sicura. Un’Europa più protagonista"^^xsd:string ;
-     :documentContent "Approvato ora in Consiglio dei Ministri il decreto immigrazione. I decreti propaganda/Salvini non ci sono più. Vogliamo un’Italia  più umana e sicura. Un’Europa più protagonista"^^xsd:string .
+     :documentContent "Approvato ora in Consiglio dei Ministri il decreto immigrazione. I decreti propaganda/Salvini non ci sono più. Vogliamo un’Italia  più umana e sicura. Un’Europa più protagonista"^^xsd:string ;
+     dcterms:date "2020-10-05"^^xsd:date .
 
 
 ###  http://www.modsem.org/fakt-news#C-2
@@ -1132,11 +1188,11 @@ foaf:Person rdf:type owl:Class ;
               :DigitalDocument ,
               prov:Entity ;
      :associatedReview :R-2 ;
-     dcterms:date "2021-01-13"^^xsd:date ;
      dcterms:language "it"^^xsd:string ;
      schema:url "https://twitter.com/matteosalvinimi/status/1349377644941479937"^^xsd:anyURI ;
      :claimContent "Con tutti i problemi che ci sono in Italia, al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con Genitore 1 e 2. Prima vanno a casa, meglio è."^^xsd:string ;
-     :documentContent "Con tutti i problemi che ci sono in Italia, al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con Genitore 1 e 2. Prima vanno a casa, meglio è."^^xsd:string .
+     :documentContent "Con tutti i problemi che ci sono in Italia, al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con Genitore 1 e 2. Prima vanno a casa, meglio è."^^xsd:string ;
+     dcterms:date "2021-01-13"^^xsd:date .
 
 
 ###  http://www.modsem.org/fakt-news#C-3
@@ -1146,11 +1202,11 @@ foaf:Person rdf:type owl:Class ;
               :DigitalDocument ,
               prov:Entity ;
      :associatedReview :R-3 ;
-     dcterms:date "2019-06-07"^^xsd:date ;
      dcterms:language "en"^^xsd:string ;
      schema:url "https://www.instagram.com/p/ByaVigGFP2U/?utm_source=ig_embed&utm_campaign=embed_video_watch_again"^^xsd:anyURI ;
      :claimContent "Zuckerberg: we are increasing transparency on Ads. Announces new measure to protect the elections."^^xsd:string ;
-     :documentContent "Zuckerberg: we are increasing transparency on Ads. Announces new measure to protect the elections."^^xsd:string .
+     :documentContent "Zuckerberg: we are increasing transparency on Ads. Announces new measure to protect the elections."^^xsd:string ;
+     dcterms:date "2019-06-07"^^xsd:date .
 
 
 ###  http://www.modsem.org/fakt-news#C-4
@@ -1160,55 +1216,55 @@ foaf:Person rdf:type owl:Class ;
               :DigitalDocument ,
               prov:Entity ;
      :associatedReview :R-4 ;
-     dcterms:date "2021-01-17"^^xsd:date ;
      dcterms:language "en"^^xsd:string ;
      schema:url "https://archive.vn/5P96s"^^xsd:anyURI ;
      :claimContent "Barack Obama was arrested: a video published on Facebook claims to show former President Barack Obama in jail."^^xsd:string ;
-     :documentContent "Barack Obama was arrested: a video published on Facebook claims to show former President Barack Obama in jail."^^xsd:string .
+     :documentContent "Barack Obama was arrested: a video published on Facebook claims to show former President Barack Obama in jail."^^xsd:string ;
+     dcterms:date "2021-01-17"^^xsd:date .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-Document-R-1
 :Evidence-Document-R-1 rdf:type owl:NamedIndividual ,
                                 :DigitalDocument ;
-                       dcterms:date "2018-11-01"^^xsd:date ;
                        dcterms:language "it"^^xsd:string ;
-                       dcterms:title "Speciale Decreto Sicurezza"^^xsd:string ;
-                       schema:url "http://www.cir-onlus.org/wp-content/uploads/2018/11/Speciale-Decreto-Sicurezza.pdf"^^xsd:anyURI .
+                       schema:url "http://www.cir-onlus.org/wp-content/uploads/2018/11/Speciale-Decreto-Sicurezza.pdf"^^xsd:anyURI ;
+                       dcterms:date "2018-11-01"^^xsd:date ;
+                       dcterms:title "Speciale Decreto Sicurezza"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-Document-R-2
 :Evidence-Document-R-2 rdf:type owl:NamedIndividual ,
                                 :DigitalDocument ;
-                       dcterms:date "2015-08-14"^^xsd:date ;
                        dcterms:language "it"^^xsd:string ;
-                       dcterms:title "Supplemento ordinario n. 49/L alla GAZZETTA UFFICIALE"^^xsd:string ;
-                       schema:url "https://www.gazzettaufficiale.it/eli/gu/2015/08/14/188/so/49/sg/pdf#page=99"^^xsd:anyURI .
+                       schema:url "https://www.gazzettaufficiale.it/eli/gu/2015/08/14/188/so/49/sg/pdf#page=99"^^xsd:anyURI ;
+                       dcterms:date "2015-08-14"^^xsd:date ;
+                       dcterms:title "Supplemento ordinario n. 49/L alla GAZZETTA UFFICIALE"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-Document-R-3
 :Evidence-Document-R-3 rdf:type owl:NamedIndividual ,
                                 :DigitalDocument ;
-                       dcterms:date "2020-06-09"^^xsd:date ;
                        dcterms:language "en"^^xsd:string ;
-                       dcterms:title "Deepfake video of Mark Zuckemberg"^^xsd:string ;
-                       schema:url "https://www.instagram.com/p/CBOIEh3lhPr/"^^xsd:anyURI .
+                       schema:url "https://www.instagram.com/p/CBOIEh3lhPr/"^^xsd:anyURI ;
+                       dcterms:date "2020-06-09"^^xsd:date ;
+                       dcterms:title "Deepfake video of Mark Zuckemberg"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-Document-R-4
 :Evidence-Document-R-4 rdf:type owl:NamedIndividual ,
                                 :DigitalDocument ;
-                       dcterms:date "2021-01-17"^^xsd:date ;
                        dcterms:language "en"^^xsd:string ;
-                       dcterms:title "Barack Obama 'humbled' by visit to Nelson Mandela's Robben Island jail"^^xsd:string ;
-                       schema:url "https://www.youtube.com/watch?v=fGZTFg8PP9Q&feature=youtu.be"^^xsd:anyURI .
+                       schema:url "https://www.youtube.com/watch?v=fGZTFg8PP9Q&feature=youtu.be"^^xsd:anyURI ;
+                       dcterms:date "2021-01-17"^^xsd:date ;
+                       dcterms:title "Barack Obama 'humbled' by visit to Nelson Mandela's Robben Island jail"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-Document2-R-4
 :Evidence-Document2-R-4 rdf:type owl:NamedIndividual ;
-                        dcterms:date "2013-06-30"^^xsd:date ;
                         dcterms:language "en"^^rdfs:Literal ;
-                        dcterms:title "FLOTUS Travel Journal: Robben Island, An Experience We Will Never Forget"^^xsd:string ;
-                        schema:url "https://obamawhitehouse.archives.gov/blog/2013/06/30/flotus-travel-journal-robben-island-experience-we-will-never-forget"^^xsd:anyURI .
+                        schema:url "https://obamawhitehouse.archives.gov/blog/2013/06/30/flotus-travel-journal-robben-island-experience-we-will-never-forget"^^xsd:anyURI ;
+                        dcterms:date "2013-06-30"^^xsd:date ;
+                        dcterms:title "FLOTUS Travel Journal: Robben Island, An Experience We Will Never Forget"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-R-1
@@ -1355,21 +1411,21 @@ foaf:Person rdf:type owl:Class ;
               :DigitalDocument ,
               :Review ,
               prov:Entity ;
-     dcterms:creator :A-3 ;
      :claimReviewed :C-1 ;
      :hasJudgment :J-1 ;
      :hasRating :RT-1 ;
      :isReviewedBy :A-3 ;
      :wasOutputOfClaimEvaluation :Activity-Evaluation-R-1 ;
      prov:wasAttributedTo :A-3 ;
-     dcterms:date "2020-10-08"^^xsd:date ;
      dcterms:language "it"^^xsd:string ;
-     dcterms:title "Il governo ha davvero abolito i “decreti sicurezza”?"^^xsd:string ;
      schema:url "https://www.lavoce.info/archives/69816/il-governo-ha-davvero-abolito-i-decreti-sicurezza/"^^xsd:anyURI ;
      :documentContent "Il fact-checking de lavoce.info passa ...[+1283 words]"^^xsd:string ;
      :mention "http://dbpedia.org/page/Nicola_Zingaretti"^^xsd:anyURI ;
      :reviewContent "Il fact-checking de lavoce.info passa ...[+1283 words]"^^xsd:string ;
-     :tag "politica"^^xsd:string .
+     :tag "politica"^^xsd:string ;
+     dcterms:creator :A-3 ;
+     dcterms:date "2020-10-08"^^xsd:date ;
+     dcterms:title "Il governo ha davvero abolito i “decreti sicurezza”?"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#R-2
@@ -1378,20 +1434,20 @@ foaf:Person rdf:type owl:Class ;
               :DigitalDocument ,
               :Review ,
               prov:Entity ;
-     dcterms:creator :A-4 ;
      :claimReviewed :C-2 ;
      :hasJudgment :J-2 ;
      :hasRating :RT-2 ;
      :isReviewedBy :A-4 ;
      prov:wasAttributedTo :A-4 ;
-     dcterms:date "2021-01-15"^^xsd:date ;
      dcterms:language "it"^^xsd:string ;
-     dcterms:title "No, “genitore 1 e 2” non tornano sui documenti d’identità (non ci sono mai stati)"^^xsd:string ;
      schema:url "https://pagellapolitica.it/dichiarazioni/8801/no-genitore-1-e-2-non-tornano-sui-documenti-didentita-non-ci-sono-mai-stati"^^xsd:anyURI ;
      :documentContent "Al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con genitore 1 e 2 ...[+1568 words]"^^xsd:string ;
      :mention "http://dbpedia.org/page/Matteo_Salvini"^^xsd:anyURI ;
      :reviewContent "Al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con genitore 1 e 2 ...[+1568 words]"^^xsd:string ;
-     :tag "politica"^^xsd:string .
+     :tag "politica"^^xsd:string ;
+     dcterms:creator :A-4 ;
+     dcterms:date "2021-01-15"^^xsd:date ;
+     dcterms:title "No, “genitore 1 e 2” non tornano sui documenti d’identità (non ci sono mai stati)"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#R-3
@@ -1400,20 +1456,20 @@ foaf:Person rdf:type owl:Class ;
               :DigitalDocument ,
               :Review ,
               prov:Entity ;
-     dcterms:creator :A-6 ;
      :claimReviewed :C-3 ;
      :hasJudgment :J-3 ;
      :hasRating :RT-3 ;
      :isReviewedBy :A-6 ;
      prov:wasAttributedTo :A-6 ;
-     dcterms:date "2019-06-19"^^xsd:date ;
      dcterms:language "en"^^xsd:string ;
-     dcterms:title "Facebook wouldn’t delete an altered video of Nancy Pelosi. What about one of Mark Zuckerberg?"^^xsd:string ;
      schema:url "https://www.washingtonpost.com/nation/2019/06/12/mark-zuckerberg-deepfake-facebook-instagram-nancy-pelosi/"^^xsd:anyURI ;
      :documentContent "A couple of short video clips, a voice actor and an artificial intelligence algorithm. That’s all two artists and a technology start-up ...[+1497 words]"^^xsd:string ;
      :mention "https://dbpedia.org/page/Mark_Zuckerberg"^^xsd:anyURI ;
      :reviewContent "A couple of short video clips, a voice actor and an artificial intelligence algorithm. That’s all two artists and a technology start-up ...[+1497 words]"^^xsd:string ;
-     :tag "deepfake"^^xsd:string .
+     :tag "deepfake"^^xsd:string ;
+     dcterms:creator :A-6 ;
+     dcterms:date "2019-06-19"^^xsd:date ;
+     dcterms:title "Facebook wouldn’t delete an altered video of Nancy Pelosi. What about one of Mark Zuckerberg?"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#R-4
@@ -1422,22 +1478,22 @@ foaf:Person rdf:type owl:Class ;
               :DigitalDocument ,
               :Review ,
               prov:Entity ;
-     dcterms:creator :A-8 ;
      :claimReviewed :C-4 ;
      :hasJudgment :J-4 ;
      :hasRating :RT-4 ;
      :isReviewedBy :A-8 ;
      prov:wasAttributedTo :A-8 ;
-     dcterms:date "2021-01-18"^^xsd:date ;
      dcterms:language "en"^^xsd:string ;
-     dcterms:title "Barack Obama wasn’t arrested before Biden’s inauguration"^^xsd:string ;
      schema:url "https://www.politifact.com/factchecks/2021/jan/18/facebook-posts/obama-wasnt-arrested-bidens-inauguration/"^^xsd:anyURI ;
      :documentContent "In a video published Jan. 17, Gage Nelson, host of the conservative podcast America Divided, said: \"Barack Obama was arrested.\""^^xsd:string ;
      :mention "https://dbpedia.org/page/Barack_Obama"^^xsd:anyURI ,
               "https://dbpedia.org/page/Nelson_Mandela"^^xsd:anyURI ,
               "https://www.wikidata.org/wiki/Q51213808"^^xsd:anyURI ;
      :reviewContent "In a video published Jan. 17, Gage Nelson, host of the conservative podcast America Divided, said: \"Barack Obama was arrested.\""^^xsd:string ;
-     :tag "politics"^^xsd:string .
+     :tag "politics"^^xsd:string ;
+     dcterms:creator :A-8 ;
+     dcterms:date "2021-01-18"^^xsd:date ;
+     dcterms:title "Barack Obama wasn’t arrested before Biden’s inauguration"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#RT-1
@@ -1586,6 +1642,22 @@ foaf:Person rdf:type owl:Class ;
 :Time-R4-2021-01-19-2021-01-20 rdf:type owl:NamedIndividual ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2021-01-20"^^xsd:date ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2021-01-19"^^xsd:date .
+
+
+#################################################################
+#    Annotations
+#################################################################
+
+dcterms:creator rdfs:comment "An entity responsible for making the resource."@en ;
+                rdfs:label "Creator"@en .
+
+
+dcterms:date rdfs:comment "A point or period of time associated with an event in the lifecycle of the resource."@en ;
+             rdfs:label "Date"@en .
+
+
+dcterms:title rdfs:label "Title"@en ;
+              rdfs:comment "A name given to the resource."@en .
 
 
 #################################################################
