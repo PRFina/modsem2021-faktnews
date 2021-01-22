@@ -1159,19 +1159,35 @@ foaf:Person rdf:type owl:Class ;
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-Document-R-1
-:Evidence-Document-R-1 rdf:type owl:NamedIndividual .
+:Evidence-Document-R-1 rdf:type owl:NamedIndividual ,
+                                :DigitalDocument ;
+                       dcterms:date "2020-10-05"^^xsd:date ;
+                       dcterms:title "Tweet di Nicola Zingaretti"^^xsd:string ;
+                       schema:url "https://twitter.com/nzingaretti/status/1313218301200400389?ref_src=twsrc%5Etfw%7Ctwcamp%5Etweetembed%7Ctwterm%5E1313218301200400389%7Ctwgr%5Eshare_1%7Ctwcon%5Es1_&ref_url=https%3A%2F%2Fwww.lavoce.info%2Farchives%2F69816%2Fil-governo-ha-davvero-abolito-i-decreti-sicurezza%2F"^^xsd:anyURI .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-Document-R-2
-:Evidence-Document-R-2 rdf:type owl:NamedIndividual .
+:Evidence-Document-R-2 rdf:type owl:NamedIndividual ,
+                                :DigitalDocument ;
+                       dcterms:date "2021-01-13"^^xsd:anyURI ;
+                       dcterms:title "Tweet di Matteo Salvini"^^xsd:string ;
+                       schema:url "https://twitter.com/matteosalvinimi/status/1349377644941479937"^^xsd:anyURI .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-Document-R-3
-:Evidence-Document-R-3 rdf:type owl:NamedIndividual .
+:Evidence-Document-R-3 rdf:type owl:NamedIndividual ,
+                                :DigitalDocument ;
+                       dcterms:date "2020-06-09"^^xsd:anyURI ;
+                       dcterms:title "Deepfake video of Mark Zuckemberg"^^xsd:string ;
+                       schema:url "https://www.instagram.com/p/CBOIEh3lhPr/"^^xsd:anyURI .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-Document-R-4
-:Evidence-Document-R-4 rdf:type owl:NamedIndividual .
+:Evidence-Document-R-4 rdf:type owl:NamedIndividual ,
+                                :DigitalDocument ;
+                       dcterms:date "2021-01-17"^^xsd:date ;
+                       dcterms:title "Barack Obama was arrested"^^xsd:string ;
+                       schema:url "https://archive.vn/5P96s"^^xsd:anyURI .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-R-1
@@ -1388,15 +1404,18 @@ foaf:Person rdf:type owl:Class ;
 
 
 ###  http://www.modsem.org/fakt-news#Role-A-10
-:Role-A-10 rdf:type owl:NamedIndividual .
+:Role-A-10 rdf:type owl:NamedIndividual ,
+                    :Claimant .
 
 
 ###  http://www.modsem.org/fakt-news#Role-A-11
-:Role-A-11 rdf:type owl:NamedIndividual .
+:Role-A-11 rdf:type owl:NamedIndividual ,
+                    :Claimant .
 
 
 ###  http://www.modsem.org/fakt-news#Role-A-12
-:Role-A-12 rdf:type owl:NamedIndividual .
+:Role-A-12 rdf:type owl:NamedIndividual ,
+                    :Claimant .
 
 
 ###  http://www.modsem.org/fakt-news#Role-A-3
@@ -1405,15 +1424,18 @@ foaf:Person rdf:type owl:Class ;
 
 
 ###  http://www.modsem.org/fakt-news#Role-A-4
-:Role-A-4 rdf:type owl:NamedIndividual .
+:Role-A-4 rdf:type owl:NamedIndividual ,
+                   :FactChecker .
 
 
 ###  http://www.modsem.org/fakt-news#Role-A-6
-:Role-A-6 rdf:type owl:NamedIndividual .
+:Role-A-6 rdf:type owl:NamedIndividual ,
+                   :FactChecker .
 
 
 ###  http://www.modsem.org/fakt-news#Role-A-8
-:Role-A-8 rdf:type owl:NamedIndividual .
+:Role-A-8 rdf:type owl:NamedIndividual ,
+                   :FactChecker .
 
 
 ###  http://www.modsem.org/fakt-news#Role-A-9
@@ -1455,7 +1477,7 @@ foaf:Person rdf:type owl:Class ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2020-10-07"^^xsd:date .
 
 
-###  http://www.modsem.org/fakt-news#Time-R2-2021-01-13-2021-01-1
+###  http://www.modsem.org/fakt-news#Time-R2-2021-01-13-2021-01-14
 :Time-R2-2021-01-13-2021-01-14 rdf:type owl:NamedIndividual ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2021-01-13"^^xsd:date ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2021-01-1"^^xsd:date .
@@ -1490,7 +1512,7 @@ foaf:Person rdf:type owl:Class ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2019-06-19"^^xsd:date ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2019-06-18"^^xsd:date .
 
-##########################################################################################################
+
 ###  http://www.modsem.org/fakt-news#Time-R4-2021-01-17-2021-01-18
 :Time-R4-2021-01-17-2021-01-18 rdf:type owl:NamedIndividual ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2021-01-18"^^xsd:date ;
@@ -1507,7 +1529,7 @@ foaf:Person rdf:type owl:Class ;
 :Time-R4-2021-01-19-2021-01-20 rdf:type owl:NamedIndividual ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2021-01-20"^^xsd:date ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2021-01-19"^^xsd:date .
-########################################################################################################
+
 
 #################################################################
 #    General axioms
