@@ -9,16 +9,55 @@
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
 @prefix schema: <http://schema.org/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @base <http://www.modsem.org/fakt-news> .
 
 <http://www.modsem.org/fakt-news> rdf:type owl:Ontology ;
-                                   owl:imports <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl> .
+                                   owl:imports <http://www.ontologydesignpatterns.org/cp/owl/set.owl> ,
+                                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl> ;
+                                   dcterms:creator "Lorenzo Tabasso"@it ,
+                                                   "Pio Raffaele Fina"@it ;
+                                   dcterms:description "TODO"@en ;
+                                   dcterms:title "Fakt News"@en ;
+                                   vann:preferredNamespacePrefix "fakt"@en ;
+                                   vann:preferredNamespaceUri "http://www.modsem.org/fakt-news"@en ;
+                                   rdfs:label "Fakt News"@en .
 
 #################################################################
 #    Annotation properties
 #################################################################
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/date
+dcterms:date rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/description
+dcterms:description rdf:type owl:AnnotationProperty ;
+                    rdfs:comment "An account of the resource."@en ;
+                    rdfs:label "Description"@en .
+
+
+###  http://purl.org/dc/terms/title
+dcterms:title rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/vocab/vann/preferredNamespacePrefix
+vann:preferredNamespacePrefix rdf:type owl:AnnotationProperty ;
+                              rdfs:comment "The preferred namespace prefix to use when using terms from this vocabulary in an XML document."@en ;
+                              rdfs:label "Preferred Namespace Prefix"@en .
+
+
+###  http://purl.org/vocab/vann/preferredNamespaceUri
+vann:preferredNamespaceUri rdf:type owl:AnnotationProperty ;
+                           rdfs:comment "The preferred namespace URI to use when using terms from this vocabulary in an XML document."@en ;
+                           rdfs:label "Preferred Namespace Uri"@en .
+
 
 ###  http://www.w3.org/2004/02/skos/core#altLabel
 skos:altLabel rdf:type owl:AnnotationProperty .
@@ -44,9 +83,7 @@ xsd:date rdf:type rdfs:Datatype .
 dcterms:creator rdf:type owl:ObjectProperty ;
                 rdfs:subPropertyOf prov:wasAttributedTo ;
                 owl:inverseOf :create ;
-                rdfs:domain schema:CreativeWork ;
-                rdfs:comment "An entity responsible for making the resource."@en ;
-                rdfs:label "Creator"@en .
+                rdfs:domain schema:CreativeWork .
 
 
 ###  http://www.modsem.org/fakt-news#affiliatedTo
@@ -201,7 +238,7 @@ dcterms:creator rdf:type owl:ObjectProperty ;
 :isUsedBySelection rdf:type owl:ObjectProperty ;
                    rdfs:subPropertyOf prov:used ;
                    rdfs:domain :SelectionActivity ;
-                   rdfs:range :AlternativesList .
+                   rdfs:range :AlternativesSet .
 
 
 ###  http://www.modsem.org/fakt-news#isUsedByVerification
@@ -436,11 +473,19 @@ schema:CreativeWork rdf:type owl:Class ;
                     rdfs:label "Creative Work"@en .
 
 
-###  http://www.modsem.org/fakt-news#AlternativesList
-:AlternativesList rdf:type owl:Class ;
-                  rdfs:subClassOf prov:Entity ;
-                  rdfs:comment "A list of claims from which the fact-checker chooses the claim to verify."@en ;
-                  rdfs:label "Alternatives List"@en .
+###  http://www.modsem.org/fakt-news#AlternativesSet
+:AlternativesSet rdf:type owl:Class ;
+                 owl:equivalentClass [ owl:intersectionOf ( <http://www.ontologydesignpatterns.org/cp/owl/set.owl#Set>
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty <http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#hasMember> ;
+                                                              owl:someValuesFrom :Claim
+                                                            ]
+                                                          ) ;
+                                       rdf:type owl:Class
+                                     ] ;
+                 rdfs:subClassOf prov:Entity ;
+                 rdfs:comment "A set of claims from which the fact-checker chooses the claim to verify."@en ;
+                 rdfs:label "Alternatives Set"@en .
 
 
 ###  http://www.modsem.org/fakt-news#Author
@@ -797,6 +842,10 @@ schema:CreativeWork rdf:type owl:Class ;
                       rdfs:label "Verification Activity"@en .
 
 
+###  http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#Collection
+<http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#Collection> rdfs:subClassOf prov:Entity .
+
+
 ###  http://www.w3.org/ns/prov#Activity
 prov:Activity rdf:type owl:Class ;
               rdfs:comment "An activity is something that occurs over a period of time and acts upon or with entities; it may include consuming, processing, transforming, modifying, relocating, using, or generating entities."@en ;
@@ -987,6 +1036,7 @@ foaf:Person rdf:type owl:Class ;
                                  :SelectionActivity ;
                         :hasTimeInterval :Time-R1-2020-10-05-2020-10-06 ;
                         :isFirstActivityOfPlan :Plan-R-1 ;
+                        :isUsedBySelection :Alternative-Set-R-1 ;
                         prov:qualifiedAssociation :Association-Activity-Selection-R1-A9 .
 
 
@@ -1052,6 +1102,12 @@ foaf:Person rdf:type owl:Class ;
                            :hasTimeInterval :Time-R4-2021-01-18-2021-01-19 ;
                            :isActivityOfPlan :Plan-R-4 ;
                            :isUsedByVerification :C-4 .
+
+
+###  http://www.modsem.org/fakt-news#Alternative-Set-R-1
+:Alternative-Set-R-1 rdf:type owl:NamedIndividual ;
+                     <http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#hasMember> :C-1 ,
+                                                                                                   :C-2 .
 
 
 ###  http://www.modsem.org/fakt-news#Association-Activity-Evaluation-R1-A3
@@ -1551,6 +1607,22 @@ foaf:Person rdf:type owl:Class ;
 :Time-R4-2021-01-19-2021-01-20 rdf:type owl:NamedIndividual ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2021-01-20"^^xsd:date ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2021-01-19"^^xsd:date .
+
+
+#################################################################
+#    Annotations
+#################################################################
+
+dcterms:creator rdfs:comment "An entity responsible for making the resource."@en ;
+                rdfs:label "Creator"@en .
+
+
+dcterms:date rdfs:comment "A point or period of time associated with an event in the lifecycle of the resource."@en ;
+             rdfs:label "Date"@en .
+
+
+dcterms:title rdfs:label "Title"@en ;
+              rdfs:comment "A name given to the resource."@en .
 
 
 #################################################################
