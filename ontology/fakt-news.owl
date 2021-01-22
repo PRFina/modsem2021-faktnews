@@ -554,6 +554,7 @@ schema:CreativeWork rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#DisprovingEvidence
 :DisprovingEvidence rdf:type owl:Class ;
                     rdfs:subClassOf :Evidence ;
+                    owl:disjointWith :SupportingEvidence ;
                     rdfs:comment "A disproving evidence on a certain claim."@en ;
                     rdfs:label "Disproving Evidence"@en .
 
@@ -863,6 +864,7 @@ prov:Role rdf:type owl:Class ;
 
 ###  http://xmlns.com/foaf/0.1/Person
 foaf:Person rdf:type owl:Class ;
+            rdfs:subClassOf prov:Agent ;
             rdfs:comment "The Person class represents people. Something is a Person if it is a person. We don't nitpic about whether they're alive, dead, real, or imaginary. The Person class is a sub-class of the Agent class, since all people are considered 'agents' in FOAF."@en ;
             rdfs:label "Person"@en .
 
@@ -1345,9 +1347,9 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#IFCN-Code-of-Principles
 :IFCN-Code-of-Principles rdf:type owl:NamedIndividual ;
                          dcterms:language "en"^^xsd:string ;
-                         dcterms:title "Fact-Checking Network's code of principles"^^xsd:string ;
-                         schema:url "https://www.ifcncodeofprinciples.poynter.org/"^^xsd:string ;
-                         :documentContent "The code of principles of the International Fact-Checking Network at Poynter is a series of commitments organizations abide by to promote excellence in fact-checking. We believe nonpartisan and transparent fact-checking can be a powerful instrument of accountability journalism."^^xsd:string .
+                         schema:url "https://www.ifcncodeofprinciples.poynter.org/"^^xsd:anyURI ;
+                         :documentContent "The code of principles of the International Fact-Checking Network at Poynter is a series of commitments organizations abide by to promote excellence in fact-checking. We believe nonpartisan and transparent fact-checking can be a powerful instrument of accountability journalism."^^xsd:string ;
+                         dcterms:title "Fact-Checking Network's code of principles"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#J-1
