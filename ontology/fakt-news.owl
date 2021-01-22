@@ -506,7 +506,7 @@ schema:CreativeWork rdf:type owl:Class ;
                              rdf:type owl:Class
                            ] ;
        rdfs:subClassOf :DigitalDocument ;
-       rdfs:comment "A statement by an entity about a topic."@en ;
+       rdfs:comment "A statement by an entity about some fact."@en ;
        rdfs:label "Claim"@en ;
        skos:altLabel "Statement"@en .
 
@@ -623,7 +623,8 @@ schema:CreativeWork rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#FactCheckingOrganization
 :FactCheckingOrganization rdf:type owl:Class ;
                           rdfs:subClassOf :Organization ;
-                          rdfs:label "Fact Checking Organisation"@en .
+                          rdfs:comment "An organization that provides fact-checking services."@en ;
+                          rdfs:label "Fact Checking Organization"@en .
 
 
 ###  http://www.modsem.org/fakt-news#FactCheckingProcess
@@ -647,6 +648,7 @@ schema:CreativeWork rdf:type owl:Class ;
                                                               ) ;
                                            rdf:type owl:Class
                                          ] ;
+                     rdfs:comment "The whole activities in which given a selected claim, supported or disproved by some evidence, generates a review article on the claim truthfulness."@en ;
                      rdfs:label "Fact Checking Process"@en .
 
 
@@ -729,7 +731,7 @@ schema:CreativeWork rdf:type owl:Class ;
 :Person rdf:type owl:Class ;
         owl:equivalentClass foaf:Person ;
         rdfs:subClassOf prov:Agent ;
-        rdfs:comment ""@en ;
+        rdfs:comment "A real human person."@en ;
         rdfs:label "Person"@en .
 
 
@@ -776,6 +778,7 @@ schema:CreativeWork rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#SoftwareAgent
 :SoftwareAgent rdf:type owl:Class ;
                rdfs:subClassOf prov:Agent ;
+               rdfs:comment "A software program that act in automounus way in some kind of environment to achive some kind of task."@en ;
                rdfs:label "Software Agent"@en ;
                skos:altLabel "Bot, Software"@en .
 
@@ -812,7 +815,9 @@ schema:CreativeWork rdf:type owl:Class ;
                                                  )
                                    ] ;
                rdfs:subClassOf :EvidenceSource ;
-               rdfs:label "Trusted Source"@en .
+               rdfs:comment "A Trusted Source is known to be reliable because its authority or authenticity is widely recognized by experts in the field."@en ;
+               rdfs:label "Trusted Source"@en ;
+               skos:altLabel "Authoritative Source"@en .
 
 
 ###  http://www.modsem.org/fakt-news#VerificationActivity
@@ -824,6 +829,10 @@ schema:CreativeWork rdf:type owl:Class ;
 
 ###  http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#Collection
 <http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#Collection> rdfs:subClassOf prov:Entity .
+
+
+###  http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#TimeInterval
+<http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#TimeInterval> rdfs:subClassOf prov:Entity .
 
 
 ###  http://www.w3.org/ns/prov#Activity
@@ -853,6 +862,7 @@ prov:Entity rdf:type owl:Class ;
 ###  http://www.w3.org/ns/prov#Plan
 prov:Plan rdf:type owl:Class ;
           rdfs:subClassOf prov:Entity ;
+          rdfs:comment "A plan is an entity that represents a set of actions or steps intended by one or more agents to achieve some goals."@en ;
           rdfs:label "Plan"@en .
 
 
