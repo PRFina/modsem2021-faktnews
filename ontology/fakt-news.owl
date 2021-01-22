@@ -341,6 +341,7 @@ dcterms:date rdf:type owl:DatatypeProperty .
 dcterms:language rdf:type owl:DatatypeProperty ;
                  rdfs:domain schema:CreativeWork ;
                  rdfs:label "Language"@en .
+                 rdfs:range xsd:string .
 
 
 ###  http://purl.org/dc/terms/title
