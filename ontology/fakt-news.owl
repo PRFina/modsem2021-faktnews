@@ -1303,15 +1303,27 @@ foaf:Person rdf:type owl:Class ;
 
 
 ###  http://www.modsem.org/fakt-news#EvidenceSource-R-1
-:EvidenceSource-R-1 rdf:type owl:NamedIndividual .
+:EvidenceSource-R-1 rdf:type owl:NamedIndividual ,
+                             :Organization ;
+                    schema:name "Consiglio Italiano per i Rifugiati (CIR)"^^xsd:string ;
+                    schema:url "http://www.cir-onlus.org/"^^xsd:anyURI ;
+                    :capacityType "NGO"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#EvidenceSource-R-2
-:EvidenceSource-R-2 rdf:type owl:NamedIndividual .
+:EvidenceSource-R-2 rdf:type owl:NamedIndividual ,
+                             :Organization ;
+                    schema:name "Governo Italiano"^^xsd:string ;
+                    schema:url "http://www.governo.it/"^^xsd:anyURI ;
+                    :capacityType "Government"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#EvidenceSource-R-3
-:EvidenceSource-R-3 rdf:type owl:NamedIndividual .
+:EvidenceSource-R-3 rdf:type owl:NamedIndividual ,
+                             :Person ;
+                    schema:name "Bill Posters"^^xsd:string ;
+                    schema:url "https://www.instagram.com/bill_posters_uk/"^^xsd:anyURI ;
+                    :capacityType "Citizen"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#EvidenceSource-R-4
@@ -1331,7 +1343,11 @@ foaf:Person rdf:type owl:Class ;
 
 
 ###  http://www.modsem.org/fakt-news#IFCN-Code-of-Principles
-:IFCN-Code-of-Principles rdf:type owl:NamedIndividual .
+:IFCN-Code-of-Principles rdf:type owl:NamedIndividual ;
+                         dcterms:language "en"^^xsd:string ;
+                         dcterms:title "Fact-Checking Network's code of principles"^^xsd:string ;
+                         schema:url "https://www.ifcncodeofprinciples.poynter.org/"^^xsd:string ;
+                         :documentContent "The code of principles of the International Fact-Checking Network at Poynter is a series of commitments organizations abide by to promote excellence in fact-checking. We believe nonpartisan and transparent fact-checking can be a powerful instrument of accountability journalism."^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#J-1
