@@ -1206,21 +1206,24 @@ foaf:Person rdf:type owl:Class ;
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-R-2
-:Evidence-R-2 rdf:type owl:NamedIndividual ;
+:Evidence-R-2 rdf:type owl:NamedIndividual ,
+                       :DisprovingEvidence ;
               :derivedFromSource :EvidenceSource-R-2 ;
               :supportedBy :Evidence-Document-R-2 ;
               :wasOutputOfVerification :Activity-Verification-R-2 .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-R-3
-:Evidence-R-3 rdf:type owl:NamedIndividual ;
+:Evidence-R-3 rdf:type owl:NamedIndividual ,
+                       :DisprovingEvidence ;
               :derivedFromSource :EvidenceSource-R-3 ;
               :supportedBy :Evidence-Document-R-3 ;
               :wasOutputOfVerification :Activity-Verification-R-3 .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-R-4
-:Evidence-R-4 rdf:type owl:NamedIndividual ;
+:Evidence-R-4 rdf:type owl:NamedIndividual ,
+                       :DisprovingEvidence ;
               :derivedFromSource :EvidenceSource-R-4 ;
               :supportedBy :Evidence-Document-R-4 ;
               :wasOutputOfVerification :Activity-Verification-R-4 .
