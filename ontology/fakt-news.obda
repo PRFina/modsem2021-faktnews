@@ -19,22 +19,22 @@ mappingId	MAPID-Person
 target		:A-{id} a :Person ; schema:name {name} . 
 source		SELECT id, name, type
 			FROM agent
-			WHERE type = 'Person';
+			WHERE type = 'person';
 
 mappingId	MAPID-Software-Agent
 target		:A-{id} a :SoftwareAgent ; schema:name {name} . 
 source		SELECT id, name, type
 			FROM agent
-			WHERE type = 'Software Agent';
+			WHERE type = 'software';
 
 mappingId	MAPID-Organization
 target		:A-{id} a :Organization ; schema:name {name} . 
 source		SELECT id, name, type
 			FROM agent
-			WHERE NOT type = 'Person' AND NOT type = 'Software Agent';
+			WHERE NOT type = 'person' AND NOT type = 'software';
 
 mappingId	MAPID-Claim
-target		:C-{cid} a :Claim ; :associatedReview :R-{rid} ; :claimContent {ccn} ; dct:language {cla} ; dct:date {cpd} ; schema:url {curl}^^xsd:anyURI . 
+target		:C-{cid} a :Claim ; :associatedReview :R-{rid} ; :claimContent {ccn} ; dct:date {cpd} ; schema:url {curl}^^xsd:anyURI ; dct:language {cla} . 
 source		SELECT claim.id AS cid,
 			claim.content AS ccn,
 			claim.publication_date AS cpd,
@@ -45,13 +45,13 @@ source		SELECT claim.id AS cid,
 			WHERE review.id = about.review_id AND about.claim_id = claim.id ;
 
 mappingId	MAPID-Review
-target		:R-{rid} a :Review ; :hasJudgment :J-{rji} ; :hasRating :RT-{rri} ; :isReviewedBy :A-{aid} ; dct:title {rti} ; dct:language {rlg} ; dct:date {rpd} ; schema:url {rurl}^^xsd:anyURI ; :reviewContent {rco} ; :tag {tlb} ; :mention {eelb}^^xsd:anyURI . 
+target		:R-{rid} a :Review ; :hasJudgment :J-{rji} ; :hasRating :RT-{rri} ; :isReviewedBy :A-{aid} ; dct:title {rti} ; dct:date {rpd} ; schema:url {rurl}^^xsd:anyURI ; dct:language {rla} ; :reviewContent {rco} ; :tag {tlb} ; :mention {eelb}^^xsd:anyURI . 
 source		SELECT review.id AS rid,
 			review.title AS rti,
 			review.content AS rco,
 			review.publication_date AS rpd,
 			review.url AS rurl,
-			review.language AS rlg,
+			review.language AS rla,
 			review.judgment_id AS rji,
 			rating_id AS rri,
 			tag.label AS tlb,

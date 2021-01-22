@@ -1257,7 +1257,7 @@ foaf:Person rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#Evidence-Document2-R-4
 :Evidence-Document2-R-4 rdf:type owl:NamedIndividual ;
-                        dcterms:language "en"^^rdfs:Literal ;
+                        dcterms:language "en"^^xsd:string ;
                         schema:url "https://obamawhitehouse.archives.gov/blog/2013/06/30/flotus-travel-journal-robben-island-experience-we-will-never-forget"^^xsd:anyURI ;
                         dcterms:date "2013-06-30"^^xsd:date ;
                         dcterms:title "FLOTUS Travel Journal: Robben Island, An Experience We Will Never Forget"^^xsd:string .
@@ -1346,7 +1346,7 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#IFCN-Code-of-Principles
 :IFCN-Code-of-Principles rdf:type owl:NamedIndividual ;
                          dcterms:language "en"^^xsd:string ;
-                         schema:url "https://www.ifcncodeofprinciples.poynter.org/"^^xsd:string ;
+                         schema:url "https://www.ifcncodeofprinciples.poynter.org/"^^xsd:anyURI ;
                          :documentContent "The code of principles of the International Fact-Checking Network at Poynter is a series of commitments organizations abide by to promote excellence in fact-checking. We believe nonpartisan and transparent fact-checking can be a powerful instrument of accountability journalism."^^xsd:string ;
                          dcterms:title "Fact-Checking Network's code of principles"^^xsd:string .
 
