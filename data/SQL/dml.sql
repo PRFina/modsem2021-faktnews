@@ -65,15 +65,15 @@ INSERT INTO review (title, content, publication_date, url, language, rating_id, 
 INSERT INTO agent (name, type, role, affiliation_id) values
 	('International Fact Checking Organization', 'Fact Checking Authority', 'factchecker', NULL),
 	('Lavoce.info', 'Fact Checking Organization', 'factchecker', NULL),
-	('Massimo Taddei', 'Person', 'factchecker', '2'),
+	('Massimo Taddei', 'person', 'factchecker', '2'),
 	('Pagella Politica', 'Fact Checking Organization', 'factchecker', NULL),
 	('Washington Post', 'Fact Checking Organization', 'factchecker', NULL),
-	('Allyson Chiu', 'Person', 'factchecker', '5'),
+	('Allyson Chiu', 'person', 'factchecker', '5'),
 	('Politifact.com', 'Fact Checking Organization', 'factchecker', NULL),
-	('Daniel Funke', 'Person', 'factchecker', '7'),
-	('Nicola Zingaretti', 'Person', 'claimant', NULL),
-	('Matteo Salvini', 'Person', 'claimant', NULL),
-	('Mark Zucherberg', 'Person', 'claimant', NULL),
+	('Daniel Funke', 'person', 'factchecker', '7'),
+	('Nicola Zingaretti', 'person', 'claimant', NULL),
+	('Matteo Salvini', 'person', 'claimant', NULL),
+	('Mark Zucherberg', 'person', 'claimant', NULL),
 	('America Divided Podcast', 'Organization', 'claimant', NULL);
 
 INSERT INTO claim (content, publication_date, url, language, claimant_id) values

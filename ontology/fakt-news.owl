@@ -339,7 +339,8 @@ dcterms:date rdf:type owl:DatatypeProperty .
 
 ###  http://purl.org/dc/terms/language
 dcterms:language rdf:type owl:DatatypeProperty ;
-                 rdfs:domain schema:CreativeWork .
+                 rdfs:domain schema:CreativeWork ;
+                 rdfs:range xsd:string .
 
 
 ###  http://purl.org/dc/terms/title
@@ -1345,9 +1346,9 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#IFCN-Code-of-Principles
 :IFCN-Code-of-Principles rdf:type owl:NamedIndividual ;
                          dcterms:language "en"^^xsd:string ;
-                         dcterms:title "Fact-Checking Network's code of principles"^^xsd:string ;
                          schema:url "https://www.ifcncodeofprinciples.poynter.org/"^^xsd:string ;
-                         :documentContent "The code of principles of the International Fact-Checking Network at Poynter is a series of commitments organizations abide by to promote excellence in fact-checking. We believe nonpartisan and transparent fact-checking can be a powerful instrument of accountability journalism."^^xsd:string .
+                         :documentContent "The code of principles of the International Fact-Checking Network at Poynter is a series of commitments organizations abide by to promote excellence in fact-checking. We believe nonpartisan and transparent fact-checking can be a powerful instrument of accountability journalism."^^xsd:string ;
+                         dcterms:title "Fact-Checking Network's code of principles"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#J-1

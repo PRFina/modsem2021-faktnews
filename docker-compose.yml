@@ -1,37 +1,36 @@
 version: "3.8"
-services: 
-    python:
-        build: 
-            context: data
-            args:
-                - USER=${PY_USER}
-                - USER_ID=${PY_USER_ID}
-                - GROUP_ID=${PY_GROUP_ID}
+services:
+  python:
+    build:
+      context: data
+      args:
+        - USER=${PY_USER}
+        - USER_ID=${PY_USER_ID}
+        - GROUP_ID=${PY_GROUP_ID}
 
-        env_file: .env
-        # command: "tail -f /dev/null" # keep container running
-        volumes: 
-            - "./data:/app" #for code sync
-        depends_on:
-            - "db"
-    db:
-        image: postgres:13.1
-        restart: always
-        env_file: .env
-        ports:
-            - 5432:5432
-        volumes:
-            - db-volume:/var/lib/postgresql/data
-    
-    rdf:
-        image: ontotext/graphdb:9.5.0-se
-        ports:
-            - 7200:7200
-        volumes:
-            - rdf-volume:/opt/graphdb/home
-            - ./license:/opt/graphdb/home/conf # for graphdb se license
+    env_file: .env
+    command: "tail -f /dev/null" # keep container running
+    volumes:
+      - "./data:/app" #for code sync
+    depends_on:
+      - "db"
+  db:
+    image: postgres:13.1
+    restart: always
+    env_file: .env
+    ports:
+      - 5432:5432
+    volumes:
+      - db-volume:/var/lib/postgresql/data
 
+  rdf:
+    image: ontotext/graphdb:9.5.0-se
+    ports:
+      - 7200:7200
+    volumes:
+      - rdf-volume:/opt/graphdb/home
+      - ./license:/opt/graphdb/home/conf # for graphdb se license
 
 volumes:
-   db-volume:
-   rdf-volume:
+  db-volume:
+  rdf-volume:
