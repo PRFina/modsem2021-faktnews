@@ -116,12 +116,3 @@ def execute_data_preparation(dataset_path):
     )
 
     return df
-
-
-# Script mode
-if __name__ == '__main__':
-    random_seed = np.random.seed(1620) # for reproducibility
-
-    multi_fc_dataset = Path("./raw/MultiFC_train.tsv")
-    df = execute_data_preparation(multi_fc_dataset)
-    print(df.head())
