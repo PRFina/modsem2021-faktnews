@@ -1,14 +1,18 @@
-import pandas as pd
 from pathlib import Path
+from urllib.parse import urlparse
+import itertools
+import json
 import numpy as np
+import pandas as pd
 import dateparser
 import lorem
+import requests
 from sqlalchemy import create_engine
 from psycopg2.extensions import register_adapter, AsIs
-import itertools
-import cleaning_pipeline
-import requests
-import json
+
+from collections import OrderedDict
+
+
 
 """ Script to execute a pipeline to extract, transform and load data into a RDB.
 The main pipeline stages are:
@@ -78,6 +82,9 @@ def get_fake_profile_image_url(df):
     response = json.loads(json_response.text)
     return response['image_url']
 
+
+def extract_title_from_url(url_string):
+    return urlparse(url_string).path.strip("/").split("/")[-1].replace("-"," ")
 
 
 
@@ -153,22 +160,105 @@ def generate_agent_table(df):
     
     return agents
 
-# Script mode
-if __name__ == '__main__':
-    random_seed = np.random.seed(1620) # for reproducibility
 
-    multi_fc_dataset = Path("./raw/MultiFC_train.tsv")
-    df = cleaning_pipeline.execute_data_preparation(multi_fc_dataset)
-    print(df.head())
+def generate_claim_table(df, agent_table):
+    claims = df[['claim','speaker','claimDate','claimURL']].copy()
 
 
-    tables = {}
+    claimants = agent_table[agent_table['role']=='claimant'].astype({'name':'string'}) # filter only claimant agents
+
+    claims.loc[:,'speaker'] = generate_fk(df['speaker'], claimants, 'name') #replace names with id
+    claims['language'] = 'en'
+    claims = claims.rename({'claim': 'content', #align to SQL schema
+                            'speaker': 'claimant_id',
+                            'claimDate': 'publication_date',
+                            'claimURL': 'url'}, axis='columns') # WARNING! claimURL is the review article URL, since no data is provided on the claim source url, we used this one
+
+    return claims
+
+
+def generate_rating_table(df):
+    rating_systems = ['https://www.politifact.com/article/2018/feb/12/principles-truth-o-meter-politifacts-methodology-i/#Truth-O-Meter%20ratings',
+                  'https://pagellapolitica.it/static/metodologia',
+                  'https://www.lavoce.info/come-facciamo-il-fact-checking/']
+
+
+    ratings = pd.DataFrame({'value': df['label'],
+                            'comment': pd.Series(dtype='string'),
+                            'media_url':'',
+                            'system_url':np.random.choice(rating_systems,size=len(df['label']))})
+
+    # generate fake rating media association (only for Politifact)
+    associated_media = {'False': 'https://static.politifact.com/img/meter-false.jpg',
+                        'Mostly False': 'https://static.politifact.com/img/meter-mostly-false.jpg',
+                        'Mostly True': 'https://static.politifact.com/img/meter-mostly-true.jpg',
+                        'True': 'https://static.politifact.com/img/meter-mostly-true.jpg'}
+
+    politifact_mask = ratings[ratings['system_url']=='https://www.politifact.com/article/2018/feb/12/principles-truth-o-meter-politifacts-methodology-i/#Truth-O-Meter%20ratings'].index
+    ratings['media_url'] = ratings.iloc[politifact_mask].apply(lambda row: associated_media[row['value']], axis='columns')
+
+    # generate fake random comment 
+    ratings['comment'] = ratings['comment'].apply(lambda x: lorem.sentence())
+
+    return ratings # just for naming consistence
+
+
+def generate_judgment_table(df, liarplus_path, random_seed):
+    liar_df = pd.read_json(liarplus_path, lines=True)
+    # random sample justification from liar plus dataset
+    # WARNING! The sampling procedure is naive, this means that no sense records could be produced
+    # i.e [Missing Context, "Donald Trump this time is completely right!"]
+
+    liarplus_justifications = (liar_df['justification'].sample(n=len(df),random_state=random_seed)
+                                                    .reset_index(drop=True))
+
+    judgment_table = pd.DataFrame({'label': df['reason'],
+                                'justification': liarplus_justifications})
+
+    return judgment_table
+
+
+def generate_review_table(df, rating_table, judgment_table):
+    reviews = df[['publishDate','claimURL']].copy()
+
+    reviews = reviews.rename({'publishDate': 'publication_date',
+                              'claimURL': 'url'}, axis='columns')
+
+    reviews['title'] = reviews['url'].apply(extract_title_from_url)
+    
+    reviews['content'] = np.nan
+    reviews['content'] = reviews['content'].apply(lambda x: lorem.sentence())
+    
+    reviews['language'] = 'en'
+    reviews['rating_id'] = rating_table.index
+    reviews['judgment_id'] = judgment_table.index
+
+    return reviews
+
+
+def generate_review_author_table(df, agent_table):
+    factcheckers = agent_table[agent_table['role']=='factchecker'].astype({'name':'string'}) # filter only factcheckers agents
+    
+    return generate_joint_table(df, 'checker', df['claimURL'], factcheckers, 'name', 'review_id', 'agent_id')
+
+def generate_about_table(df, review_table, claim_table):
+    return pd.DataFrame({'review_id': review_table.index, 'claim_id': claim_table.index})
+
+
+
+def generate_db_tables(df, liarplus_dataset_path, random_seed):
+    tables = OrderedDict() # order is important due to fk constraints and record insertion order
     
     tables['tag'] = generate_tag_table(df)
-    tables['topic'] = generate_topic_table(df, tables['tag'])
-
-    tables['external_entity'] = generate_external_entity_table(df)
-    tables['mention'] = generate_mention_table(df, tables['external_entity'])
-
+    tables['rating'] =  generate_rating_table(df)
+    tables['judgment'] = generate_judgment_table(df, liarplus_dataset_path, random_seed)
+    tables['review'] = generate_review_table(df, tables['rating'], tables['judgment'])
     tables['agent'] = generate_agent_table(df)
-    print(tables['agent'])
+    tables['claim'] = generate_claim_table(df, tables['agent'])
+    tables['external_entity'] = generate_external_entity_table(df)    
+    tables['mention'] = generate_mention_table(df, tables['external_entity'])
+    tables['topic'] = generate_topic_table(df, tables['tag'])
+    tables['review_author'] = generate_review_author_table(df, tables['agent'])
+    tables['about'] = generate_about_table(df, tables['review'], tables['claim'])
+
+    return tables
