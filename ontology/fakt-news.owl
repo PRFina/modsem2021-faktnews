@@ -1226,23 +1226,26 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#Evidence-Document-R-1
 :Evidence-Document-R-1 rdf:type owl:NamedIndividual ,
                                 :DigitalDocument ;
-                       dcterms:date "2020-10-05"^^xsd:date ;
-                       dcterms:title "Tweet di Nicola Zingaretti"^^xsd:string ;
-                       schema:url "https://twitter.com/nzingaretti/status/1313218301200400389?ref_src=twsrc%5Etfw%7Ctwcamp%5Etweetembed%7Ctwterm%5E1313218301200400389%7Ctwgr%5Eshare_1%7Ctwcon%5Es1_&ref_url=https%3A%2F%2Fwww.lavoce.info%2Farchives%2F69816%2Fil-governo-ha-davvero-abolito-i-decreti-sicurezza%2F"^^xsd:anyURI .
+                       dcterms:date "2018-11-01"^^xsd:date ;
+                       dcterms:language "it"^^xsd:string ;
+                       dcterms:title "Speciale Decreto Sicurezza"^^xsd:string ;
+                       schema:url "http://www.cir-onlus.org/wp-content/uploads/2018/11/Speciale-Decreto-Sicurezza.pdf"^^xsd:anyURI .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-Document-R-2
 :Evidence-Document-R-2 rdf:type owl:NamedIndividual ,
                                 :DigitalDocument ;
-                       dcterms:date "2021-01-13"^^xsd:date ;
-                       dcterms:title "Tweet di Matteo Salvini"^^xsd:string ;
-                       schema:url "https://twitter.com/matteosalvinimi/status/1349377644941479937"^^xsd:anyURI .
+                       dcterms:date "2015-08-14"^^xsd:date ;
+                       dcterms:language "it"^^xsd:string ;
+                       dcterms:title "Supplemento ordinario n. 49/L alla GAZZETTA UFFICIALE"^^xsd:string ;
+                       schema:url "https://www.gazzettaufficiale.it/eli/gu/2015/08/14/188/so/49/sg/pdf#page=99"^^xsd:anyURI .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-Document-R-3
 :Evidence-Document-R-3 rdf:type owl:NamedIndividual ,
                                 :DigitalDocument ;
                        dcterms:date "2020-06-09"^^xsd:date ;
+                       dcterms:language "en"^^xsd:string ;
                        dcterms:title "Deepfake video of Mark Zuckemberg"^^xsd:string ;
                        schema:url "https://www.instagram.com/p/CBOIEh3lhPr/"^^xsd:anyURI .
 
@@ -1251,8 +1254,17 @@ foaf:Person rdf:type owl:Class ;
 :Evidence-Document-R-4 rdf:type owl:NamedIndividual ,
                                 :DigitalDocument ;
                        dcterms:date "2021-01-17"^^xsd:date ;
+                       dcterms:language "en"^^xsd:string ;
                        dcterms:title "Barack Obama 'humbled' by visit to Nelson Mandela's Robben Island jail"^^xsd:string ;
                        schema:url "https://www.youtube.com/watch?v=fGZTFg8PP9Q&feature=youtu.be"^^xsd:anyURI .
+
+
+###  http://www.modsem.org/fakt-news#Evidence-Document2-R-4
+:Evidence-Document2-R-4 rdf:type owl:NamedIndividual ;
+                        dcterms:date "2013-06-30"^^xsd:date ;
+                        dcterms:language "en"^^rdfs:Literal ;
+                        dcterms:title "FLOTUS Travel Journal: Robben Island, An Experience We Will Never Forget"^^xsd:string ;
+                        schema:url "https://obamawhitehouse.archives.gov/blog/2013/06/30/flotus-travel-journal-robben-island-experience-we-will-never-forget"^^xsd:anyURI .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-R-1
@@ -1282,10 +1294,17 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#Evidence-R-4
 :Evidence-R-4 rdf:type owl:NamedIndividual ,
                        :DisprovingEvidence ;
-              :derivedFromSource :EvidenceSource-R-4 ,
-                                 :EvidenceSource2-R-4 ;
+              :derivedFromSource :EvidenceSource-R-4 ;
               :supportedBy :Evidence-Document-R-4 ;
               :wasOutputOfVerification :Activity-Verification-R-4 .
+
+
+###  http://www.modsem.org/fakt-news#Evidence2-R-4
+:Evidence2-R-4 rdf:type owl:NamedIndividual ,
+                        :DisprovingEvidence ;
+               :derivedFromSource :EvidenceSource2-R-4 ;
+               :supportedBy :Evidence-Document2-R-4 ;
+               :wasOutputOfVerification :Activity-Verification-R-4 .
 
 
 ###  http://www.modsem.org/fakt-news#EvidenceSource-R-1
