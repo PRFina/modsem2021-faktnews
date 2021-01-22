@@ -1169,7 +1169,7 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#Evidence-Document-R-2
 :Evidence-Document-R-2 rdf:type owl:NamedIndividual ,
                                 :DigitalDocument ;
-                       dcterms:date "2021-01-13"^^xsd:anyURI ;
+                       dcterms:date "2021-01-13"^^xsd:date ;
                        dcterms:title "Tweet di Matteo Salvini"^^xsd:string ;
                        schema:url "https://twitter.com/matteosalvinimi/status/1349377644941479937"^^xsd:anyURI .
 
@@ -1177,7 +1177,7 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#Evidence-Document-R-3
 :Evidence-Document-R-3 rdf:type owl:NamedIndividual ,
                                 :DigitalDocument ;
-                       dcterms:date "2020-06-09"^^xsd:anyURI ;
+                       dcterms:date "2020-06-09"^^xsd:date ;
                        dcterms:title "Deepfake video of Mark Zuckemberg"^^xsd:string ;
                        schema:url "https://www.instagram.com/p/CBOIEh3lhPr/"^^xsd:anyURI .
 
@@ -1480,7 +1480,7 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#Time-R2-2021-01-13-2021-01-14
 :Time-R2-2021-01-13-2021-01-14 rdf:type owl:NamedIndividual ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2021-01-13"^^xsd:date ;
-                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2021-01-1"^^xsd:date .
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2021-01-01"^^xsd:date .
 
 
 ###  http://www.modsem.org/fakt-news#Time-R2-2021-01-14-2021-01-15
