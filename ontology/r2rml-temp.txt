@@ -92,3 +92,4 @@ source		SELECT id, value, comment, media_url, system_comment, system_url
 			FROM rating;
 ]]
 
+TEST
