@@ -31,6 +31,15 @@ services:
       - rdf-volume:/opt/graphdb/home
       - ./license:/opt/graphdb/home/conf # for graphdb se license
 
+  react:
+    build:
+      context: app/fakt-news
+    ports:
+      - 3000:3000
+    volumes:
+      - "./app/fakt-news:/app" # for code sync
+      - "/app/node_modules/" # for code sync
+
 volumes:
   db-volume:
   rdf-volume:
