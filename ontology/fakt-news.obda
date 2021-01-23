@@ -68,11 +68,40 @@ source		SELECT id, label, justification
 			FROM judgment
 			WHERE label = 'Confirmed Fact';
 
-mappingId	MAPID-Judgment-Missing-Context
-target		:J-{id} a :MissingContext ; :judgmentSummary {label} . 
+mappingId	MAPID-Rating
+target		:RT-{id} a :Rating ; :ratingValue {value} ; :ratingAssociatedMedia {media_url}^^xsd:anyURI ; :ratingSystemComment {system_comment} ; schema:url {system_url}^^xsd:anyURI . 
+source		SELECT id, value, comment, media_url, system_comment, system_url
+			FROM rating;
+
+mappingId	MAPID-Judgment-Splicing
+target		:J-{id} a :Splicing ; :judgmentSummary {label} . 
 source		SELECT id, label, justification
 			FROM judgment
-			WHERE label = 'Missing Context';
+			WHERE label = 'Splicing';
+
+mappingId	MAPID-Judgment-Deceptive-Editing
+target		:J-{id} a :DeceptiveEditing ; :judgmentSummary {label} . 
+source		SELECT id, label, justification
+			FROM judgment
+			WHERE label = 'Deceptive Editing';
+
+mappingId	MAPID-Judgment-Omission
+target		:J-{id} a :Omission ; :judgmentSummary {label} . 
+source		SELECT id, label, justification
+			FROM judgment
+			WHERE label = 'Omission';
+
+mappingId	MAPID-Judgment-Malicious-Transfomation
+target		:J-{id} a :MaliciousTransfomation ; :judgmentSummary {label} . 
+source		SELECT id, label, justification
+			FROM judgment
+			WHERE label = 'Malicious Transfomation';
+
+mappingId	MAPID-Judgment-Doctoring
+target		:J-{id} a :Doctoring ; :judgmentSummary {label} . 
+source		SELECT id, label, justification
+			FROM judgment
+			WHERE label = 'Doctoring';
 
 mappingId	MAPID-Judgment-Fabrication
 target		:J-{id} a :Fabrication ; :judgmentSummary {label} . 
@@ -80,15 +109,46 @@ source		SELECT id, label, justification
 			FROM judgment
 			WHERE label = 'Fabrication';
 
-mappingId	MAPID-Judgment-Deceptive-Editing
-target		:J-{id} a :Fabrication ; :judgmentSummary {label} . 
+mappingId	MAPID-Judgment-Missing-Context
+target		:J-{id} a :MissingContext ; :judgmentSummary {label} . 
 source		SELECT id, label, justification
 			FROM judgment
-			WHERE label = 'Deceptive Editing';
+			WHERE label = 'Missing Context';
 
-mappingId	MAPID-Rating
-target		:RT-{id} a :Rating ; :ratingValue {value} ; :ratingAssociatedMedia {media_url}^^xsd:anyURI ; :ratingSystemComment {system_comment} ; schema:url {system_url}^^xsd:anyURI . 
-source		SELECT id, value, comment, media_url, system_comment, system_url
-			FROM rating;
+mappingId	MAPID-Judgment-Isolation
+target		:J-{id} a :Isolation ; :judgmentSummary {label} . 
+source		SELECT id, label, justification
+			FROM judgment
+			WHERE label = 'Isolation';
+
+mappingId	MAPID-Judgment-Misrepresentation
+target		:J-{id} a :Misrepresentation ; :judgmentSummary {label} . 
+source		SELECT id, label, justification
+			FROM judgment
+			WHERE label = 'Misrepresentation';
+
+mappingId	MAPID-Judgment-Not-Clear-Geography-Context
+target		:J-{id} a :NotClearGeographyContext ; :judgmentSummary {label} . 
+source		SELECT id, label, justification
+			FROM judgment
+			WHERE label = 'Not Clear Geography Context';
+
+mappingId	MAPID-Judgment-Not-Clear-Subject
+target		:J-{id} a :NotClearSubject ; :judgmentSummary {label} . 
+source		SELECT id, label, justification
+			FROM judgment
+			WHERE label = 'Not Clear Subject';
+
+mappingId	MAPID-Judgment-Not-Clear-Time-Period-Context
+target		:J-{id} a :NotClearPeriodContext ; :judgmentSummary {label} . 
+source		SELECT id, label, justification
+			FROM judgment
+			WHERE label = 'Not Clear Time Period Context';
+
+mappingId	MAPID-Judgment-Qualitative-Claim
+target		:J-{id} a :QualitativeClaim ; :judgmentSummary {label} . 
+source		SELECT id, label, justification
+			FROM judgment
+			WHERE label = 'Qualitative Claim';
 ]]
 

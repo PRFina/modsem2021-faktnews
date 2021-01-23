@@ -561,7 +561,7 @@ schema:CreativeWork rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#Doctoring
 :Doctoring rdf:type owl:Class ;
-           rdfs:subClassOf :MaliciousTransfromation ;
+           rdfs:subClassOf :MaliciousTransfomation ;
            rdfs:comment "Altering the content of a claim adding or deleting visual, audio or textual information can deceive the receiver."@en ;
            rdfs:label "Doctoring"@en .
 
@@ -596,7 +596,7 @@ schema:CreativeWork rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#Fabrication
 :Fabrication rdf:type owl:Class ;
-             rdfs:subClassOf :MaliciousTransfromation ;
+             rdfs:subClassOf :MaliciousTransfomation ;
              rdfs:comment "Using Artificial Intelligence to create high-quality content as fake language content, fake images, fake video, simulates audio and convincingly swaps out background images."@en ;
              rdfs:label "Fabrication"@en .
 
@@ -666,11 +666,11 @@ schema:CreativeWork rdf:type owl:Class ;
                         "Reason"@en .
 
 
-###  http://www.modsem.org/fakt-news#MaliciousTransfromation
-:MaliciousTransfromation rdf:type owl:Class ;
-                         rdfs:subClassOf :Judgment ;
-                         rdfs:comment "Part or all of the claim content has been manipulated to transform the content itself."@en ;
-                         rdfs:label "Malicious Transformation"@en .
+###  http://www.modsem.org/fakt-news#MaliciousTransfomation
+:MaliciousTransfomation rdf:type owl:Class ;
+                        rdfs:subClassOf :Judgment ;
+                        rdfs:comment "Part or all of the claim content has been manipulated to transform the content itself."@en ;
+                        rdfs:label "Malicious Transformation"@en .
 
 
 ###  http://www.modsem.org/fakt-news#Misrepresentation
@@ -1371,7 +1371,7 @@ foaf:Person rdf:type owl:Class ;
 :J-3 rdf:type owl:NamedIndividual ,
               :Fabrication ,
               :Judgment ,
-              :MaliciousTransfromation ,
+              :MaliciousTransfomation ,
               prov:Entity ;
      :judgmentSummary "Fabrication"^^xsd:string .
 
@@ -1380,7 +1380,7 @@ foaf:Person rdf:type owl:Class ;
 :J-4 rdf:type owl:NamedIndividual ,
               :Fabrication ,
               :Judgment ,
-              :MaliciousTransfromation ,
+              :MaliciousTransfomation ,
               prov:Entity ;
      :judgmentSummary "Deceptive Editing"^^xsd:string .
 
