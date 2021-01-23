@@ -1,5 +1,4 @@
 @prefix : <http://www.modsem.org/fakt-news#> .
-@prefix dct: <http://purl.org/dc/terms/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
@@ -20,7 +19,6 @@
                                    dcterms:creator "Lorenzo Tabasso"@it ,
                                                    "Pio Raffaele Fina"@it ;
                                    dcterms:description "TODO"@en ;
-                                   dcterms:title "Fakt News"@en ;
                                    vann:preferredNamespacePrefix "fakt"@en ;
                                    vann:preferredNamespaceUri "http://www.modsem.org/fakt-news"@en ;
                                    rdfs:label "Fakt News"@en .
@@ -30,35 +28,27 @@
 #################################################################
 
 ###  http://purl.org/dc/terms/creator
-dcterms:creator rdf:type owl:AnnotationProperty .
-
-
-###  http://purl.org/dc/terms/date
-dcterms:date rdf:type owl:AnnotationProperty ;
-             rdfs:range xsd:date .
+dcterms:creator rdf:type owl:AnnotationProperty ;
+                rdfs:comment "An entity responsible for making the resource."@en ;
+                rdfs:label "creator"@en .
 
 
 ###  http://purl.org/dc/terms/description
 dcterms:description rdf:type owl:AnnotationProperty ;
                     rdfs:comment "An account of the resource."@en ;
-                    rdfs:label "Description"@en .
-
-
-###  http://purl.org/dc/terms/title
-dcterms:title rdf:type owl:AnnotationProperty ;
-              rdfs:domain schema:CreativeWork .
+                    rdfs:label "description"@en .
 
 
 ###  http://purl.org/vocab/vann/preferredNamespacePrefix
 vann:preferredNamespacePrefix rdf:type owl:AnnotationProperty ;
                               rdfs:comment "The preferred namespace prefix to use when using terms from this vocabulary in an XML document."@en ;
-                              rdfs:label "Preferred Namespace Prefix"@en .
+                              rdfs:label "preferredNamespacePrefix"@en .
 
 
 ###  http://purl.org/vocab/vann/preferredNamespaceUri
 vann:preferredNamespaceUri rdf:type owl:AnnotationProperty ;
                            rdfs:comment "The preferred namespace URI to use when using terms from this vocabulary in an XML document."@en ;
-                           rdfs:label "Preferred Namespace Uri"@en .
+                           rdfs:label "preferredNamespaceUri"@en .
 
 
 ###  http://www.w3.org/2004/02/skos/core#altLabel
@@ -80,13 +70,6 @@ xsd:date rdf:type rdfs:Datatype .
 #################################################################
 #    Object Properties
 #################################################################
-
-###  http://purl.org/dc/terms/creator
-dcterms:creator rdf:type owl:ObjectProperty ;
-                rdfs:subPropertyOf prov:wasAttributedTo ;
-                owl:inverseOf :create ;
-                rdfs:domain schema:CreativeWork .
-
 
 ###  http://www.modsem.org/fakt-news#affiliatedTo
 :affiliatedTo rdf:type owl:ObjectProperty ;
@@ -114,7 +97,8 @@ dcterms:creator rdf:type owl:ObjectProperty ;
 
 
 ###  http://www.modsem.org/fakt-news#create
-:create rdf:type owl:ObjectProperty .
+:create rdf:type owl:ObjectProperty ;
+        owl:inverseOf :creator .
 
 
 ###  http://www.modsem.org/fakt-news#createCodeOfPrinciples
@@ -122,6 +106,14 @@ dcterms:creator rdf:type owl:ObjectProperty ;
                         rdfs:subPropertyOf :create ;
                         rdfs:domain :FactCheckingAuthority ;
                         rdfs:range :CodeOfPrinciples .
+
+
+###  http://www.modsem.org/fakt-news#creator
+:creator rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf prov:wasAttributedTo ;
+         rdfs:domain schema:CreativeWork ;
+         rdfs:comment "The entity who creates the resource."@en ;
+         rdfs:label "creator"@en .
 
 
 ###  http://www.modsem.org/fakt-news#derivedFromSource
@@ -199,13 +191,13 @@ dcterms:creator rdf:type owl:ObjectProperty ;
                   rdfs:domain :FactCheckingOrganization ;
                   rdfs:range :FactCheckingAuthority ;
                   owl:propertyChainAxiom ( :observeCodeOfPrinciples
-                                           dcterms:creator
+                                           :creator
                                          ) .
 
 
 ###  http://www.modsem.org/fakt-news#isClaimedBy
 :isClaimedBy rdf:type owl:ObjectProperty ;
-             rdfs:subPropertyOf dcterms:creator ;
+             rdfs:subPropertyOf :creator ;
              rdfs:domain :Claim .
 
 
@@ -221,7 +213,7 @@ dcterms:creator rdf:type owl:ObjectProperty ;
 
 ###  http://www.modsem.org/fakt-news#isReviewedBy
 :isReviewedBy rdf:type owl:ObjectProperty ;
-              rdfs:subPropertyOf dcterms:creator ;
+              rdfs:subPropertyOf :creator ;
               rdfs:domain :Review .
 
 
@@ -334,33 +326,44 @@ prov:wasGeneratedBy rdf:type owl:ObjectProperty ;
 #################################################################
 
 ###  http://purl.org/dc/terms/date
-dcterms:date rdf:type owl:DatatypeProperty .
+dcterms:date rdf:type owl:DatatypeProperty ;
+             rdfs:comment "A point or period of time associated with an event in the lifecycle of the resource."@en ;
+             rdfs:label "date"@en .
 
 
 ###  http://purl.org/dc/terms/language
 dcterms:language rdf:type owl:DatatypeProperty ;
                  rdfs:domain schema:CreativeWork ;
-                 rdfs:range xsd:string .
+                 rdfs:range xsd:string ;
+                 rdfs:comment "A language of the resource."@en ;
+                 rdfs:label "language"@en .
 
 
 ###  http://purl.org/dc/terms/title
 dcterms:title rdf:type owl:DatatypeProperty ;
-              rdfs:subPropertyOf owl:topDataProperty .
+              rdfs:subPropertyOf owl:topDataProperty ;
+              rdfs:comment "A name given to the resource."@en ;
+              rdfs:label "title"@en .
 
 
 ###  http://schema.org/name
 schema:name rdf:type owl:DatatypeProperty ;
             rdfs:range xsd:string ;
-            rdfs:comment "The name of the item."@en .
+            rdfs:comment "The name of the item."@en ;
+            rdfs:label "name"@en .
 
 
 ###  http://schema.org/url
 schema:url rdf:type owl:DatatypeProperty ;
-           rdfs:range xsd:anyURI .
+           rdfs:range xsd:anyURI ;
+           rdfs:comment "The URL of an item."@en ;
+           rdfs:label "url"@en ;
+           skos:altLabel "URL"@en .
 
 
 ###  http://www.modsem.org/fakt-news#capacityType
 :capacityType rdf:type owl:DatatypeProperty ;
+              rdfs:domain :EvidenceSource ;
               rdfs:range [ rdf:type rdfs:Datatype ;
                            owl:oneOf [ rdf:type rdf:List ;
                                        rdf:first "Citizen" ;
@@ -390,43 +393,60 @@ schema:url rdf:type owl:DatatypeProperty ;
                                                            ]
                                                 ]
                                      ]
-                         ] .
+                         ] ;
+              rdfs:comment "The Evidence Source social function indipendent of the context."@en ;
+              rdfs:label "capacity"@en ;
+              skos:altLabel "Position"@en .
 
 
 ###  http://www.modsem.org/fakt-news#claimContent
 :claimContent rdf:type owl:DatatypeProperty ;
               rdfs:subPropertyOf :documentContent ;
               rdfs:domain :Claim ;
-              rdfs:range xsd:string .
+              rdfs:range xsd:string ;
+              rdfs:comment "The main content of a claim: what claimant said."@en ;
+              rdfs:label "claim content"@en .
 
 
 ###  http://www.modsem.org/fakt-news#documentContent
 :documentContent rdf:type owl:DatatypeProperty ;
-                 rdfs:domain :DigitalDocument .
+                 rdfs:domain :DigitalDocument ;
+                 rdfs:comment "The main content of the digital document."@en ;
+                 rdfs:label "document content"@en .
 
 
 ###  http://www.modsem.org/fakt-news#judgmentSummary
 :judgmentSummary rdf:type owl:DatatypeProperty ;
                  rdfs:domain :Judgment ;
-                 rdfs:range xsd:string .
+                 rdfs:range xsd:string ;
+                 rdfs:comment "A brief description of the judgment given by some fact checker."@en ;
+                 rdfs:label "judgment summary"@en ;
+                 skos:altLabel "judgment description"@en .
 
 
 ###  http://www.modsem.org/fakt-news#mention
 :mention rdf:type owl:DatatypeProperty ;
          rdfs:domain :Review ;
-         rdfs:range xsd:anyURI .
+         rdfs:range xsd:anyURI ;
+         rdfs:comment "A mention to some entity in a review."@en ;
+         rdfs:label "mention"@en .
 
 
 ###  http://www.modsem.org/fakt-news#ratingAssociatedMedia
 :ratingAssociatedMedia rdf:type owl:DatatypeProperty ;
                        rdfs:domain :Rating ;
-                       rdfs:range xsd:anyURI .
+                       rdfs:range xsd:anyURI ;
+                       rdfs:comment "A visual representation of the rating value."@en ;
+                       rdfs:label "rating associated media"@en ;
+                       skos:altLabel "rating depiction"@en .
 
 
 ###  http://www.modsem.org/fakt-news#ratingSystemComment
 :ratingSystemComment rdf:type owl:DatatypeProperty ;
                      rdfs:domain :Rating ;
-                     rdfs:range xsd:string .
+                     rdfs:range xsd:string ;
+                     rdfs:comment "A comment on the rating system."@en ;
+                     rdfs:label "rating system comment"@en .
 
 
 ###  http://www.modsem.org/fakt-news#ratingValue
@@ -446,20 +466,27 @@ schema:url rdf:type owl:DatatypeProperty ;
                                                           ]
                                                ]
                                     ]
-                        ] .
+                        ] ;
+             rdfs:comment "The rating value that encode a final verdict about the claim truthfulness."@en ;
+             rdfs:label "rating value"@en .
 
 
 ###  http://www.modsem.org/fakt-news#reviewContent
 :reviewContent rdf:type owl:DatatypeProperty ;
                rdfs:subPropertyOf :documentContent ;
                rdfs:domain :Review ;
-               rdfs:range xsd:string .
+               rdfs:range xsd:string ;
+               rdfs:comment "The content of a review article."@en ;
+               rdfs:label "review content"@en .
 
 
 ###  http://www.modsem.org/fakt-news#tag
 :tag rdf:type owl:DatatypeProperty ;
      rdfs:domain :Review ;
-     rdfs:range xsd:string .
+     rdfs:range xsd:string ;
+     rdfs:comment "A topic tag of the review."@en ;
+     rdfs:label "tag"@en ;
+     skos:altLabel "topic tag"@en .
 
 
 #################################################################
@@ -507,7 +534,7 @@ schema:CreativeWork rdf:type owl:Class ;
                              rdf:type owl:Class
                            ] ;
        rdfs:subClassOf :DigitalDocument ;
-       rdfs:comment "A statement by an entity about a topic."@en ;
+       rdfs:comment "A statement by an entity about some fact."@en ;
        rdfs:label "Claim"@en ;
        skos:altLabel "Statement"@en .
 
@@ -555,6 +582,7 @@ schema:CreativeWork rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#DisprovingEvidence
 :DisprovingEvidence rdf:type owl:Class ;
                     rdfs:subClassOf :Evidence ;
+                    owl:disjointWith :SupportingEvidence ;
                     rdfs:comment "A disproving evidence on a certain claim."@en ;
                     rdfs:label "Disproving Evidence"@en .
 
@@ -623,6 +651,7 @@ schema:CreativeWork rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#FactCheckingOrganization
 :FactCheckingOrganization rdf:type owl:Class ;
                           rdfs:subClassOf :Organization ;
+                          rdfs:comment "An organization that provides fact-checking services."@en ;
                           rdfs:label "Fact Checking Organisation"@en .
 
 
@@ -647,6 +676,7 @@ schema:CreativeWork rdf:type owl:Class ;
                                                               ) ;
                                            rdf:type owl:Class
                                          ] ;
+                     rdfs:comment "The whole activities in which given a selected claim, supported or disproved by some evidence, generates a review article on the claim truthfulness."@en ;
                      rdfs:label "Fact Checking Process"@en .
 
 
@@ -729,7 +759,7 @@ schema:CreativeWork rdf:type owl:Class ;
 :Person rdf:type owl:Class ;
         owl:equivalentClass foaf:Person ;
         rdfs:subClassOf prov:Agent ;
-        rdfs:comment ""@en ;
+        rdfs:comment "A real human person."@en ;
         rdfs:label "Person"@en .
 
 
@@ -776,6 +806,7 @@ schema:CreativeWork rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#SoftwareAgent
 :SoftwareAgent rdf:type owl:Class ;
                rdfs:subClassOf prov:Agent ;
+               rdfs:comment "A software program that act in automounus way in some kind of environment to achive some kind of task."@en ;
                rdfs:label "Software Agent"@en ;
                skos:altLabel "Bot, Software"@en .
 
@@ -812,7 +843,9 @@ schema:CreativeWork rdf:type owl:Class ;
                                                  )
                                    ] ;
                rdfs:subClassOf :EvidenceSource ;
-               rdfs:label "Trusted Source"@en .
+               rdfs:comment "A Trusted Source is known to be reliable because its authority or authenticity is widely recognized by experts in the field."@en ;
+               rdfs:label "Trusted Source"@en ;
+               skos:altLabel "Authoritative Source"@en .
 
 
 ###  http://www.modsem.org/fakt-news#VerificationActivity
@@ -824,6 +857,10 @@ schema:CreativeWork rdf:type owl:Class ;
 
 ###  http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#Collection
 <http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#Collection> rdfs:subClassOf prov:Entity .
+
+
+###  http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#TimeInterval
+<http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#TimeInterval> rdfs:subClassOf prov:Entity .
 
 
 ###  http://www.w3.org/ns/prov#Activity
@@ -853,6 +890,7 @@ prov:Entity rdf:type owl:Class ;
 ###  http://www.w3.org/ns/prov#Plan
 prov:Plan rdf:type owl:Class ;
           rdfs:subClassOf prov:Entity ;
+          rdfs:comment "A plan is an entity that represents a set of actions or steps intended by one or more agents to achieve some goals."@en ;
           rdfs:label "Plan"@en .
 
 
@@ -864,6 +902,7 @@ prov:Role rdf:type owl:Class ;
 
 ###  http://xmlns.com/foaf/0.1/Person
 foaf:Person rdf:type owl:Class ;
+            rdfs:subClassOf prov:Agent ;
             rdfs:comment "The Person class represents people. Something is a Person if it is a person. We don't nitpic about whether they're alive, dead, real, or imaginary. The Person class is a sub-class of the Agent class, since all people are considered 'agents' in FOAF."@en ;
             rdfs:label "Person"@en .
 
@@ -1173,8 +1212,7 @@ foaf:Person rdf:type owl:Class ;
      dcterms:language "it"^^xsd:string ;
      schema:url "https://twitter.com/nzingaretti/status/1313218301200400389?ref_src=twsrc%5Etfw"^^xsd:anyURI ;
      :claimContent "Approvato ora in Consiglio dei Ministri il decreto immigrazione. I decreti propaganda/Salvini non ci sono più. Vogliamo un’Italia  più umana e sicura. Un’Europa più protagonista"^^xsd:string ;
-     :documentContent "Approvato ora in Consiglio dei Ministri il decreto immigrazione. I decreti propaganda/Salvini non ci sono più. Vogliamo un’Italia  più umana e sicura. Un’Europa più protagonista"^^xsd:string ;
-     dcterms:date "2020-10-05"^^xsd:date .
+     :documentContent "Approvato ora in Consiglio dei Ministri il decreto immigrazione. I decreti propaganda/Salvini non ci sono più. Vogliamo un’Italia  più umana e sicura. Un’Europa più protagonista"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#C-2
@@ -1187,8 +1225,7 @@ foaf:Person rdf:type owl:Class ;
      dcterms:language "it"^^xsd:string ;
      schema:url "https://twitter.com/matteosalvinimi/status/1349377644941479937"^^xsd:anyURI ;
      :claimContent "Con tutti i problemi che ci sono in Italia, al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con Genitore 1 e 2. Prima vanno a casa, meglio è."^^xsd:string ;
-     :documentContent "Con tutti i problemi che ci sono in Italia, al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con Genitore 1 e 2. Prima vanno a casa, meglio è."^^xsd:string ;
-     dcterms:date "2021-01-13"^^xsd:date .
+     :documentContent "Con tutti i problemi che ci sono in Italia, al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con Genitore 1 e 2. Prima vanno a casa, meglio è."^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#C-3
@@ -1201,8 +1238,7 @@ foaf:Person rdf:type owl:Class ;
      dcterms:language "en"^^xsd:string ;
      schema:url "https://www.instagram.com/p/ByaVigGFP2U/?utm_source=ig_embed&utm_campaign=embed_video_watch_again"^^xsd:anyURI ;
      :claimContent "Zuckerberg: we are increasing transparency on Ads. Announces new measure to protect the elections."^^xsd:string ;
-     :documentContent "Zuckerberg: we are increasing transparency on Ads. Announces new measure to protect the elections."^^xsd:string ;
-     dcterms:date "2019-06-07"^^xsd:date .
+     :documentContent "Zuckerberg: we are increasing transparency on Ads. Announces new measure to protect the elections."^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#C-4
@@ -1215,52 +1251,41 @@ foaf:Person rdf:type owl:Class ;
      dcterms:language "en"^^xsd:string ;
      schema:url "https://archive.vn/5P96s"^^xsd:anyURI ;
      :claimContent "Barack Obama was arrested: a video published on Facebook claims to show former President Barack Obama in jail."^^xsd:string ;
-     :documentContent "Barack Obama was arrested: a video published on Facebook claims to show former President Barack Obama in jail."^^xsd:string ;
-     dcterms:date "2021-01-17"^^xsd:date .
+     :documentContent "Barack Obama was arrested: a video published on Facebook claims to show former President Barack Obama in jail."^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-Document-R-1
 :Evidence-Document-R-1 rdf:type owl:NamedIndividual ,
                                 :DigitalDocument ;
                        dcterms:language "it"^^xsd:string ;
-                       schema:url "http://www.cir-onlus.org/wp-content/uploads/2018/11/Speciale-Decreto-Sicurezza.pdf"^^xsd:anyURI ;
-                       dcterms:date "2018-11-01"^^xsd:date ;
-                       dcterms:title "Speciale Decreto Sicurezza"^^xsd:string .
+                       schema:url "http://www.cir-onlus.org/wp-content/uploads/2018/11/Speciale-Decreto-Sicurezza.pdf"^^xsd:anyURI .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-Document-R-2
 :Evidence-Document-R-2 rdf:type owl:NamedIndividual ,
                                 :DigitalDocument ;
                        dcterms:language "it"^^xsd:string ;
-                       schema:url "https://www.gazzettaufficiale.it/eli/gu/2015/08/14/188/so/49/sg/pdf#page=99"^^xsd:anyURI ;
-                       dcterms:date "2015-08-14"^^xsd:date ;
-                       dcterms:title "Supplemento ordinario n. 49/L alla GAZZETTA UFFICIALE"^^xsd:string .
+                       schema:url "https://www.gazzettaufficiale.it/eli/gu/2015/08/14/188/so/49/sg/pdf#page=99"^^xsd:anyURI .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-Document-R-3
 :Evidence-Document-R-3 rdf:type owl:NamedIndividual ,
                                 :DigitalDocument ;
                        dcterms:language "en"^^xsd:string ;
-                       schema:url "https://www.instagram.com/p/CBOIEh3lhPr/"^^xsd:anyURI ;
-                       dcterms:date "2020-06-09"^^xsd:date ;
-                       dcterms:title "Deepfake video of Mark Zuckemberg"^^xsd:string .
+                       schema:url "https://www.instagram.com/p/CBOIEh3lhPr/"^^xsd:anyURI .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-Document-R-4
 :Evidence-Document-R-4 rdf:type owl:NamedIndividual ,
                                 :DigitalDocument ;
                        dcterms:language "en"^^xsd:string ;
-                       schema:url "https://www.youtube.com/watch?v=fGZTFg8PP9Q&feature=youtu.be"^^xsd:anyURI ;
-                       dcterms:date "2021-01-17"^^xsd:date ;
-                       dcterms:title "Barack Obama 'humbled' by visit to Nelson Mandela's Robben Island jail"^^xsd:string .
+                       schema:url "https://www.youtube.com/watch?v=fGZTFg8PP9Q&feature=youtu.be"^^xsd:anyURI .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-Document2-R-4
 :Evidence-Document2-R-4 rdf:type owl:NamedIndividual ;
                         dcterms:language "en"^^xsd:string ;
-                        schema:url "https://obamawhitehouse.archives.gov/blog/2013/06/30/flotus-travel-journal-robben-island-experience-we-will-never-forget"^^xsd:anyURI ;
-                        dcterms:date "2013-06-30"^^xsd:date ;
-                        dcterms:title "FLOTUS Travel Journal: Robben Island, An Experience We Will Never Forget"^^xsd:string .
+                        schema:url "https://obamawhitehouse.archives.gov/blog/2013/06/30/flotus-travel-journal-robben-island-experience-we-will-never-forget"^^xsd:anyURI .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-R-1
@@ -1346,9 +1371,9 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#IFCN-Code-of-Principles
 :IFCN-Code-of-Principles rdf:type owl:NamedIndividual ;
                          dcterms:language "en"^^xsd:string ;
+                         dcterms:title "Fact-Checking Network's code of principles"@en ;
                          schema:url "https://www.ifcncodeofprinciples.poynter.org/"^^xsd:anyURI ;
-                         :documentContent "The code of principles of the International Fact-Checking Network at Poynter is a series of commitments organizations abide by to promote excellence in fact-checking. We believe nonpartisan and transparent fact-checking can be a powerful instrument of accountability journalism."^^xsd:string ;
-                         dcterms:title "Fact-Checking Network's code of principles"^^xsd:string .
+                         :documentContent "The code of principles of the International Fact-Checking Network at Poynter is a series of commitments organizations abide by to promote excellence in fact-checking. We believe nonpartisan and transparent fact-checking can be a powerful instrument of accountability journalism."^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#J-1
@@ -1419,9 +1444,7 @@ foaf:Person rdf:type owl:Class ;
      :mention "http://dbpedia.org/page/Nicola_Zingaretti"^^xsd:anyURI ;
      :reviewContent "Il fact-checking de lavoce.info passa ...[+1283 words]"^^xsd:string ;
      :tag "politica"^^xsd:string ;
-     dcterms:creator :A-3 ;
-     dcterms:date "2020-10-08"^^xsd:date ;
-     dcterms:title "Il governo ha davvero abolito i “decreti sicurezza”?"^^xsd:string .
+     dcterms:creator :A-3 .
 
 
 ###  http://www.modsem.org/fakt-news#R-2
@@ -1441,9 +1464,7 @@ foaf:Person rdf:type owl:Class ;
      :mention "http://dbpedia.org/page/Matteo_Salvini"^^xsd:anyURI ;
      :reviewContent "Al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con genitore 1 e 2 ...[+1568 words]"^^xsd:string ;
      :tag "politica"^^xsd:string ;
-     dcterms:creator :A-4 ;
-     dcterms:date "2021-01-15"^^xsd:date ;
-     dcterms:title "No, “genitore 1 e 2” non tornano sui documenti d’identità (non ci sono mai stati)"^^xsd:string .
+     dcterms:creator :A-4 .
 
 
 ###  http://www.modsem.org/fakt-news#R-3
@@ -1463,9 +1484,7 @@ foaf:Person rdf:type owl:Class ;
      :mention "https://dbpedia.org/page/Mark_Zuckerberg"^^xsd:anyURI ;
      :reviewContent "A couple of short video clips, a voice actor and an artificial intelligence algorithm. That’s all two artists and a technology start-up ...[+1497 words]"^^xsd:string ;
      :tag "deepfake"^^xsd:string ;
-     dcterms:creator :A-6 ;
-     dcterms:date "2019-06-19"^^xsd:date ;
-     dcterms:title "Facebook wouldn’t delete an altered video of Nancy Pelosi. What about one of Mark Zuckerberg?"^^xsd:string .
+     dcterms:creator :A-6 .
 
 
 ###  http://www.modsem.org/fakt-news#R-4
@@ -1487,9 +1506,7 @@ foaf:Person rdf:type owl:Class ;
               "https://www.wikidata.org/wiki/Q51213808"^^xsd:anyURI ;
      :reviewContent "In a video published Jan. 17, Gage Nelson, host of the conservative podcast America Divided, said: \"Barack Obama was arrested.\""^^xsd:string ;
      :tag "politics"^^xsd:string ;
-     dcterms:creator :A-8 ;
-     dcterms:date "2021-01-18"^^xsd:date ;
-     dcterms:title "Barack Obama wasn’t arrested before Biden’s inauguration"^^xsd:string .
+     dcterms:creator :A-8 .
 
 
 ###  http://www.modsem.org/fakt-news#RT-1
@@ -1643,22 +1660,6 @@ foaf:Person rdf:type owl:Class ;
 :Time-R4-2021-01-19-2021-01-20 rdf:type owl:NamedIndividual ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2021-01-20"^^xsd:date ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2021-01-19"^^xsd:date .
-
-
-#################################################################
-#    Annotations
-#################################################################
-
-dcterms:creator rdfs:comment "An entity responsible for making the resource."@en ;
-                rdfs:label "Creator"@en .
-
-
-dcterms:date rdfs:comment "A point or period of time associated with an event in the lifecycle of the resource."@en ;
-             rdfs:label "Date"@en .
-
-
-dcterms:title rdfs:label "Title"@en ;
-              rdfs:comment "A name given to the resource."@en .
 
 
 #################################################################
