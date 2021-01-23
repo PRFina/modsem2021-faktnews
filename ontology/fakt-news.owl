@@ -335,14 +335,9 @@ dcterms:date rdf:type owl:DatatypeProperty ;
 ###  http://purl.org/dc/terms/language
 dcterms:language rdf:type owl:DatatypeProperty ;
                  rdfs:domain schema:CreativeWork ;
-<<<<<<< HEAD
-                 rdfs:label "Language"@en .
-                 rdfs:range xsd:string .
-=======
                  rdfs:range xsd:string ;
                  rdfs:comment "A language of the resource."@en ;
                  rdfs:label "language"@en .
->>>>>>> works-no-comments
 
 
 ###  http://purl.org/dc/terms/title
@@ -356,22 +351,14 @@ dcterms:title rdf:type owl:DatatypeProperty ;
 schema:name rdf:type owl:DatatypeProperty ;
             rdfs:range xsd:string ;
             rdfs:comment "The name of the item."@en ;
-<<<<<<< HEAD
-            rdfs:label "Name"@en .
-=======
             rdfs:label "name"@en .
->>>>>>> works-no-comments
 
 
 ###  http://schema.org/url
 schema:url rdf:type owl:DatatypeProperty ;
            rdfs:range xsd:anyURI ;
            rdfs:comment "The URL of an item."@en ;
-<<<<<<< HEAD
-           rdfs:label "URL"@en ;
-=======
            rdfs:label "url"@en ;
->>>>>>> works-no-comments
            skos:altLabel "URL"@en .
 
 
@@ -409,11 +396,7 @@ schema:url rdf:type owl:DatatypeProperty ;
                                      ]
                          ] ;
               rdfs:comment "The Evidence Source social function indipendent of the context."@en ;
-<<<<<<< HEAD
-              rdfs:label "Capacity"@en ;
-=======
               rdfs:label "capacity"@en ;
->>>>>>> works-no-comments
               skos:altLabel "Position"@en .
 
 
@@ -423,38 +406,23 @@ schema:url rdf:type owl:DatatypeProperty ;
               rdfs:domain :Claim ;
               rdfs:range xsd:string ;
               rdfs:comment "The main content of a claim: what claimant said."@en ;
-<<<<<<< HEAD
-              rdfs:label "Claim Content"@en .
-=======
               rdfs:label "claim content"@en .
->>>>>>> works-no-comments
 
 
 ###  http://www.modsem.org/fakt-news#documentContent
 :documentContent rdf:type owl:DatatypeProperty ;
                  rdfs:domain :DigitalDocument ;
-<<<<<<< HEAD
-                 rdfs:label "Content"@en ,
-                            "The main content of the document."@en .
-=======
                  rdfs:comment "The main content of the digital document."@en ;
                  rdfs:label "document content"@en .
->>>>>>> works-no-comments
 
 
 ###  http://www.modsem.org/fakt-news#judgmentSummary
 :judgmentSummary rdf:type owl:DatatypeProperty ;
                  rdfs:domain :Judgment ;
                  rdfs:range xsd:string ;
-<<<<<<< HEAD
-                 rdfs:comment "A brief description of the judgment given by some fact checker"@en ;
-                 rdfs:label "Judgment Summary"@en ;
-                 skos:altLabel "Judgment Description"@en .
-=======
                  rdfs:comment "A brief description of the judgment given by some fact checker."@en ;
                  rdfs:label "judgment summary"@en ;
                  skos:altLabel "judgment description"@en .
->>>>>>> works-no-comments
 
 
 ###  http://www.modsem.org/fakt-news#mention
@@ -469,15 +437,9 @@ schema:url rdf:type owl:DatatypeProperty ;
 :ratingAssociatedMedia rdf:type owl:DatatypeProperty ;
                        rdfs:domain :Rating ;
                        rdfs:range xsd:anyURI ;
-<<<<<<< HEAD
-                       rdfs:comment "A visual representation of the rating value"@en ;
-                       rdfs:label "Rating Associated Media"@en ;
-                       skos:altLabel "Rating Depiction"@en .
-=======
                        rdfs:comment "A visual representation of the rating value."@en ;
                        rdfs:label "rating associated media"@en ;
                        skos:altLabel "rating depiction"@en .
->>>>>>> works-no-comments
 
 
 ###  http://www.modsem.org/fakt-news#ratingSystemComment
@@ -507,11 +469,7 @@ schema:url rdf:type owl:DatatypeProperty ;
                                     ]
                         ] ;
              rdfs:comment "The rating value that encode a final verdict about the claim truthfulness."@en ;
-<<<<<<< HEAD
-             rdfs:label "Rating Value"@en .
-=======
              rdfs:label "rating value"@en .
->>>>>>> works-no-comments
 
 
 ###  http://www.modsem.org/fakt-news#reviewContent
@@ -519,13 +477,8 @@ schema:url rdf:type owl:DatatypeProperty ;
                rdfs:subPropertyOf :documentContent ;
                rdfs:domain :Review ;
                rdfs:range xsd:string ;
-<<<<<<< HEAD
-               dcterms:title "The content of a review article."@en ;
-               rdfs:label "Review Content"@en .
-=======
                rdfs:comment "The content of a review article."@en ;
                rdfs:label "review content"@en .
->>>>>>> works-no-comments
 
 
 ###  http://www.modsem.org/fakt-news#tag
@@ -533,12 +486,8 @@ schema:url rdf:type owl:DatatypeProperty ;
      rdfs:domain :Review ;
      rdfs:range xsd:string ;
      rdfs:comment "A topic tag of the review."@en ;
-<<<<<<< HEAD
-     rdfs:label "Topic Tag"@en .
-=======
      rdfs:label "tag"@en ;
      skos:altLabel "topic tag"@en .
->>>>>>> works-no-comments
 
 
 #################################################################
@@ -704,11 +653,7 @@ schema:CreativeWork rdf:type owl:Class ;
 :FactCheckingOrganization rdf:type owl:Class ;
                           rdfs:subClassOf :Organization ;
                           rdfs:comment "An organization that provides fact-checking services."@en ;
-<<<<<<< HEAD
-                          rdfs:label "Fact Checking Organization"@en .
-=======
                           rdfs:label "Fact Checking Organisation"@en .
->>>>>>> works-no-comments
 
 
 ###  http://www.modsem.org/fakt-news#FactCheckingProcess
