@@ -35,7 +35,7 @@ services:
     build:
       context: app/fakt-news
     ports:
-      - 3000:3000
+      - 3001:3000
     volumes:
       - "./app/fakt-news:/app" # for code sync
       - "/app/node_modules/" # for code sync
