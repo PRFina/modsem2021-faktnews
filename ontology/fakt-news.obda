@@ -34,12 +34,13 @@ source		SELECT id, name, type
 			WHERE NOT type = 'person' AND NOT type = 'software';
 
 mappingId	MAPID-Claim
-target		:C-{cid} a :Claim ; :associatedReview :R-{rid} ; :claimContent {ccn} ; dct:date {cpd} ; schema:url {curl}^^xsd:anyURI ; dct:language {cla} . 
+target		:C-{cid} a :Claim ; :associatedReview :R-{rid} ; :isClaimedBy :A-{aid} ; :claimContent {ccn} ; dct:date {cpd} ; schema:url {curl}^^xsd:anyURI ; dct:language {cla} . 
 source		SELECT claim.id AS cid,
 			claim.content AS ccn,
 			claim.publication_date AS cpd,
 			claim.url AS curl,
 			claim.language AS cla,
+			claim.claimant_id AS aid,
 			review.id AS rid
 			FROM claim, about, review
 			WHERE review.id = about.review_id AND about.claim_id = claim.id ;

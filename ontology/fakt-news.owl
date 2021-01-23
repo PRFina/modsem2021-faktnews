@@ -916,10 +916,19 @@ foaf:Person rdf:type owl:Class ;
 #    Individuals
 #################################################################
 
+###  http://www.modsem.org/fakt-news#A-1
+:A-1 rdf:type owl:NamedIndividual ,
+              :Organization ,
+              prov:Agent ;
+     schema:name "International Fact Checking Organization"^^xsd:string .
+
+
 ###  http://www.modsem.org/fakt-news#A-1-IFCN
 :A-1-IFCN rdf:type owl:NamedIndividual ,
+                   :FactCheckingAuthority ,
                    :Organization ,
                    prov:Agent ;
+          :create :IFCN-Code-of-Principles ;
           :createCodeOfPrinciples :IFCN-Code-of-Principles ;
           schema:name "International Fact Checking Organization"^^xsd:string .
 
@@ -929,22 +938,30 @@ foaf:Person rdf:type owl:Class ;
                :Person ,
                prov:Agent ,
                foaf:Person ;
+      :create :C-2 ;
       schema:name "Matteo Salvini"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#A-11
 :A-11 rdf:type owl:NamedIndividual ,
+               :Person ,
                :SoftwareAgent ,
-               prov:Agent ;
-      schema:name "Donald TrumpBot"^^xsd:string .
+               prov:Agent ,
+               foaf:Person ;
+      :create :C-3 ;
+      schema:name "Donald TrumpBot"^^xsd:string ,
+                  "Mark Zucherberg"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#A-12
 :A-12 rdf:type owl:NamedIndividual ,
+               :Organization ,
                :Person ,
                prov:Agent ,
                foaf:Person ;
-      schema:name "Mark Zucherberg"^^xsd:string .
+      :create :C-4 ;
+      schema:name "America Divided Podcast"^^xsd:string ,
+                  "Mark Zucherberg"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#A-13-DUKES-REPORTER-LAB
@@ -962,6 +979,7 @@ foaf:Person rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#A-2
 :A-2 rdf:type owl:NamedIndividual ,
+              :FactCheckingOrganization ,
               :Organization ,
               prov:Agent ;
      :observeCodeOfPrinciples :IFCN-Code-of-Principles ;
@@ -979,6 +997,7 @@ foaf:Person rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#A-4
 :A-4 rdf:type owl:NamedIndividual ,
+              :FactCheckingOrganization ,
               :Organization ,
               prov:Agent ;
      :create :R-2 ;
@@ -1004,6 +1023,7 @@ foaf:Person rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#A-7
 :A-7 rdf:type owl:NamedIndividual ,
+              :FactCheckingOrganization ,
               :Organization ,
               prov:Agent ;
      :observeCodeOfPrinciples :IFCN-Code-of-Principles ;
@@ -1024,58 +1044,82 @@ foaf:Person rdf:type owl:Class ;
               :Person ,
               prov:Agent ,
               foaf:Person ;
+     :create :C-1 ;
      schema:name "Nicola Zingaretti"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#Activity-Evaluation-R-1
 :Activity-Evaluation-R-1 rdf:type owl:NamedIndividual ,
-                                  :ClaimEvaluationActivity ;
+                                  :ClaimEvaluationActivity ,
+                                  prov:Activity ;
+                         :hasPreviousActivity :Activity-Verification-R-1 ;
                          :hasTimeInterval :Time-R1-2020-10-07-2020-10-08 ;
+                         :isActivityOfPlan :Plan-R-1 ;
                          :isLastActivityOfPlan :Plan-R-1 ;
                          :isUsedByClaimEvaluation :Evidence-R-1 ;
-                         prov:qualifiedAssociation :Association-Activity-Evaluation-R1-A3 .
+                         prov:qualifiedAssociation :Association-Activity-Evaluation-R1-A3 ;
+                         prov:used :Evidence-R-1 .
 
 
 ###  http://www.modsem.org/fakt-news#Activity-Evaluation-R-2
 :Activity-Evaluation-R-2 rdf:type owl:NamedIndividual ,
-                                  :ClaimEvaluationActivity ;
+                                  :ClaimEvaluationActivity ,
+                                  prov:Activity ;
+                         :hasPreviousActivity :Activity-Verification-R-2 ;
                          :hasTimeInterval :Time-R2-2021-01-15-2021-01-16 ;
+                         :isActivityOfPlan :Plan-R-2 ;
                          :isLastActivityOfPlan :Plan-R-2 ;
                          :isUsedByClaimEvaluation :Evidence-R-2 ;
-                         prov:qualifiedAssociation :Association-Activity-Evaluation-R2-A4 .
+                         prov:qualifiedAssociation :Association-Activity-Evaluation-R2-A4 ;
+                         prov:used :Evidence-R-2 .
 
 
 ###  http://www.modsem.org/fakt-news#Activity-Evaluation-R-3
 :Activity-Evaluation-R-3 rdf:type owl:NamedIndividual ,
-                                  :ClaimEvaluationActivity ;
+                                  :ClaimEvaluationActivity ,
+                                  prov:Activity ;
+                         :hasPreviousActivity :Activity-Verification-R-3 ;
                          :hasTimeInterval :Time-R3-2019-06-18-2019-06-19 ;
+                         :isActivityOfPlan :Plan-R-3 ;
                          :isLastActivityOfPlan :Plan-R-3 ;
                          :isUsedByClaimEvaluation :Evidence-R-3 ;
-                         prov:qualifiedAssociation :Association-Activity-Evaluation-R3-A6 .
+                         prov:qualifiedAssociation :Association-Activity-Evaluation-R3-A6 ;
+                         prov:used :Evidence-R-3 .
 
 
 ###  http://www.modsem.org/fakt-news#Activity-Evaluation-R-4
 :Activity-Evaluation-R-4 rdf:type owl:NamedIndividual ,
-                                  :ClaimEvaluationActivity ;
+                                  :ClaimEvaluationActivity ,
+                                  prov:Activity ;
+                         :hasPreviousActivity :Activity-Verification-R-4 ;
                          :hasTimeInterval :Time-R4-2021-01-19-2021-01-20 ;
+                         :isActivityOfPlan :Plan-R-4 ;
                          :isLastActivityOfPlan :Plan-R-4 ;
                          :isUsedByClaimEvaluation :Evidence-R-4 ;
-                         prov:qualifiedAssociation :Association-Activity-Evaluation-R4-A8 .
+                         prov:qualifiedAssociation :Association-Activity-Evaluation-R4-A8 ;
+                         prov:used :Evidence-R-4 .
 
 
 ###  http://www.modsem.org/fakt-news#Activity-Selection-R-1
 :Activity-Selection-R-1 rdf:type owl:NamedIndividual ,
-                                 :SelectionActivity ;
+                                 :SelectionActivity ,
+                                 prov:Activity ;
+                        :hasNextActivity :Activity-Verification-R-1 ;
                         :hasTimeInterval :Time-R1-2020-10-05-2020-10-06 ;
+                        :isActivityOfPlan :Plan-R-1 ;
                         :isFirstActivityOfPlan :Plan-R-1 ;
                         :isUsedBySelection :Alternative-Set-R-1 ;
-                        prov:qualifiedAssociation :Association-Activity-Selection-R1-A9 .
+                        prov:qualifiedAssociation :Association-Activity-Selection-R1-A9 ;
+                        prov:used :Alternative-Set-R-1 .
 
 
 ###  http://www.modsem.org/fakt-news#Activity-Selection-R-2
 :Activity-Selection-R-2 rdf:type owl:NamedIndividual ,
-                                 :SelectionActivity ;
+                                 :SelectionActivity ,
+                                 prov:Activity ;
+                        :hasNextActivity :Activity-Verification-R-2 ;
                         :hasTimeInterval :Time-R2-2021-01-13-2021-01-14 ;
+                        :isActivityOfPlan :Plan-R-2 ;
                         :isFirstActivityOfPlan :Plan-R-2 ;
                         prov:qualifiedAssociation :Association-Activity-Selection-R2-A10 ,
                                                   :Association-Activity-Selection-R2-A14 .
@@ -1083,62 +1127,80 @@ foaf:Person rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#Activity-Selection-R-3
 :Activity-Selection-R-3 rdf:type owl:NamedIndividual ,
-                                 :SelectionActivity ;
+                                 :SelectionActivity ,
+                                 prov:Activity ;
+                        :hasNextActivity :Activity-Verification-R-3 ;
                         :hasTimeInterval :Time-R3-2019-06-16-2019-06-17 ;
+                        :isActivityOfPlan :Plan-R-3 ;
                         :isFirstActivityOfPlan :Plan-R-3 ;
                         prov:qualifiedAssociation :Association-Activity-Selection-R3-A11 .
 
 
 ###  http://www.modsem.org/fakt-news#Activity-Selection-R-4
 :Activity-Selection-R-4 rdf:type owl:NamedIndividual ,
-                                 :SelectionActivity ;
+                                 :SelectionActivity ,
+                                 prov:Activity ;
+                        :hasNextActivity :Activity-Verification-R-4 ;
                         :hasTimeInterval :Time-R4-2021-01-17-2021-01-18 ;
+                        :isActivityOfPlan :Plan-R-4 ;
                         :isFirstActivityOfPlan :Plan-R-4 ;
                         prov:qualifiedAssociation :Association-Activity-Selection-R4-A12 .
 
 
 ###  http://www.modsem.org/fakt-news#Activity-Verification-R-1
 :Activity-Verification-R-1 rdf:type owl:NamedIndividual ,
-                                    :VerificationActivity ;
+                                    :VerificationActivity ,
+                                    prov:Activity ;
                            :hasNextActivity :Activity-Evaluation-R-1 ;
                            :hasPreviousActivity :Activity-Selection-R-1 ;
                            :hasTimeInterval :Time-R1-2020-10-06-2020-10-07 ;
                            :isActivityOfPlan :Plan-R-1 ;
-                           :isUsedByVerification :C-1 .
+                           :isUsedByVerification :C-1 ;
+                           prov:used :C-1 .
 
 
 ###  http://www.modsem.org/fakt-news#Activity-Verification-R-2
 :Activity-Verification-R-2 rdf:type owl:NamedIndividual ,
-                                    :VerificationActivity ;
+                                    :VerificationActivity ,
+                                    prov:Activity ;
                            :hasNextActivity :Activity-Evaluation-R-2 ;
                            :hasPreviousActivity :Activity-Selection-R-2 ;
                            :hasTimeInterval :Time-R2-2021-01-14-2021-01-15 ;
                            :isActivityOfPlan :Plan-R-2 ;
-                           :isUsedByVerification :C-2 .
+                           :isUsedByVerification :C-2 ;
+                           prov:used :C-2 .
 
 
 ###  http://www.modsem.org/fakt-news#Activity-Verification-R-3
 :Activity-Verification-R-3 rdf:type owl:NamedIndividual ,
-                                    :VerificationActivity ;
+                                    :VerificationActivity ,
+                                    prov:Activity ;
                            :hasNextActivity :Activity-Evaluation-R-3 ;
                            :hasPreviousActivity :Activity-Selection-R-3 ;
                            :hasTimeInterval :Time-R3-2019-06-17-2019-06-18 ;
                            :isActivityOfPlan :Plan-R-3 ;
-                           :isUsedByVerification :C-3 .
+                           :isUsedByVerification :C-3 ;
+                           prov:used :C-3 .
 
 
 ###  http://www.modsem.org/fakt-news#Activity-Verification-R-4
 :Activity-Verification-R-4 rdf:type owl:NamedIndividual ,
-                                    :VerificationActivity ;
+                                    :VerificationActivity ,
+                                    prov:Activity ;
                            :hasNextActivity :Activity-Evaluation-R-4 ;
                            :hasPreviousActivity :Activity-Selection-R-4 ;
                            :hasTimeInterval :Time-R4-2021-01-18-2021-01-19 ;
                            :isActivityOfPlan :Plan-R-4 ;
-                           :isUsedByVerification :C-4 .
+                           :isUsedByVerification :C-4 ;
+                           prov:used :C-4 .
 
 
 ###  http://www.modsem.org/fakt-news#Alternative-Set-R-1
-:Alternative-Set-R-1 rdf:type owl:NamedIndividual ;
+:Alternative-Set-R-1 rdf:type owl:NamedIndividual ,
+                              :AlternativesSet ,
+                              <http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#Collection> ,
+                              <http://www.ontologydesignpatterns.org/cp/owl/set.owl#Set> ,
+                              prov:Entity ;
                      <http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#hasMember> :C-1 ,
                                                                                                    :C-2 .
 
@@ -1213,7 +1275,13 @@ foaf:Person rdf:type owl:Class ;
               :DigitalDocument ,
               prov:Entity ;
      :associatedReview :R-1 ;
+     :creator :A-9 ;
+     :isClaimedBy :A-9 ;
      :wasOutputOfSelection :Activity-Selection-R-1 ;
+     <http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#isMemberOf> :Alternative-Set-R-1 ;
+     prov:wasAttributedTo :A-9 ;
+     prov:wasGeneratedBy :Activity-Selection-R-1 ;
+     dcterms:date "2020-10-05"^^xsd:date ;
      dcterms:language "it"^^xsd:string ;
      schema:url "https://twitter.com/nzingaretti/status/1313218301200400389?ref_src=twsrc%5Etfw"^^xsd:anyURI ;
      :claimContent "Approvato ora in Consiglio dei Ministri il decreto immigrazione. I decreti propaganda/Salvini non ci sono più. Vogliamo un’Italia  più umana e sicura. Un’Europa più protagonista"^^xsd:string ;
@@ -1227,6 +1295,11 @@ foaf:Person rdf:type owl:Class ;
               :DigitalDocument ,
               prov:Entity ;
      :associatedReview :R-2 ;
+     :creator :A-10 ;
+     :isClaimedBy :A-10 ;
+     <http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#isMemberOf> :Alternative-Set-R-1 ;
+     prov:wasAttributedTo :A-10 ;
+     dcterms:date "2021-01-13"^^xsd:date ;
      dcterms:language "it"^^xsd:string ;
      schema:url "https://twitter.com/matteosalvinimi/status/1349377644941479937"^^xsd:anyURI ;
      :claimContent "Con tutti i problemi che ci sono in Italia, al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con Genitore 1 e 2. Prima vanno a casa, meglio è."^^xsd:string ;
@@ -1240,6 +1313,10 @@ foaf:Person rdf:type owl:Class ;
               :DigitalDocument ,
               prov:Entity ;
      :associatedReview :R-3 ;
+     :creator :A-11 ;
+     :isClaimedBy :A-11 ;
+     prov:wasAttributedTo :A-11 ;
+     dcterms:date "2019-06-07"^^xsd:date ;
      dcterms:language "en"^^xsd:string ;
      schema:url "https://www.instagram.com/p/ByaVigGFP2U/?utm_source=ig_embed&utm_campaign=embed_video_watch_again"^^xsd:anyURI ;
      :claimContent "Zuckerberg: we are increasing transparency on Ads. Announces new measure to protect the elections."^^xsd:string ;
@@ -1253,6 +1330,10 @@ foaf:Person rdf:type owl:Class ;
               :DigitalDocument ,
               prov:Entity ;
      :associatedReview :R-4 ;
+     :creator :A-12 ;
+     :isClaimedBy :A-12 ;
+     prov:wasAttributedTo :A-12 ;
+     dcterms:date "2021-01-17"^^xsd:date ;
      dcterms:language "en"^^xsd:string ;
      schema:url "https://archive.vn/5P96s"^^xsd:anyURI ;
      :claimContent "Barack Obama was arrested: a video published on Facebook claims to show former President Barack Obama in jail."^^xsd:string ;
@@ -1261,81 +1342,115 @@ foaf:Person rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#Evidence-Document-R-1
 :Evidence-Document-R-1 rdf:type owl:NamedIndividual ,
-                                :DigitalDocument ;
+                                schema:CreativeWork ,
+                                :DigitalDocument ,
+                                prov:Entity ;
                        dcterms:language "it"^^xsd:string ;
                        schema:url "http://www.cir-onlus.org/wp-content/uploads/2018/11/Speciale-Decreto-Sicurezza.pdf"^^xsd:anyURI .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-Document-R-2
 :Evidence-Document-R-2 rdf:type owl:NamedIndividual ,
-                                :DigitalDocument ;
+                                schema:CreativeWork ,
+                                :DigitalDocument ,
+                                prov:Entity ;
                        dcterms:language "it"^^xsd:string ;
                        schema:url "https://www.gazzettaufficiale.it/eli/gu/2015/08/14/188/so/49/sg/pdf#page=99"^^xsd:anyURI .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-Document-R-3
 :Evidence-Document-R-3 rdf:type owl:NamedIndividual ,
-                                :DigitalDocument ;
+                                schema:CreativeWork ,
+                                :DigitalDocument ,
+                                prov:Entity ;
                        dcterms:language "en"^^xsd:string ;
                        schema:url "https://www.instagram.com/p/CBOIEh3lhPr/"^^xsd:anyURI .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-Document-R-4
 :Evidence-Document-R-4 rdf:type owl:NamedIndividual ,
-                                :DigitalDocument ;
+                                schema:CreativeWork ,
+                                :DigitalDocument ,
+                                prov:Entity ;
                        dcterms:language "en"^^xsd:string ;
                        schema:url "https://www.youtube.com/watch?v=fGZTFg8PP9Q&feature=youtu.be"^^xsd:anyURI .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-Document2-R-4
-:Evidence-Document2-R-4 rdf:type owl:NamedIndividual ;
+:Evidence-Document2-R-4 rdf:type owl:NamedIndividual ,
+                                 schema:CreativeWork ,
+                                 :DigitalDocument ,
+                                 prov:Entity ;
                         dcterms:language "en"^^xsd:string ;
                         schema:url "https://obamawhitehouse.archives.gov/blog/2013/06/30/flotus-travel-journal-robben-island-experience-we-will-never-forget"^^xsd:anyURI .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-R-1
 :Evidence-R-1 rdf:type owl:NamedIndividual ,
-                       :SupportingEvidence ;
+                       :Evidence ,
+                       :SupportingEvidence ,
+                       prov:Entity ;
               :derivedFromSource :EvidenceSource-R-1 ;
               :supportedBy :Evidence-Document-R-1 ;
-              :wasOutputOfVerification :Activity-Verification-R-1 .
+              :wasOutputOfVerification :Activity-Verification-R-1 ;
+              prov:wasAttributedTo :EvidenceSource-R-1 ;
+              prov:wasGeneratedBy :Activity-Verification-R-1 .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-R-2
 :Evidence-R-2 rdf:type owl:NamedIndividual ,
-                       :DisprovingEvidence ;
+                       :DisprovingEvidence ,
+                       :Evidence ,
+                       prov:Entity ;
               :derivedFromSource :EvidenceSource-R-2 ;
               :supportedBy :Evidence-Document-R-2 ;
-              :wasOutputOfVerification :Activity-Verification-R-2 .
+              :wasOutputOfVerification :Activity-Verification-R-2 ;
+              prov:wasAttributedTo :EvidenceSource-R-2 ;
+              prov:wasGeneratedBy :Activity-Verification-R-2 .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-R-3
 :Evidence-R-3 rdf:type owl:NamedIndividual ,
-                       :DisprovingEvidence ;
+                       :DisprovingEvidence ,
+                       :Evidence ,
+                       prov:Entity ;
               :derivedFromSource :EvidenceSource-R-3 ;
               :supportedBy :Evidence-Document-R-3 ;
-              :wasOutputOfVerification :Activity-Verification-R-3 .
+              :wasOutputOfVerification :Activity-Verification-R-3 ;
+              prov:wasAttributedTo :EvidenceSource-R-3 ;
+              prov:wasGeneratedBy :Activity-Verification-R-3 .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence-R-4
 :Evidence-R-4 rdf:type owl:NamedIndividual ,
-                       :DisprovingEvidence ;
+                       :DisprovingEvidence ,
+                       :Evidence ,
+                       prov:Entity ;
               :derivedFromSource :EvidenceSource-R-4 ;
               :supportedBy :Evidence-Document-R-4 ;
-              :wasOutputOfVerification :Activity-Verification-R-4 .
+              :wasOutputOfVerification :Activity-Verification-R-4 ;
+              prov:wasAttributedTo :EvidenceSource-R-4 ;
+              prov:wasGeneratedBy :Activity-Verification-R-4 .
 
 
 ###  http://www.modsem.org/fakt-news#Evidence2-R-4
 :Evidence2-R-4 rdf:type owl:NamedIndividual ,
-                        :DisprovingEvidence ;
+                        :DisprovingEvidence ,
+                        :Evidence ,
+                        prov:Entity ;
                :derivedFromSource :EvidenceSource2-R-4 ;
                :supportedBy :Evidence-Document2-R-4 ;
-               :wasOutputOfVerification :Activity-Verification-R-4 .
+               :wasOutputOfVerification :Activity-Verification-R-4 ;
+               prov:wasAttributedTo :EvidenceSource2-R-4 ;
+               prov:wasGeneratedBy :Activity-Verification-R-4 .
 
 
 ###  http://www.modsem.org/fakt-news#EvidenceSource-R-1
 :EvidenceSource-R-1 rdf:type owl:NamedIndividual ,
-                             :Organization ;
+                             :EvidenceSource ,
+                             :Organization ,
+                             prov:Agent ;
+                    :isSourceOfEvidence :Evidence-R-1 ;
                     schema:name "Consiglio Italiano per i Rifugiati (CIR)"^^xsd:string ;
                     schema:url "http://www.cir-onlus.org/"^^xsd:anyURI ;
                     :capacityType "NGO"^^xsd:string .
@@ -1343,7 +1458,10 @@ foaf:Person rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#EvidenceSource-R-2
 :EvidenceSource-R-2 rdf:type owl:NamedIndividual ,
-                             :Organization ;
+                             :EvidenceSource ,
+                             :Organization ,
+                             prov:Agent ;
+                    :isSourceOfEvidence :Evidence-R-2 ;
                     schema:name "Governo Italiano"^^xsd:string ;
                     schema:url "http://www.governo.it/"^^xsd:anyURI ;
                     :capacityType "Government"^^xsd:string .
@@ -1351,7 +1469,11 @@ foaf:Person rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#EvidenceSource-R-3
 :EvidenceSource-R-3 rdf:type owl:NamedIndividual ,
-                             :Person ;
+                             :EvidenceSource ,
+                             :Person ,
+                             prov:Agent ,
+                             foaf:Person ;
+                    :isSourceOfEvidence :Evidence-R-3 ;
                     schema:name "Bill Posters"^^xsd:string ;
                     schema:url "https://www.instagram.com/bill_posters_uk/"^^xsd:anyURI ;
                     :capacityType "Citizen"^^xsd:string .
@@ -1359,7 +1481,10 @@ foaf:Person rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#EvidenceSource-R-4
 :EvidenceSource-R-4 rdf:type owl:NamedIndividual ,
-                             :Organization ;
+                             :EvidenceSource ,
+                             :Organization ,
+                             prov:Agent ;
+                    :isSourceOfEvidence :Evidence-R-4 ;
                     schema:name "The Guardian"^^xsd:string ;
                     schema:url "https://www.theguardian.com/international"^^xsd:anyURI ;
                     :capacityType "Company"^^xsd:string .
@@ -1367,14 +1492,23 @@ foaf:Person rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#EvidenceSource2-R-4
 :EvidenceSource2-R-4 rdf:type owl:NamedIndividual ,
-                              :Organization ;
+                              :EvidenceSource ,
+                              :Organization ,
+                              prov:Agent ;
+                     :isSourceOfEvidence :Evidence2-R-4 ;
                      schema:name "The White House"^^xsd:string ;
                      schema:url "https://www.whitehouse.gov"^^xsd:anyURI ;
                      :capacityType "Government"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#IFCN-Code-of-Principles
-:IFCN-Code-of-Principles rdf:type owl:NamedIndividual ;
+:IFCN-Code-of-Principles rdf:type owl:NamedIndividual ,
+                                  schema:CreativeWork ,
+                                  :CodeOfPrinciples ,
+                                  :DigitalDocument ,
+                                  prov:Entity ;
+                         :creator :A-1-IFCN ;
+                         prov:wasAttributedTo :A-1-IFCN ;
                          dcterms:language "en"^^xsd:string ;
                          dcterms:title "Fact-Checking Network's code of principles"@en ;
                          schema:url "https://www.ifcncodeofprinciples.poynter.org/"^^xsd:anyURI ;
@@ -1408,6 +1542,7 @@ foaf:Person rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#J-4
 :J-4 rdf:type owl:NamedIndividual ,
+              :DeceptiveEditing ,
               :Fabrication ,
               :Judgment ,
               :MaliciousTransfomation ,
@@ -1416,19 +1551,39 @@ foaf:Person rdf:type owl:Class ;
 
 
 ###  http://www.modsem.org/fakt-news#Plan-R-1
-:Plan-R-1 rdf:type owl:NamedIndividual .
+:Plan-R-1 rdf:type owl:NamedIndividual ,
+                   prov:Entity ,
+                   prov:Plan ;
+          :hasActivity :Activity-Evaluation-R-1 ,
+                       :Activity-Selection-R-1 ,
+                       :Activity-Verification-R-1 .
 
 
 ###  http://www.modsem.org/fakt-news#Plan-R-2
-:Plan-R-2 rdf:type owl:NamedIndividual .
+:Plan-R-2 rdf:type owl:NamedIndividual ,
+                   prov:Entity ,
+                   prov:Plan ;
+          :hasActivity :Activity-Evaluation-R-2 ,
+                       :Activity-Selection-R-2 ,
+                       :Activity-Verification-R-2 .
 
 
 ###  http://www.modsem.org/fakt-news#Plan-R-3
-:Plan-R-3 rdf:type owl:NamedIndividual .
+:Plan-R-3 rdf:type owl:NamedIndividual ,
+                   prov:Entity ,
+                   prov:Plan ;
+          :hasActivity :Activity-Evaluation-R-3 ,
+                       :Activity-Selection-R-3 ,
+                       :Activity-Verification-R-3 .
 
 
 ###  http://www.modsem.org/fakt-news#Plan-R-4
-:Plan-R-4 rdf:type owl:NamedIndividual .
+:Plan-R-4 rdf:type owl:NamedIndividual ,
+                   prov:Entity ,
+                   prov:Plan ;
+          :hasActivity :Activity-Evaluation-R-4 ,
+                       :Activity-Selection-R-4 ,
+                       :Activity-Verification-R-4 .
 
 
 ###  http://www.modsem.org/fakt-news#R-1
@@ -1444,7 +1599,10 @@ foaf:Person rdf:type owl:Class ;
      :isReviewedBy :A-3 ;
      :wasOutputOfClaimEvaluation :Activity-Evaluation-R-1 ;
      prov:wasAttributedTo :A-3 ;
+     prov:wasGeneratedBy :Activity-Evaluation-R-1 ;
+     dcterms:date "2020-10-08"^^xsd:date ;
      dcterms:language "it"^^xsd:string ;
+     dcterms:title "Il governo ha davvero abolito i “decreti sicurezza”?"^^xsd:string ;
      schema:url "https://www.lavoce.info/archives/69816/il-governo-ha-davvero-abolito-i-decreti-sicurezza/"^^xsd:anyURI ;
      :documentContent "Il fact-checking de lavoce.info passa ...[+1283 words]"^^xsd:string ;
      :mention "http://dbpedia.org/page/Nicola_Zingaretti"^^xsd:anyURI ;
@@ -1464,7 +1622,9 @@ foaf:Person rdf:type owl:Class ;
      :hasRating :RT-2 ;
      :isReviewedBy :A-4 ;
      prov:wasAttributedTo :A-4 ;
+     dcterms:date "2021-01-16"^^xsd:date ;
      dcterms:language "it"^^xsd:string ;
+     dcterms:title "No, “genitore 1 e 2” non tornano sui documenti d’identità (non ci sono mai stati)"^^xsd:string ;
      schema:url "https://pagellapolitica.it/dichiarazioni/8801/no-genitore-1-e-2-non-tornano-sui-documenti-didentita-non-ci-sono-mai-stati"^^xsd:anyURI ;
      :documentContent "Al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con genitore 1 e 2 ...[+1568 words]"^^xsd:string ;
      :mention "http://dbpedia.org/page/Matteo_Salvini"^^xsd:anyURI ;
@@ -1484,7 +1644,9 @@ foaf:Person rdf:type owl:Class ;
      :hasRating :RT-3 ;
      :isReviewedBy :A-6 ;
      prov:wasAttributedTo :A-6 ;
+     dcterms:date "2019-06-19"^^xsd:date ;
      dcterms:language "en"^^xsd:string ;
+     dcterms:title "Facebook wouldn’t delete an altered video of Nancy Pelosi. What about one of Mark Zuckerberg?"^^xsd:string ;
      schema:url "https://www.washingtonpost.com/nation/2019/06/12/mark-zuckerberg-deepfake-facebook-instagram-nancy-pelosi/"^^xsd:anyURI ;
      :documentContent "A couple of short video clips, a voice actor and an artificial intelligence algorithm. That’s all two artists and a technology start-up ...[+1497 words]"^^xsd:string ;
      :mention "https://dbpedia.org/page/Mark_Zuckerberg"^^xsd:anyURI ;
@@ -1504,7 +1666,9 @@ foaf:Person rdf:type owl:Class ;
      :hasRating :RT-4 ;
      :isReviewedBy :A-8 ;
      prov:wasAttributedTo :A-8 ;
+     dcterms:date "2021-01-20"^^xsd:date ;
      dcterms:language "en"^^xsd:string ;
+     dcterms:title "Barack Obama wasn’t arrested before Biden’s inauguration"^^xsd:string ;
      schema:url "https://www.politifact.com/factchecks/2021/jan/18/facebook-posts/obama-wasnt-arrested-bidens-inauguration/"^^xsd:anyURI ;
      :documentContent "In a video published Jan. 17, Gage Nelson, host of the conservative podcast America Divided, said: \"Barack Obama was arrested.\""^^xsd:string ;
      :mention "https://dbpedia.org/page/Barack_Obama"^^xsd:anyURI ,
@@ -1552,117 +1716,174 @@ foaf:Person rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#Role-A-10
 :Role-A-10 rdf:type owl:NamedIndividual ,
-                    :Claimant .
+                    :Claimant ,
+                    prov:Role .
 
 
 ###  http://www.modsem.org/fakt-news#Role-A-11
 :Role-A-11 rdf:type owl:NamedIndividual ,
-                    :Claimant .
+                    :Claimant ,
+                    prov:Role .
 
 
 ###  http://www.modsem.org/fakt-news#Role-A-12
 :Role-A-12 rdf:type owl:NamedIndividual ,
-                    :Claimant .
+                    :Claimant ,
+                    prov:Role .
 
 
 ###  http://www.modsem.org/fakt-news#Role-A-14
 :Role-A-14 rdf:type owl:NamedIndividual ,
-                    :Editor .
+                    :Editor ,
+                    prov:Role .
 
 
 ###  http://www.modsem.org/fakt-news#Role-A-3
 :Role-A-3 rdf:type owl:NamedIndividual ,
-                   :FactChecker .
+                   :FactChecker ,
+                   prov:Role .
 
 
 ###  http://www.modsem.org/fakt-news#Role-A-4
 :Role-A-4 rdf:type owl:NamedIndividual ,
-                   :FactChecker .
+                   :FactChecker ,
+                   prov:Role .
 
 
 ###  http://www.modsem.org/fakt-news#Role-A-6
 :Role-A-6 rdf:type owl:NamedIndividual ,
-                   :FactChecker .
+                   :FactChecker ,
+                   prov:Role .
 
 
 ###  http://www.modsem.org/fakt-news#Role-A-8
 :Role-A-8 rdf:type owl:NamedIndividual ,
-                   :FactChecker .
+                   :FactChecker ,
+                   prov:Role .
 
 
 ###  http://www.modsem.org/fakt-news#Role-A-9
 :Role-A-9 rdf:type owl:NamedIndividual ,
-                   :Claimant .
+                   :Claimant ,
+                   prov:Role .
 
 
 ###  http://www.modsem.org/fakt-news#Time-R1-2020-10-05-2020-10-06
-:Time-R1-2020-10-05-2020-10-06 rdf:type owl:NamedIndividual ;
+:Time-R1-2020-10-05-2020-10-06 rdf:type owl:NamedIndividual ,
+                                        <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#TimeInterval> ,
+                                        prov:Entity ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalDate> "2020-10-05"^^xsd:date ,
+                                                                                                               "2020-10-06"^^xsd:date ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2020-10-06"^^xsd:date ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2020-10-05"^^xsd:date .
 
 
 ###  http://www.modsem.org/fakt-news#Time-R1-2020-10-06-2020-10-07
-:Time-R1-2020-10-06-2020-10-07 rdf:type owl:NamedIndividual ;
+:Time-R1-2020-10-06-2020-10-07 rdf:type owl:NamedIndividual ,
+                                        <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#TimeInterval> ,
+                                        prov:Entity ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalDate> "2020-10-06"^^xsd:date ,
+                                                                                                               "2020-10-07"^^xsd:date ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2020-10-07"^^xsd:date ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2020-10-06"^^xsd:date .
 
 
 ###  http://www.modsem.org/fakt-news#Time-R1-2020-10-07-2020-10-08
-:Time-R1-2020-10-07-2020-10-08 rdf:type owl:NamedIndividual ;
+:Time-R1-2020-10-07-2020-10-08 rdf:type owl:NamedIndividual ,
+                                        <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#TimeInterval> ,
+                                        prov:Entity ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalDate> "2020-10-07"^^xsd:date ,
+                                                                                                               "2020-10-08"^^xsd:date ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2020-10-08"^^xsd:date ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2020-10-07"^^xsd:date .
 
 
 ###  http://www.modsem.org/fakt-news#Time-R2-2021-01-13-2021-01-14
-:Time-R2-2021-01-13-2021-01-14 rdf:type owl:NamedIndividual ;
+:Time-R2-2021-01-13-2021-01-14 rdf:type owl:NamedIndividual ,
+                                        <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#TimeInterval> ,
+                                        prov:Entity ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalDate> "2021-01-01"^^xsd:date ,
+                                                                                                               "2021-01-13"^^xsd:date ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2021-01-13"^^xsd:date ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2021-01-01"^^xsd:date .
 
 
 ###  http://www.modsem.org/fakt-news#Time-R2-2021-01-14-2021-01-15
-:Time-R2-2021-01-14-2021-01-15 rdf:type owl:NamedIndividual ;
+:Time-R2-2021-01-14-2021-01-15 rdf:type owl:NamedIndividual ,
+                                        <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#TimeInterval> ,
+                                        prov:Entity ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalDate> "2021-01-14"^^xsd:date ,
+                                                                                                               "2021-01-15"^^xsd:date ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2021-01-15"^^xsd:date ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2021-01-14"^^xsd:date .
 
 
 ###  http://www.modsem.org/fakt-news#Time-R2-2021-01-15-2021-01-16
-:Time-R2-2021-01-15-2021-01-16 rdf:type owl:NamedIndividual ;
+:Time-R2-2021-01-15-2021-01-16 rdf:type owl:NamedIndividual ,
+                                        <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#TimeInterval> ,
+                                        prov:Entity ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalDate> "2021-01-15"^^xsd:date ,
+                                                                                                               "2021-01-16"^^xsd:date ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2021-01-16"^^xsd:date ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2021-01-15"^^xsd:date .
 
 
 ###  http://www.modsem.org/fakt-news#Time-R3-2019-06-16-2019-06-17
-:Time-R3-2019-06-16-2019-06-17 rdf:type owl:NamedIndividual ;
+:Time-R3-2019-06-16-2019-06-17 rdf:type owl:NamedIndividual ,
+                                        <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#TimeInterval> ,
+                                        prov:Entity ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalDate> "2019-06-16"^^xsd:date ,
+                                                                                                               "2019-06-17"^^xsd:date ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2019-06-17"^^xsd:date ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2019-06-16"^^xsd:date .
 
 
 ###  http://www.modsem.org/fakt-news#Time-R3-2019-06-17-2019-06-18
-:Time-R3-2019-06-17-2019-06-18 rdf:type owl:NamedIndividual ;
+:Time-R3-2019-06-17-2019-06-18 rdf:type owl:NamedIndividual ,
+                                        <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#TimeInterval> ,
+                                        prov:Entity ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalDate> "2019-06-17"^^xsd:date ,
+                                                                                                               "2019-06-18"^^xsd:date ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2019-06-18"^^xsd:date ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2019-06-17"^^xsd:date .
 
 
 ###  http://www.modsem.org/fakt-news#Time-R3-2019-06-18-2019-06-19
-:Time-R3-2019-06-18-2019-06-19 rdf:type owl:NamedIndividual ;
+:Time-R3-2019-06-18-2019-06-19 rdf:type owl:NamedIndividual ,
+                                        <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#TimeInterval> ,
+                                        prov:Entity ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalDate> "2019-06-18"^^xsd:date ,
+                                                                                                               "2019-06-19"^^xsd:date ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2019-06-19"^^xsd:date ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2019-06-18"^^xsd:date .
 
 
 ###  http://www.modsem.org/fakt-news#Time-R4-2021-01-17-2021-01-18
-:Time-R4-2021-01-17-2021-01-18 rdf:type owl:NamedIndividual ;
+:Time-R4-2021-01-17-2021-01-18 rdf:type owl:NamedIndividual ,
+                                        <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#TimeInterval> ,
+                                        prov:Entity ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalDate> "2021-01-17"^^xsd:date ,
+                                                                                                               "2021-01-18"^^xsd:date ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2021-01-18"^^xsd:date ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2021-01-17"^^xsd:date .
 
 
 ###  http://www.modsem.org/fakt-news#Time-R4-2021-01-18-2021-01-19
-:Time-R4-2021-01-18-2021-01-19 rdf:type owl:NamedIndividual ;
+:Time-R4-2021-01-18-2021-01-19 rdf:type owl:NamedIndividual ,
+                                        <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#TimeInterval> ,
+                                        prov:Entity ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalDate> "2021-01-18"^^xsd:date ,
+                                                                                                               "2021-01-19"^^xsd:date ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2021-01-19"^^xsd:date ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2021-01-18"^^xsd:date .
 
 
 ###  http://www.modsem.org/fakt-news#Time-R4-2021-01-19-2021-01-20
-:Time-R4-2021-01-19-2021-01-20 rdf:type owl:NamedIndividual ;
+:Time-R4-2021-01-19-2021-01-20 rdf:type owl:NamedIndividual ,
+                                        <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#TimeInterval> ,
+                                        prov:Entity ;
+                               <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalDate> "2021-01-19"^^xsd:date ,
+                                                                                                               "2021-01-20"^^xsd:date ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalEndDate> "2021-01-20"^^xsd:date ;
                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#hasIntervalStartDate> "2021-01-19"^^xsd:date .
 
