@@ -20,7 +20,7 @@ class Search extends Component {
       <>
         <form className="col-12 align-items-center m-2">
           <div className="form-row">
-            <div className="col-8">
+            <div className="col-10">
               <input
                 type="text"
                 className="form-control"
@@ -29,14 +29,6 @@ class Search extends Component {
             </div>
             <div className="col-2">
               <button className="btn btn-primary">Search</button>
-            </div>
-            <div className="col-2">
-              <button
-                className="btn btn-secondary"
-                onClick={this.handleAdvanced}
-              >
-                Advanced
-              </button>
             </div>
           </div>
         </form>
