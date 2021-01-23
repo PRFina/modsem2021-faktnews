@@ -151,5 +151,11 @@ target		:J-{id} a :QualitativeClaim ; :judgmentSummary {label} .
 source		SELECT id, label, justification
 			FROM judgment
 			WHERE label = 'Qualitative Claim';
+
+mappingId	MAPID-Person-affiliated-To
+target		:A-{id} a :Person ; :affiliatedTo :A-{affiliation_id} . 
+source		SELECT id, name, type, affiliation_id
+			FROM agent
+			WHERE type = 'person' AND affiliation_id > 0;
 ]]
 

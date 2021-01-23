@@ -56,6 +56,10 @@ vann:preferredNamespaceUri rdf:type owl:AnnotationProperty ;
 <http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#hasMember> rdf:type owl:AnnotationProperty .
 
 
+###  http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#isMemberOf
+<http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#isMemberOf> rdf:type owl:AnnotationProperty .
+
+
 ###  http://www.w3.org/2004/02/skos/core#altLabel
 skos:altLabel rdf:type owl:AnnotationProperty .
 
@@ -991,6 +995,7 @@ foaf:Person rdf:type owl:Class ;
               :Person ,
               prov:Agent ,
               foaf:Person ;
+     :affiliatedTo :A-2 ;
      :create :R-1 ;
      schema:name "Massimo Taddei"^^xsd:string .
 
@@ -1017,6 +1022,7 @@ foaf:Person rdf:type owl:Class ;
               :Person ,
               prov:Agent ,
               foaf:Person ;
+     :affiliatedTo :A-5 ;
      :create :R-3 ;
      schema:name "Allyson Chiu"^^xsd:string .
 
@@ -1035,6 +1041,7 @@ foaf:Person rdf:type owl:Class ;
               :Person ,
               prov:Agent ,
               foaf:Person ;
+     :affiliatedTo :A-7 ;
      :create :R-4 ;
      schema:name "Daniel Funke"^^xsd:string .
 
@@ -1278,14 +1285,14 @@ foaf:Person rdf:type owl:Class ;
      :creator :A-9 ;
      :isClaimedBy :A-9 ;
      :wasOutputOfSelection :Activity-Selection-R-1 ;
-     <http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#isMemberOf> :Alternative-Set-R-1 ;
      prov:wasAttributedTo :A-9 ;
      prov:wasGeneratedBy :Activity-Selection-R-1 ;
      dcterms:date "2020-10-05"^^xsd:date ;
      dcterms:language "it"^^xsd:string ;
      schema:url "https://twitter.com/nzingaretti/status/1313218301200400389?ref_src=twsrc%5Etfw"^^xsd:anyURI ;
      :claimContent "Approvato ora in Consiglio dei Ministri il decreto immigrazione. I decreti propaganda/Salvini non ci sono più. Vogliamo un’Italia  più umana e sicura. Un’Europa più protagonista"^^xsd:string ;
-     :documentContent "Approvato ora in Consiglio dei Ministri il decreto immigrazione. I decreti propaganda/Salvini non ci sono più. Vogliamo un’Italia  più umana e sicura. Un’Europa più protagonista"^^xsd:string .
+     :documentContent "Approvato ora in Consiglio dei Ministri il decreto immigrazione. I decreti propaganda/Salvini non ci sono più. Vogliamo un’Italia  più umana e sicura. Un’Europa più protagonista"^^xsd:string ;
+     <http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#isMemberOf> :Alternative-Set-R-1 .
 
 
 ###  http://www.modsem.org/fakt-news#C-2
@@ -1297,13 +1304,13 @@ foaf:Person rdf:type owl:Class ;
      :associatedReview :R-2 ;
      :creator :A-10 ;
      :isClaimedBy :A-10 ;
-     <http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#isMemberOf> :Alternative-Set-R-1 ;
      prov:wasAttributedTo :A-10 ;
      dcterms:date "2021-01-13"^^xsd:date ;
      dcterms:language "it"^^xsd:string ;
      schema:url "https://twitter.com/matteosalvinimi/status/1349377644941479937"^^xsd:anyURI ;
      :claimContent "Con tutti i problemi che ci sono in Italia, al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con Genitore 1 e 2. Prima vanno a casa, meglio è."^^xsd:string ;
-     :documentContent "Con tutti i problemi che ci sono in Italia, al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con Genitore 1 e 2. Prima vanno a casa, meglio è."^^xsd:string .
+     :documentContent "Con tutti i problemi che ci sono in Italia, al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con Genitore 1 e 2. Prima vanno a casa, meglio è."^^xsd:string ;
+     <http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#isMemberOf> :Alternative-Set-R-1 .
 
 
 ###  http://www.modsem.org/fakt-news#C-3
