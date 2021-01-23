@@ -12,6 +12,7 @@ services:
     command: "tail -f /dev/null" # keep container running
     volumes:
       - "./data:/app" #for code sync
+      - "./ontology:/app/rdf" #for code sync
     depends_on:
       - "db"
   db:
