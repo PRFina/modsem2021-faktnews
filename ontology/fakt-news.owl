@@ -1603,8 +1603,7 @@ foaf:Person rdf:type owl:Class ;
      :documentContent "Il fact-checking de lavoce.info passa ...[+1283 words]"^^xsd:string ;
      :mention "http://dbpedia.org/page/Nicola_Zingaretti"^^xsd:anyURI ;
      :reviewContent "Il fact-checking de lavoce.info passa ...[+1283 words]"^^xsd:string ;
-     :tag "politica"^^xsd:string ;
-     dcterms:creator :A-3 .
+     :tag "politica"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#R-2
@@ -1626,8 +1625,7 @@ foaf:Person rdf:type owl:Class ;
      :documentContent "Al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con genitore 1 e 2 ...[+1568 words]"^^xsd:string ;
      :mention "http://dbpedia.org/page/Matteo_Salvini"^^xsd:anyURI ;
      :reviewContent "Al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con genitore 1 e 2 ...[+1568 words]"^^xsd:string ;
-     :tag "politica"^^xsd:string ;
-     dcterms:creator :A-4 .
+     :tag "politica"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#R-3
@@ -1649,8 +1647,7 @@ foaf:Person rdf:type owl:Class ;
      :documentContent "A couple of short video clips, a voice actor and an artificial intelligence algorithm. That’s all two artists and a technology start-up ...[+1497 words]"^^xsd:string ;
      :mention "https://dbpedia.org/page/Mark_Zuckerberg"^^xsd:anyURI ;
      :reviewContent "A couple of short video clips, a voice actor and an artificial intelligence algorithm. That’s all two artists and a technology start-up ...[+1497 words]"^^xsd:string ;
-     :tag "deepfake"^^xsd:string ;
-     dcterms:creator :A-6 .
+     :tag "deepfake"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#R-4
@@ -1674,8 +1671,7 @@ foaf:Person rdf:type owl:Class ;
               "https://dbpedia.org/page/Nelson_Mandela"^^xsd:anyURI ,
               "https://www.wikidata.org/wiki/Q51213808"^^xsd:anyURI ;
      :reviewContent "In a video published Jan. 17, Gage Nelson, host of the conservative podcast America Divided, said: \"Barack Obama was arrested.\""^^xsd:string ;
-     :tag "politics"^^xsd:string ;
-     dcterms:creator :A-8 .
+     :tag "politics"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#RT-1
