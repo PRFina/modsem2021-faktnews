@@ -1,0 +1,503 @@
+@prefix : <http://www.modsem.org/fakt-news#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<urn:MAPID-Person_1> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery """SELECT id, name, type
+FROM agent
+WHERE type = 'person';"""
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "name";
+          rr:termType rr:Literal
+        ];
+      rr:predicate schema:name
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:class :Person;
+      rr:template "http://www.modsem.org/fakt-news#A-{id}";
+      rr:termType rr:IRI
+    ] .
+
+<urn:MAPID-Software-Agent_1> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery """SELECT id, name, type
+FROM agent
+WHERE type = 'software';"""
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "name";
+          rr:termType rr:Literal
+        ];
+      rr:predicate schema:name
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:class :SoftwareAgent;
+      rr:template "http://www.modsem.org/fakt-news#A-{id}";
+      rr:termType rr:IRI
+    ] .
+
+<urn:MAPID-Organization_1> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery """SELECT id, name, type
+FROM agent
+WHERE NOT type = 'person' AND NOT type = 'software';"""
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "name";
+          rr:termType rr:Literal
+        ];
+      rr:predicate schema:name
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:class :Organization;
+      rr:template "http://www.modsem.org/fakt-news#A-{id}";
+      rr:termType rr:IRI
+    ] .
+
+<urn:MAPID-Claim_1> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery """SELECT claim.id AS cid,
+claim.content AS ccn,
+claim.publication_date AS cpd,
+claim.url AS curl,
+claim.language AS cla,
+review.id AS rid
+FROM claim, about, review
+WHERE review.id = about.review_id AND about.claim_id = claim.id ;"""
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:template "http://www.modsem.org/fakt-news#R-{rid}";
+          rr:termType rr:IRI
+        ];
+      rr:predicate :associatedReview
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "ccn";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :claimContent
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "cpd";
+          rr:termType rr:Literal
+        ];
+      rr:predicate dct:date
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "curl";
+          rr:datatype xsd:anyURI;
+          rr:termType rr:Literal
+        ];
+      rr:predicate schema:url
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "cla";
+          rr:termType rr:Literal
+        ];
+      rr:predicate dct:language
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:class :Claim;
+      rr:template "http://www.modsem.org/fakt-news#C-{cid}";
+      rr:termType rr:IRI
+    ] .
+
+<urn:MAPID-Review_1> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery """SELECT review.id AS rid,
+review.title AS rti,
+review.content AS rco,
+review.publication_date AS rpd,
+review.url AS rurl,
+review.language AS rla,
+review.judgment_id AS rji,
+rating_id AS rri,
+tag.label AS tlb,
+agent.id AS aid,
+external_entity.label AS eelb
+FROM review, topic, tag, review_author, agent, mention, external_entity
+WHERE review.id = topic.review_id AND topic.tag_id = tag.id AND
+review.id = review_author.review_id AND review_author.agent_id = agent.id AND
+review.id = mention.review_id AND mention.entity_id = external_entity.id;"""
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:template "http://www.modsem.org/fakt-news#J-{rji}";
+          rr:termType rr:IRI
+        ];
+      rr:predicate :hasJudgment
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:template "http://www.modsem.org/fakt-news#RT-{rri}";
+          rr:termType rr:IRI
+        ];
+      rr:predicate :hasRating
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:template "http://www.modsem.org/fakt-news#A-{aid}";
+          rr:termType rr:IRI
+        ];
+      rr:predicate :isReviewedBy
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "rti";
+          rr:termType rr:Literal
+        ];
+      rr:predicate dct:title
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "rpd";
+          rr:termType rr:Literal
+        ];
+      rr:predicate dct:date
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "rurl";
+          rr:datatype xsd:anyURI;
+          rr:termType rr:Literal
+        ];
+      rr:predicate schema:url
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "rla";
+          rr:termType rr:Literal
+        ];
+      rr:predicate dct:language
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "rco";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :reviewContent
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "tlb";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :tag
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "eelb";
+          rr:datatype xsd:anyURI;
+          rr:termType rr:Literal
+        ];
+      rr:predicate :mention
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:class :Review;
+      rr:template "http://www.modsem.org/fakt-news#R-{rid}";
+      rr:termType rr:IRI
+    ] .
+
+<urn:MAPID-Judgment-Confirmed-Fact_1> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery """SELECT id, label, justification
+FROM judgment
+WHERE label = 'Confirmed Fact';"""
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "label";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :judgmentSummary
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:class :ConfirmedFact;
+      rr:template "http://www.modsem.org/fakt-news#J-{id}";
+      rr:termType rr:IRI
+    ] .
+
+<urn:MAPID-Rating_1> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery """SELECT id, value, comment, media_url, system_comment, system_url
+FROM rating;"""
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "value";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :ratingValue
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "media_url";
+          rr:datatype xsd:anyURI;
+          rr:termType rr:Literal
+        ];
+      rr:predicate :ratingAssociatedMedia
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "system_comment";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :ratingSystemComment
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "system_url";
+          rr:datatype xsd:anyURI;
+          rr:termType rr:Literal
+        ];
+      rr:predicate schema:url
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:class :Rating;
+      rr:template "http://www.modsem.org/fakt-news#RT-{id}";
+      rr:termType rr:IRI
+    ] .
+
+<urn:MAPID-Judgment-Splicing_1> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery """SELECT id, label, justification
+FROM judgment
+WHERE label = 'Splicing';"""
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "label";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :judgmentSummary
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:class :Splicing;
+      rr:template "http://www.modsem.org/fakt-news#J-{id}";
+      rr:termType rr:IRI
+    ] .
+
+<urn:MAPID-Judgment-Deceptive-Editing_1> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery """SELECT id, label, justification
+FROM judgment
+WHERE label = 'Deceptive Editing';"""
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "label";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :judgmentSummary
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:class :DeceptiveEditing;
+      rr:template "http://www.modsem.org/fakt-news#J-{id}";
+      rr:termType rr:IRI
+    ] .
+
+<urn:MAPID-Judgment-Omission_1> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery """SELECT id, label, justification
+FROM judgment
+WHERE label = 'Omission';"""
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "label";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :judgmentSummary
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:class :Omission;
+      rr:template "http://www.modsem.org/fakt-news#J-{id}";
+      rr:termType rr:IRI
+    ] .
+
+<urn:MAPID-Judgment-Malicious-Transfomation_1> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery """SELECT id, label, justification
+FROM judgment
+WHERE label = 'Malicious Transfomation';"""
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "label";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :judgmentSummary
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:class :MaliciousTransfomation;
+      rr:template "http://www.modsem.org/fakt-news#J-{id}";
+      rr:termType rr:IRI
+    ] .
+
+<urn:MAPID-Judgment-Doctoring_1> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery """SELECT id, label, justification
+FROM judgment
+WHERE label = 'Doctoring';"""
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "label";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :judgmentSummary
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:class :Doctoring;
+      rr:template "http://www.modsem.org/fakt-news#J-{id}";
+      rr:termType rr:IRI
+    ] .
+
+<urn:MAPID-Judgment-Fabrication_1> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery """SELECT id, label, justification
+FROM judgment
+WHERE label = 'Fabrication';"""
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "label";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :judgmentSummary
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:class :Fabrication;
+      rr:template "http://www.modsem.org/fakt-news#J-{id}";
+      rr:termType rr:IRI
+    ] .
+
+<urn:MAPID-Judgment-Missing-Context_1> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery """SELECT id, label, justification
+FROM judgment
+WHERE label = 'Missing Context';"""
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "label";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :judgmentSummary
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:class :MissingContext;
+      rr:template "http://www.modsem.org/fakt-news#J-{id}";
+      rr:termType rr:IRI
+    ] .
+
+<urn:MAPID-Judgment-Isolation_1> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery """SELECT id, label, justification
+FROM judgment
+WHERE label = 'Isolation';"""
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "label";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :judgmentSummary
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:class :Isolation;
+      rr:template "http://www.modsem.org/fakt-news#J-{id}";
+      rr:termType rr:IRI
+    ] .
+
+<urn:MAPID-Judgment-Misrepresentation_1> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery """SELECT id, label, justification
+FROM judgment
+WHERE label = 'Misrepresentation';"""
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "label";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :judgmentSummary
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:class :Misrepresentation;
+      rr:template "http://www.modsem.org/fakt-news#J-{id}";
+      rr:termType rr:IRI
+    ] .
+
+<urn:MAPID-Judgment-Not-Clear-Geography-Context_1> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery """SELECT id, label, justification
+FROM judgment
+WHERE label = 'Not Clear Geography Context';"""
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "label";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :judgmentSummary
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:class :NotClearGeographyContext;
+      rr:template "http://www.modsem.org/fakt-news#J-{id}";
+      rr:termType rr:IRI
+    ] .
+
+<urn:MAPID-Judgment-Not-Clear-Subject_1> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery """SELECT id, label, justification
+FROM judgment
+WHERE label = 'Not Clear Subject';"""
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "label";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :judgmentSummary
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:class :NotClearSubject;
+      rr:template "http://www.modsem.org/fakt-news#J-{id}";
+      rr:termType rr:IRI
+    ] .
+
+<urn:MAPID-Judgment-Not-Clear-Time-Period-Context_1> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery """SELECT id, label, justification
+FROM judgment
+WHERE label = 'Not Clear Time Period Context';"""
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "label";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :judgmentSummary
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:class :NotClearPeriodContext;
+      rr:template "http://www.modsem.org/fakt-news#J-{id}";
+      rr:termType rr:IRI
+    ] .
+
+<urn:MAPID-Judgment-Qualitative-Claim_1> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery """SELECT id, label, justification
+FROM judgment
+WHERE label = 'Qualitative Claim';"""
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "label";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :judgmentSummary
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:class :QualitativeClaim;
+      rr:template "http://www.modsem.org/fakt-news#J-{id}";
+      rr:termType rr:IRI
+    ] .
