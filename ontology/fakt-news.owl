@@ -19,7 +19,7 @@
                                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl> ;
                                    dcterms:creator "Lorenzo Tabasso"@it ,
                                                    "Pio Raffaele Fina"@it ;
-                                   dcterms:description "TODO"@en ;
+                                   dcterms:description "An Ontology to describe and annotate the fact checking process."@en ;
                                    vann:preferredNamespacePrefix "fakt"@en ;
                                    vann:preferredNamespaceUri "http://www.modsem.org/fakt-news"@en ;
                                    rdfs:label "Fakt News"@en .
@@ -50,6 +50,10 @@ vann:preferredNamespacePrefix rdf:type owl:AnnotationProperty ;
 vann:preferredNamespaceUri rdf:type owl:AnnotationProperty ;
                            rdfs:comment "The preferred namespace URI to use when using terms from this vocabulary in an XML document."@en ;
                            rdfs:label "preferredNamespaceUri"@en .
+
+
+###  http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#hasMember
+<http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#hasMember> rdf:type owl:AnnotationProperty .
 
 
 ###  http://www.w3.org/2004/02/skos/core#altLabel
@@ -1434,6 +1438,7 @@ foaf:Person rdf:type owl:Class ;
               :Review ,
               prov:Entity ;
      :claimReviewed :C-1 ;
+     :creator :A-3 ;
      :hasJudgment :J-1 ;
      :hasRating :RT-1 ;
      :isReviewedBy :A-3 ;
@@ -1444,8 +1449,7 @@ foaf:Person rdf:type owl:Class ;
      :documentContent "Il fact-checking de lavoce.info passa ...[+1283 words]"^^xsd:string ;
      :mention "http://dbpedia.org/page/Nicola_Zingaretti"^^xsd:anyURI ;
      :reviewContent "Il fact-checking de lavoce.info passa ...[+1283 words]"^^xsd:string ;
-     :tag "politica"^^xsd:string ;
-     dcterms:creator :A-3 .
+     :tag "politica"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#R-2
@@ -1455,6 +1459,7 @@ foaf:Person rdf:type owl:Class ;
               :Review ,
               prov:Entity ;
      :claimReviewed :C-2 ;
+     :creator :A-4 ;
      :hasJudgment :J-2 ;
      :hasRating :RT-2 ;
      :isReviewedBy :A-4 ;
@@ -1464,8 +1469,7 @@ foaf:Person rdf:type owl:Class ;
      :documentContent "Al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con genitore 1 e 2 ...[+1568 words]"^^xsd:string ;
      :mention "http://dbpedia.org/page/Matteo_Salvini"^^xsd:anyURI ;
      :reviewContent "Al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con genitore 1 e 2 ...[+1568 words]"^^xsd:string ;
-     :tag "politica"^^xsd:string ;
-     dcterms:creator :A-4 .
+     :tag "politica"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#R-3
@@ -1475,6 +1479,7 @@ foaf:Person rdf:type owl:Class ;
               :Review ,
               prov:Entity ;
      :claimReviewed :C-3 ;
+     :creator :A-6 ;
      :hasJudgment :J-3 ;
      :hasRating :RT-3 ;
      :isReviewedBy :A-6 ;
@@ -1484,8 +1489,7 @@ foaf:Person rdf:type owl:Class ;
      :documentContent "A couple of short video clips, a voice actor and an artificial intelligence algorithm. That’s all two artists and a technology start-up ...[+1497 words]"^^xsd:string ;
      :mention "https://dbpedia.org/page/Mark_Zuckerberg"^^xsd:anyURI ;
      :reviewContent "A couple of short video clips, a voice actor and an artificial intelligence algorithm. That’s all two artists and a technology start-up ...[+1497 words]"^^xsd:string ;
-     :tag "deepfake"^^xsd:string ;
-     dcterms:creator :A-6 .
+     :tag "deepfake"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#R-4
@@ -1495,6 +1499,7 @@ foaf:Person rdf:type owl:Class ;
               :Review ,
               prov:Entity ;
      :claimReviewed :C-4 ;
+     :creator :A-8 ;
      :hasJudgment :J-4 ;
      :hasRating :RT-4 ;
      :isReviewedBy :A-8 ;
@@ -1506,8 +1511,7 @@ foaf:Person rdf:type owl:Class ;
               "https://dbpedia.org/page/Nelson_Mandela"^^xsd:anyURI ,
               "https://www.wikidata.org/wiki/Q51213808"^^xsd:anyURI ;
      :reviewContent "In a video published Jan. 17, Gage Nelson, host of the conservative podcast America Divided, said: \"Barack Obama was arrested.\""^^xsd:string ;
-     :tag "politics"^^xsd:string ;
-     dcterms:creator :A-8 .
+     :tag "politics"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#RT-1
