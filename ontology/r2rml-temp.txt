@@ -91,4 +91,3 @@ target		:RT-{id} a :Rating ; :ratingValue {value} ; :ratingAssociatedMedia {medi
 source		SELECT id, value, comment, media_url, system_comment, system_url
 			FROM rating;
 ]]
-
