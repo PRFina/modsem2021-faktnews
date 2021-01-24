@@ -43,3 +43,32 @@ WHERE {
        ?rev :claimReviewed ?claim. 
     }
 } limit 100 
+
+/*
+Trova tutti i claim la cui data di pubblicazione è compresa in un intervallo.
+I valori dell'inizio e fine del range sono hardcoded nella query e bindati con
+first_date e last_date.
+
+Nel caso specifico, i valore inseriti permettono di recuperare tutti e i soli claim del 2020.
+
+La particolaritòà della query è nell aver utilizzatop il costruttore xsd:datetime poiché
+il confronto tra date è specificato dallo standard solo per tipi datetime
+*/
+
+PREFIX : <http://www.modsem.org/fakt-news#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX fn: <http://www.modsem.org/fakt-news#>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX dct: <http://purl.org/dc/terms/>
+
+SELECT ?claim ?claim_date
+WHERE { 
+    ?claim a :Claim; dct:date ?claim_date
+    BIND("2020-01-01T00:00:00Z"^^xsd:dateTime AS ?first_date)
+    BIND("2021-01-01T00:00:00Z"^^xsd:dateTime AS ?last_date)
+    BIND(xsd:dateTime(?claim_date) AS ?claim_datetime)
+    FILTER( ?claim_datetime > ?first_date && ?claim_datetime < ?last_date )
+
+} limit 100 
