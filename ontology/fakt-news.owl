@@ -492,7 +492,6 @@ schema:url rdf:type owl:DatatypeProperty ;
 ###  http://www.modsem.org/fakt-news#tag
 :tag rdf:type owl:DatatypeProperty ;
      rdfs:domain :Review ;
-     rdfs:range xsd:string ;
      rdfs:comment "A topic tag of the review."@en ;
      rdfs:label "tag"@en ;
      skos:altLabel "topic tag"@en .
