@@ -147,3 +147,31 @@ WHERE {
     }
    
 } limit 100 
+
+/*
+Query Aggregata. La query permette di verificare la "credibility"
+di una persona. Nello specifico conta per ogni
+claimant quanti dei claim effettuati siano stati valutati "true", ..., "false".
+
+Il conteggio viene effettuato dalla fuznione COUNT sulle due chiavi di raggruppamento
+?claimant_name ?rating_val.
+*/
+
+PREFIX : <http://www.modsem.org/fakt-news#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX schema: <http://schema.org/>
+
+SELECT ?claimant_name ?rating_val (COUNT(?review) as ?n_reviews)
+WHERE {
+    ?review rdf:type :Review;
+            :hasRating ?rating;
+            :claimReviewed ?claim.
+    ?claim :isClaimedBy ?claimant.
+    ?claimant schema:name ?claimant_name.
+    ?rating :ratingValue ?rating_val.
+    
+}
+GROUPBY ?claimant_name ?rating_val
+ORDER BY ?claimant_name ?rating_val
