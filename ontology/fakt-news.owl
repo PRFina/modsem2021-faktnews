@@ -436,7 +436,7 @@ schema:url rdf:type owl:DatatypeProperty ;
 ###  http://www.modsem.org/fakt-news#mention
 :mention rdf:type owl:DatatypeProperty ;
          rdfs:domain :Review ;
-         rdfs:range xsd:anyURI ;
+         rdfs:range xsd:string ;
          rdfs:comment "A mention to some entity in a review."@en ;
          rdfs:label "mention"@en .
 
@@ -1600,7 +1600,7 @@ foaf:Person rdf:type owl:Class ;
      dcterms:title "Il governo ha davvero abolito i “decreti sicurezza”?"^^xsd:string ;
      schema:url "https://www.lavoce.info/archives/69816/il-governo-ha-davvero-abolito-i-decreti-sicurezza/"^^xsd:anyURI ;
      :documentContent "Il fact-checking de lavoce.info passa ...[+1283 words]"^^xsd:string ;
-     :mention "http://dbpedia.org/page/Nicola_Zingaretti"^^xsd:anyURI ;
+     :mention "Nicola_Zingaretti"^^xsd:string ;
      :reviewContent "Il fact-checking de lavoce.info passa ...[+1283 words]"^^xsd:string ;
      :tag "politica"^^xsd:string .
 
@@ -1621,7 +1621,7 @@ foaf:Person rdf:type owl:Class ;
      dcterms:title "No, “genitore 1 e 2” non tornano sui documenti d’identità (non ci sono mai stati)"^^xsd:string ;
      schema:url "https://pagellapolitica.it/dichiarazioni/8801/no-genitore-1-e-2-non-tornano-sui-documenti-didentita-non-ci-sono-mai-stati"^^xsd:anyURI ;
      :documentContent "Al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con genitore 1 e 2 ...[+1568 words]"^^xsd:string ;
-     :mention "http://dbpedia.org/page/Matteo_Salvini"^^xsd:anyURI ;
+     :mention "Matteo_Salvini"^^xsd:string ;
      :reviewContent "Al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con genitore 1 e 2 ...[+1568 words]"^^xsd:string ;
      :tag "Carta d'identità"@it ,
           "Lega"@it ,
@@ -1642,12 +1642,12 @@ foaf:Person rdf:type owl:Class ;
      dcterms:date "2019-06-19"^^xsd:date ;
      dcterms:language "en"^^xsd:string ;
      dcterms:title "Facebook wouldn’t delete an altered video of Nancy Pelosi. What about one of Mark Zuckerberg?"^^xsd:string ;
+     schema:url "https://www.washingtonpost.com/nation/2019/06/12/mark-zuckerberg-deepfake-facebook-instagram-nancy-pelosi/"^^xsd:anyURI ;
      :documentContent "A couple of short video clips, a voice actor and an artificial intelligence algorithm. That’s all two artists and a technology start-up ...[+1497 words]"^^xsd:string ;
-     :mention "https://dbpedia.org/page/Mark_Zuckerberg"^^xsd:anyURI ;
+     :mention "Mark_Zuckerberg"^^xsd:string ;
      :reviewContent "A couple of short video clips, a voice actor and an artificial intelligence algorithm. That’s all two artists and a technology start-up ...[+1497 words]"^^xsd:string ;
      :tag "Nancy Pelosi"^^xsd:string ,
-          "deepfake"^^xsd:string ,
-          "https://www.washingtonpost.com/nation/2019/06/12/mark-zuckerberg-deepfake-facebook-instagram-nancy-pelosi/"^^xsd:anyURI .
+          "deepfake"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#R-4
@@ -1666,9 +1666,9 @@ foaf:Person rdf:type owl:Class ;
      dcterms:title "Barack Obama wasn’t arrested before Biden’s inauguration"^^xsd:string ;
      schema:url "https://www.politifact.com/factchecks/2021/jan/18/facebook-posts/obama-wasnt-arrested-bidens-inauguration/"^^xsd:anyURI ;
      :documentContent "In a video published Jan. 17, Gage Nelson, host of the conservative podcast America Divided, said: \"Barack Obama was arrested.\""^^xsd:string ;
-     :mention "https://dbpedia.org/page/Barack_Obama"^^xsd:anyURI ,
-              "https://dbpedia.org/page/Nelson_Mandela"^^xsd:anyURI ,
-              "https://www.wikidata.org/wiki/Q51213808"^^xsd:anyURI ;
+     :mention "Barack_Obama"^^xsd:string ,
+              "Nelson_Mandela"^^xsd:string ,
+              "QAnon"^^xsd:string ;
      :reviewContent "In a video published Jan. 17, Gage Nelson, host of the conservative podcast America Divided, said: \"Barack Obama was arrested.\""^^xsd:string ;
      :tag "politics"^^xsd:string .
 
