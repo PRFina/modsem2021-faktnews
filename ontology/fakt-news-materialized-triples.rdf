@@ -769,7 +769,7 @@ Ranges of datatype properties are not indicated, because otherwise specializing 
 
     <owl:DatatypeProperty rdf:about="http://www.modsem.org/fakt-news#mention">
         <rdfs:domain rdf:resource="http://www.modsem.org/fakt-news#Review"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
         <rdfs:comment xml:lang="en">A mention to some entity in a review.</rdfs:comment>
         <rdfs:label xml:lang="en">mention</rdfs:label>
     </owl:DatatypeProperty>
@@ -2018,6 +2018,18 @@ It should be used when you want to talk about time as an object having some char
     
 
 
+    <!-- http://www.modsem.org/fakt-news#A-10 -->
+
+    <owl:NamedIndividual rdf:about="http://www.modsem.org/fakt-news#A-10">
+        <rdf:type rdf:resource="http://www.modsem.org/fakt-news#Person"/>
+        <rdf:type rdf:resource="http://www.w3.org/ns/prov#Agent"/>
+        <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+        <fakt-news:create rdf:resource="http://www.modsem.org/fakt-news#C-2"/>
+        <schema:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Matteo Salvini</schema:name>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.modsem.org/fakt-news#A-11 -->
 
     <owl:NamedIndividual rdf:about="http://www.modsem.org/fakt-news#A-11">
@@ -2071,7 +2083,6 @@ It should be used when you want to talk about time as an object having some char
         <rdf:type rdf:resource="http://www.modsem.org/fakt-news#FactCheckingOrganization"/>
         <rdf:type rdf:resource="http://www.modsem.org/fakt-news#Organization"/>
         <rdf:type rdf:resource="http://www.w3.org/ns/prov#Agent"/>
-        <fakt-news:isCertificatedBy rdf:resource="http://www.modsem.org/fakt-news#A-1-IFCN"/>
         <fakt-news:observeCodeOfPrinciples rdf:resource="http://www.modsem.org/fakt-news#IFCN-Code-of-Principles"/>
         <schema:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Lavoce.info</schema:name>
     </owl:NamedIndividual>
@@ -2098,7 +2109,6 @@ It should be used when you want to talk about time as an object having some char
         <rdf:type rdf:resource="http://www.modsem.org/fakt-news#Organization"/>
         <rdf:type rdf:resource="http://www.w3.org/ns/prov#Agent"/>
         <fakt-news:create rdf:resource="http://www.modsem.org/fakt-news#R-2"/>
-        <fakt-news:isCertificatedBy rdf:resource="http://www.modsem.org/fakt-news#A-1-IFCN"/>
         <fakt-news:observeCodeOfPrinciples rdf:resource="http://www.modsem.org/fakt-news#IFCN-Code-of-Principles"/>
         <schema:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Pagella Politica</schema:name>
     </owl:NamedIndividual>
@@ -2134,7 +2144,6 @@ It should be used when you want to talk about time as an object having some char
         <rdf:type rdf:resource="http://www.modsem.org/fakt-news#FactCheckingOrganization"/>
         <rdf:type rdf:resource="http://www.modsem.org/fakt-news#Organization"/>
         <rdf:type rdf:resource="http://www.w3.org/ns/prov#Agent"/>
-        <fakt-news:isCertificatedBy rdf:resource="http://www.modsem.org/fakt-news#A-1-IFCN"/>
         <fakt-news:observeCodeOfPrinciples rdf:resource="http://www.modsem.org/fakt-news#IFCN-Code-of-Principles"/>
         <schema:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Politifact.com</schema:name>
     </owl:NamedIndividual>
@@ -2171,7 +2180,6 @@ It should be used when you want to talk about time as an object having some char
     <owl:NamedIndividual rdf:about="http://www.modsem.org/fakt-news#Activity-Evaluation-R-1">
         <rdf:type rdf:resource="http://www.modsem.org/fakt-news#ClaimEvaluationActivity"/>
         <rdf:type rdf:resource="http://www.w3.org/ns/prov#Activity"/>
-        <fakt-news:hasPreviousActivity rdf:resource="http://www.modsem.org/fakt-news#Activity-Selection-R-1"/>
         <fakt-news:hasPreviousActivity rdf:resource="http://www.modsem.org/fakt-news#Activity-Verification-R-1"/>
         <fakt-news:hasTimeInterval rdf:resource="http://www.modsem.org/fakt-news#Time-R1-2020-10-07-2020-10-08"/>
         <fakt-news:isActivityOfPlan rdf:resource="http://www.modsem.org/fakt-news#Plan-R-1"/>
@@ -2188,7 +2196,6 @@ It should be used when you want to talk about time as an object having some char
     <owl:NamedIndividual rdf:about="http://www.modsem.org/fakt-news#Activity-Evaluation-R-2">
         <rdf:type rdf:resource="http://www.modsem.org/fakt-news#ClaimEvaluationActivity"/>
         <rdf:type rdf:resource="http://www.w3.org/ns/prov#Activity"/>
-        <fakt-news:hasPreviousActivity rdf:resource="http://www.modsem.org/fakt-news#Activity-Selection-R-2"/>
         <fakt-news:hasPreviousActivity rdf:resource="http://www.modsem.org/fakt-news#Activity-Verification-R-2"/>
         <fakt-news:hasTimeInterval rdf:resource="http://www.modsem.org/fakt-news#Time-R2-2021-01-15-2021-01-16"/>
         <fakt-news:isActivityOfPlan rdf:resource="http://www.modsem.org/fakt-news#Plan-R-2"/>
@@ -2205,7 +2212,6 @@ It should be used when you want to talk about time as an object having some char
     <owl:NamedIndividual rdf:about="http://www.modsem.org/fakt-news#Activity-Evaluation-R-3">
         <rdf:type rdf:resource="http://www.modsem.org/fakt-news#ClaimEvaluationActivity"/>
         <rdf:type rdf:resource="http://www.w3.org/ns/prov#Activity"/>
-        <fakt-news:hasPreviousActivity rdf:resource="http://www.modsem.org/fakt-news#Activity-Selection-R-3"/>
         <fakt-news:hasPreviousActivity rdf:resource="http://www.modsem.org/fakt-news#Activity-Verification-R-3"/>
         <fakt-news:hasTimeInterval rdf:resource="http://www.modsem.org/fakt-news#Time-R3-2019-06-18-2019-06-19"/>
         <fakt-news:isActivityOfPlan rdf:resource="http://www.modsem.org/fakt-news#Plan-R-3"/>
@@ -2222,7 +2228,6 @@ It should be used when you want to talk about time as an object having some char
     <owl:NamedIndividual rdf:about="http://www.modsem.org/fakt-news#Activity-Evaluation-R-4">
         <rdf:type rdf:resource="http://www.modsem.org/fakt-news#ClaimEvaluationActivity"/>
         <rdf:type rdf:resource="http://www.w3.org/ns/prov#Activity"/>
-        <fakt-news:hasPreviousActivity rdf:resource="http://www.modsem.org/fakt-news#Activity-Selection-R-4"/>
         <fakt-news:hasPreviousActivity rdf:resource="http://www.modsem.org/fakt-news#Activity-Verification-R-4"/>
         <fakt-news:hasTimeInterval rdf:resource="http://www.modsem.org/fakt-news#Time-R4-2021-01-19-2021-01-20"/>
         <fakt-news:isActivityOfPlan rdf:resource="http://www.modsem.org/fakt-news#Plan-R-4"/>
@@ -2239,7 +2244,6 @@ It should be used when you want to talk about time as an object having some char
     <owl:NamedIndividual rdf:about="http://www.modsem.org/fakt-news#Activity-Selection-R-1">
         <rdf:type rdf:resource="http://www.modsem.org/fakt-news#SelectionActivity"/>
         <rdf:type rdf:resource="http://www.w3.org/ns/prov#Activity"/>
-        <fakt-news:hasNextActivity rdf:resource="http://www.modsem.org/fakt-news#Activity-Evaluation-R-1"/>
         <fakt-news:hasNextActivity rdf:resource="http://www.modsem.org/fakt-news#Activity-Verification-R-1"/>
         <fakt-news:hasTimeInterval rdf:resource="http://www.modsem.org/fakt-news#Time-R1-2020-10-05-2020-10-06"/>
         <fakt-news:isActivityOfPlan rdf:resource="http://www.modsem.org/fakt-news#Plan-R-1"/>
@@ -2256,7 +2260,6 @@ It should be used when you want to talk about time as an object having some char
     <owl:NamedIndividual rdf:about="http://www.modsem.org/fakt-news#Activity-Selection-R-2">
         <rdf:type rdf:resource="http://www.modsem.org/fakt-news#SelectionActivity"/>
         <rdf:type rdf:resource="http://www.w3.org/ns/prov#Activity"/>
-        <fakt-news:hasNextActivity rdf:resource="http://www.modsem.org/fakt-news#Activity-Evaluation-R-2"/>
         <fakt-news:hasNextActivity rdf:resource="http://www.modsem.org/fakt-news#Activity-Verification-R-2"/>
         <fakt-news:hasTimeInterval rdf:resource="http://www.modsem.org/fakt-news#Time-R2-2021-01-13-2021-01-14"/>
         <fakt-news:isActivityOfPlan rdf:resource="http://www.modsem.org/fakt-news#Plan-R-2"/>
@@ -2272,7 +2275,6 @@ It should be used when you want to talk about time as an object having some char
     <owl:NamedIndividual rdf:about="http://www.modsem.org/fakt-news#Activity-Selection-R-3">
         <rdf:type rdf:resource="http://www.modsem.org/fakt-news#SelectionActivity"/>
         <rdf:type rdf:resource="http://www.w3.org/ns/prov#Activity"/>
-        <fakt-news:hasNextActivity rdf:resource="http://www.modsem.org/fakt-news#Activity-Evaluation-R-3"/>
         <fakt-news:hasNextActivity rdf:resource="http://www.modsem.org/fakt-news#Activity-Verification-R-3"/>
         <fakt-news:hasTimeInterval rdf:resource="http://www.modsem.org/fakt-news#Time-R3-2019-06-16-2019-06-17"/>
         <fakt-news:isActivityOfPlan rdf:resource="http://www.modsem.org/fakt-news#Plan-R-3"/>
@@ -2287,7 +2289,6 @@ It should be used when you want to talk about time as an object having some char
     <owl:NamedIndividual rdf:about="http://www.modsem.org/fakt-news#Activity-Selection-R-4">
         <rdf:type rdf:resource="http://www.modsem.org/fakt-news#SelectionActivity"/>
         <rdf:type rdf:resource="http://www.w3.org/ns/prov#Activity"/>
-        <fakt-news:hasNextActivity rdf:resource="http://www.modsem.org/fakt-news#Activity-Evaluation-R-4"/>
         <fakt-news:hasNextActivity rdf:resource="http://www.modsem.org/fakt-news#Activity-Verification-R-4"/>
         <fakt-news:hasTimeInterval rdf:resource="http://www.modsem.org/fakt-news#Time-R4-2021-01-17-2021-01-18"/>
         <fakt-news:isActivityOfPlan rdf:resource="http://www.modsem.org/fakt-news#Plan-R-4"/>
@@ -2364,7 +2365,6 @@ It should be used when you want to talk about time as an object having some char
         <rdf:type rdf:resource="http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#Collection"/>
         <rdf:type rdf:resource="http://www.ontologydesignpatterns.org/cp/owl/set.owl#Set"/>
         <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
-        <fakt-news:associatedReview rdf:resource="http://www.modsem.org/fakt-news#R-1"/>
         <collectionentity:hasMember rdf:resource="http://www.modsem.org/fakt-news#C-1"/>
         <collectionentity:hasMember rdf:resource="http://www.modsem.org/fakt-news#C-2"/>
     </owl:NamedIndividual>
@@ -2425,6 +2425,7 @@ It should be used when you want to talk about time as an object having some char
 
     <owl:NamedIndividual rdf:about="http://www.modsem.org/fakt-news#Association-Activity-Selection-R2-A10">
         <rdf:type rdf:resource="http://www.w3.org/ns/prov#Association"/>
+        <prov:agent rdf:resource="http://www.modsem.org/fakt-news#A-10"/>
         <prov:hadRole rdf:resource="http://www.modsem.org/fakt-news#Role-A-10"/>
     </owl:NamedIndividual>
     
@@ -2491,6 +2492,9 @@ It should be used when you want to talk about time as an object having some char
         <rdf:type rdf:resource="http://www.modsem.org/fakt-news#DigitalDocument"/>
         <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
         <fakt-news:associatedReview rdf:resource="http://www.modsem.org/fakt-news#R-2"/>
+        <fakt-news:creator rdf:resource="http://www.modsem.org/fakt-news#A-10"/>
+        <fakt-news:isClaimedBy rdf:resource="http://www.modsem.org/fakt-news#A-10"/>
+        <prov:wasAttributedTo rdf:resource="http://www.modsem.org/fakt-news#A-10"/>
         <terms:date rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2021-01-13</terms:date>
         <terms:language rdf:datatype="http://www.w3.org/2001/XMLSchema#string">it</terms:language>
         <schema:url rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://twitter.com/matteosalvinimi/status/1349377644941479937</schema:url>
@@ -2873,8 +2877,6 @@ It should be used when you want to talk about time as an object having some char
         <rdf:type rdf:resource="http://www.modsem.org/fakt-news#DigitalDocument"/>
         <rdf:type rdf:resource="http://www.modsem.org/fakt-news#Review"/>
         <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
-        <fakt-news:claimReviewed rdf:resource="http://www.modsem.org/fakt-news#Alternative-Set-R-1"/>
-        <fakt-news:claimReviewed rdf:resource="http://www.modsem.org/fakt-news#C-1"/>
         <fakt-news:creator rdf:resource="http://www.modsem.org/fakt-news#A-3"/>
         <fakt-news:hasJudgment rdf:resource="http://www.modsem.org/fakt-news#J-1"/>
         <fakt-news:hasRating rdf:resource="http://www.modsem.org/fakt-news#RT-1"/>
@@ -2887,7 +2889,7 @@ It should be used when you want to talk about time as an object having some char
         <terms:title rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Il governo ha davvero abolito i “decreti sicurezza”?</terms:title>
         <schema:url rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://www.lavoce.info/archives/69816/il-governo-ha-davvero-abolito-i-decreti-sicurezza/</schema:url>
         <fakt-news:documentContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Il fact-checking de lavoce.info passa ...[+1283 words]</fakt-news:documentContent>
-        <fakt-news:mention rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/page/Nicola_Zingaretti</fakt-news:mention>
+        <fakt-news:mention rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Nicola_Zingaretti</fakt-news:mention>
         <fakt-news:reviewContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Il fact-checking de lavoce.info passa ...[+1283 words]</fakt-news:reviewContent>
         <fakt-news:tag rdf:datatype="http://www.w3.org/2001/XMLSchema#string">politica</fakt-news:tag>
     </owl:NamedIndividual>
@@ -2901,7 +2903,6 @@ It should be used when you want to talk about time as an object having some char
         <rdf:type rdf:resource="http://www.modsem.org/fakt-news#DigitalDocument"/>
         <rdf:type rdf:resource="http://www.modsem.org/fakt-news#Review"/>
         <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
-        <fakt-news:claimReviewed rdf:resource="http://www.modsem.org/fakt-news#C-2"/>
         <fakt-news:creator rdf:resource="http://www.modsem.org/fakt-news#A-4"/>
         <fakt-news:hasJudgment rdf:resource="http://www.modsem.org/fakt-news#J-2"/>
         <fakt-news:hasRating rdf:resource="http://www.modsem.org/fakt-news#RT-2"/>
@@ -2912,7 +2913,7 @@ It should be used when you want to talk about time as an object having some char
         <terms:title rdf:datatype="http://www.w3.org/2001/XMLSchema#string">No, “genitore 1 e 2” non tornano sui documenti d’identità (non ci sono mai stati)</terms:title>
         <schema:url rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://pagellapolitica.it/dichiarazioni/8801/no-genitore-1-e-2-non-tornano-sui-documenti-didentita-non-ci-sono-mai-stati</schema:url>
         <fakt-news:documentContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con genitore 1 e 2 ...[+1568 words]</fakt-news:documentContent>
-        <fakt-news:mention rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/page/Matteo_Salvini</fakt-news:mention>
+        <fakt-news:mention rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Matteo_Salvini</fakt-news:mention>
         <fakt-news:reviewContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con genitore 1 e 2 ...[+1568 words]</fakt-news:reviewContent>
         <fakt-news:tag xml:lang="it">Carta d&apos;identità</fakt-news:tag>
         <fakt-news:tag xml:lang="it">Lega</fakt-news:tag>
@@ -2928,7 +2929,6 @@ It should be used when you want to talk about time as an object having some char
         <rdf:type rdf:resource="http://www.modsem.org/fakt-news#DigitalDocument"/>
         <rdf:type rdf:resource="http://www.modsem.org/fakt-news#Review"/>
         <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
-        <fakt-news:claimReviewed rdf:resource="http://www.modsem.org/fakt-news#C-3"/>
         <fakt-news:creator rdf:resource="http://www.modsem.org/fakt-news#A-6"/>
         <fakt-news:hasJudgment rdf:resource="http://www.modsem.org/fakt-news#J-3"/>
         <fakt-news:hasRating rdf:resource="http://www.modsem.org/fakt-news#RT-3"/>
@@ -2937,12 +2937,12 @@ It should be used when you want to talk about time as an object having some char
         <terms:date rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2019-06-19</terms:date>
         <terms:language rdf:datatype="http://www.w3.org/2001/XMLSchema#string">en</terms:language>
         <terms:title rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Facebook wouldn’t delete an altered video of Nancy Pelosi. What about one of Mark Zuckerberg?</terms:title>
+        <schema:url rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://www.washingtonpost.com/nation/2019/06/12/mark-zuckerberg-deepfake-facebook-instagram-nancy-pelosi/</schema:url>
         <fakt-news:documentContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A couple of short video clips, a voice actor and an artificial intelligence algorithm. That’s all two artists and a technology start-up ...[+1497 words]</fakt-news:documentContent>
-        <fakt-news:mention rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://dbpedia.org/page/Mark_Zuckerberg</fakt-news:mention>
+        <fakt-news:mention rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Mark_Zuckerberg</fakt-news:mention>
         <fakt-news:reviewContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A couple of short video clips, a voice actor and an artificial intelligence algorithm. That’s all two artists and a technology start-up ...[+1497 words]</fakt-news:reviewContent>
         <fakt-news:tag rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Nancy Pelosi</fakt-news:tag>
         <fakt-news:tag rdf:datatype="http://www.w3.org/2001/XMLSchema#string">deepfake</fakt-news:tag>
-        <fakt-news:tag rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://www.washingtonpost.com/nation/2019/06/12/mark-zuckerberg-deepfake-facebook-instagram-nancy-pelosi/</fakt-news:tag>
     </owl:NamedIndividual>
     
 
@@ -2954,7 +2954,6 @@ It should be used when you want to talk about time as an object having some char
         <rdf:type rdf:resource="http://www.modsem.org/fakt-news#DigitalDocument"/>
         <rdf:type rdf:resource="http://www.modsem.org/fakt-news#Review"/>
         <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
-        <fakt-news:claimReviewed rdf:resource="http://www.modsem.org/fakt-news#C-4"/>
         <fakt-news:creator rdf:resource="http://www.modsem.org/fakt-news#A-8"/>
         <fakt-news:hasJudgment rdf:resource="http://www.modsem.org/fakt-news#J-4"/>
         <fakt-news:hasRating rdf:resource="http://www.modsem.org/fakt-news#RT-4"/>
@@ -2965,9 +2964,9 @@ It should be used when you want to talk about time as an object having some char
         <terms:title rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Barack Obama wasn’t arrested before Biden’s inauguration</terms:title>
         <schema:url rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://www.politifact.com/factchecks/2021/jan/18/facebook-posts/obama-wasnt-arrested-bidens-inauguration/</schema:url>
         <fakt-news:documentContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">In a video published Jan. 17, Gage Nelson, host of the conservative podcast America Divided, said: &quot;Barack Obama was arrested.&quot;</fakt-news:documentContent>
-        <fakt-news:mention rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://dbpedia.org/page/Barack_Obama</fakt-news:mention>
-        <fakt-news:mention rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://dbpedia.org/page/Nelson_Mandela</fakt-news:mention>
-        <fakt-news:mention rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://www.wikidata.org/wiki/Q51213808</fakt-news:mention>
+        <fakt-news:mention rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Barack_Obama</fakt-news:mention>
+        <fakt-news:mention rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Nelson_Mandela</fakt-news:mention>
+        <fakt-news:mention rdf:datatype="http://www.w3.org/2001/XMLSchema#string">QAnon</fakt-news:mention>
         <fakt-news:reviewContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">In a video published Jan. 17, Gage Nelson, host of the conservative podcast America Divided, said: &quot;Barack Obama was arrested.&quot;</fakt-news:reviewContent>
         <fakt-news:tag rdf:datatype="http://www.w3.org/2001/XMLSchema#string">politics</fakt-news:tag>
     </owl:NamedIndividual>

@@ -72,3 +72,78 @@ WHERE {
     FILTER( ?claim_datetime > ?first_date && ?claim_datetime < ?last_date )
 
 } limit 100 
+
+
+
+/*
+Query federata. Nella prima parte estrae le entità menzionate in una review.
+Nella seconda contatta l'endpoint pubblico di DbPedia ed effettua una query federata.
+
+Di particolare importanza sono i comandi per ?entity. Questi costruiscono dinamicamente
+l'uri della risorsa in wikipedia dato che nella nostra ontologia ?wiki_entity codifica
+il NAME dell url delle pagine di wikipedia.
+
+Dato l'aspetto multingua di dbpedia il comando FILTER serve per estrarre solo le risorse con
+uno specifico language tag (in questo caso "en").
+
+La query federata estrae alcune informazioni principali delle entità menzionate, ovvero:
+?entity_label -> label associata alla risorsa
+?info -> informazioni di background
+?linked_res_wiki _> pagina url di alcune risorse secondaria correlate all'entità
+
+*/
+PREFIX : <http://www.modsem.org/fakt-news#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX dbr:  <http://dbpedia.org/resource/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+
+
+
+SELECT ?review_title ?entity_label ?info ?linked_res_wiki
+WHERE { 
+    ?review a :Review; 
+            dct:title ?review_title.
+    OPTIONAL {?review :mention ?wiki_entity.}
+    BIND(URI(CONCAT(STR(dbr:), STR(?wiki_entity))) AS ?entity).
+ 	
+    SERVICE <https://dbpedia.org/sparql> {
+        ?entity rdfs:label ?entity_label.
+		OPTIONAL {?entity rdfs:seeAlso ?linked_res.
+        		  ?linked_res foaf:isPrimaryTopicOf ?linked_res_wiki}.
+        OPTIONAL {?entity rdfs:comment ?info}.
+        FILTER(langMatches(lang(?entity_label), "en") && 
+               langMatches(lang(?info),"en"))
+    }
+   
+} limit 100 
+
+PREFIX : <http://www.modsem.org/fakt-news#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX fn: <http://www.modsem.org/fakt-news#>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX dbr:  <http://dbpedia.org/resource/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+
+
+
+SELECT ?review_title ?entity_label ?info ?linked_res
+WHERE { 
+    ?review a :Review; 
+            dct:title ?review_title.
+    OPTIONAL {?review :mention ?wiki_entity.}
+    BIND(URI(CONCAT(STR(dbr:), STR(?wiki_entity))) AS ?entity).
+ 	
+    SERVICE <https://dbpedia.org/sparql> {
+        ?entity rdfs:label ?entity_label.
+		OPTIONAL {?entity rdfs:seeAlso ?linked_res}.
+        OPTIONAL {?entity rdfs:comment ?info}.
+        FILTER(LANG(?entity_label) = "en" && LANG(?info) = "en")
+    }
+   
+} limit 100 
