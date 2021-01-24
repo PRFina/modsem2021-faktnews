@@ -18,3 +18,28 @@ WHERE {
       BIND(STR(?fcon) AS ?fconame).
 
 } LIMIT 100
+
+
+/*
+Trova tutti i claim che non hanno nessuna review.
+Sfrutta l'operatore MINUS per trovare tutti i claim con review
+attraverso il predicato :claimReviewed (ricordiamo essere una property chain)
+e successivamente gli sottrae da tutti i claims disponibili nel knowledge graph
+*/
+
+PREFIX : <http://www.modsem.org/fakt-news#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX fn: <http://www.modsem.org/fakt-news#>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?claim ?claimant_name
+WHERE { 
+    ?claim a :Claim; 
+       :isClaimedBy ?claimant .
+    ?claimant schema:name ?claimant_name.
+    MINUS {
+       ?rev :claimReviewed ?claim. 
+    }
+} limit 100 
