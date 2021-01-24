@@ -661,7 +661,7 @@ schema:CreativeWork rdf:type owl:Class ;
 :FactCheckingOrganization rdf:type owl:Class ;
                           rdfs:subClassOf :Organization ;
                           rdfs:comment "An organization that provides fact-checking services."@en ;
-                          rdfs:label "Fact Checking Organisation"@en .
+                          rdfs:label "Fact Checking Organization"@en .
 
 
 ###  http://www.modsem.org/fakt-news#FactCheckingProcess
@@ -920,21 +920,13 @@ foaf:Person rdf:type owl:Class ;
 #    Individuals
 #################################################################
 
-###  http://www.modsem.org/fakt-news#A-1
-:A-1 rdf:type owl:NamedIndividual ,
-              :Organization ,
-              prov:Agent ;
-     schema:name "International Fact Checking Organization"^^xsd:string .
-
-
 ###  http://www.modsem.org/fakt-news#A-1-IFCN
 :A-1-IFCN rdf:type owl:NamedIndividual ,
-                   :FactCheckingAuthority ,
-                   :Organization ,
-                   prov:Agent ;
+                   :Organization ;
           :create :IFCN-Code-of-Principles ;
           :createCodeOfPrinciples :IFCN-Code-of-Principles ;
-          schema:name "International Fact Checking Organization"^^xsd:string .
+          schema:name "International Fact Checking Organization"^^xsd:string ;
+          schema:url "https://www.poynter.org/ifcn/"^^xsd:anyURI .
 
 
 ###  http://www.modsem.org/fakt-news#A-10
@@ -949,28 +941,26 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.modsem.org/fakt-news#A-11
 :A-11 rdf:type owl:NamedIndividual ,
                :Person ,
-               :SoftwareAgent ,
                prov:Agent ,
                foaf:Person ;
       :create :C-3 ;
-      schema:name "Donald TrumpBot"^^xsd:string ,
-                  "Mark Zucherberg"^^xsd:string .
+      schema:name "Mark Zucherberg"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#A-12
 :A-12 rdf:type owl:NamedIndividual ,
-               :Organization ,
                :Person ,
                prov:Agent ,
                foaf:Person ;
       :create :C-4 ;
-      schema:name "America Divided Podcast"^^xsd:string ,
-                  "Mark Zucherberg"^^xsd:string .
+      schema:name "America Divided Podcast"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#A-13-DUKES-REPORTER-LAB
-:A-13-DUKES-REPORTER-LAB rdf:type owl:NamedIndividual ;
-                         schema:name "Duke Reporter's Lab"^^xsd:string .
+:A-13-DUKES-REPORTER-LAB rdf:type owl:NamedIndividual ,
+                                  :Organization ;
+                         schema:name "Duke Reporter's Lab"^^xsd:string ;
+                         schema:url "https://reporterslab.org/"^^xsd:anyURI .
 
 
 ###  http://www.modsem.org/fakt-news#A-14
@@ -1599,7 +1589,6 @@ foaf:Person rdf:type owl:Class ;
               :DigitalDocument ,
               :Review ,
               prov:Entity ;
-     :claimReviewed :C-1 ;
      :creator :A-3 ;
      :hasJudgment :J-1 ;
      :hasRating :RT-1 ;
@@ -1623,7 +1612,6 @@ foaf:Person rdf:type owl:Class ;
               :DigitalDocument ,
               :Review ,
               prov:Entity ;
-     :claimReviewed :C-2 ;
      :creator :A-4 ;
      :hasJudgment :J-2 ;
      :hasRating :RT-2 ;
@@ -1636,7 +1624,9 @@ foaf:Person rdf:type owl:Class ;
      :documentContent "Al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con genitore 1 e 2 ...[+1568 words]"^^xsd:string ;
      :mention "http://dbpedia.org/page/Matteo_Salvini"^^xsd:anyURI ;
      :reviewContent "Al governo si preoccupano di cancellare “padre” e “madre” dalla carta di identità dei minori per sostituirli con genitore 1 e 2 ...[+1568 words]"^^xsd:string ;
-     :tag "politica"^^xsd:string .
+     :tag "Carta d'identità"@it ,
+          "Lega"@it ,
+          "politica"^^xsd:string .
 
 
 ###  http://www.modsem.org/fakt-news#R-3
@@ -1645,7 +1635,6 @@ foaf:Person rdf:type owl:Class ;
               :DigitalDocument ,
               :Review ,
               prov:Entity ;
-     :claimReviewed :C-3 ;
      :creator :A-6 ;
      :hasJudgment :J-3 ;
      :hasRating :RT-3 ;
@@ -1654,11 +1643,12 @@ foaf:Person rdf:type owl:Class ;
      dcterms:date "2019-06-19"^^xsd:date ;
      dcterms:language "en"^^xsd:string ;
      dcterms:title "Facebook wouldn’t delete an altered video of Nancy Pelosi. What about one of Mark Zuckerberg?"^^xsd:string ;
-     schema:url "https://www.washingtonpost.com/nation/2019/06/12/mark-zuckerberg-deepfake-facebook-instagram-nancy-pelosi/"^^xsd:anyURI ;
      :documentContent "A couple of short video clips, a voice actor and an artificial intelligence algorithm. That’s all two artists and a technology start-up ...[+1497 words]"^^xsd:string ;
      :mention "https://dbpedia.org/page/Mark_Zuckerberg"^^xsd:anyURI ;
      :reviewContent "A couple of short video clips, a voice actor and an artificial intelligence algorithm. That’s all two artists and a technology start-up ...[+1497 words]"^^xsd:string ;
-     :tag "deepfake"^^xsd:string .
+     :tag "Nancy Pelosi"^^xsd:string ,
+          "deepfake"^^xsd:string ,
+          "https://www.washingtonpost.com/nation/2019/06/12/mark-zuckerberg-deepfake-facebook-instagram-nancy-pelosi/"^^xsd:anyURI .
 
 
 ###  http://www.modsem.org/fakt-news#R-4
@@ -1667,7 +1657,6 @@ foaf:Person rdf:type owl:Class ;
               :DigitalDocument ,
               :Review ,
               prov:Entity ;
-     :claimReviewed :C-4 ;
      :creator :A-8 ;
      :hasJudgment :J-4 ;
      :hasRating :RT-4 ;
