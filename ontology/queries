@@ -1,0 +1,20 @@
+
+/* Trova titolo review e nome autore di una data FactCheckingOrganization
+   con ricerca per nome della FCO "approssimata", ovvero con regex.
+
+   In questo caso il risultato ritorna le review della voce.info
+*/
+SELECT ?rname ?fcname ?fconame
+WHERE {
+      ?r a fn:Review; fn:isReviewedBy ?fc; dct:title ?rn.
+      ?fc fn:affiliatedTo ?fco; schema:name ?fcn.
+      ?fco a fn:FactCheckingOrganization.
+     
+
+      ?fco schema:name ?fcon.
+      FILTER(REGEX(?fcon, "voce","i")).
+      BIND(STR(?rn) AS ?rname).	
+      BIND(STR(?fcn) AS ?fcname)
+      BIND(STR(?fcon) AS ?fconame).
+
+} LIMIT 100
