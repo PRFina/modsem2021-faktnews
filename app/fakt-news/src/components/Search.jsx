@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Col, Tabs, Tab, Form, Button } from "react-bootstrap";
 
 class Search extends Component {
   constructor(props) {
@@ -17,22 +18,69 @@ class Search extends Component {
 
   render() {
     return (
-      <>
-        <form className="col-12 align-items-center m-2">
-          <div className="form-row">
-            <div className="col-10">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Jane Doe"
-              />
-            </div>
-            <div className="col-2">
-              <button className="btn btn-primary">Search</button>
-            </div>
-          </div>
-        </form>
-      </>
+      <div className="row col-12 mb-2">
+        <Col md={12}>
+          <Tabs
+            defaultActiveKey="basicQuery"
+            transition={false}
+            id="noanim-tab-example"
+            variant="tabs"
+          >
+            <Tab eventKey="basicQuery" title="Basic Query">
+              <Form>
+                <Form.Row>
+                  <Form.Group as={Col} controlId="formGridDate">
+                    <Form.Label></Form.Label> {/* Needed for spacing */}
+                    <Form.Control type="text" placeholder="Search anything" />
+                  </Form.Group>
+                </Form.Row>
+
+                <Button variant="primary" type="submit">
+                  Submit
+                </Button>
+              </Form>
+            </Tab>
+            <Tab eventKey="advanced" title="Advanced">
+              <Form>
+                <Form.Row>
+                  <Form.Group as={Col} controlId="formGridDate">
+                    <Form.Label></Form.Label> {/* Needed for spacing */}
+                    <Form.Control type="text" placeholder="Search anything" />
+                  </Form.Group>
+                </Form.Row>
+
+                <Button variant="primary" type="submit">
+                  Submit
+                </Button>
+              </Form>
+            </Tab>
+            <Tab eventKey="date" title="Date">
+              <Form>
+                <Form.Row>
+                  <Form.Group as={Col} controlId="formGridDate">
+                    <Form.Label></Form.Label> {/* Needed for spacing */}
+                    <Form.Control type="text" placeholder="Search anything" />
+                  </Form.Group>
+                </Form.Row>
+                <Form.Row>
+                  <Form.Group as={Col} controlId="formGridDate">
+                    <Form.Label>From</Form.Label>
+                    <Form.Control type="date" />
+                  </Form.Group>
+
+                  <Form.Group as={Col} controlId="formGridPassword">
+                    <Form.Label>To</Form.Label>
+                    <Form.Control type="date" />
+                  </Form.Group>
+                </Form.Row>
+                <Button variant="primary" type="submit">
+                  Submit
+                </Button>
+              </Form>
+            </Tab>
+          </Tabs>
+        </Col>
+      </div>
     );
   }
 }

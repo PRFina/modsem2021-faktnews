@@ -33,7 +33,7 @@ class RichSnippet extends Component {
         </div>
       );
     } else {
-      return <p>Ciao</p>;
+      return <p></p>;
     }
   }
 }

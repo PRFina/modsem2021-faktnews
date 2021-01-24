@@ -17,6 +17,14 @@ class Endpoint extends Component {
       EnapsoGraphDBClient.PREFIX_RDFS,
       EnapsoGraphDBClient.PREFIX_XSD,
       {
+        prefix: "fn",
+        iri: "http://www.modsem.org/fakt-news#",
+      },
+      {
+        prefix: "dct",
+        iri: "http://purl.org/dc/terms/",
+      },
+      {
         prefix: "prov",
         iri: "http://www.w3.org/ns/prov#",
       },
@@ -44,8 +52,12 @@ class Endpoint extends Component {
 
     graphDBEndpoint
       .query(
-        `SELECT ?subject ?object
-        WHERE { ?subject schema:name ?object}`,
+        `SELECT ?eid ?rtitle ?fcname ?tag
+        WHERE {
+              ?eid a fn:Review; fn:isReviewedBy ?fc; dct:title ?rtitle.
+              ?fc schema:name ?fcname.
+            ?eid fn:tag ?tag.
+        } LIMIT 100`,
         { transform: "toJSON" }
       )
       .then((result) => {
@@ -63,7 +75,7 @@ class Endpoint extends Component {
   dataCleaning(data) {
     if (data !== null) {
       data.map((element) => {
-        return (element.subject = element.subject.replace(/.*#/, ""));
+        return (element.eid = element.eid.replace(/.*#/, ""));
       });
       return data;
     }
@@ -76,9 +88,8 @@ class Endpoint extends Component {
   render() {
     return (
       <div className="container">
-        <div className="row">
-          <Search />
-        </div>
+        <span class="navbar-brand m-2 h1">Fakt News</span>
+        <Search />
         <Results elements={this.state.data} />
       </div>
     );

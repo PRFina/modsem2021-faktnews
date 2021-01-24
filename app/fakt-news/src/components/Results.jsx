@@ -37,8 +37,8 @@ class Results extends React.Component {
             {this.props.elements &&
               this.props.elements.map((element) => (
                 <Card
-                  key={element.subject}
-                  elementId={element.subject}
+                  key={element.eid}
+                  elementId={element.eid}
                   elementName={element.object}
                   isClicked={this.handleCardClick}
                 ></Card>
