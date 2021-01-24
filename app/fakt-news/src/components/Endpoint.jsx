@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Search from "./Search";
-import Left from "./Left";
-import Right from "./Right";
+import Results from "./Results";
 
 const { EnapsoGraphDBClient } = require("@innotrade/enapso-graphdb-client");
 
@@ -29,7 +28,7 @@ class Endpoint extends Component {
 
     let graphDBEndpoint = new EnapsoGraphDBClient.Endpoint({
       baseURL: "http://localhost:7200",
-      repository: "due",
+      repository: "quattro",
       prefixes: DEFAULT_PREFIXES,
       transform: "toJSON",
     });
@@ -45,19 +44,29 @@ class Endpoint extends Component {
 
     graphDBEndpoint
       .query(
-        `SELECT ?object
-                WHERE { ?subject schema:name ?object } limit 5`,
+        `SELECT ?subject ?object
+        WHERE { ?subject schema:name ?object}`,
         { transform: "toJSON" }
       )
       .then((result) => {
         console.log(
           "Read the classes name:\n" + JSON.stringify(result, null, 2)
         );
-        this.setState({ data: result });
+        let final = this.dataCleaning(result.records);
+        this.setState({ data: final });
       })
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  dataCleaning(data) {
+    if (data !== null) {
+      data.map((element) => {
+        return (element.subject = element.subject.replace(/.*#/, ""));
+      });
+      return data;
+    }
   }
 
   componentDidMount() {
@@ -70,14 +79,7 @@ class Endpoint extends Component {
         <div className="row">
           <Search />
         </div>
-        <div className="row">
-          <div className="col">
-            <Left elements={this.state.data} />
-          </div>
-          <div className="col">
-            <Right />
-          </div>
-        </div>
+        <Results elements={this.state.data} />
       </div>
     );
   }
