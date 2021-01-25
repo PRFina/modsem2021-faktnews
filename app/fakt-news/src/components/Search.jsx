@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Col, Tabs, Tab, Form, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 class Search extends Component {
   constructor(props) {
@@ -24,13 +25,13 @@ class Search extends Component {
             defaultActiveKey="basicQuery"
             transition={false}
             id="noanim-tab-example"
-            variant="tabs"
+            variant="pills"
           >
             <Tab eventKey="basicQuery" title="Basic Query">
               <Form>
                 <Form.Row>
                   <Form.Group as={Col} controlId="formGridDate">
-                    <Form.Label></Form.Label> {/* Needed for spacing */}
+                    <Form.Label></Form.Label>
                     <Form.Control type="text" placeholder="Search anything" />
                   </Form.Group>
                 </Form.Row>
@@ -44,7 +45,7 @@ class Search extends Component {
               <Form>
                 <Form.Row>
                   <Form.Group as={Col} controlId="formGridDate">
-                    <Form.Label></Form.Label> {/* Needed for spacing */}
+                    <Form.Label></Form.Label>
                     <Form.Control type="text" placeholder="Search anything" />
                   </Form.Group>
                 </Form.Row>
@@ -58,7 +59,7 @@ class Search extends Component {
               <Form>
                 <Form.Row>
                   <Form.Group as={Col} controlId="formGridDate">
-                    <Form.Label></Form.Label> {/* Needed for spacing */}
+                    <Form.Label></Form.Label>
                     <Form.Control type="text" placeholder="Search anything" />
                   </Form.Group>
                 </Form.Row>
@@ -73,9 +74,8 @@ class Search extends Component {
                     <Form.Control type="date" />
                   </Form.Group>
                 </Form.Row>
-                <Button variant="primary" type="submit">
-                  Submit
-                </Button>
+
+                <Link to="/search">About</Link>
               </Form>
             </Tab>
           </Tabs>

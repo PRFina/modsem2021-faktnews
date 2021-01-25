@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import Search from "./Search";
-import Results from "./Results";
+import { Jumbotron } from "react-bootstrap";
 
 const { EnapsoGraphDBClient } = require("@innotrade/enapso-graphdb-client");
 
-class Endpoint extends Component {
+class Home extends Component {
   constructor(props) {
     super(props);
     this.state = { data: null };
@@ -66,6 +66,7 @@ class Endpoint extends Component {
         );
         let final = this.dataCleaning(result.records);
         this.setState({ data: final });
+        this.props.loadData(final);
       })
       .catch((err) => {
         console.log(err);
@@ -87,13 +88,15 @@ class Endpoint extends Component {
 
   render() {
     return (
-      <div className="container">
-        <span class="navbar-brand m-2 h1">Fakt News</span>
+      <>
+        <Jumbotron>
+          <h1>Welcome to Fakt News</h1>
+          <p>We are the best in the world in searching facts!</p>
+        </Jumbotron>
         <Search />
-        <Results elements={this.state.data} />
-      </div>
+      </>
     );
   }
 }
 
-export default Endpoint;
+export default Home;
