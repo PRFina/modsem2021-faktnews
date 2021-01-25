@@ -20,7 +20,7 @@ class App extends Component {
   render() {
     return (
       <div className="container">
-        <span class="navbar-brand m-2 h1">Fakt News</span>
+        <span className="navbar-brand m-2 h1">Fakt News</span>
 
         <Router>
           <Switch>

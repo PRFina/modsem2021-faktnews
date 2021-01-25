@@ -17,7 +17,11 @@ class Card extends Component {
             type="button"
             className="btn btn-light"
             onClick={() =>
-              this.props.isClicked(this.props.elementId, this.props.elementName)
+              this.props.isClicked(
+                this.props.elementId,
+                this.props.renderIndex,
+                this.props.elementName
+              )
             }
           >
             Show more

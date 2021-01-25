@@ -1,12 +1,17 @@
 import React, { Component } from "react";
-import Search from "./Search";
-import { Jumbotron } from "react-bootstrap";
+import { Jumbotron, Col, Tabs, Tab, Form, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const { EnapsoGraphDBClient } = require("@innotrade/enapso-graphdb-client");
 
 class Home extends Component {
   constructor(props) {
     super(props);
+    this.baseURL = "http://localhost:7200";
+    this.repository = "quattro";
+    this.graphdbUsername = "modsem";
+    this.graphdbPassword = "modsem";
+
     this.state = { data: null };
   }
 
@@ -35,14 +40,14 @@ class Home extends Component {
     ];
 
     let graphDBEndpoint = new EnapsoGraphDBClient.Endpoint({
-      baseURL: "http://localhost:7200",
-      repository: "quattro",
+      baseURL: this.baseURL,
+      repository: this.repository,
       prefixes: DEFAULT_PREFIXES,
       transform: "toJSON",
     });
 
     graphDBEndpoint
-      .login("modsem", "modsem")
+      .login(this.graphdbUsername, this.graphdbPassword)
       .then((result) => {
         // console.log(result);
       })
@@ -93,7 +98,70 @@ class Home extends Component {
           <h1>Welcome to Fakt News</h1>
           <p>We are the best in the world in searching facts!</p>
         </Jumbotron>
-        <Search />
+        <div className="row col-12 mb-2">
+          <Col md={12}>
+            <Tabs
+              defaultActiveKey="basicQuery"
+              transition={false}
+              id="noanim-tab-example"
+              variant="pills"
+            >
+              <Tab eventKey="basicQuery" title="Basic Query">
+                <Form>
+                  <Form.Row>
+                    <Form.Group as={Col} controlId="formGridDate">
+                      <Form.Label></Form.Label>
+                      <Form.Control type="text" placeholder="Search anything" />
+                    </Form.Group>
+                  </Form.Row>
+
+                  <Link to="/search">
+                    <Button variant="primary">Search</Button>
+                  </Link>
+                </Form>
+              </Tab>
+              <Tab eventKey="advanced" title="Advanced">
+                <Form>
+                  <Form.Row>
+                    <Form.Group as={Col} controlId="formGridDate">
+                      <Form.Label></Form.Label>
+                      <Form.Control type="text" placeholder="Search anything" />
+                    </Form.Group>
+                  </Form.Row>
+
+                  <Link to="/search">
+                    <Button variant="primary">Search</Button>
+                  </Link>
+                </Form>
+              </Tab>
+              <Tab eventKey="date" title="Date">
+                <Form>
+                  <Form.Row>
+                    <Form.Group as={Col} controlId="formGridDate">
+                      <Form.Label></Form.Label>
+                      <Form.Control type="text" placeholder="Search anything" />
+                    </Form.Group>
+                  </Form.Row>
+                  <Form.Row>
+                    <Form.Group as={Col} controlId="formGridDate">
+                      <Form.Label>From</Form.Label>
+                      <Form.Control type="date" />
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId="formGridPassword">
+                      <Form.Label>To</Form.Label>
+                      <Form.Control type="date" />
+                    </Form.Group>
+                  </Form.Row>
+
+                  <Link to="/search">
+                    <Button variant="primary">Search</Button>
+                  </Link>
+                </Form>
+              </Tab>
+            </Tabs>
+          </Col>
+        </div>
       </>
     );
   }
