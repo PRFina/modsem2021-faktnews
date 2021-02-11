@@ -12,14 +12,20 @@ class RichSnippet extends Component {
               alt="..."
             />
             <div className="card-body">
-              <h5 className="card-title">{this.props.name}</h5>
-              <p className="card-text">
+              <h5 className="card-title">Title{this.props.name}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                Author, Organization
+              </h6>
+              {/* <p className="card-text">
                 {this.props.elementName} Some quick example text to build on the
                 card title and make up the bulk of the card's content.
-              </p>
+              </p> */}
             </div>
             <ul className="list-group list-group-flush">
-              <li className="list-group-item">ID: {this.props.id}</li>
+              {/* <li className="list-group-item">Test-ID: {this.props.id}</li> */}
+              <li className="list-group-item">Date</li>
+              <li className="list-group-item">Rating</li>
+              <li className="list-group-item">Trusted Source</li>
             </ul>
             <div className="card-body">
               <a href="#test" className="card-link">
@@ -28,6 +34,9 @@ class RichSnippet extends Component {
               <a href="#test1" className="card-link">
                 Another link
               </a>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
             </div>
           </div>
         </div>

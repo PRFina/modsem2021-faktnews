@@ -24,7 +24,7 @@ class Card extends Component {
               )
             }
           >
-            Show more
+            Show related Review
           </button>
         </div>
       </div>

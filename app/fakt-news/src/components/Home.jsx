@@ -8,7 +8,8 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.baseURL = "http://localhost:7200";
-    this.repository = "quattro";
+    this.repository = "modsem-faktnews";
+    // this.repository = "quattro";
     this.graphdbUsername = "modsem";
     this.graphdbPassword = "modsem";
 
@@ -21,6 +22,10 @@ class Home extends Component {
       EnapsoGraphDBClient.PREFIX_RDF,
       EnapsoGraphDBClient.PREFIX_RDFS,
       EnapsoGraphDBClient.PREFIX_XSD,
+      {
+        prefix: "", // TODO: gestire il prefisso vuoto
+        iri: "http://www.modsem.org/fakt-news#",
+      },
       {
         prefix: "fn",
         iri: "http://www.modsem.org/fakt-news#",
@@ -36,6 +41,14 @@ class Home extends Component {
       {
         prefix: "schema",
         iri: "http://schema.org/",
+      },
+      {
+        prefix: "dbr",
+        iri: "http://dbpedia.org/resource/",
+      },
+      {
+        prefix: "foaf",
+        iri: "http://xmlns.com/foaf/0.1/",
       },
     ];
 
@@ -57,12 +70,33 @@ class Home extends Component {
 
     graphDBEndpoint
       .query(
-        `SELECT ?eid ?rtitle ?fcname ?tag
+        `SELECT ?eid ?claimContent ?name
         WHERE {
-              ?eid a fn:Review; fn:isReviewedBy ?fc; dct:title ?rtitle.
-              ?fc schema:name ?fcname.
-            ?eid fn:tag ?tag.
+              ?claim a fn:Claim; fn:isClaimedBy ?author .
+            ?author schema:name ?name . 
+            ?claim fn:claimContent ?claimContent .
+            
+            BIND(STR(?claim) AS ?eid).	
+              BIND(STR(?fcn) AS ?fcname)
+              BIND(STR(?fcon) AS ?fconame).
         } LIMIT 100`,
+        // `SELECT ?review_title ?entity_label ?info ?linked_res_wiki
+        // WHERE {
+        //     ?review a :Review;
+        //             dct:title ?review_title.
+        //     OPTIONAL {?review :mention ?wiki_entity.}
+        //     BIND(URI(CONCAT(STR(dbr:), STR(?wiki_entity))) AS ?entity).
+
+        //     SERVICE <https://dbpedia.org/sparql> {
+        //         ?entity rdfs:label ?entity_label.
+        //     OPTIONAL {?entity rdfs:seeAlso ?linked_res.
+        //               ?linked_res foaf:isPrimaryTopicOf ?linked_res_wiki}.
+        //         OPTIONAL {?entity rdfs:comment ?info}.
+        //         FILTER(langMatches(lang(?entity_label), "en") &&
+        //                langMatches(lang(?info),"en"))
+        //     }
+
+        // } limit 100`,
         { transform: "toJSON" }
       )
       .then((result) => {
