@@ -6,14 +6,14 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.loadData = this.loadData.bind(this);
+    this.loadResults = this.loadResults.bind(this);
 
     this.state = {
       data: [],
     };
   }
 
-  loadData(updatedData) {
+  loadResults(updatedData) {
     this.setState({ data: updatedData });
   }
 
@@ -25,7 +25,7 @@ class App extends Component {
         <Router>
           <Switch>
             <Route exact path="/">
-              <Home loadData={this.loadData} />
+              <Home loadResults={this.loadResults} />
             </Route>
             <Route path="/search">
               <Results elements={this.state.data} />

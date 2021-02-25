@@ -5,22 +5,27 @@ class Card extends Component {
     return (
       <div className="card mr-3 mb-3">
         <div className="card-body">
-          <h5 className="card-title">{this.props.elementName}</h5>
+          <h5 className="card-title">{this.props.claimAuthor}</h5>
           <h6 className="card-subtitle mb-2 text-muted">
-            {this.props.elementId}
+            {this.props.date} - {this.props.claim}
           </h6>
-          <p className="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </p>
+          <p className="card-text">{this.props.content}</p>
+          <button
+            type="button"
+            className="btn btn-light mr-2"
+            onClick={() =>
+              this.props.onClaimantPageClick(this.props.claimAuthor)
+            }
+          >
+            Show claimant page
+          </button>
           <button
             type="button"
             className="btn btn-light"
             onClick={() =>
-              this.props.isClicked(
-                this.props.elementId,
-                this.props.renderIndex,
-                this.props.elementName
+              this.props.onRelatedReviewClick(
+                this.props.claim,
+                this.props.renderIndex
               )
             }
           >

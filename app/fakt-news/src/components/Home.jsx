@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Jumbotron, Col, Tabs, Tab, Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+// import { query3 } from "./Query";
 
 const { EnapsoGraphDBClient } = require("@innotrade/enapso-graphdb-client");
 
@@ -13,10 +14,36 @@ class Home extends Component {
     this.graphdbUsername = "modsem";
     this.graphdbPassword = "modsem";
 
-    this.state = { data: null };
+    this.state = {
+      data: null,
+      keyword: "",
+      startDate: null,
+      endDate: null,
+    };
+
+    this.onKeywordChange = this.onKeywordChange.bind(this);
+    this.onStartDateChange = this.onStartDateChange.bind(this);
+    this.onEndDateChange = this.onEndDateChange.bind(this);
+    this.handleSearchDate = this.handleSearchDate.bind(this);
   }
 
-  query() {
+  // Handling states updates ---------------------------------------------------
+
+  onKeywordChange(newKeywork) {
+    this.setState({ keyword: newKeywork });
+  }
+
+  onStartDateChange(newStartDate) {
+    this.setState({ startDate: newStartDate.concat("T00:00:00Z") });
+  }
+
+  onEndDateChange(newEndDate) {
+    this.setState({ endDate: newEndDate.concat("T00:00:00Z") });
+  }
+
+  // Handling query requests ---------------------------------------------------
+
+  handleSearchDate() {
     const DEFAULT_PREFIXES = [
       EnapsoGraphDBClient.PREFIX_OWL,
       EnapsoGraphDBClient.PREFIX_RDF,
@@ -70,33 +97,27 @@ class Home extends Component {
 
     graphDBEndpoint
       .query(
-        `SELECT ?eid ?claimContent ?name
-        WHERE {
-              ?claim a fn:Claim; fn:isClaimedBy ?author .
-            ?author schema:name ?name . 
-            ?claim fn:claimContent ?claimContent .
-            
-            BIND(STR(?claim) AS ?eid).	
-              BIND(STR(?fcn) AS ?fcname)
-              BIND(STR(?fcon) AS ?fconame).
-        } LIMIT 100`,
-        // `SELECT ?review_title ?entity_label ?info ?linked_res_wiki
+        `SELECT ?claim ?claimAuthor ?claim_date ?content
+        WHERE { 
+            ?claim a fn:Claim; dct:date ?claim_date.
+            ?claim fn:claimContent ?content.
+            ?claim fn:isClaimedBy ?agent.
+            ?agent schema:name ?claimAuthor.
+            BIND("${this.state.startDate}"^^xsd:dateTime AS ?first_date)
+            BIND("${this.state.endDate}"^^xsd:dateTime AS ?last_date)
+            BIND(xsd:dateTime(?claim_date) AS ?claim_datetime)
+            FILTER( ?claim_datetime > ?first_date && ?claim_datetime < ?last_date )
+        } limit 100 `,
+        // `SELECT ?eid ?claimContent ?name
         // WHERE {
-        //     ?review a :Review;
-        //             dct:title ?review_title.
-        //     OPTIONAL {?review :mention ?wiki_entity.}
-        //     BIND(URI(CONCAT(STR(dbr:), STR(?wiki_entity))) AS ?entity).
+        //       ?claim a fn:Claim; fn:isClaimedBy ?author .
+        //     ?author schema:name ?name .
+        //     ?claim fn:claimContent ?claimContent .
 
-        //     SERVICE <https://dbpedia.org/sparql> {
-        //         ?entity rdfs:label ?entity_label.
-        //     OPTIONAL {?entity rdfs:seeAlso ?linked_res.
-        //               ?linked_res foaf:isPrimaryTopicOf ?linked_res_wiki}.
-        //         OPTIONAL {?entity rdfs:comment ?info}.
-        //         FILTER(langMatches(lang(?entity_label), "en") &&
-        //                langMatches(lang(?info),"en"))
-        //     }
-
-        // } limit 100`,
+        //     BIND(STR(?claim) AS ?eid).
+        //       BIND(STR(?fcn) AS ?fcname)
+        //       BIND(STR(?fcon) AS ?fconame).
+        // } LIMIT 100`,
         { transform: "toJSON" }
       )
       .then((result) => {
@@ -104,8 +125,10 @@ class Home extends Component {
           "Read the classes name:\n" + JSON.stringify(result, null, 2)
         );
         let final = this.dataCleaning(result.records);
-        this.setState({ data: final });
-        this.props.loadData(final);
+
+        // Passing the data to the App component, in order to render the
+        // results in the Results component.
+        this.props.loadResults(final);
       })
       .catch((err) => {
         console.log(err);
@@ -115,14 +138,10 @@ class Home extends Component {
   dataCleaning(data) {
     if (data !== null) {
       data.map((element) => {
-        return (element.eid = element.eid.replace(/.*#/, ""));
+        return (element.claim = element.claim.replace(/.*#/, ""));
       });
       return data;
     }
-  }
-
-  componentDidMount() {
-    this.query();
   }
 
   render() {
@@ -173,23 +192,35 @@ class Home extends Component {
                   <Form.Row>
                     <Form.Group as={Col} controlId="formGridDate">
                       <Form.Label></Form.Label>
-                      <Form.Control type="text" placeholder="Search anything" />
+                      <Form.Control
+                        type="text"
+                        placeholder="Search anything"
+                        onChange={(e) => this.onKeywordChange(e.target.value)}
+                      />
                     </Form.Group>
                   </Form.Row>
                   <Form.Row>
                     <Form.Group as={Col} controlId="formGridDate">
                       <Form.Label>From</Form.Label>
-                      <Form.Control type="date" />
+                      <Form.Control
+                        type="date"
+                        onChange={(e) => this.onStartDateChange(e.target.value)}
+                      />
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="formGridPassword">
                       <Form.Label>To</Form.Label>
-                      <Form.Control type="date" />
+                      <Form.Control
+                        type="date"
+                        onChange={(e) => this.onEndDateChange(e.target.value)}
+                      />
                     </Form.Group>
                   </Form.Row>
 
                   <Link to="/search">
-                    <Button variant="primary">Search</Button>
+                    <Button variant="primary" onClick={this.handleSearchDate}>
+                      Search
+                    </Button>
                   </Link>
                 </Form>
               </Tab>

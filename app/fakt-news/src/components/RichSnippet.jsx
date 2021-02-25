@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Carousel } from "react-bootstrap";
 
 class RichSnippet extends Component {
   render() {
@@ -12,31 +13,58 @@ class RichSnippet extends Component {
               alt="..."
             />
             <div className="card-body">
-              <h5 className="card-title">Title{this.props.name}</h5>
+              <h5 className="card-title">{this.props.reviewAuthor}</h5>
               <h6 class="card-subtitle mb-2 text-muted">
                 Author, Organization
               </h6>
-              {/* <p className="card-text">
-                {this.props.elementName} Some quick example text to build on the
-                card title and make up the bulk of the card's content.
-              </p> */}
+              <p className="card-text">{this.props.reviewContent}</p>
             </div>
             <ul className="list-group list-group-flush">
               {/* <li className="list-group-item">Test-ID: {this.props.id}</li> */}
-              <li className="list-group-item">Date</li>
-              <li className="list-group-item">Rating</li>
+              <li className="list-group-item">Date: {this.props.reviewDate}</li>
+              <li className="list-group-item">
+                Rating: {this.props.reviewRating}
+              </li>
+              <li className="list-group-item">
+                Judgment: {this.props.reviewJudgment}
+              </li>
               <li className="list-group-item">Trusted Source</li>
             </ul>
             <div className="card-body">
-              <a href="#test" className="card-link">
-                Card link
-              </a>
-              <a href="#test1" className="card-link">
-                Another link
+              <a href={this.props.reviewURL} className="card-link">
+                Review URL
               </a>
             </div>
             <div class="card-footer">
-              <small class="text-muted">Last updated 3 mins ago</small>
+              <Carousel>
+                <Carousel.Item>
+                  <img
+                    className="d-block w-100"
+                    src="holder.js/800x400?text=First slide&bg=373940"
+                    alt="First slide"
+                  />
+                  <Carousel.Caption>
+                    <h3>First slide label</h3>
+                    <p>
+                      Nulla vitae elit libero, a pharetra augue mollis interdum.
+                    </p>
+                  </Carousel.Caption>
+                </Carousel.Item>
+                <Carousel.Item>
+                  <img
+                    className="d-block w-100"
+                    src="holder.js/800x400?text=Second slide&bg=282c34"
+                    alt="Second slide"
+                  />
+
+                  <Carousel.Caption>
+                    <h3>Second slide label</h3>
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    </p>
+                  </Carousel.Caption>
+                </Carousel.Item>
+              </Carousel>
             </div>
           </div>
         </div>
