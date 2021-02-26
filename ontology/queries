@@ -120,33 +120,7 @@ WHERE {
    
 } limit 100 
 
-PREFIX : <http://www.modsem.org/fakt-news#>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX fn: <http://www.modsem.org/fakt-news#>
-PREFIX schema: <http://schema.org/>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX dct: <http://purl.org/dc/terms/>
-PREFIX dbr:  <http://dbpedia.org/resource/>
-PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 
-
-
-SELECT ?review_title ?entity_label ?info ?linked_res
-WHERE { 
-    ?review a :Review; 
-            dct:title ?review_title.
-    OPTIONAL {?review :mention ?wiki_entity.}
-    BIND(URI(CONCAT(STR(dbr:), STR(?wiki_entity))) AS ?entity).
- 	
-    SERVICE <https://dbpedia.org/sparql> {
-        ?entity rdfs:label ?entity_label.
-		OPTIONAL {?entity rdfs:seeAlso ?linked_res}.
-        OPTIONAL {?entity rdfs:comment ?info}.
-        FILTER(LANG(?entity_label) = "en" && LANG(?info) = "en")
-    }
-   
-} limit 100 
 
 /*
 Query Aggregata. La query permette di verificare la "credibility"
@@ -175,3 +149,26 @@ WHERE {
 }
 GROUPBY ?claimant_name ?rating_val
 ORDER BY ?claimant_name ?rating_val
+
+
+/*TODO Check Trusted Author 
+Dato un autore verificare se appartiene ad una factchecking organization certificata/trusted
+Utilizzare una query di tipo ASK.
+*/
+
+
+/*TODO Show All related review
+Dato un claim recuperare tutte le review (con data e object propertie associate) collegate
+/*
+
+/*TODO get claimant last claims
+Dato un claimant recuperare tutte gli ultimi claims associati (ordinati --> SORT BY date)
+/*
+
+/* TODO get authority info
+Query federata a VIAF
+*/
+
+/* TODO ranking dei claimant
+creare un ranking ordinando gli autori con claims "maggiormente revisionati"
+*/
