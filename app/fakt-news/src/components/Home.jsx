@@ -107,16 +107,6 @@ class Home extends Component {
             BIND(xsd:dateTime(?claim_date) AS ?claim_datetime)
             FILTER( ?claim_datetime > ?first_date && ?claim_datetime < ?last_date )
         } limit 100 `,
-        // `SELECT ?eid ?claimContent ?name
-        // WHERE {
-        //       ?claim a fn:Claim; fn:isClaimedBy ?author .
-        //     ?author schema:name ?name .
-        //     ?claim fn:claimContent ?claimContent .
-
-        //     BIND(STR(?claim) AS ?eid).
-        //       BIND(STR(?fcn) AS ?fcname)
-        //       BIND(STR(?fcon) AS ?fconame).
-        // } LIMIT 100`,
         { transform: "toJSON" }
       )
       .then((result) => {
@@ -172,21 +162,7 @@ class Home extends Component {
                   </Link>
                 </Form>
               </Tab>
-              <Tab eventKey="advanced" title="Advanced">
-                <Form>
-                  <Form.Row>
-                    <Form.Group as={Col} controlId="formGridDate">
-                      <Form.Label></Form.Label>
-                      <Form.Control type="text" placeholder="Search anything" />
-                    </Form.Group>
-                  </Form.Row>
-
-                  <Link to="/search">
-                    <Button variant="primary">Search</Button>
-                  </Link>
-                </Form>
-              </Tab>
-              <Tab eventKey="date" title="Date">
+              <Tab eventKey="date" title="Advanced">
                 <Form>
                   <Form.Row>
                     <Form.Group as={Col} controlId="formGridDate">
