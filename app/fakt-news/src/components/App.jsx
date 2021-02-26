@@ -1,24 +1,40 @@
-import React from "react";
-import Search from "./Search";
-import Left from "./Left";
-import Right from "./Right";
+import React, { Component } from "react";
+import Results from "./Results";
+import Home from "./Home";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-function App() {
-  return (
-    <div className="container">
-      <div className="row">
-        <Search />
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.loadResults = this.loadResults.bind(this);
+
+    this.state = {
+      data: [],
+    };
+  }
+
+  loadResults(updatedData) {
+    this.setState({ data: updatedData });
+  }
+
+  render() {
+    return (
+      <div className="container">
+        <span className="navbar-brand m-2 h1">Fakt News</span>
+
+        <Router>
+          <Switch>
+            <Route exact path="/">
+              <Home loadResults={this.loadResults} />
+            </Route>
+            <Route path="/search">
+              <Results elements={this.state.data} />
+            </Route>
+          </Switch>
+        </Router>
       </div>
-      <div className="row">
-        <div className="col">
-          <Left />
-        </div>
-        <div className="col">
-          <Right />
-        </div>
-      </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default App;

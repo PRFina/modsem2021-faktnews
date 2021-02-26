@@ -97,4 +97,4 @@ There are 4 service declared in `docker-compose` file:
   2.  Create a new top-level directory `license`.
   3.  Copy the license file into `license` directory.
 
-- `web-client` [TODO]
+- `web-client`: In order to make the web client work, install a browser extension to allow the CORS requests. Here are some of them: [Allow CORS (Firefox)](https://addons.mozilla.org/it/firefox/addon/access-control-allow-origin/), [Allow CORS (Chrome)](https://addons.mozilla.org/it/firefox/addon/access-control-allow-origin/), [Moesif Origin & CORS Changer (Chrome)](https://chrome.google.com/webstore/detail/moesif-origin-cors-change/digfbfaphojjndkpccljibejjbppifbc?hl=en-US). Please note that allowing the CORS requests via a browser extension is the **fastest method** to get rid of the CORS errors, but **it's not the safest**. For more information read this article [3 Ways to Fix the CORS Error](https://medium.com/@dtkatz/3-ways-to-fix-the-cors-error-and-how-access-control-allow-origin-works-d97d55946d9)

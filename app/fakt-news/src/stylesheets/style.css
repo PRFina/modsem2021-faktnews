@@ -11,3 +11,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+/* Overriding of Bootstrap default Jumbotron */
+.jumbotron {
+  background-image: url("../assets/img/gettyimages-1271101758-2048x2048.jpg");
+  background-position: center;
+  height: 500px;
+  background-repeat: no-repeat;
+  background-size: auto;
+}
