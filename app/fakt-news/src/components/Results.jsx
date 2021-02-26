@@ -136,7 +136,6 @@ class Results extends React.Component {
         );
         let final = this.dataCleaning(result.records);
 
-        console.log("SNIPPET", final);
         // Passing the data to the App component, in order to render the
         // results in the Results component.
         this.setState({
