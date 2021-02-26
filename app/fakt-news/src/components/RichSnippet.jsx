@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Carousel } from "react-bootstrap";
+import { postProcessDate } from "./Utility";
 
 class RichSnippet extends Component {
   render() {
@@ -14,14 +14,16 @@ class RichSnippet extends Component {
             />
             <div className="card-body">
               <h5 className="card-title">{this.props.reviewAuthor}</h5>
-              <h6 class="card-subtitle mb-2 text-muted">
+              <h6 className="card-subtitle mb-2 text-muted">
                 Author, Organization
               </h6>
               <p className="card-text">{this.props.reviewContent}</p>
             </div>
             <ul className="list-group list-group-flush">
               {/* <li className="list-group-item">Test-ID: {this.props.id}</li> */}
-              <li className="list-group-item">Date: {this.props.reviewDate}</li>
+              <li className="list-group-item">
+                Date: {postProcessDate(this.props.reviewDate)}
+              </li>
               <li className="list-group-item">
                 Rating: {this.props.reviewRating}
               </li>
@@ -35,37 +37,7 @@ class RichSnippet extends Component {
                 Review URL
               </a>
             </div>
-            <div class="card-footer">
-              <Carousel>
-                <Carousel.Item>
-                  <img
-                    className="d-block w-100"
-                    src="holder.js/800x400?text=First slide&bg=373940"
-                    alt="First slide"
-                  />
-                  <Carousel.Caption>
-                    <h3>First slide label</h3>
-                    <p>
-                      Nulla vitae elit libero, a pharetra augue mollis interdum.
-                    </p>
-                  </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                  <img
-                    className="d-block w-100"
-                    src="holder.js/800x400?text=Second slide&bg=282c34"
-                    alt="Second slide"
-                  />
-
-                  <Carousel.Caption>
-                    <h3>Second slide label</h3>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </p>
-                  </Carousel.Caption>
-                </Carousel.Item>
-              </Carousel>
-            </div>
+            <div className="card-footer"></div>
           </div>
         </div>
       );

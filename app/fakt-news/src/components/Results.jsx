@@ -135,6 +135,8 @@ class Results extends React.Component {
           "Read the classes name:\n" + JSON.stringify(result, null, 2)
         );
         let final = this.dataCleaning(result.records);
+
+        console.log("SNIPPET", final);
         // Passing the data to the App component, in order to render the
         // results in the Results component.
         this.setState({
@@ -183,7 +185,7 @@ class Results extends React.Component {
             </Button>
           </Link>
         </div>
-        <div className="col-6">
+        <div className="col-5">
           <div className="row align-items-start">
             {this.props.elements &&
               this.props.elements.map((element, index) => (
@@ -200,7 +202,7 @@ class Results extends React.Component {
               ))}
           </div>
         </div>
-        <div className="col-5">
+        <div className="col-6">
           <RichSnippet
             key={`snippet-${this.state.renderIndex}`}
             displayRichSnippet={this.state.displayRichSnippet}

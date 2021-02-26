@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { postProcessDate } from "./Utility";
 
 class Card extends Component {
   render() {
@@ -7,7 +8,7 @@ class Card extends Component {
         <div className="card-body">
           <h5 className="card-title">{this.props.claimAuthor}</h5>
           <h6 className="card-subtitle mb-2 text-muted">
-            {this.props.date} - {this.props.claim}
+            {postProcessDate(this.props.date)}, {this.props.claim}
           </h6>
           <p className="card-text">{this.props.content}</p>
           <button

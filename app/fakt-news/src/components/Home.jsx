@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Jumbotron, Col, Tabs, Tab, Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-// import { query3 } from "./Query";
 
 const { EnapsoGraphDBClient } = require("@innotrade/enapso-graphdb-client");
 
