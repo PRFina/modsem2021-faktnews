@@ -41,12 +41,12 @@ services:
       - db-volume:/var/lib/postgresql/data
 
   rdf:
-    image: ontotext/graphdb:9.5.0-se
+    image: ontotext/graphdb:9.6.0-free # is build locally!!
     ports:
       - 7200:7200
     volumes:
       - rdf-volume:/opt/graphdb/home
-      - ./license:/opt/graphdb/home/conf # for graphdb se license
+    #  - ./license:/opt/graphdb/home/conf # for graphdb se license
 
   # react:
   #   build:
