@@ -57,7 +57,11 @@ class Results extends React.Component {
         }
       }
     });
-    console.log(temp);
+    temp.forEach((element, key) => {
+      let i = this.state.reviews;
+      i.push(element);
+      this.setState({ review: i });
+    });
   }
 
   // Handling query requests ---------------------------------------------------
@@ -101,15 +105,15 @@ class Results extends React.Component {
       )
       .then((result) => {
         let final = this.dataCleaning(result.records);
-        console.log("Q7 - Final", final);
 
-        // this.checkReviews(final);
+        console.log(selectedClaim);
+        this.checkReviews(final);
 
         // Passing the data to the App component, in order to render the
         // results in the Results component.
-        this.setState({
-          reviews: final,
-        });
+        // this.setState({
+        //   reviews: final,
+        // });
       })
       .catch((err) => {
         console.log(err);

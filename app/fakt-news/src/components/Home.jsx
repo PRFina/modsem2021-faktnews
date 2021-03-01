@@ -66,9 +66,6 @@ class Home extends Component {
         { transform: "toJSON" }
       )
       .then((result) => {
-        console.log(
-          "Read the classes name:\n" + JSON.stringify(result, null, 2)
-        );
         let final = this.dataCleaning(result.records);
 
         // Passing the data to the App component, in order to render the
