@@ -1,5 +1,20 @@
 version: "3.8"
 services:
+  web:
+    build:
+      context: app/fakt-news
+      args:
+        - USER=${PY_USER}
+        - USER_ID=${PY_USER_ID}
+        - GROUP_ID=${PY_GROUP_ID}
+    env_file: .env
+    ports:
+      - 3000:3000
+    volumes: 
+      - "./app/fakt-news:/app"
+    depends_on:
+      - "rdf"
+
   python:
     build:
       context: data
@@ -15,6 +30,7 @@ services:
       - "./ontology:/app/rdf" #for code sync
     depends_on:
       - "db"
+
   db:
     image: postgres:13.1
     restart: always
