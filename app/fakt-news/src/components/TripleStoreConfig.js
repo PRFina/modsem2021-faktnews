@@ -1,7 +1,9 @@
 const { EnapsoGraphDBClient } = require("@innotrade/enapso-graphdb-client");
 
-const BASEURL = "http://localhost:7200";
+const BASE_URL = "http://localhost:7200";
 const REPOSITORY = "modsem-faktnews";
+
+// needed for the login in other components
 export const GRAPHDB_USERNAME = "modsem";
 export const GRAPHDB_PASSWORD = "modsem";
 
@@ -41,9 +43,7 @@ const DEFAULT_PREFIXES = [
   ];
 
 export let graphDBEndpoint = new EnapsoGraphDBClient.Endpoint({
-    // baseURL: this.baseURL,
-    // repository: this.repository,
-    baseURL: BASEURL,
+    baseURL: BASE_URL,
     repository: REPOSITORY,
     prefixes: DEFAULT_PREFIXES,
     transform: "toJSON",

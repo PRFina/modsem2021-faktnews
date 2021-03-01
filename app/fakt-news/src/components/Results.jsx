@@ -25,6 +25,7 @@ class Results extends React.Component {
     this.handleRelatedReviewClick = this.handleRelatedReviewClick.bind(this);
     this.handleClaimantPageClick = this.handleClaimantPageClick.bind(this);
     this.handleQ7 = this.handleQ7.bind(this);
+    this.checkReviews = this.checkReviews.bind(this);
   }
 
   handleClaimantPageClick(updatedClaimant) {
@@ -42,6 +43,23 @@ class Results extends React.Component {
     this.handleQ7(id);
   }
 
+  checkReviews(arr) {
+    let temp = new Map();
+    arr.forEach((element) => {
+      if (!temp.has(element.claim)) {
+        let copy = element;
+        copy.mention = [copy.mention];
+        temp.set(copy.claim, copy);
+      } else {
+        let rev = temp.get(element.claim);
+        if (!rev.mention.includes(element.mention)) {
+          rev.mention.push(element.mention);
+        }
+      }
+    });
+    console.log(temp);
+  }
+
   // Handling query requests ---------------------------------------------------
 
   handleQ7(selectedClaim) {
@@ -56,7 +74,7 @@ class Results extends React.Component {
 
     graphDBEndpoint
       .query(
-        `SELECT ?claim ?review ?title ?reviewer ?organization ?date ?rating ?judgment ?content ?tag ?url ?mention
+        `SELECT ?claim ?review ?title ?reviewer ?organization ?date ?rating ?judgment ?content ?url ?mention
         WHERE {
             ?claimId a fn:Claim; fn:associatedReview ?associatedReview.
             ?associatedReview fn:isReviewedBy ?agent.
@@ -84,6 +102,8 @@ class Results extends React.Component {
       .then((result) => {
         let final = this.dataCleaning(result.records);
         console.log("Q7 - Final", final);
+
+        // this.checkReviews(final);
 
         // Passing the data to the App component, in order to render the
         // results in the Results component.
