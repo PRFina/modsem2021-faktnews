@@ -1,17 +1,15 @@
 import React, { Component } from "react";
 import { Jumbotron, Col, Tabs, Tab, Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
-const { EnapsoGraphDBClient } = require("@innotrade/enapso-graphdb-client");
+import {
+  graphDBEndpoint,
+  GRAPHDB_USERNAME,
+  GRAPHDB_PASSWORD,
+} from "./TripleStoreConfig";
 
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.baseURL = "http://localhost:7200";
-    this.repository = "modsem-faktnews";
-    // this.repository = "quattro";
-    this.graphdbUsername = "modsem";
-    this.graphdbPassword = "modsem";
 
     this.state = {
       data: null,
@@ -43,50 +41,8 @@ class Home extends Component {
   // Handling query requests ---------------------------------------------------
 
   handleSearchDate() {
-    const DEFAULT_PREFIXES = [
-      EnapsoGraphDBClient.PREFIX_OWL,
-      EnapsoGraphDBClient.PREFIX_RDF,
-      EnapsoGraphDBClient.PREFIX_RDFS,
-      EnapsoGraphDBClient.PREFIX_XSD,
-      {
-        prefix: "", // TODO: gestire il prefisso vuoto
-        iri: "http://www.modsem.org/fakt-news#",
-      },
-      {
-        prefix: "fn",
-        iri: "http://www.modsem.org/fakt-news#",
-      },
-      {
-        prefix: "dct",
-        iri: "http://purl.org/dc/terms/",
-      },
-      {
-        prefix: "prov",
-        iri: "http://www.w3.org/ns/prov#",
-      },
-      {
-        prefix: "schema",
-        iri: "http://schema.org/",
-      },
-      {
-        prefix: "dbr",
-        iri: "http://dbpedia.org/resource/",
-      },
-      {
-        prefix: "foaf",
-        iri: "http://xmlns.com/foaf/0.1/",
-      },
-    ];
-
-    let graphDBEndpoint = new EnapsoGraphDBClient.Endpoint({
-      baseURL: this.baseURL,
-      repository: this.repository,
-      prefixes: DEFAULT_PREFIXES,
-      transform: "toJSON",
-    });
-
     graphDBEndpoint
-      .login(this.graphdbUsername, this.graphdbPassword)
+      .login(GRAPHDB_USERNAME, GRAPHDB_PASSWORD)
       .then((result) => {
         // console.log(result);
       })
