@@ -189,3 +189,4 @@ $RECYCLE.BIN/
 # Projects michellaneous files -------------------------------------------------
 .vscode
 ontology/fakt-news.properties
+ontology/catalog-v001.xml
