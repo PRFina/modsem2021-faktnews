@@ -106,7 +106,7 @@ class Results extends React.Component {
       .then((result) => {
         let final = this.dataCleaning(result.records);
 
-        console.log(selectedClaim);
+        console.log(final);
         this.checkReviews(final);
 
         // Passing the data to the App component, in order to render the
