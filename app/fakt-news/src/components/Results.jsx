@@ -97,7 +97,7 @@ class Results extends React.Component {
             ?associatedReview fn:mention ?mention.
             BIND(STR(?claimId) as ?claim)
             BIND(STR(?associatedReview) as ?review)
-            BIND("${selectedClaim}" AS ?claimToFind).
+            BIND("${selectedClaim}" AS ?claimToFind). 
             FILTER(contains(?claim, ?claimToFind)).
         } 
         LIMIT 100`,
