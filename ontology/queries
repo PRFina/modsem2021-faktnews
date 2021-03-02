@@ -156,14 +156,81 @@ Dato un autore verificare se appartiene ad una factchecking organization certifi
 Utilizzare una query di tipo ASK.
 */
 
+PREFIX : <http://www.modsem.org/fakt-news#>
+PREFIX fn: <http://www.modsem.org/fakt-news#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX schema: <http://schema.org/>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+
+# Q6 - Check trusted author (reviewer)
+
+SELECT ?id ?agent ?code
+WHERE {
+    ?a a prov:Agent; fn:observeCodeOfPrinciples ?code.
+    ?a schema:name ?agent.
+    
+    BIND(STR(?a) as ?id)
+} LIMIT  100
+
 
 /*TODO Show All related review
 Dato un claim recuperare tutte le review (con data e object propertie associate) collegate
-/*
+*/
 
-/*TODO get claimant last claims
+PREFIX : <http://www.modsem.org/fakt-news#>
+PREFIX fn: <http://www.modsem.org/fakt-news#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX schema: <http://schema.org/>
+PREFIX dct: <http://purl.org/dc/terms/>
+
+/* Q7 - Finds all the associated review for a claim. */
+
+SELECT ?claim ?reviewer ?rating ?judgment ?content ?language ?tag ?url ?mention
+WHERE {
+    ?claim a fn:Claim; fn:associatedReview ?associatedReview.
+    ?associatedReview fn:isReviewedBy ?agent.
+    ?agent schema:name ?reviewer.
+    ?associatedReview fn:hasRating ?r.
+    ?r fn:ratingValue ?rating.
+    ?associatedReview fn:hasJudgment ?j.
+    ?j fn:judgmentSummary ?judgment.
+    ?associatedReview fn:reviewContent ?content.
+    ?associatedReview dct:language ?language.
+    ?associatedReview fn:tag ?tag.
+    ?associatedReview schema:url ?url.
+    ?associatedReview fn:mention ?mention.
+} LIMIT  100
+
+
+
+/*Q8 get claimant last claims
 Dato un claimant recuperare tutte gli ultimi claims associati (ordinati --> SORT BY date)
-/*
+*/
+PREFIX : <http://www.modsem.org/fakt-news#>
+PREFIX fn: <http://www.modsem.org/fakt-news#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX schema: <http://schema.org/>
+PREFIX dct: <http://purl.org/dc/terms/>
+
+
+
+SELECT ?claimant ?claim ?url ?content ?language
+WHERE {
+    ?claim a fn:Claim; fn:isClaimedBy ?someone.
+    ?someone schema:name ?claimant.
+    ?claim schema:url ?url.
+    ?claim fn:claimContent ?content.
+    ?claim dct:language ?language.
+} LIMIT  100
+
+
 
 /* Get social accounts of mentioned entities
 
@@ -174,9 +241,8 @@ This query use two federated queries. The former to dbpedia endpoint, the latter
 
 the "glue" information between the two external queries is the ?wiki_entity variable, builded inside the first
 one and used in the second one as entity subject.
-
-
 */
+
 
 PREFIX : <http://www.modsem.org/fakt-news#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -226,8 +292,28 @@ WHERE {
 creare un ranking ordinando gli autori con claims "maggiormente revisionati"
 */
 
+PREFIX : <http://www.modsem.org/fakt-news#>
+PREFIX fn: <http://www.modsem.org/fakt-news#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX schema: <http://schema.org/>
+PREFIX dct: <http://purl.org/dc/terms/>
+
+/* Q10 - Claimant's Ranking */
+
+SELECT ?claimant (count(?claim) as ?numberClaims)
+WHERE {
+    ?claim a fn:Claim; fn:isClaimedBy ?someone.
+    ?someone schema:name ?claimant.
+} 
+GROUP BY ?claimant
+ORDER BY ?numberClaims
+LIMIT  100
+
 
 /* Adanced Query with filters */
+
 PREFIX : <http://www.modsem.org/fakt-news#>
 PREFIX fn: <http://www.modsem.org/fakt-news#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
