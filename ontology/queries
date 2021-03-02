@@ -169,6 +169,76 @@ Dato un claimant recuperare tutte gli ultimi claims associati (ordinati --> SORT
 Query federata a VIAF
 */
 
+PREFIX : <http://www.modsem.org/fakt-news#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX dbr:  <http://dbpedia.org/resource/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX bd: <http://www.bigdata.com/rdf#>
+PREFIX schema: <http://schema.org/>
+PREFIX bf: <https://bibframe.org/vocab>
+
+SELECT ?name ?viafId
+
+WHERE { 
+    
+    ?agent a foaf:Person.
+	?agent schema:name ?name.
+    
+    SERVICE <https://query.wikidata.org/sparql> {
+        SELECT ?itemLabel ?viafId 
+        WHERE {
+            ?item wdt:P214 ?viafId. # P214: VIAF ID
+        	?item ?label ?name .
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "it, en". }
+        }
+    }
+}
+LIMIT 100
+
+
+
 /* TODO ranking dei claimant
 creare un ranking ordinando gli autori con claims "maggiormente revisionati"
 */
+
+
+/* Adanced Query with filters */
+PREFIX : <http://www.modsem.org/fakt-news#>
+PREFIX fn: <http://www.modsem.org/fakt-news#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX schema: <http://schema.org/>
+
+SELECT ?claim ?author ?claim_date ?content ?language
+WHERE { 
+    # Required
+	?claim fn:claimContent ?content.
+	FILTER(contains(?content, "")).
+    
+    # Filtering on claim author
+    ?claim fn:isClaimedBy ?agent.
+    ?agent schema:name ?author.
+    FILTER(contains(?author, "")).
+
+    # Filtering on date
+	?claim a fn:Claim; dct:date ?claim_date.
+
+	BIND("2000-01-01T00:00:00Z"^^xsd:dateTime AS ?first_date).
+	BIND("2021-03-01T00:00:00Z"^^xsd:dateTime AS ?last_date).
+	BIND(xsd:dateTime(?claim_date) AS ?claim_datetime).
+	FILTER( ?claim_datetime > ?first_date && ?claim_datetime < ?last_date ).
+    
+    # Filtering on language
+    ?claim dct:language ?language.
+    # Note, it works with contains and not with =
+    # Because for definition each string contains a substring of ""
+    FILTER(contains(?language, "")).
+}
+LIMIT 100 

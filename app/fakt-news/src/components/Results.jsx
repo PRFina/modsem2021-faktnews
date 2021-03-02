@@ -25,6 +25,7 @@ class Results extends React.Component {
     this.handleRelatedReviewClick = this.handleRelatedReviewClick.bind(this);
     this.handleClaimantPageClick = this.handleClaimantPageClick.bind(this);
     this.handleQ7 = this.handleQ7.bind(this);
+    this.checkReviews = this.checkReviews.bind(this);
   }
 
   handleClaimantPageClick(updatedClaimant) {
@@ -42,6 +43,27 @@ class Results extends React.Component {
     this.handleQ7(id);
   }
 
+  checkReviews(arr) {
+    let temp = new Map();
+    arr.forEach((element) => {
+      if (!temp.has(element.claim)) {
+        let copy = element;
+        copy.mention = [copy.mention];
+        temp.set(copy.claim, copy);
+      } else {
+        let rev = temp.get(element.claim);
+        if (!rev.mention.includes(element.mention)) {
+          rev.mention.push(element.mention);
+        }
+      }
+    });
+    temp.forEach((element, key) => {
+      let i = this.state.reviews;
+      i.push(element);
+      this.setState({ review: i });
+    });
+  }
+
   // Handling query requests ---------------------------------------------------
 
   handleQ7(selectedClaim) {
@@ -56,7 +78,7 @@ class Results extends React.Component {
 
     graphDBEndpoint
       .query(
-        `SELECT ?claim ?review ?title ?reviewer ?organization ?date ?rating ?judgment ?content ?tag ?url ?mention
+        `SELECT ?claim ?review ?title ?reviewer ?organization ?date ?rating ?judgment ?content ?url ?mention
         WHERE {
             ?claimId a fn:Claim; fn:associatedReview ?associatedReview.
             ?associatedReview fn:isReviewedBy ?agent.
@@ -75,7 +97,7 @@ class Results extends React.Component {
             ?associatedReview fn:mention ?mention.
             BIND(STR(?claimId) as ?claim)
             BIND(STR(?associatedReview) as ?review)
-            BIND("${selectedClaim}" AS ?claimToFind).
+            BIND("${selectedClaim}" AS ?claimToFind). 
             FILTER(contains(?claim, ?claimToFind)).
         } 
         LIMIT 100`,
@@ -83,13 +105,15 @@ class Results extends React.Component {
       )
       .then((result) => {
         let final = this.dataCleaning(result.records);
-        console.log("Q7 - Final", final);
+
+        console.log(selectedClaim);
+        this.checkReviews(final);
 
         // Passing the data to the App component, in order to render the
         // results in the Results component.
-        this.setState({
-          reviews: final,
-        });
+        // this.setState({
+        //   reviews: final,
+        // });
       })
       .catch((err) => {
         console.log(err);
