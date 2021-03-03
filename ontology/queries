@@ -1,22 +1,30 @@
 
-/* Trova titolo review e nome autore di una data FactCheckingOrganization
-   con ricerca per nome della FCO "approssimata", ovvero con regex.
+/* Q1 ricerca review per keyword
 
-   In questo caso il risultato ritorna le review della voce.info
+   Ritorna le reviews che contengono una data keyword nel titolo 
+   OPPURE nel testo.
+
+   Nel caso specifico la keyword è la parola "video"
 */
-SELECT ?rname ?fcname ?fconame
+PREFIX : <http://www.modsem.org/fakt-news#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX fn: <http://www.modsem.org/fakt-news#>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX dct: <http://purl.org/dc/terms/>
+
+SELECT ?fc_name ?review_title ?review_text
 WHERE {
-      ?r a fn:Review; fn:isReviewedBy ?fc; dct:title ?rn.
-      ?fc fn:affiliatedTo ?fco; schema:name ?fcn.
-      ?fco a fn:FactCheckingOrganization.
-     
-
-      ?fco schema:name ?fcon.
-      FILTER(REGEX(?fcon, "voce","i")).
-      BIND(STR(?rn) AS ?rname).	
-      BIND(STR(?fcn) AS ?fcname)
-      BIND(STR(?fcon) AS ?fconame).
-
+    ?review a fn:Review; 
+              fn:isReviewedBy ?factchecker; 
+              dct:title ?review_title;
+			  fn:documentContent ?review_text.
+	?factchecker schema:name ?fc_name.
+    
+    BIND ("video" as ?keyword)
+    FILTER(REGEX(?review_title, ?keyword,"i") || 
+    	   REGEX(?review_text, ?keyword,"i")).
 } LIMIT 100
 
 
@@ -192,6 +200,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX schema: <http://schema.org/>
 PREFIX dct: <http://purl.org/dc/terms/>
 
+
 # Q7 - Finds all the associated review for a claim.
 
 SELECT ?claim ?reviewer ?rating ?judgment ?content ?language ?url ?tag ?mention
@@ -214,7 +223,7 @@ WHERE {
 
 
 
-/*Q8 get claimant last claims
+/*Q8 get claimant last 5 claims
 Dato un claimant recuperare tutte gli ultimi claims associati (ordinati --> SORT BY date)
 */
 PREFIX : <http://www.modsem.org/fakt-news#>
@@ -270,7 +279,7 @@ WHERE {
     
     SERVICE <https://dbpedia.org/sparql> {
         ?dbp_entity a foaf:Person; 
-                    rdfs:label ?entity_label
+                    rdfs:label ?entity_label.
         OPTIONAL{?dbp_entity owl:sameAs ?linked_res} # retrieve same linked instances on other repositories
 
         FILTER(contains(str(?linked_res), "wikidata")) # keep only wikidata instance
