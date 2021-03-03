@@ -192,9 +192,9 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX schema: <http://schema.org/>
 PREFIX dct: <http://purl.org/dc/terms/>
 
-/* Q7 - Finds all the associated review for a claim. */
+# Q7 - Finds all the associated review for a claim.
 
-SELECT ?claim ?reviewer ?rating ?judgment ?content ?language ?tag ?url ?mention
+SELECT ?claim ?reviewer ?rating ?judgment ?content ?language ?url ?tag ?mention
 WHERE {
     ?claim a fn:Claim; fn:associatedReview ?associatedReview.
     ?associatedReview fn:isReviewedBy ?agent.
@@ -205,9 +205,11 @@ WHERE {
     ?j fn:judgmentSummary ?judgment.
     ?associatedReview fn:reviewContent ?content.
     ?associatedReview dct:language ?language.
-    ?associatedReview fn:tag ?tag.  # TODO Tag e Mentions devono essere opzionali
     ?associatedReview schema:url ?url.
-    ?associatedReview fn:mention ?mention.
+    OPTIONAL{
+        ?associatedReview fn:tag ?tag.
+	    ?associatedReview fn:mention ?mention.
+    }
 } LIMIT  100
 
 
