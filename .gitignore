@@ -190,3 +190,5 @@ $RECYCLE.BIN/
 .vscode
 ontology/fakt-news.properties
 ontology/catalog-v001.xml
+ontology/fakt-news-db/fakt-news-db.properties
+ontology/fakt-news-db/catalog-v001.xml
