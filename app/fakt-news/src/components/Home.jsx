@@ -13,6 +13,7 @@ class Home extends Component {
 
     this.state = {
       data: null,
+      ranking: [],
       keyword: "",
       author: "",
       startDate: null,
@@ -74,6 +75,10 @@ class Home extends Component {
   }
 
   // Handling query requests ---------------------------------------------------
+
+  componentDidMount() {
+    this.handleQ10();
+  }
 
   handleQ1() {
     graphDBEndpoint
@@ -160,6 +165,37 @@ class Home extends Component {
     }
   }
 
+  handleQ10() {
+    graphDBEndpoint
+      .login(GRAPHDB_USERNAME, GRAPHDB_PASSWORD)
+      .then((result) => {
+        // console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    graphDBEndpoint
+      .query(
+        `SELECT ?claimant (count(?claim) as ?numberClaims)
+        WHERE {
+            ?claim a fn:Claim; fn:isClaimedBy ?someone.
+            ?someone schema:name ?claimant.
+        } 
+        GROUP BY ?claimant
+        ORDER BY ?numberClaims
+        LIMIT  100`,
+        { transform: "toJSON" }
+      )
+      .then((result) => {
+        // console.log(result.records);
+        this.setState({ ranking: result.records });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   componentWillUnmount() {
     // resetting the state
     this.setState({
@@ -179,7 +215,7 @@ class Home extends Component {
           <h1>Welcome to Fakt News</h1>
           <p>We are the best in the world in searching facts!</p>
         </Jumbotron>
-        <div className="row col-12 mb-2">
+        <div className="row col-12 mb-4">
           <Col md={12}>
             <Tabs
               defaultActiveKey="basicQuery"
@@ -281,6 +317,26 @@ class Home extends Component {
             </Tabs>
           </Col>
         </div>
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Claimant</th>
+              <th scope="col">Number of claims</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.ranking.map((element, index) => {
+              return (
+                <tr key={index}>
+                  <th scope="row">{index + 1}</th>
+                  <td>{element.claimant}</td>
+                  <td>{element.numberClaims}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </>
     );
   }
