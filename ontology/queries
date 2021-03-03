@@ -28,7 +28,7 @@ WHERE {
 } LIMIT 100
 
 
-/*
+/* Q2 
 Trova tutti i claim che non hanno nessuna review.
 Sfrutta l'operatore MINUS per trovare tutti i claim con review
 attraverso il predicato :claimReviewed (ricordiamo essere una property chain)
@@ -52,7 +52,7 @@ WHERE {
     }
 } limit 100 
 
-/*
+/* Q3
 Trova tutti i claim la cui data di pubblicazione è compresa in un intervallo.
 I valori dell'inizio e fine del range sono hardcoded nella query e bindati con
 first_date e last_date.
@@ -83,7 +83,7 @@ WHERE {
 
 
 
-/*
+/* Q4
 Query federata. Nella prima parte estrae le entità menzionate in una review.
 Nella seconda contatta l'endpoint pubblico di DbPedia ed effettua una query federata.
 
@@ -159,9 +159,8 @@ GROUPBY ?claimant_name ?rating_val
 ORDER BY ?claimant_name ?rating_val
 
 
-/*TODO Check Trusted Author 
-Dato un autore verificare se appartiene ad una factchecking organization certificata/trusted
-Utilizzare una query di tipo ASK.
+/* Q6 
+Check trusted Author
 */
 
 PREFIX : <http://www.modsem.org/fakt-news#>
@@ -173,7 +172,7 @@ PREFIX schema: <http://schema.org/>
 PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX prov: <http://www.w3.org/ns/prov#>
 
-# Q6 - Check trusted Author
+
 
 ASK {
     BIND(URI(concat(str(fn:), "A-8")) as ?reviewer)
@@ -188,7 +187,7 @@ ASK {
     }
 }
 
-/*TODO Show All related review
+/* Q7 - Finds all the associated review for a claim
 Dato un claim recuperare tutte le review (con data e object propertie associate) collegate
 */
 
@@ -201,7 +200,7 @@ PREFIX schema: <http://schema.org/>
 PREFIX dct: <http://purl.org/dc/terms/>
 
 
-# Q7 - Finds all the associated review for a claim.
+
 
 SELECT ?claim ?reviewer ?rating ?judgment ?content ?language ?url ?tag ?mention
 WHERE {
@@ -248,7 +247,7 @@ LIMIT 5
 
 
 
-/* Get social accounts of mentioned entities
+/* Q9 - Get social accounts of mentioned entities
 
 First retrieve mentioned entities from dbpedia.
 Than extract from dbpedia the same entity linked externally with wikidata.
@@ -322,6 +321,7 @@ WHERE {
 GROUP BY ?claimant
 ORDER BY DESC(?numberClaims)
 LIMIT  100 
+
 
 
 /* Adanced Query with filters */
