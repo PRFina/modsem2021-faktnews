@@ -88,7 +88,7 @@ def map_labels_to_rating(df, label_col, mapping):
 
 def list_from_string(df, col_name):
     """Given a list encoded as string, transform to an actual list"""
-    df[col_name] = df[col_name].apply(lambda val: val.strip("[]").replace("'",'').replace('"','').lower().split(", "))
+    df[col_name] = df[col_name].apply(lambda val: val.strip("[]").replace("'",'').replace('"','').split(", "))
     return df
 
 def map_column_type(df, types_mapping):
