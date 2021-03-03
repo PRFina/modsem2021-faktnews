@@ -292,6 +292,7 @@ class Home extends Component {
             </Tabs>
           </Col>
         </div>
+        <h3 className="mt-2 mb-2">Claimant's Ranking</h3>
         <table className="table table-striped">
           <thead>
             <tr>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { postProcessDate } from "./Utility";
+import { postProcessDate, truncateText } from "./Utility";
 import {
   graphDBEndpoint,
   GRAPHDB_USERNAME,
@@ -12,6 +12,7 @@ class RichSnippet extends Component {
 
     this.state = {
       isTrustedSource: false,
+      mentions: [],
     };
 
     this.handleQ6 = this.handleQ6.bind(this);
@@ -19,6 +20,51 @@ class RichSnippet extends Component {
 
   componentDidMount() {
     this.handleQ6();
+    this.handleQ4();
+  }
+
+  componentWillUnmount() {
+    this.setState({ mentions: [] });
+  }
+
+  implodeMentions(arr) {
+    let temp = new Map();
+    arr.forEach((element) => {
+      // Filter and keep only the DBPedia URI wich is equal to the mentioned entity
+      let uri = this.props.review.mention.filter((uri) => {
+        return element.entity_label === uri.replace("_", " ") ? uri : null;
+      });
+
+      if (!temp.has(element.entity_label)) {
+        let copy = {
+          entity_label: element.entity_label,
+          entity_uri: uri[0], // I don't know why, but it returns an array
+          info: element.info,
+          linked_res: [
+            {
+              label: element.linked_res_label,
+              wiki: element.linked_res_wiki,
+            },
+          ],
+        };
+        temp.set(element.entity_label, copy);
+      } else {
+        let mention = temp.get(element.entity_label);
+        let mentionToCheck = {
+          label: element.linked_res_label,
+          wiki: element.linked_res_wiki,
+        };
+        if (!mention.linked_res.includes(mentionToCheck)) {
+          mention.linked_res.push(mentionToCheck);
+        }
+      }
+    });
+    let i = [];
+    temp.forEach((element, key) => {
+      i = this.state.mentions;
+      i.push(element);
+    });
+    this.setState({ mentions: i });
   }
 
   handleQ6() {
@@ -48,6 +94,53 @@ class RichSnippet extends Component {
             this.setState({ isTrustedSource: true });
           }
         });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  handleQ4() {
+    graphDBEndpoint
+      .login(GRAPHDB_USERNAME, GRAPHDB_PASSWORD)
+      .then((result) => {
+        // console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    graphDBEndpoint
+      .query(
+        `SELECT ?review_title ?entity_label ?info ?linked_res_label ?linked_res_wiki 
+        WHERE { 
+            ?review a fn:Review; dct:title ?review_title.
+            BIND(STR(?review) AS ?reviewId).
+            FILTER(contains(?reviewId,"${this.props.review.review}"))
+
+            OPTIONAL {?review fn:mention ?wiki_entity.}
+            BIND(URI(CONCAT(STR(dbr:), STR(?wiki_entity))) AS ?entity).
+           
+            SERVICE <https://dbpedia.org/sparql> {
+                ?entity rdfs:label ?entity_label.
+                OPTIONAL {
+                    ?entity rdfs:seeAlso ?linked_res.
+                    ?linked_res foaf:isPrimaryTopicOf ?linked_res_wiki.
+                    ?linked_res rdfs:label ?linked_res_label.
+                }.
+                OPTIONAL {
+                    ?entity rdfs:comment ?info
+                }.
+                FILTER(langMatches(lang(?entity_label), "en") && 
+                       langMatches(lang(?info),"en"))
+            }
+           
+        } limit 100 `,
+        { transform: "toJSON" }
+      )
+      .then((result) => {
+        // console.log(result.records, this.props.review.review);
+        this.implodeMentions(result.records);
       })
       .catch((err) => {
         console.log(err);
@@ -121,6 +214,49 @@ class RichSnippet extends Component {
     );
   }
 
+  displayMentions2() {
+    return (
+      <>
+        {this.state.mentions.map((element, index) => {
+          let url = `https://dbpedia.org/page/${element.entity_uri}`;
+          // some post-processing on mention
+          return (
+            <div key={index} className="card mb-3">
+              <div className="card-body">
+                <h5 className="card-title">
+                  <a href={url}>{element.entity_label}</a>
+                </h5>
+                <p className="card-text">
+                  {truncateText(element.info, 100, "")}
+                  <a href={url}>continue reading.</a>
+                </p>
+              </div>
+              {element.linked_res !== [] && (
+                <div className="card-footer">
+                  <h6>Linked Resources</h6>
+
+                  <ul>
+                    {element.linked_res.slice(0, 3).map((link) => {
+                      if (link.wiki !== undefined && link.label !== undefined) {
+                        return (
+                          <li>
+                            <a href={link.wiki}>{link.label}</a>
+                          </li>
+                        );
+                      } else {
+                        return "";
+                      }
+                    })}
+                  </ul>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </>
+    );
+  }
+
   prettyPrintReviewer() {
     if (this.props.review.organization) {
       return `${this.props.review.reviewer}, ${this.props.review.organization}`;
@@ -181,7 +317,7 @@ class RichSnippet extends Component {
             </div>
           </div>
         </div>
-        <div className="col-5">{this.displayMentions()}</div>
+        <div className="col-5">{this.displayMentions2()}</div>
       </div>
     );
   }

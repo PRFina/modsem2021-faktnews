@@ -57,11 +57,12 @@ class Results extends React.Component {
         }
       }
     });
+    let i = [];
     temp.forEach((element, key) => {
-      let i = this.state.reviews;
+      i = this.state.reviews;
       i.push(element);
-      this.setState({ review: i });
     });
+    this.setState({ review: i });
   }
 
   // Handling query requests ---------------------------------------------------
@@ -124,8 +125,9 @@ class Results extends React.Component {
 
   dataCleaning(data) {
     if (data !== null) {
-      data.map((element) => {
-        return (element.claim = element.claim.replace(/.*#/, ""));
+      data.forEach((element) => {
+        element.claim = element.claim.replace(/.*#/, "");
+        element.review = element.review.replace(/.*#/, "");
       });
       return data;
     }
@@ -133,46 +135,60 @@ class Results extends React.Component {
 
   render() {
     return (
-      <div className="row">
-        <div className="col-1">
-          <Link to="/">
-            <Button variant="light" size="lg">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="grey"
-                className="bi bi-caret-left-fill"
-                viewBox="0 0 16 16"
-              >
-                <path d="M3.86 8.753l5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
-              </svg>
-            </Button>
-          </Link>
-        </div>
-        <div className="col-5">
-          <div className="row align-items-start">
-            {this.props.elements &&
-              this.props.elements.map((element, index) => (
-                <Card
-                  key={`card-${index}`}
-                  claim={element.claim}
-                  claimAuthor={element.claimAuthor}
-                  renderIndex={index}
-                  date={element.claim_date}
-                  content={element.content}
-                  onClaimantPageClick={this.handleClaimantPageClick}
-                  onRelatedReviewClick={this.handleRelatedReviewClick}
-                ></Card>
-              ))}
+      <>
+        {/* <div className="row">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <Link to="/">Home</Link>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                Search
+              </li>
+            </ol>
+          </nav>
+        </div> */}
+        <div className="row">
+          <div className="col-1">
+            <Link to="/">
+              <Button variant="light" size="lg">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="grey"
+                  className="bi bi-caret-left-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M3.86 8.753l5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
+                </svg>
+              </Button>
+            </Link>
+          </div>
+          <div className="col-5">
+            <div className="row align-items-start">
+              {this.props.elements &&
+                this.props.elements.map((element, index) => (
+                  <Card
+                    key={`card-${index}`}
+                    claim={element.claim}
+                    claimAuthor={element.claimAuthor}
+                    renderIndex={index}
+                    date={element.claim_date}
+                    content={element.content}
+                    onClaimantPageClick={this.handleClaimantPageClick}
+                    onRelatedReviewClick={this.handleRelatedReviewClick}
+                  ></Card>
+                ))}
+            </div>
+          </div>
+          <div className="col-6">
+            {this.state.reviews.map((review, index) => (
+              <RichSnippet key={`snippet-${index}`} review={review} />
+            ))}
           </div>
         </div>
-        <div className="col-6">
-          {this.state.reviews.map((review, index) => (
-            <RichSnippet key={`snippet-${index}`} review={review} />
-          ))}
-        </div>
-      </div>
+      </>
     );
   }
 }

@@ -23,4 +23,8 @@ function postProcessDate(date) {
     
 }
 
-export { postProcessDate };
+function truncateText(text, limit, endMessage){
+    return text.substring(0,limit).concat(" [...] " + endMessage)
+}
+
+export { postProcessDate, truncateText };

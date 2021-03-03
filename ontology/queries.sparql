@@ -25,12 +25,11 @@ WHERE {
 } LIMIT 100
 
 
-# Q2 
-# Trova tutti i claim che non hanno nessuna review.
-Sfrutta l'operatore MINUS per trovare tutti i claim con review
-attraverso il predicato :claimReviewed (ricordiamo essere una property chain)
-e successivamente gli sottrae da tutti i claims disponibili nel knowledge graph
-*/
+# Q2 - Trova tutti i claim che non hanno nessuna review.
+# 
+# Sfrutta l'operatore MINUS per trovare tutti i claim con review
+# attraverso il predicato :claimReviewed (ricordiamo essere una property chain)
+# e successivamente gli sottrae da tutti i claims disponibili nel knowledge graph
 
 PREFIX : <http://www.modsem.org/fakt-news#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -49,16 +48,15 @@ WHERE {
     }
 } limit 100 
 
-/* Q3
-Trova tutti i claim la cui data di pubblicazione è compresa in un intervallo.
-I valori dell'inizio e fine del range sono hardcoded nella query e bindati con
-first_date e last_date.
-
-Nel caso specifico, i valore inseriti permettono di recuperare tutti e i soli claim del 2020.
-
-La particolaritòà della query è nell aver utilizzatop il costruttore xsd:datetime poiché
-il confronto tra date è specificato dallo standard solo per tipi datetime
-*/
+# Q3 - Trova tutti i claim la cui data di pubblicazione è compresa in un intervallo.
+# 
+# I valori dell'inizio e fine del range sono hardcoded nella query e bindati con
+# first_date e last_date.
+# 
+# Nel caso specifico, i valore inseriti permettono di recuperare tutti e i soli claim del 2020.
+# 
+# La particolaritòà della query è nell aver utilizzatop il costruttore xsd:datetime poiché
+# il confronto tra date è specificato dallo standard solo per tipi datetime
 
 PREFIX : <http://www.modsem.org/fakt-news#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -78,25 +76,22 @@ WHERE {
 
 } limit 100 
 
+# Q4 - Query federata. Nella prima parte estrae le entità menzionate in una review.
+#
+# Nella seconda contatta l'endpoint pubblico di DbPedia ed effettua una query federata.
+# 
+# Di particolare importanza sono i comandi per ?entity. Questi costruiscono dinamicamente
+# l'uri della risorsa in wikipedia dato che nella nostra ontologia ?wiki_entity codifica
+# il NAME dell url delle pagine di wikipedia.
+# 
+# Dato l'aspetto multingua di dbpedia il comando FILTER serve per estrarre solo le risorse con
+# uno specifico language tag (in questo caso "en").
+# 
+# La query federata estrae alcune informazioni principali delle entità menzionate, ovvero:
+# ?entity_label -> label associata alla risorsa
+# ?info -> informazioni di background
+# ?linked_res_wiki _> pagina url di alcune risorse secondaria correlate all'entità
 
-
-/* Q4
-Query federata. Nella prima parte estrae le entità menzionate in una review.
-Nella seconda contatta l'endpoint pubblico di DbPedia ed effettua una query federata.
-
-Di particolare importanza sono i comandi per ?entity. Questi costruiscono dinamicamente
-l'uri della risorsa in wikipedia dato che nella nostra ontologia ?wiki_entity codifica
-il NAME dell url delle pagine di wikipedia.
-
-Dato l'aspetto multingua di dbpedia il comando FILTER serve per estrarre solo le risorse con
-uno specifico language tag (in questo caso "en").
-
-La query federata estrae alcune informazioni principali delle entità menzionate, ovvero:
-?entity_label -> label associata alla risorsa
-?info -> informazioni di background
-?linked_res_wiki _> pagina url di alcune risorse secondaria correlate all'entità
-
-*/
 PREFIX : <http://www.modsem.org/fakt-news#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -104,8 +99,6 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX dbr:  <http://dbpedia.org/resource/>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-
-
 
 SELECT ?review_title ?entity_label ?info ?linked_res_wiki
 WHERE { 
@@ -125,16 +118,13 @@ WHERE {
    
 } limit 100 
 
-
-
-/* Q5
-Query Aggregata. La query permette di verificare la "credibility"
-di una persona. Nello specifico conta per ogni
-claimant quanti dei claim effettuati siano stati valutati "true", ..., "false".
-
-Il conteggio viene effettuato dalla fuznione COUNT sulle due chiavi di raggruppamento
-?claimant_name ?rating_val.
-*/
+# Q5 - Query Aggregata. La query permette di verificare la "credibility" di una persona.
+#
+# Nello specifico conta per ogni claimant quanti dei claim effettuati siano stati
+# valutati "true", ..., "false".
+#
+# Il conteggio viene effettuato dalla fuznione COUNT sulle due chiavi di raggruppamento
+# ?claimant_name ?rating_val.
 
 PREFIX : <http://www.modsem.org/fakt-news#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -156,9 +146,7 @@ GROUPBY ?claimant_name ?rating_val
 ORDER BY ?claimant_name ?rating_val
 
 
-/* Q6 
-Check trusted Author
-*/
+# Q6 - Check trusted Author
 
 PREFIX : <http://www.modsem.org/fakt-news#>
 PREFIX fn: <http://www.modsem.org/fakt-news#>
@@ -169,10 +157,8 @@ PREFIX schema: <http://schema.org/>
 PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX prov: <http://www.w3.org/ns/prov#>
 
-
-
 ASK {
-    BIND(URI(concat(str(fn:), "A-8")) as ?reviewer)
+    BIND(URI(concat(str(fn:), "A-48")) as ?reviewer)
     ?reviewer fn:create ?review.
     {
         ?reviewer a fn:Organization.
@@ -184,9 +170,10 @@ ASK {
     }
 }
 
-/* Q7 - Finds all the associated review for a claim
-Dato un claim recuperare tutte le review (con data e object propertie associate) collegate
-*/
+# Q7 - Finds all the associated review for a claim.
+#
+# Dato un claim recuperare tutte le review (con data e object propertie
+# associate) collegate.
 
 PREFIX : <http://www.modsem.org/fakt-news#>
 PREFIX fn: <http://www.modsem.org/fakt-news#>
@@ -195,7 +182,6 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX schema: <http://schema.org/>
 PREFIX dct: <http://purl.org/dc/terms/>
-
 
 SELECT ?claim ?reviewer ?rating ?judgment ?content ?language ?url ?tag ?mention
 WHERE {
@@ -218,11 +204,10 @@ WHERE {
     }
 } LIMIT  100
 
+# Q8 -  get claimant last 5 claims
+# Dato un claimant recuperare tutte gli ultimi claims associati 
+# (ordinati --> SORT BY date)
 
-
-/*Q8 get claimant last 5 claims
-Dato un claimant recuperare tutte gli ultimi claims associati (ordinati --> SORT BY date)
-*/
 PREFIX : <http://www.modsem.org/fakt-news#>
 PREFIX fn: <http://www.modsem.org/fakt-news#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -243,17 +228,15 @@ WHERE {
 }
 
 
-/* Q9 - Get social accounts of mentioned entities
-
-First retrieve mentioned entities from dbpedia.
-Than extract from dbpedia the same entity linked externally with wikidata.
-
-This query use two federated queries. The former to dbpedia endpoint, the latter to wikidata endopoint.
-
-the "glue" information between the two external queries is the ?wiki_entity variable, builded inside the first
-one and used in the second one as entity subject.
-*/
-
+# Q9 - Get social accounts of mentioned entities
+# 
+# First retrieve mentioned entities from dbpedia.
+# Than extract from dbpedia the same entity linked externally with wikidata.
+# 
+# This query use two federated queries. The former to dbpedia endpoint, the latter to wikidata endopoint.
+# 
+# the "glue" information between the two external queries is the ?wiki_entity variable, builded inside the first
+# one and used in the second one as entity subject.
 
 PREFIX : <http://www.modsem.org/fakt-news#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -296,11 +279,8 @@ WHERE {
 
 } limit 100 
 
+# Q10 - Claimant's Ranking 
 
-
-
-
-/* Q10 - Claimant's Ranking */
 PREFIX : <http://www.modsem.org/fakt-news#>
 PREFIX fn: <http://www.modsem.org/fakt-news#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -318,9 +298,7 @@ GROUP BY ?claimant
 ORDER BY DESC(?numberClaims)
 LIMIT  100 
 
-
-
-/* Adanced Query with filters */
+# QA - Adanced Query with filters
 
 PREFIX : <http://www.modsem.org/fakt-news#>
 PREFIX fn: <http://www.modsem.org/fakt-news#>
@@ -356,4 +334,3 @@ WHERE {
     FILTER(contains(?language, "")).
 }
 LIMIT 100 
-
