@@ -1,7 +1,7 @@
 const { EnapsoGraphDBClient } = require("@innotrade/enapso-graphdb-client");
 
 const BASE_URL = "http://localhost:7200";
-const REPOSITORY = "modsem-faktnews";
+const REPOSITORY = "modsem-fakt-news-db";
 
 // needed for the login in other components
 export const GRAPHDB_USERNAME = "modsem";

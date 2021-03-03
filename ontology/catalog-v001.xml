@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
     <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
-        <uri id="Automatically generated entry, Timestamp=1614766232863" name="http://www.modsem.org/faktnews" uri="fakt-news-materialized-triples.rdf"/>
+        <uri id="Automatically generated entry, Timestamp=1614792108666" name="http://www.modsem.org/fakt-news" uri="fakt-news-db/fakt-news-db-materialized-inference.rdf"/>
+        <uri id="Automatically generated entry, Timestamp=1614792108666" name="http://www.modsem.org/faktnews" uri="fakt-news-materialized-triples.rdf"/>
     </group>
 </catalog>
