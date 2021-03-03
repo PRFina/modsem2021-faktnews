@@ -1,11 +1,8 @@
+# Q1 - ricerca review per keyword
+#
+# Ritorna le reviews che contengono una data keyword nel titolo OPPURE 
+# nel testo. Nel caso specifico la keyword è la parola "video"
 
-/* Q1 ricerca review per keyword
-
-   Ritorna le reviews che contengono una data keyword nel titolo 
-   OPPURE nel testo.
-
-   Nel caso specifico la keyword è la parola "video"
-*/
 PREFIX : <http://www.modsem.org/fakt-news#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -28,8 +25,8 @@ WHERE {
 } LIMIT 100
 
 
-/* Q2 
-Trova tutti i claim che non hanno nessuna review.
+# Q2 
+# Trova tutti i claim che non hanno nessuna review.
 Sfrutta l'operatore MINUS per trovare tutti i claim con review
 attraverso il predicato :claimReviewed (ricordiamo essere una property chain)
 e successivamente gli sottrae da tutti i claims disponibili nel knowledge graph
