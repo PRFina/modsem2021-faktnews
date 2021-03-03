@@ -61,7 +61,7 @@ class Home extends Component {
         return `BIND("${this.state.startDate}"^^xsd:dateTime AS ?first_date)
             BIND("${this.state.endDate}"^^xsd:dateTime AS ?last_date)
             BIND(xsd:dateTime(?claim_date) AS ?claim_datetime).
-            FILTER( ?claim_datetime > ?first_date && ?claim_datetime < ?last_date ).`;
+            FILTER( ?claim_datetime > ?fsirst_date && ?claim_datetime < ?last_date ).`;
       } else {
         return "";
       }
@@ -115,35 +115,10 @@ class Home extends Component {
             ${this.isFieldFilled("language")}
         }
         LIMIT 100`,
-        // `SELECT ?claim ?author ?claim_date ?content ?language
-        // WHERE {
-        //     # Required
-        //     ?claim fn:claimContent ?content.
-        //     FILTER(contains(?content, "${this.state.keyword}")).
-
-        //     # Filtering on claim author
-        //     ?claim fn:isClaimedBy ?agent.
-        //     ?agent schema:name ?author.
-        //     FILTER(contains(?author, "")).
-
-        //     # Filtering on date
-        //     ?claim a fn:Claim; dct:date ?claim_date.
-
-        //     BIND("${this.state.startDate}"^^xsd:dateTime AS ?first_date)
-        //     BIND("${this.state.endDate}"^^xsd:dateTime AS ?last_date)
-        //     BIND(xsd:dateTime(?claim_date) AS ?claim_datetime).
-        //     FILTER( ?claim_datetime > ?first_date && ?claim_datetime < ?last_date ).
-
-        //     # Filtering on language
-        //     ?claim dct:language ?language.
-        //     # Note, it works with contains and not with =
-        //     # Because for definition each string contains a substring of ""
-        //     FILTER(contains(?language, "")).
-        // }
-        // LIMIT 100`,
         { transform: "toJSON" }
       )
       .then((result) => {
+        console.log(result.records);
         let final = this.dataCleaning(result.records);
         console.log(final);
 
@@ -183,7 +158,7 @@ class Home extends Component {
             ?someone schema:name ?claimant.
         } 
         GROUP BY ?claimant
-        ORDER BY ?numberClaims
+        ORDER BY DESC(?numberClaims)
         LIMIT  100`,
         { transform: "toJSON" }
       )
