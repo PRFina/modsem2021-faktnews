@@ -315,7 +315,7 @@ WHERE {
     ?someone schema:name ?claimant.
 } 
 GROUP BY ?claimant
-ORDER BY ?numberClaims
+ORDER BY DESC(?numberClaims)
 LIMIT  100
 
 
