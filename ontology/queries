@@ -165,16 +165,20 @@ PREFIX schema: <http://schema.org/>
 PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX prov: <http://www.w3.org/ns/prov#>
 
-# Q6 - Check trusted author (reviewer)
+# Q6 - Check trusted Author
 
-SELECT ?id ?agent ?code
-WHERE {
-    ?a a prov:Agent; fn:observeCodeOfPrinciples ?code.
-    ?a schema:name ?agent.
-    
-    BIND(STR(?a) as ?id)
-} LIMIT  100
-
+ASK {
+    BIND(URI(concat(str(fn:), "A-8")) as ?reviewer)
+    ?reviewer fn:create ?review.
+    {
+        ?reviewer a fn:Organization.
+        ?reviewer fn:observeCodeOfPrinciples ?code.
+    } UNION {
+        ?reviewer fn:affiliatedTo ?fco.
+    	?fco a prov:Agent; fn:observeCodeOfPrinciples ?code.
+    	?fco schema:name ?fcoName.
+    }
+}
 
 /*TODO Show All related review
 Dato un claim recuperare tutte le review (con data e object propertie associate) collegate
@@ -188,9 +192,9 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX schema: <http://schema.org/>
 PREFIX dct: <http://purl.org/dc/terms/>
 
-/* Q7 - Finds all the associated review for a claim. */
+# Q7 - Finds all the associated review for a claim.
 
-SELECT ?claim ?reviewer ?rating ?judgment ?content ?language ?tag ?url ?mention
+SELECT ?claim ?reviewer ?rating ?judgment ?content ?language ?url ?tag ?mention
 WHERE {
     ?claim a fn:Claim; fn:associatedReview ?associatedReview.
     ?associatedReview fn:isReviewedBy ?agent.
@@ -201,9 +205,11 @@ WHERE {
     ?j fn:judgmentSummary ?judgment.
     ?associatedReview fn:reviewContent ?content.
     ?associatedReview dct:language ?language.
-    ?associatedReview fn:tag ?tag.
     ?associatedReview schema:url ?url.
-    ?associatedReview fn:mention ?mention.
+    OPTIONAL{
+        ?associatedReview fn:tag ?tag.
+	    ?associatedReview fn:mention ?mention.
+    }
 } LIMIT  100
 
 
@@ -219,16 +225,17 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX schema: <http://schema.org/>
 PREFIX dct: <http://purl.org/dc/terms/>
 
-
-
-SELECT ?claimant ?claim ?url ?content ?language
+SELECT ?claimantName ?claim ?url ?content
 WHERE {
-    ?claim a fn:Claim; fn:isClaimedBy ?someone.
-    ?someone schema:name ?claimant.
+    BIND(URI(concat(str(fn:), "A-11")) as ?claimant).
+    ?claimant schema:name ?claimantName.
+    ?claim a fn:Claim; fn:isClaimedBy ?claimant.
+    ?claim dct:date ?date.
     ?claim schema:url ?url.
     ?claim fn:claimContent ?content.
-    ?claim dct:language ?language.
-} LIMIT  100
+}
+ORDER BY DESC(?date)
+LIMIT 5
 
 
 

@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.INFO,
 
 
 REPO_CONFIG = {
-    "id": 'modsem-faktnews',  # CHANGED from create_rdf_store
+    "id": 'modsem-faktnews-db',  # CHANGED from create_rdf_store
     "title": "",
     "type": "se",
     "sesameType": "owlim:MonitorRepository",
@@ -149,7 +149,7 @@ REPO_CONFIG = {
         "baseURL": {
             "label": "Base URL",
             "name": "baseURL",
-            "value": "http://example.org/faktnews-test",  # CHANGED from create_rdf_store
+            "value": "http://example.org/faktnews",  # CHANGED from create_rdf_store
         },
         "logValidationViolations": {
             "label": "Log validation violations",
@@ -191,7 +191,9 @@ if __name__ == '__main__':
         logging.warning("Response message {}".format(resp.text))
 
     # Make REST request to insert data into the repository
-    ontology_path = Path("../ontology/fakt-news-materialized-triples.rdf")
+    # CHANGED from create_rdf_store
+    ontology_path = Path(
+        "../ontology/fakt-news-db/fakt-news-db-materialized-triples.rdf")
     ontology_file = ontology_path.open("rb")
 
     URL = "http://localhost:7200/repositories/{}/statements".format(  # CHANGED from create_rdf_store
