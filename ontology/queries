@@ -1,26 +1,34 @@
 
-/* Trova titolo review e nome autore di una data FactCheckingOrganization
-   con ricerca per nome della FCO "approssimata", ovvero con regex.
+/* Q1 ricerca review per keyword
 
-   In questo caso il risultato ritorna le review della voce.info
+   Ritorna le reviews che contengono una data keyword nel titolo 
+   OPPURE nel testo.
+
+   Nel caso specifico la keyword è la parola "video"
 */
-SELECT ?rname ?fcname ?fconame
+PREFIX : <http://www.modsem.org/fakt-news#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX fn: <http://www.modsem.org/fakt-news#>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX dct: <http://purl.org/dc/terms/>
+
+SELECT ?fc_name ?review_title ?review_text
 WHERE {
-      ?r a fn:Review; fn:isReviewedBy ?fc; dct:title ?rn.
-      ?fc fn:affiliatedTo ?fco; schema:name ?fcn.
-      ?fco a fn:FactCheckingOrganization.
-     
-
-      ?fco schema:name ?fcon.
-      FILTER(REGEX(?fcon, "voce","i")).
-      BIND(STR(?rn) AS ?rname).	
-      BIND(STR(?fcn) AS ?fcname)
-      BIND(STR(?fcon) AS ?fconame).
-
+    ?review a fn:Review; 
+              fn:isReviewedBy ?factchecker; 
+              dct:title ?review_title;
+			  fn:documentContent ?review_text.
+	?factchecker schema:name ?fc_name.
+    
+    BIND ("video" as ?keyword)
+    FILTER(REGEX(?review_title, ?keyword,"i") || 
+    	   REGEX(?review_text, ?keyword,"i")).
 } LIMIT 100
 
 
-/*
+/* Q2 
 Trova tutti i claim che non hanno nessuna review.
 Sfrutta l'operatore MINUS per trovare tutti i claim con review
 attraverso il predicato :claimReviewed (ricordiamo essere una property chain)
@@ -44,7 +52,7 @@ WHERE {
     }
 } limit 100 
 
-/*
+/* Q3
 Trova tutti i claim la cui data di pubblicazione è compresa in un intervallo.
 I valori dell'inizio e fine del range sono hardcoded nella query e bindati con
 first_date e last_date.
@@ -75,7 +83,7 @@ WHERE {
 
 
 
-/*
+/* Q4
 Query federata. Nella prima parte estrae le entità menzionate in una review.
 Nella seconda contatta l'endpoint pubblico di DbPedia ed effettua una query federata.
 
@@ -122,7 +130,7 @@ WHERE {
 
 
 
-/*
+/* Q5
 Query Aggregata. La query permette di verificare la "credibility"
 di una persona. Nello specifico conta per ogni
 claimant quanti dei claim effettuati siano stati valutati "true", ..., "false".
@@ -151,9 +159,8 @@ GROUPBY ?claimant_name ?rating_val
 ORDER BY ?claimant_name ?rating_val
 
 
-/*TODO Check Trusted Author 
-Dato un autore verificare se appartiene ad una factchecking organization certificata/trusted
-Utilizzare una query di tipo ASK.
+/* Q6 
+Check trusted Author
 */
 
 PREFIX : <http://www.modsem.org/fakt-news#>
@@ -165,7 +172,7 @@ PREFIX schema: <http://schema.org/>
 PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX prov: <http://www.w3.org/ns/prov#>
 
-# Q6 - Check trusted Author
+
 
 ASK {
     BIND(URI(concat(str(fn:), "A-8")) as ?reviewer)
@@ -180,7 +187,7 @@ ASK {
     }
 }
 
-/*TODO Show All related review
+/* Q7 - Finds all the associated review for a claim
 Dato un claim recuperare tutte le review (con data e object propertie associate) collegate
 */
 
@@ -192,7 +199,8 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX schema: <http://schema.org/>
 PREFIX dct: <http://purl.org/dc/terms/>
 
-# Q7 - Finds all the associated review for a claim.
+
+
 
 SELECT ?claim ?reviewer ?rating ?judgment ?content ?language ?url ?tag ?mention
 WHERE {
@@ -214,7 +222,7 @@ WHERE {
 
 
 
-/*Q8 get claimant last claims
+/*Q8 get claimant last 5 claims
 Dato un claimant recuperare tutte gli ultimi claims associati (ordinati --> SORT BY date)
 */
 PREFIX : <http://www.modsem.org/fakt-news#>
@@ -239,7 +247,7 @@ LIMIT 5
 
 
 
-/* Get social accounts of mentioned entities
+/* Q9 - Get social accounts of mentioned entities
 
 First retrieve mentioned entities from dbpedia.
 Than extract from dbpedia the same entity linked externally with wikidata.
@@ -270,7 +278,7 @@ WHERE {
     
     SERVICE <https://dbpedia.org/sparql> {
         ?dbp_entity a foaf:Person; 
-                    rdfs:label ?entity_label
+                    rdfs:label ?entity_label.
         OPTIONAL{?dbp_entity owl:sameAs ?linked_res} # retrieve same linked instances on other repositories
 
         FILTER(contains(str(?linked_res), "wikidata")) # keep only wikidata instance
@@ -295,10 +303,8 @@ WHERE {
 
 
 
-/* TODO ranking dei claimant
-creare un ranking ordinando gli autori con claims "maggiormente revisionati"
-*/
 
+/* Q10 - Claimant's Ranking */
 PREFIX : <http://www.modsem.org/fakt-news#>
 PREFIX fn: <http://www.modsem.org/fakt-news#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -307,8 +313,6 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX schema: <http://schema.org/>
 PREFIX dct: <http://purl.org/dc/terms/>
 
-/* Q10 - Claimant's Ranking */
-
 SELECT ?claimant (count(?claim) as ?numberClaims)
 WHERE {
     ?claim a fn:Claim; fn:isClaimedBy ?someone.
@@ -316,7 +320,8 @@ WHERE {
 } 
 GROUP BY ?claimant
 ORDER BY DESC(?numberClaims)
-LIMIT  100
+LIMIT  100 
+
 
 
 /* Adanced Query with filters */
