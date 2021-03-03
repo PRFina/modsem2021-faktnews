@@ -83,8 +83,10 @@ class Results extends React.Component {
             ?claimId a fn:Claim; fn:associatedReview ?associatedReview.
             ?associatedReview fn:isReviewedBy ?agent.
             ?agent schema:name ?reviewer.
-            ?agent fn:affiliatedTo ?fco.
-            ?fco schema:name ?organization.
+            OPTIONAL{
+                ?agent fn:affiliatedTo ?fco.
+                ?fco schema:name ?organization.
+            }
             ?associatedReview dct:title ?title.
             ?associatedReview fn:hasRating ?r.
             ?r fn:ratingValue ?rating.
