@@ -193,7 +193,7 @@ if __name__ == '__main__':
     # Make REST request to insert data into the repository
     # CHANGED from create_rdf_store
     ontology_path = Path(
-        "../ontology/fakt-news-db/fakt-news-db-materialized-triples.rdf")
+        "../ontology/fakt-news-db/fakt-news-db-materialized-inference.rdf")
     ontology_file = ontology_path.open("rb")
 
     URL = "http://localhost:7200/repositories/{}/statements".format(  # CHANGED from create_rdf_store
