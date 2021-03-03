@@ -182,7 +182,7 @@ ASK {
 
 /*TODO Show All related review
 Dato un claim recuperare tutte le review (con data e object propertie associate) collegate
-/*
+*/
 
 PREFIX : <http://www.modsem.org/fakt-news#>
 PREFIX fn: <http://www.modsem.org/fakt-news#>
@@ -192,7 +192,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX schema: <http://schema.org/>
 PREFIX dct: <http://purl.org/dc/terms/>
 
-# Q7 - Finds all the associated review for a claim.
+/* Q7 - Finds all the associated review for a claim. */
 
 SELECT ?claim ?reviewer ?rating ?judgment ?content ?language ?tag ?url ?mention
 WHERE {
@@ -210,12 +210,11 @@ WHERE {
     ?associatedReview fn:mention ?mention.
 } LIMIT  100
 
-/*TODO get claimant last claims
+
+
+/*Q8 get claimant last claims
 Dato un claimant recuperare tutte gli ultimi claims associati (ordinati --> SORT BY date)
-/*
-
-# TODO - ripensare
-
+*/
 PREFIX : <http://www.modsem.org/fakt-news#>
 PREFIX fn: <http://www.modsem.org/fakt-news#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -224,7 +223,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX schema: <http://schema.org/>
 PREFIX dct: <http://purl.org/dc/terms/>
 
-# Q8 - Get Claimant last Claims (sorted)
+
 
 SELECT ?claimant ?claim ?url ?content ?language
 WHERE {
@@ -235,9 +234,19 @@ WHERE {
     ?claim dct:language ?language.
 } LIMIT  100
 
-/* TODO get authority info
-Query federata a VIAF
+
+
+/* Get social accounts of mentioned entities
+
+First retrieve mentioned entities from dbpedia.
+Than extract from dbpedia the same entity linked externally with wikidata.
+
+This query use two federated queries. The former to dbpedia endpoint, the latter to wikidata endopoint.
+
+the "glue" information between the two external queries is the ?wiki_entity variable, builded inside the first
+one and used in the second one as entity subject.
 */
+
 
 PREFIX : <http://www.modsem.org/fakt-news#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -246,29 +255,40 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX dbr:  <http://dbpedia.org/resource/>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX wdt: <http://www.wikidata.org/prop/direct/>
-PREFIX wikibase: <http://wikiba.se/ontology#>
-PREFIX bd: <http://www.bigdata.com/rdf#>
-PREFIX schema: <http://schema.org/>
-PREFIX bf: <https://bibframe.org/vocab>
+PREFIX wd: <http://www.wikidata.org/entity/>
 
-SELECT ?name ?viafId
-
+SELECT DISTINCT ?entity_label ?twt ?fb ?ig
 WHERE { 
+    ?review a :Review; 
+    OPTIONAL {?review :mention ?entity.}
+    BIND(URI(CONCAT(STR(dbr:), STR(?entity))) AS ?dbp_entity). # Build dbpedia URI
     
-    ?agent a foaf:Person.
-	?agent schema:name ?name.
-    
-    SERVICE <https://query.wikidata.org/sparql> {
-        SELECT ?itemLabel ?viafId 
-        WHERE {
-            ?item wdt:P214 ?viafId. # P214: VIAF ID
-        	?item ?label ?name .
-            SERVICE wikibase:label { bd:serviceParam wikibase:language "it, en". }
-        }
+    SERVICE <https://dbpedia.org/sparql> {
+        ?dbp_entity a foaf:Person; 
+                    rdfs:label ?entity_label
+        OPTIONAL{?dbp_entity owl:sameAs ?linked_res} # retrieve same linked instances on other repositories
+
+        FILTER(contains(str(?linked_res), "wikidata")) # keep only wikidata instance
+        BIND(REPLACE(str(?linked_res), "(.+?)([A-Z0-9]+)", "$2") AS ?wiki_code) # extract wikidata id code from uri
+        BIND(URI(CONCAT(STR(wd:), STR(?wiki_code))) AS ?wiki_entity) # build wikidata uri
     }
-}
-LIMIT 100
+    
+    FILTER(langMatches(lang(?entity_label), "en"))
+    
+    SERVICE <https://query.wikidata.org/sparql> { #retrieve social account
+        OPTIONAL{?wiki_entity wdt:P2013 ?fb_name; # facebook account
+                              wdt:P2002 ?twt_name.} # twitter account
+        OPTIONAL{?wiki_entity wdt:P2003 ?ig_name.} #ig account
+
+        BIND(URI(CONCAT("https://www.facebook.com/", ?fb_name)) as ?fb)
+        BIND(URI(CONCAT("https://twitter.com/", ?twt_name)) as ?twt)
+        BIND(URI(CONCAT("https://www.instagram.com/", ?ig_name)) as ?ig)
+        }
+
+} limit 100 
+
 
 
 
@@ -284,7 +304,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX schema: <http://schema.org/>
 PREFIX dct: <http://purl.org/dc/terms/>
 
-# Q10 - Claimant's Ranking
+/* Q10 - Claimant's Ranking */
 
 SELECT ?claimant (count(?claim) as ?numberClaims)
 WHERE {
@@ -297,6 +317,7 @@ LIMIT  100
 
 
 /* Adanced Query with filters */
+
 PREFIX : <http://www.modsem.org/fakt-news#>
 PREFIX fn: <http://www.modsem.org/fakt-news#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -331,3 +352,4 @@ WHERE {
     FILTER(contains(?language, "")).
 }
 LIMIT 100 
+
