@@ -1,22 +1,26 @@
 import React, { Component } from "react";
-import { postProcessDate, truncateText } from "./Utility";
+import MentionCard from "./MentionCard";
+import { postProcessDate } from "../../Utility";
 import {
   graphDBEndpoint,
   GRAPHDB_USERNAME,
   GRAPHDB_PASSWORD,
-} from "./TripleStoreConfig";
+} from "../../TripleStoreConfig";
 
-class RichSnippet extends Component {
+class ReviewRichSnippet extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       isTrustedSource: false,
       mentions: [],
+      displaySpinner: true,
     };
 
     this.handleQ6 = this.handleQ6.bind(this);
   }
+
+  // Lifecycle Hooks -----------------------------------------------------------
 
   componentDidMount() {
     this.handleQ6();
@@ -24,8 +28,15 @@ class RichSnippet extends Component {
   }
 
   componentWillUnmount() {
-    this.setState({ mentions: [] });
+    // resetting the state on unmounting
+    this.setState({
+      isTrustedSource: false,
+      mentions: [],
+      displaySpinner: true,
+    });
   }
+
+  // Business Logic ------------------------------------------------------------
 
   implodeMentions(arr) {
     let temp = new Map();
@@ -64,7 +75,57 @@ class RichSnippet extends Component {
       i = this.state.mentions;
       i.push(element);
     });
-    this.setState({ mentions: i });
+    console.log("IMPLODE", i);
+    this.setState({ displaySpinner: false, mentions: i });
+  }
+
+  // SPARQL Queries ------------------------------------------------------------
+
+  handleQ4() {
+    graphDBEndpoint
+      .login(GRAPHDB_USERNAME, GRAPHDB_PASSWORD)
+      .then((result) => {
+        // console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    graphDBEndpoint
+      .query(
+        `SELECT ?review_title ?entity_label ?info ?linked_res_label ?linked_res_wiki 
+        WHERE { 
+            ?review a fn:Review; dct:title ?review_title.
+            BIND(STR(?review) AS ?reviewId).
+            FILTER(?reviewId = "http://www.modsem.org/fakt-news#${this.props.review.review}").
+
+            OPTIONAL {?review fn:mention ?wiki_entity.}
+            BIND(URI(CONCAT(STR(dbr:), STR(?wiki_entity))) AS ?entity).
+           
+            SERVICE <https://dbpedia.org/sparql> {
+                ?entity rdfs:label ?entity_label.
+                OPTIONAL {
+                    ?entity rdfs:seeAlso ?linked_res.
+                    ?linked_res foaf:isPrimaryTopicOf ?linked_res_wiki.
+                    ?linked_res rdfs:label ?linked_res_label.
+                }.
+                OPTIONAL {
+                    ?entity rdfs:comment ?info
+                }.
+                FILTER(langMatches(lang(?entity_label), "en") && 
+                       langMatches(lang(?info),"en"))
+            }
+           
+        } limit 100 `,
+        { transform: "toJSON" }
+      )
+      .then((result) => {
+        // console.log(result.records, this.props.review.review);
+        this.implodeMentions(result.records);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   handleQ6() {
@@ -100,54 +161,9 @@ class RichSnippet extends Component {
       });
   }
 
-  handleQ4() {
-    graphDBEndpoint
-      .login(GRAPHDB_USERNAME, GRAPHDB_PASSWORD)
-      .then((result) => {
-        // console.log(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  // Pretty printing -----------------------------------------------------------
 
-    graphDBEndpoint
-      .query(
-        `SELECT ?review_title ?entity_label ?info ?linked_res_label ?linked_res_wiki 
-        WHERE { 
-            ?review a fn:Review; dct:title ?review_title.
-            BIND(STR(?review) AS ?reviewId).
-            FILTER(contains(?reviewId,"${this.props.review.review}"))
-
-            OPTIONAL {?review fn:mention ?wiki_entity.}
-            BIND(URI(CONCAT(STR(dbr:), STR(?wiki_entity))) AS ?entity).
-           
-            SERVICE <https://dbpedia.org/sparql> {
-                ?entity rdfs:label ?entity_label.
-                OPTIONAL {
-                    ?entity rdfs:seeAlso ?linked_res.
-                    ?linked_res foaf:isPrimaryTopicOf ?linked_res_wiki.
-                    ?linked_res rdfs:label ?linked_res_label.
-                }.
-                OPTIONAL {
-                    ?entity rdfs:comment ?info
-                }.
-                FILTER(langMatches(lang(?entity_label), "en") && 
-                       langMatches(lang(?info),"en"))
-            }
-           
-        } limit 100 `,
-        { transform: "toJSON" }
-      )
-      .then((result) => {
-        // console.log(result.records, this.props.review.review);
-        this.implodeMentions(result.records);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  isTrustedSource(trustValue) {
+  prettyPrintTrustedSource(trustValue) {
     if (trustValue) {
       return (
         <span
@@ -189,74 +205,6 @@ class RichSnippet extends Component {
     }
   }
 
-  displayMentions() {
-    return (
-      <>
-        {this.props.review.mention.map((element, index) => {
-          let url = `https://dbpedia.org/page/${element}`;
-          // some post-processing on mention
-          let element_clean = element.replace("_", " ");
-          return (
-            <div key={index} className="card mb-3">
-              <div className="card-body">
-                <h5 className="card-title">{element_clean}</h5>
-                <h6 className="card-subtitle mb-2 text-muted">Mentioned</h6>
-                <p className="card-text">
-                  <small className="text-muted">
-                    From <a href={url}>DBPedia</a>
-                  </small>
-                </p>
-              </div>
-            </div>
-          );
-        })}
-      </>
-    );
-  }
-
-  displayMentions2() {
-    return (
-      <>
-        {this.state.mentions.map((element, index) => {
-          let url = `https://dbpedia.org/page/${element.entity_uri}`;
-          // some post-processing on mention
-          return (
-            <div key={index} className="card mb-3">
-              <div className="card-body">
-                <h5 className="card-title">
-                  <a href={url}>{element.entity_label}</a>
-                </h5>
-                <p className="card-text">
-                  {truncateText(element.info, 100, "")}
-                  <a href={url}>continue reading.</a>
-                </p>
-              </div>
-              {element.linked_res !== [] && (
-                <div className="card-footer">
-                  <h6>Linked Resources</h6>
-
-                  <ul>
-                    {element.linked_res.slice(0, 3).map((link) => {
-                      if (link.wiki !== undefined && link.label !== undefined) {
-                        return (
-                          <li>
-                            <a href={link.wiki}>{link.label}</a>
-                          </li>
-                        );
-                      } else {
-                        return "";
-                      }
-                    })}
-                  </ul>
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </>
-    );
-  }
-
   prettyPrintReviewer() {
     if (this.props.review.organization) {
       return `${this.props.review.reviewer}, ${this.props.review.organization}`;
@@ -264,6 +212,8 @@ class RichSnippet extends Component {
       return `${this.props.review.reviewer}`;
     }
   }
+
+  // Rendering -----------------------------------------------------------------
 
   render() {
     return (
@@ -288,7 +238,7 @@ class RichSnippet extends Component {
                 className="list-group-item"
               >
                 Trusted Source:{" "}
-                {this.isTrustedSource(this.state.isTrustedSource)}
+                {this.prettyPrintTrustedSource(this.state.isTrustedSource)}
               </li>
               <li key={this.props.review + "-date"} className="list-group-item">
                 Date: {postProcessDate(this.props.review.date)}
@@ -317,10 +267,25 @@ class RichSnippet extends Component {
             </div>
           </div>
         </div>
-        <div className="col-5">{this.displayMentions2()}</div>
+        <div className="col-5">
+          {this.state.mentions.map((element, index) => {
+            let url = `https://dbpedia.org/page/${element.entity_uri}`;
+            // some post-processing on mention
+            return (
+              <MentionCard
+                key={`mention-${this.props.review.review}-${index}`}
+                displaySpinner={this.state.displaySpinner}
+                url={url}
+                label={element.entity_label}
+                info={element.info}
+                linkedRes={element.linked_res}
+              />
+            );
+          })}
+        </div>
       </div>
     );
   }
 }
 
-export default RichSnippet;
+export default ReviewRichSnippet;

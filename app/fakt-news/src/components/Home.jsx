@@ -5,7 +5,7 @@ import {
   graphDBEndpoint,
   GRAPHDB_USERNAME,
   GRAPHDB_PASSWORD,
-} from "./TripleStoreConfig";
+} from "../TripleStoreConfig";
 
 class Home extends Component {
   constructor(props) {
@@ -27,7 +27,25 @@ class Home extends Component {
     this.handleQ1 = this.handleQ1.bind(this);
   }
 
-  // Handling states updates ---------------------------------------------------
+  // Lifecycle Hooks -----------------------------------------------------------
+
+  componentDidMount() {
+    this.handleQ10();
+  }
+
+  componentWillUnmount() {
+    // resetting the state
+    this.setState({
+      data: null,
+      keyword: "",
+      author: "",
+      startDate: null,
+      endDate: null,
+      language: "",
+    });
+  }
+
+  // Business Logic ------------------------------------------------------------
 
   onKeywordChange(newKeywork) {
     this.setState({ keyword: newKeywork });
@@ -74,11 +92,7 @@ class Home extends Component {
     }
   }
 
-  // Handling query requests ---------------------------------------------------
-
-  componentDidMount() {
-    this.handleQ10();
-  }
+  // SPARQL Queries ------------------------------------------------------------
 
   handleQ1() {
     graphDBEndpoint
@@ -169,18 +183,6 @@ class Home extends Component {
       .catch((err) => {
         console.log(err);
       });
-  }
-
-  componentWillUnmount() {
-    // resetting the state
-    this.setState({
-      data: null,
-      keyword: "",
-      author: "",
-      startDate: null,
-      endDate: null,
-      language: "",
-    });
   }
 
   render() {

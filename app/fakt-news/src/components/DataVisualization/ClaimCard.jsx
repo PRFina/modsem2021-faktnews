@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { postProcessDate } from "./Utility";
+import { postProcessDate } from "../../Utility";
 
-class Card extends Component {
+class ClaimCard extends Component {
   render() {
     return (
       <div className="card mr-3 mb-3">
@@ -38,4 +38,4 @@ class Card extends Component {
   }
 }
 
-export default Card;
+export default ClaimCard;
