@@ -2,6 +2,13 @@ import React, { Component } from "react";
 import { truncateText } from "../../Utility";
 
 class MentionCard extends Component {
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     linkedRes: this.props.linked,
+  //   };
+  // }
+
   render() {
     if (this.props.displaySpinner) {
       return (
@@ -26,7 +33,7 @@ class MentionCard extends Component {
               <a href={this.props.url}>continue reading.</a>
             </p>
           </div>
-          {this.state.linkedRes !== [] && (
+          {this.props.linkedRes !== [] && (
             <div className="card-footer">
               <h6>Linked Resources</h6>
 
