@@ -106,7 +106,7 @@ class Home extends Component {
 
     graphDBEndpoint
       .query(
-        `SELECT ?claim ?claimAuthor ?claim_date ?content ?language
+        `SELECT ?claim ?claim_author ?claim_date ?content ?language
         WHERE { 
             # Required
             ?claim fn:claimContent ?content.
@@ -114,7 +114,7 @@ class Home extends Component {
             
             # Filtering on claim author
             ?claim fn:isClaimedBy ?agent.
-            ?agent schema:name ?claimAuthor.
+            ?agent schema:name ?claim_author.
             ${this.isFieldFilled("author")}
         
             # Filtering on date
@@ -132,7 +132,8 @@ class Home extends Component {
         { transform: "toJSON" }
       )
       .then((result) => {
-        console.log(result.records);
+        console.log("RES", result);
+        // console.log(result.records);
         let final = this.dataCleaning(result.records);
         console.log(final);
 

@@ -189,7 +189,7 @@ class Results extends React.Component {
                   <ClaimCard
                     key={`card-${element.claim}`}
                     claim={element.claim}
-                    claimAuthor={element.claimAuthor}
+                    claimAuthor={element.claim_author}
                     renderIndex={index}
                     date={element.claim_date}
                     content={element.content}
