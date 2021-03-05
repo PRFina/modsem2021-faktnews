@@ -24,7 +24,7 @@ class Home extends Component {
     this.onKeywordChange = this.onKeywordChange.bind(this);
     this.onStartDateChange = this.onStartDateChange.bind(this);
     this.onEndDateChange = this.onEndDateChange.bind(this);
-    this.handleQ1 = this.handleQ1.bind(this);
+    this.handleSearchQuery = this.handleSearchQuery.bind(this);
   }
 
   // Lifecycle Hooks -----------------------------------------------------------
@@ -94,7 +94,7 @@ class Home extends Component {
 
   // SPARQL Queries ------------------------------------------------------------
 
-  handleQ1() {
+  handleSearchQuery() {
     graphDBEndpoint
       .login(GRAPHDB_USERNAME, GRAPHDB_PASSWORD)
       .then((result) => {
@@ -220,7 +220,7 @@ class Home extends Component {
                   <Link to="/search">
                     <Button
                       variant="primary"
-                      onClick={this.handleQ1}
+                      onClick={this.handleSearchQuery}
                       disabled={this.state.keyword === "" ? true : false}
                     >
                       Search
@@ -284,7 +284,7 @@ class Home extends Component {
                   <Link to="/search">
                     <Button
                       variant="primary"
-                      onClick={this.handleQ1}
+                      onClick={this.handleSearchQuery}
                       disabled={this.state.keyword === "" ? true : false}
                     >
                       Search
