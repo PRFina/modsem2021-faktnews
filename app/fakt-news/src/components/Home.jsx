@@ -186,6 +186,8 @@ class Home extends Component {
       });
   }
 
+  // Rendering -----------------------------------------------------------------
+
   render() {
     return (
       <>
