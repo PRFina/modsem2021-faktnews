@@ -20,6 +20,7 @@
                                                <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl> ;
                                    dcterms:creator "Lorenzo Tabasso"@it ,
                                                    "Pio Raffaele Fina"@it ;
+                                   dcterms:date "2021-03-05" ;
                                    dcterms:description "An Ontology to describe and annotate the fact checking process."@en ;
                                    vann:preferredNamespacePrefix "fn"@en ;
                                    vann:preferredNamespaceUri "http://www.modsem.org/fakt-news"@en ;
@@ -33,6 +34,10 @@
 dcterms:creator rdf:type owl:AnnotationProperty ;
                 rdfs:comment "An entity responsible for making the resource."@en ;
                 rdfs:label "creator"@en .
+
+
+###  http://purl.org/dc/terms/date
+dcterms:date rdf:type owl:AnnotationProperty .
 
 
 ###  http://purl.org/dc/terms/description
@@ -406,9 +411,7 @@ prov:wasGeneratedBy rdf:type owl:ObjectProperty ;
 #################################################################
 
 ###  http://purl.org/dc/terms/date
-dcterms:date rdf:type owl:DatatypeProperty ;
-             rdfs:comment "A point or period of time associated with an event in the lifecycle of the resource."@en ;
-             rdfs:label "date"@en .
+dcterms:date rdf:type owl:DatatypeProperty .
 
 
 ###  http://purl.org/dc/terms/language
@@ -9561,6 +9564,14 @@ fn:RT-99 rdf:type owl:NamedIndividual ,
          schema:url "https://www.politifact.com/article/2018/feb/12/principles-truth-o-meter-politifacts-methodology-i/#Truth-O-Meter%20ratings"^^xsd:anyURI ;
          fn:ratingAssociatedMedia "https://static.politifact.com/img/meter-false.jpg"^^xsd:anyURI ;
          fn:ratingValue "False"^^xsd:string .
+
+
+#################################################################
+#    Annotations
+#################################################################
+
+dcterms:date rdfs:comment "A point or period of time associated with an event in the lifecycle of the resource."@en ;
+             rdfs:label "date"@en .
 
 
 #################################################################
