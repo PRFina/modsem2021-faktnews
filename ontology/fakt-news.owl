@@ -658,7 +658,9 @@ fn:DeceptiveEditing rdf:type owl:Class ;
 
 ###  http://www.modsem.org/fakt-news#DigitalDocument
 fn:DigitalDocument rdf:type owl:Class ;
-                   rdfs:subClassOf prov:Entity .
+                   rdfs:subClassOf prov:Entity ;
+                   rdfs:comment "The most generic kind of Digital Document (creative work), including books, movies, photographs, software programs, etc."^^xsd:string ;
+                   rdfs:label "Digital Document"@en .
 
 
 ###  http://www.modsem.org/fakt-news#DisprovingEvidence
