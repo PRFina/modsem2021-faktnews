@@ -1124,7 +1124,6 @@ fn:A-9 rdf:type owl:NamedIndividual ,
 fn:Activity-Evaluation-R-1 rdf:type owl:NamedIndividual ,
                                     fn:ClaimEvaluationActivity ,
                                     prov:Activity ;
-                           fn:hasPreviousActivity fn:Activity-Verification-R-1 ;
                            fn:hasTimeInterval fn:Time-R1-2020-10-07-2020-10-08 ;
                            fn:isActivityOfPlan fn:Plan-R-1 ;
                            fn:isLastActivityOfPlan fn:Plan-R-1 ;
@@ -1137,7 +1136,6 @@ fn:Activity-Evaluation-R-1 rdf:type owl:NamedIndividual ,
 fn:Activity-Evaluation-R-2 rdf:type owl:NamedIndividual ,
                                     fn:ClaimEvaluationActivity ,
                                     prov:Activity ;
-                           fn:hasPreviousActivity fn:Activity-Verification-R-2 ;
                            fn:hasTimeInterval fn:Time-R2-2021-01-15-2021-01-16 ;
                            fn:isActivityOfPlan fn:Plan-R-2 ;
                            fn:isLastActivityOfPlan fn:Plan-R-2 ;
@@ -1150,7 +1148,6 @@ fn:Activity-Evaluation-R-2 rdf:type owl:NamedIndividual ,
 fn:Activity-Evaluation-R-3 rdf:type owl:NamedIndividual ,
                                     fn:ClaimEvaluationActivity ,
                                     prov:Activity ;
-                           fn:hasPreviousActivity fn:Activity-Verification-R-3 ;
                            fn:hasTimeInterval fn:Time-R3-2019-06-18-2019-06-19 ;
                            fn:isActivityOfPlan fn:Plan-R-3 ;
                            fn:isLastActivityOfPlan fn:Plan-R-3 ;
@@ -1163,7 +1160,6 @@ fn:Activity-Evaluation-R-3 rdf:type owl:NamedIndividual ,
 fn:Activity-Evaluation-R-4 rdf:type owl:NamedIndividual ,
                                     fn:ClaimEvaluationActivity ,
                                     prov:Activity ;
-                           fn:hasPreviousActivity fn:Activity-Verification-R-4 ;
                            fn:hasTimeInterval fn:Time-R4-2021-01-19-2021-01-20 ;
                            fn:isActivityOfPlan fn:Plan-R-4 ;
                            fn:isLastActivityOfPlan fn:Plan-R-4 ;
@@ -1176,7 +1172,6 @@ fn:Activity-Evaluation-R-4 rdf:type owl:NamedIndividual ,
 fn:Activity-Selection-R-1 rdf:type owl:NamedIndividual ,
                                    fn:SelectionActivity ,
                                    prov:Activity ;
-                          fn:hasNextActivity fn:Activity-Verification-R-1 ;
                           fn:hasTimeInterval fn:Time-R1-2020-10-05-2020-10-06 ;
                           fn:isActivityOfPlan fn:Plan-R-1 ;
                           fn:isFirstActivityOfPlan fn:Plan-R-1 ;
@@ -1189,7 +1184,6 @@ fn:Activity-Selection-R-1 rdf:type owl:NamedIndividual ,
 fn:Activity-Selection-R-2 rdf:type owl:NamedIndividual ,
                                    fn:SelectionActivity ,
                                    prov:Activity ;
-                          fn:hasNextActivity fn:Activity-Verification-R-2 ;
                           fn:hasTimeInterval fn:Time-R2-2021-01-13-2021-01-14 ;
                           fn:isActivityOfPlan fn:Plan-R-2 ;
                           fn:isFirstActivityOfPlan fn:Plan-R-2 ;
@@ -1201,7 +1195,6 @@ fn:Activity-Selection-R-2 rdf:type owl:NamedIndividual ,
 fn:Activity-Selection-R-3 rdf:type owl:NamedIndividual ,
                                    fn:SelectionActivity ,
                                    prov:Activity ;
-                          fn:hasNextActivity fn:Activity-Verification-R-3 ;
                           fn:hasTimeInterval fn:Time-R3-2019-06-16-2019-06-17 ;
                           fn:isActivityOfPlan fn:Plan-R-3 ;
                           fn:isFirstActivityOfPlan fn:Plan-R-3 ;
@@ -1212,7 +1205,6 @@ fn:Activity-Selection-R-3 rdf:type owl:NamedIndividual ,
 fn:Activity-Selection-R-4 rdf:type owl:NamedIndividual ,
                                    fn:SelectionActivity ,
                                    prov:Activity ;
-                          fn:hasNextActivity fn:Activity-Verification-R-4 ;
                           fn:hasTimeInterval fn:Time-R4-2021-01-17-2021-01-18 ;
                           fn:isActivityOfPlan fn:Plan-R-4 ;
                           fn:isFirstActivityOfPlan fn:Plan-R-4 ;
