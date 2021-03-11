@@ -10,7 +10,7 @@ services:
     env_file: .env
     ports:
       - 3000:3000
-    volumes: 
+    volumes:
       - "./app/fakt-news:/app"
     depends_on:
       - "rdf"
@@ -46,16 +46,7 @@ services:
       - 7200:7200
     volumes:
       - rdf-volume:/opt/graphdb/home
-    #  - ./license:/opt/graphdb/home/conf # for graphdb se license
-
-  # react:
-  #   build:
-  #     context: app/fakt-news
-  #   ports:
-  #     - 3001:3000
-  #   volumes:
-  #     - "./app/fakt-news:/app" # for code sync
-  #     - "/app/node_modules/" # for code sync
+    #  - ./license:/opt/graphdb/home/conf # for GraphDB SE/EE license
 
 volumes:
   db-volume:
