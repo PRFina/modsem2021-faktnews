@@ -107,7 +107,7 @@ There are 4 service declared in `docker-compose` file:
 
   ```yaml
   rdf:
-    image: ontotext/graphdb:9.6.0-free # is build locally!!
+    image: # the chosen docker image
     ports:
       - 7200:7200
     volumes:
