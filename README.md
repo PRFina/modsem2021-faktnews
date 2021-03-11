@@ -98,7 +98,7 @@ There are 4 service declared in `docker-compose` file:
   3. Inside the top-level folder `graphdb-docker` run the `make` command, then wait until it finish.
   4. At this point you should notice the presence of the image `ontotext/graphdb` inside your local docker images. You're done!
 
-  If you prefer to use GraphDB SE or GraphDB EE, you can use the two official docker images, GraphDB EE and GraphDB SE, but both require a license file to work, which you should get on the Ontotext website by filling out the trial request form at the following links: [GraphDB EE](https://www.ontotext.com/products/graphdb/graphdb-enterprise/) and [GraphDB SE](https://www.ontotext.com/products/graphdb/graphdb-standard/). The trial license of both versions lasts for two months. In this case you need to mount another volume on the container to get access to license file. In short you must:
+  If you prefer to use GraphDB SE or GraphDB EE, you can use the two official docker images, GraphDB EE and GraphDB SE, but both require a license file to work, which you should get on the Ontotext website by filling out the trial request form at the following links: [GraphDB EE](https://www.ontotext.com/products/graphdb/graphdb-enterprise/) and [GraphDB SE](https://www.ontotext.com/products/graphdb/graphdb-standard/). The **trial license** of both versions **lasts for two months**. In this case you **need** to **mount another volume** on the container to **get access to license file**. In short you must:
 
   1. Get a licence file from ontotext and download it.
   2. Create a new top-level directory `license`.
