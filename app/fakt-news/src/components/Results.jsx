@@ -40,24 +40,43 @@ class Results extends React.Component {
     });
   }
 
+  // UI clicks -----------------------------------------------------------------
+
   handleClaimantPageClick(updatedClaimant) {
+    // TODO: future works, to be implemented.
     this.setState({
       claimAuthor: updatedClaimant,
     });
   }
 
   handleRelatedReviewClick(id, index) {
+    // it updates the state after the click on "Show related Reviews" button.
     this.setState({
       renderIndex: index,
       reviews: [],
       displayRichSnippet: true,
     });
+
+    // and it send the Q7 query to the repository.
     this.handleQ7(id);
   }
 
   // Business Logic ------------------------------------------------------------
 
   implodeReviews(arr) {
+    /* this method takes all the entries of the same review linked to a claim
+    and "implodes" them into one.
+
+    More specifically, since for 1 claim we have 1 review, but this review
+    contains several mentions, GraphDB is not able to return a single review
+    with a list of mentions, rather it returns a set whose elements are all the
+    same review, but each with a different mention. 
+    
+    To solve the problem, this method takes all the entries of the single
+    review linked to a claim and merges them all into one object, replacing the
+    single mention with a list of all mentions.
+    */
+
     let temp = new Map();
     arr.forEach((element) => {
       if (!temp.has(element.claim)) {
@@ -82,6 +101,9 @@ class Results extends React.Component {
   // SPARQL Queries ------------------------------------------------------------
 
   handleQ7(selectedClaim) {
+    // it sends the Q7 query to the GraphDB repository and hanldes the
+    // response.
+
     graphDBEndpoint
       .login(GRAPHDB_USERNAME, GRAPHDB_PASSWORD)
       .then((result) => {
@@ -121,16 +143,9 @@ class Results extends React.Component {
         { transform: "toJSON" }
       )
       .then((result) => {
+        // do some cleaning of the URI using the dataCleaning() support method
         let final = this.dataCleaning(result.records);
-
-        console.log(final);
         this.implodeReviews(final);
-
-        // Passing the data to the App component, in order to render the
-        // results in the Results component.
-        // this.setState({
-        //   reviews: final,
-        // });
       })
       .catch((err) => {
         console.log(err);
@@ -138,7 +153,8 @@ class Results extends React.Component {
   }
 
   dataCleaning(data) {
-    // Support method for handleQ7()
+    // support method, it cleans the URI of the Claim and the Review deleting
+    // all characters before the "#".
     if (data !== null) {
       data.forEach((element) => {
         element.claim = element.claim.replace(/.*#/, "");
@@ -153,18 +169,6 @@ class Results extends React.Component {
   render() {
     return (
       <>
-        {/* <div className="row">
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item">
-                <Link to="/">Home</Link>
-              </li>
-              <li class="breadcrumb-item active" aria-current="page">
-                Search
-              </li>
-            </ol>
-          </nav>
-        </div> */}
         <div className="row">
           <div className="col-1">
             <Link to="/">

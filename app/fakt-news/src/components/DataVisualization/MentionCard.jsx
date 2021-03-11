@@ -2,13 +2,6 @@ import React, { Component } from "react";
 import { truncateText } from "../../Utility";
 
 class MentionCard extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     linkedRes: this.props.linked,
-  //   };
-  // }
-
   render() {
     if (this.props.displaySpinner) {
       return (

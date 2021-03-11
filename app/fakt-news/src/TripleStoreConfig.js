@@ -1,5 +1,9 @@
 const { EnapsoGraphDBClient } = require("@innotrade/enapso-graphdb-client");
 
+/*
+This file contains the GraphDB repository configuration.
+*/
+
 const BASE_URL = "http://localhost:7200";
 const REPOSITORY = "modsem-fakt-news-db";
 
@@ -13,7 +17,10 @@ const DEFAULT_PREFIXES = [
     EnapsoGraphDBClient.PREFIX_RDFS,
     EnapsoGraphDBClient.PREFIX_XSD,
     {
-      prefix: "", // TODO: gestire il prefisso vuoto
+      /* TODO: I'm not shure if the library can handle the empty prefix, 
+      to verify!
+      */
+      prefix: "", 
       iri: "http://www.modsem.org/fakt-news#",
     },
     {

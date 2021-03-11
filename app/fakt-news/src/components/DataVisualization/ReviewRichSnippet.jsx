@@ -39,9 +39,22 @@ class ReviewRichSnippet extends Component {
   // Business Logic ------------------------------------------------------------
 
   implodeMentions(arr) {
+    /* this method takes all the entries of the single review and "implodes" the
+    mention of each of them in a list.
+
+    More specifically, since each review may contain several mentions, GraphDB
+    is not able to return a list of all mentions, rather it returns a set of
+    mentions from the single review. 
+    
+    Since we want a list of mentions and not a set, post-processing is needed.
+    So, to solve the problem, this method takes all the mentions related to the
+    review and merges them all into one list.
+    */
+
     let temp = new Map();
     arr.forEach((element) => {
-      // Filter and keep only the DBPedia URI wich is equal to the mentioned entity
+      // Filter and keep only the DBPedia URI wich is equal to the mentioned
+      // entity
       let uri = this.props.review.mention.filter((uri) => {
         return element.entity_label === uri.replace("_", " ") ? uri : null;
       });
@@ -75,13 +88,15 @@ class ReviewRichSnippet extends Component {
       i = this.state.mentions;
       i.push(element);
     });
-    console.log("IMPLODE", i);
     this.setState({ displaySpinner: false, mentions: i });
   }
 
   // SPARQL Queries ------------------------------------------------------------
 
   handleQ4() {
+    // it sends the Q4 query to the GraphDB repository and hanldes the
+    // response.
+
     graphDBEndpoint
       .login(GRAPHDB_USERNAME, GRAPHDB_PASSWORD)
       .then((result) => {
@@ -120,7 +135,6 @@ class ReviewRichSnippet extends Component {
         { transform: "toJSON" }
       )
       .then((result) => {
-        // console.log(result.records, this.props.review.review);
         this.implodeMentions(result.records);
       })
       .catch((err) => {
@@ -129,6 +143,9 @@ class ReviewRichSnippet extends Component {
   }
 
   handleQ6() {
+    // it sends the Q6 query to the GraphDB repository and hanldes the
+    // response.
+
     graphDBEndpoint
       .login(GRAPHDB_USERNAME, GRAPHDB_PASSWORD)
       .then((result) => {
@@ -152,6 +169,8 @@ class ReviewRichSnippet extends Component {
       .then((result) => {
         result.records.forEach((elem) => {
           if (elem.agent === this.props.review.organization) {
+            // if the organization of the review is in the "trusted list",
+            // display the green-true-badge.
             this.setState({ isTrustedSource: true });
           }
         });
@@ -164,6 +183,7 @@ class ReviewRichSnippet extends Component {
   // Pretty printing -----------------------------------------------------------
 
   prettyPrintTrustedSource(trustValue) {
+    // it renders the green-true-badge or the yellow-false one.
     if (trustValue) {
       return (
         <span
@@ -206,6 +226,7 @@ class ReviewRichSnippet extends Component {
   }
 
   prettyPrintReviewer() {
+    // pretty rendering of the reviewer and his organization
     if (this.props.review.organization) {
       return `${this.props.review.reviewer}, ${this.props.review.organization}`;
     } else {
@@ -270,7 +291,6 @@ class ReviewRichSnippet extends Component {
         <div className="col-5">
           {this.state.mentions.map((element, index) => {
             let url = `https://dbpedia.org/page/${element.entity_uri}`;
-            // some post-processing on mention
             return (
               <MentionCard
                 key={`mention-${this.props.review.review}-${index}`}

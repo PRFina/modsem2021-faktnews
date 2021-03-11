@@ -30,11 +30,12 @@ class Home extends Component {
   // Lifecycle Hooks -----------------------------------------------------------
 
   componentDidMount() {
+    // on mounting send a request to handle Q10
     this.handleQ10();
   }
 
   componentWillUnmount() {
-    // resetting the state
+    // resetting the state on unmount
     this.setState({
       data: null,
       keyword: "",
@@ -45,36 +46,48 @@ class Home extends Component {
     });
   }
 
-  // Business Logic ------------------------------------------------------------
+  // UI updates ----------------------------------------------------------------
 
   onKeywordChange(newKeywork) {
+    // on keyword change update the state
     this.setState({ keyword: newKeywork });
   }
 
   onAuthorChange(newAuthor) {
+    // on author change update the state
     this.setState({ author: newAuthor });
   }
 
   onStartDateChange(newStartDate) {
+    // on startDate change update the state
     this.setState({ startDate: newStartDate.concat("T00:00:00Z") });
   }
 
   onEndDateChange(newEndDate) {
+    // on endDate change update the state
     this.setState({ endDate: newEndDate.concat("T00:00:00Z") });
   }
 
   onLanguageChange(newLanguage) {
+    // on language change update the state
     this.setState({ language: newLanguage });
   }
 
+  // Business Logic ------------------------------------------------------------
+
   isFieldFilled(field) {
+    // append in the SPARQL query of the search the right filter based on the
+    // filled field in the query form.
+
     if (field === "author") {
+      // if author is set, add to the query the author filter.
       if (this.state.author !== "") {
         return `FILTER(contains(?claimAuthor, "${this.state.author}")).`;
       } else {
         return "";
       }
     } else if (field === "date") {
+      // if date is set, add to the query the date filter.
       if (this.state.startDate !== null && this.state.endDate !== null) {
         return `BIND("${this.state.startDate}"^^xsd:dateTime AS ?first_date)
             BIND("${this.state.endDate}"^^xsd:dateTime AS ?last_date)
@@ -84,6 +97,7 @@ class Home extends Component {
         return "";
       }
     } else if (field === "language") {
+      // if language is set, add to the query the language filter.
       if (this.state.language !== "") {
         return `FILTER(contains(?language, "${this.state.language}")).`;
       } else {
@@ -95,6 +109,8 @@ class Home extends Component {
   // SPARQL Queries ------------------------------------------------------------
 
   handleSearchQuery() {
+    // it sends the query to the GraphDB repository and hanldes the response.
+
     graphDBEndpoint
       .login(GRAPHDB_USERNAME, GRAPHDB_PASSWORD)
       .then((result) => {
@@ -132,10 +148,8 @@ class Home extends Component {
         { transform: "toJSON" }
       )
       .then((result) => {
-        console.log("RES", result);
-        // console.log(result.records);
+        // do some cleaning of the URI using the dataCleaning() support method
         let final = this.dataCleaning(result.records);
-        console.log(final);
 
         // Passing the data to the App component, in order to render the
         // results in the Results component.
@@ -147,6 +161,8 @@ class Home extends Component {
   }
 
   dataCleaning(data) {
+    // support method, it cleans the URI of the Claim deleting all characters
+    // before the "#".
     if (data !== null) {
       data.map((element) => {
         return (element.claim = element.claim.replace(/.*#/, ""));
@@ -156,6 +172,9 @@ class Home extends Component {
   }
 
   handleQ10() {
+    // it sends the Q10 query to the GraphDB repository and hanldes the
+    // response.
+
     graphDBEndpoint
       .login(GRAPHDB_USERNAME, GRAPHDB_PASSWORD)
       .then((result) => {
@@ -178,7 +197,6 @@ class Home extends Component {
         { transform: "toJSON" }
       )
       .then((result) => {
-        // console.log(result.records);
         this.setState({ ranking: result.records });
       })
       .catch((err) => {
